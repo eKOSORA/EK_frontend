@@ -1,3 +1,3 @@
 # EK_frontend
-eKOSORA front-end side in REACT
+eKOSORA front-end side in NEXT
 
