@@ -1,10 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-import colors from 'tailwindcss/colors'
+const colors =require('tailwindcss/colors')
 
 module.exports = {
-  content: ["./pages/**/*.{html,js,jsx}", "./components/**/*.{html,js,jsx}"],
+  content: ["./pages/**/*.{html,js,jsx,tsx}", "./components/**/*.{html,js,jsx,tsx}"],
   theme: {
     extend: {},
+    fontFamily: {
+      'sans': ['ui-sans-serif', 'system-ui', ],
+      'serif': ['ui-serif', 'Georgia', ],
+      'mono': ['ui-monospace', 'SFMono-Regular', ],
+      'display': ['Oswald', ],
+      'body': ['"Open Sans"', ],
+      'questrial': ['"Questrial"', ],
+    },
     colors: {
       ...colors,
       'ek-blue': {
