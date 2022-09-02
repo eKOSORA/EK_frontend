@@ -13,19 +13,22 @@ const Home: NextPage = () => {
 
   return (
     <div className='w-screen h-screen overflow-y-scroll'>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'true'} />
+      <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&display=swap" rel="stylesheet"></link>
       <Head>
         <link rel="icon" href="/public/logo.svg" />
         <title>Home | eKosora</title>
       </Head>
       <Navbar />
       <div className='h-[500px] w-full flex items-center justify-between' style={{ background: ' linear-gradient(180deg, #3F7CAC 0%, #ACDBFF 100%)' }}>
-        <div className='grid w-1/2 place-content-center p-[30px] '>
+        <div className='grid sm:w-1/2 place-content-center p-[30px] '>
           <h1 className='text-black text-[32px] heading-text'>Work Smarter. Not Harder</h1>
           <p className="mt-[10px] text-[22px] text-white">Work from anywhere you are, at any time of the day</p>
-          <Link className='login-button' href={'/auth/login'}><button className='login-button hover:grayscale-[50%] mt-[15px] button-text bg-ek-blue-50 text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ animation: 'ring .5s ease', boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></Link>
+          <Link className='login-button' href={'/auth/login'}><button className='login-button hover:grayscale-[50%] mt-[15px] button-text bg-ek-blue-50 text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{  boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></Link>
         </div>
-        <div className='relative h-full  w-1/2'>
-          <div style={{ transform: ' translate(-100px, 69px)' }} ><Image className='' width={'575px'} height={'500px'} src={remote} /></div>
+        <div className='relative h-full hidden sm:block w-1/2'>
+          <div className='hidden sm:flex md:ml-24 -translate-x-[100px] -translate-y-[69px]' style={{ transform: ' translate(-100px, 69px)' }} ><Image className='' width={'575px'} height={'500px'} src={remote} /></div>
         </div>
       </div>
       <div className='w-full flex items-center justify-start flex-col '>

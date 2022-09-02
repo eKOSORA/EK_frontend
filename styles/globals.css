@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Quantico&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&display=swap');
 
 .Feature{
    position: relative;
@@ -13,7 +12,7 @@
    content: '';
    position: absolute;
    bottom: 0;
-   border-bottom: 2px solid gray;
+   border-bottom: 1px solid #bfbfbf;
    width: 40%;
 }
 
@@ -73,7 +72,7 @@ a {
 
 
 .heading-text {
-  font-family: var(--highlight-font);
+  font-family: 'Quantico',sans-serif;
 }
 
 .button-text {
