@@ -1,5 +1,8 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
+import EducatorForm from '../../components/Auth/Forms/EducatorForm'
+import ParentForm from '../../components/Auth/Forms/ParentForm'
+import StudentForm from '../../components/Auth/Forms/StudentForm'
 import { Navbar } from '../../components/Auth/Navbar'
 
 const signup: NextPage = () => {
@@ -19,15 +22,18 @@ const signup: NextPage = () => {
         <div className='w-screen h-screen flex flex-col items-center justify-start'>
             <Navbar />
             <div className='main w-full h-full flex items-center justify-center'>
-                <div className='flex items-start w-8/12 h-2/3 my-auto flex-col justify-center'>
-                    <span className='text-black text-[24px] font-base   '>Login as</span>
-                    {tabs.map((tab) => {
-                        <div className='flex items-center justify-center w-full h-3'>
-                            <div className={`${active === tab ? 'bg-[#F5F5F5] border-2 border-ek-blue ' : 'bg-[#DBDBDB]'} rounded cursor-pointer w-[145px] h-[145px] flex items-center justify-center`}>
-                                <span className={`text-[24px] ${active === tab ? 'text-black/40' : 'text-[#3F7CAC]'} qtext`}>{tab}</span>
-                            </div>
-                        </div>
-                    })}
+
+                <div className='flex w-4/12 items-center justify-center h-full'>
+                    {
+                        active === 'parent' ?
+                            <ParentForm />
+                            :
+                            active === 'student' ?
+                                <StudentForm />
+                                :
+                                <EducatorForm />
+
+                    }
                 </div>
             </div>
         </div>
