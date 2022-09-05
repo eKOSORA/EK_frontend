@@ -39,7 +39,7 @@ const StudentForm: NextComponentType = () => {
   })
 
   return (
-    <div className='h-4/5 w-10/12 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
+    <div className='h-4/5 w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
       <h1 className='qtext text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
       <form onSubmit={handleSubmit} className='flex w-10/12 mt-12 items-center justify-start flex-col'>
         <TextField
@@ -73,7 +73,7 @@ const StudentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className='w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
+        <button className='getin w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
       </form>
     </div>
   )
