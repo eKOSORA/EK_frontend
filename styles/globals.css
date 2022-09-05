@@ -45,11 +45,11 @@ a {
     background: black;
   }
 }
-.login-button {
+button {
   transition: 0.5s ease;
   cursor: pointer;
 }
-.login-button:hover {
+button:hover {
   animation: ring .5 ease;
 }
 .Feature:nth-child(odd) {

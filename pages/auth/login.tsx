@@ -1,6 +1,7 @@
+import { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
-const login = () => {
+const login: NextPage = () => {
     useEffect(() => {
         document.title = 'Login | eKosora'
     }, [])

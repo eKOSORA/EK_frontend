@@ -12,7 +12,7 @@ import speed from './../public/img/speed.png'
 const Home: NextPage = () => {
 
   return (
-    <div className='w-screen h-screen overflow-y-scroll'>
+    <div className='h-screen'>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'true'} />
       <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&display=swap" rel="stylesheet"></link>
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
         <div className='Feature py-[20px] px-[40px] mb-[20px] flex items-center justify-center relative w-11/12'>
           <Image height={'300px'} width={485} src={migrate} />
           <div className='flex flex-col items-start justify-center max-w-[600px]'>
-            <h1 className='text-ek-blue text-[32px] heading-text'>Work Smarter. Not Harder</h1>
+            <h1 className='text-ek-blue text-[32px] heading-text'>Migrate From Paper</h1>
             <p className="mt-[10px] text-[18px] font-light text-black">Why would you stay in the analog age, recording all your important data on paper. Join eKOSORA and have all your data saved digitally</p>
           </div>
         </div>
