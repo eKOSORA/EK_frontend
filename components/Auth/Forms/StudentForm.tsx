@@ -5,12 +5,12 @@ import React, { useState } from 'react'
 
 const StudentForm: NextComponentType = () => {
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e:any) => {
+    e.preventDefault()
     console.log(formData)
   }
-
   interface State {
-    email: string;
+    code: string;
     password: string;
     showPassword: boolean;
   }
@@ -32,7 +32,7 @@ const StudentForm: NextComponentType = () => {
   };
 
   const [formData, setFormData] = useState({
-    email: '',
+    code: '',
     password: '',
     showPassword: false
 
@@ -40,13 +40,14 @@ const StudentForm: NextComponentType = () => {
 
   return (
     <div className='h-4/5 w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
-      <h1 className='qtext text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
+      <h1 className='heading-text text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
       <form onSubmit={handleSubmit} className='flex w-10/12 mt-12 items-center justify-start flex-col'>
         <TextField
           InputProps={{
             style: { color: 'black' },
           }}
-          className='bg-ek-blue/10 my-4 w-full text-lg' label='Email'
+          className='bg-ek-blue/10 my-4 w-full text-lg' label='Code'
+          onChange={handleChange('code')}
           focused={true} />
 
         <FormControl sx={{ m: 1, width: '100%' }} focused={true} className='bg-ek-blue/10' variant="outlined">
