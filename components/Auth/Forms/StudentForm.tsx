@@ -1,11 +1,11 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
+import { Autocomplete, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
 
 const StudentForm: NextComponentType = () => {
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
     console.log(formData)
   }
@@ -17,7 +17,12 @@ const StudentForm: NextComponentType = () => {
 
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData({ ...formData, [prop]: event.target.value });
+      if (prop === 'code') {
+        setFormData({ ...formData, [prop]: 'RCA'+event.target.value });
+      }
+      else {
+        setFormData({ ...formData, [prop]: event.target.value });
+      }
     };
 
   const handleClickShowPassword = () => {
@@ -38,17 +43,40 @@ const StudentForm: NextComponentType = () => {
 
   })
 
+
+  const schools = [
+    'RCA',
+    'KCS',
+    'NTS',
+    'KPS',
+  ];
+
+
   return (
-    <div className='h-4/5 w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
+    <div className='h-4/5 w-11/12 msm:w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
       <h1 className='heading-text text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
-      <form onSubmit={handleSubmit} className='flex w-10/12 mt-12 items-center justify-start flex-col'>
-        <TextField
-          InputProps={{
-            style: { color: 'black' },
-          }}
-          className='bg-ek-blue/10 my-4 w-full text-lg' label='Code'
-          onChange={handleChange('code')}
-          focused={true} />
+      <form onSubmit={handleSubmit} className='flex w-full msm:w-10/12 mt-12 items-center justify-start flex-col'>
+
+        <div className='flex items-center justify-between w-full'>
+
+          <Autocomplete
+            // isOptionEqualToValue
+            disablePortal
+            id="combo-box-demo"
+            options={schools}
+            sx={{ width: 140 }}
+            className='bg-ek-blue/10'
+            ListboxProps={{ color: 'red' }}
+            renderInput={(params) => <TextField autoFocus={true} {...params} label="School" />}
+          />
+          <TextField
+            InputProps={{
+              style: { color: 'black' },
+            }}
+            className='bg-ek-blue/10 my-4 ml-2 w-4/5 text-lg' label='Code'
+            onChange={handleChange('code')}
+            focused={true} />
+        </div>
 
         <FormControl sx={{ m: 1, width: '100%' }} focused={true} className='bg-ek-blue/10' variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
@@ -74,7 +102,7 @@ const StudentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className='getin w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
+        <button className='heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
       </form>
     </div>
   )

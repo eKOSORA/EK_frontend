@@ -44,15 +44,15 @@ const EducatorForm: NextComponentType = () => {
   })
 
   const schools = [
-     'Rwanda Coding Academy',
-     'Kigali Christian School',
-     'Nyabihu TVET School',
-     'Kigali Parents School',
+    'Rwanda Coding Academy',
+    'Kigali Christian School',
+    'Nyabihu TVET School',
+    'Kigali Parents School',
   ];
 
   return (
     <div className='duration-1000 h-4/5  w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
-      <h1 className='questrialtext text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
+      <h1 className='heading-text text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
       <form onSubmit={handleSubmit} className='flex w-10/12 mt-12 items-center justify-start flex-col'>
 
         <Autocomplete
@@ -63,7 +63,7 @@ const EducatorForm: NextComponentType = () => {
           sx={{ width: 300 }}
           className='w-full bg-ek-blue/10'
           ListboxProps={{ color: 'red' }}
-          renderInput={(params) => <TextField autoFocus={true} {...params} label="School" />}
+          renderInput={(params) => <TextField onChange={handleChange('school')} autoFocus={true} {...params} label="School" />}
         />
 
 
@@ -83,6 +83,7 @@ const EducatorForm: NextComponentType = () => {
             type={formData.showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={handleChange('password')}
+
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -99,7 +100,7 @@ const EducatorForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className='getin w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
+        <button className='heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
       </form>
     </div>
   )

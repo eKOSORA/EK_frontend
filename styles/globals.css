@@ -77,10 +77,10 @@ button:hover {
 }
 
 .button-text {
-  font-family: var(--main-font);
+  font-family: 'Quantico',sans-serif;
 }
-.questrialtext {
-  font-family: 'Questrial';
+.{
+  font-family: 'Questrial',sans-serif;
 }
 .getin{
 font-family:'Raleway';
