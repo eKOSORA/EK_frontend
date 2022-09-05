@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Navbar } from '../components/Navbar'
+import { Navbar } from '../components/index/Navbar'
 import remote from './../public/img/remoteWork.png'
 import logo from './../public/img/bigLogo.svg'
 import migrate from './../public/img/migrate.png'
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <div className='grid sm:w-1/2 place-content-center p-[30px] '>
           <h1 className='text-black text-[32px] heading-text'>Work Smarter. Not Harder</h1>
           <p className="mt-[10px] text-[22px] text-white">Work from anywhere you are, at any time of the day</p>
-          <Link className='login-button' href={'/auth/login'}><button className='login-button hover:grayscale-[50%] mt-[15px] button-text bg-ek-blue-50 text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{  boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></Link>
+          <Link className='login-button' href={'/auth/login'}><button className='login-button hover:grayscale-[50%] mt-[15px] button-text bg-[#4ca7ce] text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{  boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></Link>
         </div>
         <div className='relative h-full hidden sm:block w-1/2'>
           <div className='hidden sm:flex md:ml-24 -translate-x-[100px] -translate-y-[69px]' style={{ transform: ' translate(-100px, 69px)' }} ><Image className='' width={'575px'} height={'500px'} src={remote} /></div>
