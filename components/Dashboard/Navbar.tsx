@@ -27,8 +27,8 @@ export const Navbar = (props: any) => {
       </div>
       <span className='hidden mmsm:flex heading-text text-white text-3xl'>Dashboard</span>
       <div className='flex items-center justify-center'>
-        <Link className='login-button ' href={'/auth/login'}><button className='hidden md:flex login-button hover:grayscale-[50%] button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG OUT</button></Link>
-        <Link className='login-button' href={'/auth/login'}><IoLogOutOutline  className='flex md:hidden text-white' size={38} /></Link>
+        <a className='login-button ' href={'/auth/login'}><button className='btn hidden md:flex login-button hover:grayscale-[50%] button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG OUT</button></a>
+        <a className='login-button' href={'/auth/login'}><IoLogOutOutline  className='btn flex md:hidden text-white' size={38} /></a>
       </div>
     </div>
   )

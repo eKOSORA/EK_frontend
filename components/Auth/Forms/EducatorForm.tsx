@@ -62,8 +62,8 @@ const EducatorForm: NextComponentType = () => {
           disablePortal
           id="combo-box-demo"
           options={schools}
-          sx={{ width: 300 }}
-          className='w-full bg-ek-blue/10'
+          sx={{ width: '100%' }}
+          className='w-full my-4 bg-ek-blue/10'
           ListboxProps={{ color: 'red' }}
           renderInput={(params) => <TextField onChange={handleChange('school')} required={true} autoFocus={true} {...params} label="School" />}
         />
@@ -104,7 +104,7 @@ const EducatorForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className={`heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
+        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
       </form>
     </div>
   )
