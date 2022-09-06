@@ -63,12 +63,6 @@ const dashboard = () => {
                                 <span className='w-full text-end mt-[20px] text-[#0006]'>Posted by <strong>A.IV</strong> on <strong>Thu Sep 01 2022</strong></span>
                             </div>
 
-                            <div className='rounded-[5px] neumorphism w-full bg-[#f0f0f0] flex flex-col items-start justify-start mb-[30px] h-[160px] p-[20px] relative'>
-                                <span className='text-base flex items-center justify-center bg-ek-blue-50 text-white -translate-y-1 w-fit h-6 p-[15px] rounded-3xl absolute -top-2 -right-2'>2 days ago</span>
-                                <span className='mb-[20px] text-lg font-semibold questrialtext'>Discipline issues</span>
-                                <span className=''>The students are starting to behave very wrong. I think that the parents should allows us to beat the shit out there children!</span>
-                                <span className='w-full text-end mt-[20px] text-[#0006]'>Posted by <strong>A.IV</strong> on <strong>Thu Sep 01 2022</strong></span>
-                            </div>
                         </div>
                     </div>
                 </div>

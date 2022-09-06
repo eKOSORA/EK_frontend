@@ -9,6 +9,8 @@ const signup: NextPage = () => {
         password: ''
     })
 
+    const [step, setStep] = useState(1)
+
     return (
         <div></div>
     )
