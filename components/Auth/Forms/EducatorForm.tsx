@@ -65,7 +65,7 @@ const EducatorForm: NextComponentType = () => {
           sx={{ width: 300 }}
           className='w-full bg-ek-blue/10'
           ListboxProps={{ color: 'red' }}
-          renderInput={(params) => <TextField onChange={handleChange('school')} autoFocus={true} {...params} label="School" />}
+          renderInput={(params) => <TextField onChange={handleChange('school')} required={true} autoFocus={true} {...params} label="School" />}
         />
 
 
@@ -76,6 +76,7 @@ const EducatorForm: NextComponentType = () => {
           className='bg-ek-blue/10 my-4 w-full text-lg' label='Email'
           onChange={handleChange('email')}
           focused={true}
+          required={true}
         />
 
         <FormControl sx={{ m: 1, width: '100%' }} focused={true} className='bg-ek-blue/10' variant="outlined">
@@ -85,7 +86,7 @@ const EducatorForm: NextComponentType = () => {
             type={formData.showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={handleChange('password')}
-
+            required={true}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

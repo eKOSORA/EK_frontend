@@ -54,7 +54,7 @@ const ParentForm: NextComponentType = () => {
             style: { color: 'black' },
           }}
           onChange={handleChange('emailOrPhoneNumber')}
-
+          required={true}
           className='bg-ek-blue/10 my-4 w-full text-lg' label='PhoneNumber / Email'
           focused={true} />
 
@@ -65,7 +65,7 @@ const ParentForm: NextComponentType = () => {
             type={formData.showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={handleChange('password')}
-
+            required={true}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton

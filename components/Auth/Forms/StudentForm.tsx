@@ -76,6 +76,7 @@ const StudentForm: NextComponentType = () => {
             InputProps={{
               style: { color: 'black' },
             }}
+            required={true}
             className='bg-ek-blue/10 my-4 ml-2 w-4/5 text-lg' label='Code'
             onChange={handleChange('code')}
             focused={true} />
@@ -88,7 +89,7 @@ const StudentForm: NextComponentType = () => {
             type={formData.showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={handleChange('password')}
-
+            required={true}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
