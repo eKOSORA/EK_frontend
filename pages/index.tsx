@@ -18,7 +18,7 @@ const Home: NextPage = () => {
       <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&display=swap" rel="stylesheet"></link>
       <Head>
         <link rel="icon" href="/public/logo.svg" />
-        <title>Home | eKosora</title>
+        <title>Home | eKOSORA</title>
       </Head>
       <Navbar />
       <div className='h-[500px] w-full flex items-center justify-between' style={{ background: ' linear-gradient(180deg, #3F7CAC 0%, #ACDBFF 100%)' }}>
