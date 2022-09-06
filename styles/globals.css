@@ -31,6 +31,11 @@ body {
   --highlight-font: "Quantico", sans-serif;
   transition: all 0.3s ease;
   border-radius:1px;
+
+}
+.questrialtext{
+  font-family: 'Questrial',sans-serif;
+
 }
 a {
   color: inherit;
@@ -79,12 +84,10 @@ button:hover {
 .button-text {
   font-family: 'Quantico',sans-serif;
 }
-.{
-  font-family: 'Questrial',sans-serif;
-}
+
 .getin{
 font-family:'Raleway';
 }
 .login-options{
-  filter: drop-shadow(14px 14px 18px rgba(63, 124, 172, 0.2));
+  filter: drop-shadow(14px 14px 18px #3f7cac);
 }

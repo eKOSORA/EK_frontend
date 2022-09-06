@@ -7,8 +7,9 @@ import React, { useState } from 'react'
 const ParentForm: NextComponentType = () => {
 
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
+    setFormData({ ...formData, activeButton: false })
     console.log(formData)
   }
 
@@ -16,6 +17,7 @@ const ParentForm: NextComponentType = () => {
     emailOrPhoneNumber: string;
     password: string;
     showPassword: boolean;
+    activeButton: boolean;
   }
 
   const handleChange =
@@ -37,8 +39,8 @@ const ParentForm: NextComponentType = () => {
   const [formData, setFormData] = useState({
     emailOrPhoneNumber: '',
     password: '',
-    showPassword: false
-
+    showPassword: false,
+    activeButton: true
   })
 
 
@@ -46,7 +48,7 @@ const ParentForm: NextComponentType = () => {
   return (
     <div className='h-4/5  w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
       <h1 className='heading-text text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
-      <form onSubmit={handleSubmit} className='flex w-10/12 mt-12 items-center justify-start flex-col'>
+      <form onSubmit={handleSubmit} className='flex w-11/12 msm:w-10/12 mt-12 items-center justify-start flex-col'>
         <TextField
           InputProps={{
             style: { color: 'black' },
@@ -71,6 +73,8 @@ const ParentForm: NextComponentType = () => {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
+                  className='text-ek-blue'
+
                 >
                   {formData.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
@@ -80,7 +84,7 @@ const ParentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className='heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
+        <button className={`heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
       </form>
     </div>
   )

@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 const StudentForm: NextComponentType = () => {
 
   const handleSubmit = async (e: any) => {
+    setFormData({...formData,activeButton:false})
     e.preventDefault()
     console.log(formData)
   }
@@ -39,7 +40,8 @@ const StudentForm: NextComponentType = () => {
   const [formData, setFormData] = useState({
     code: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+    activeButton: true
 
   })
 
@@ -67,7 +69,8 @@ const StudentForm: NextComponentType = () => {
             sx={{ width: 140 }}
             className='bg-ek-blue/10'
             ListboxProps={{ color: 'red' }}
-            renderInput={(params) => <TextField autoFocus={true} {...params} label="School" />}
+            renderInput={(params) => <TextField required={true} autoFocus={true} {...params} label="School" />}
+
           />
           <TextField
             InputProps={{
@@ -93,6 +96,8 @@ const StudentForm: NextComponentType = () => {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
+                  className='text-ek-blue'
+
                 >
                   {formData.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
@@ -102,7 +107,7 @@ const StudentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className='heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
+        <button className={`heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
       </form>
     </div>
   )

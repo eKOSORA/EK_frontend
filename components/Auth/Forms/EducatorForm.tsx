@@ -7,6 +7,7 @@ const EducatorForm: NextComponentType = () => {
 
 
   const handleSubmit = async (e: any) => {
+    setFormData({...formData,activeButton:false})
     e.preventDefault()
     console.log(formData)
   }
@@ -39,7 +40,8 @@ const EducatorForm: NextComponentType = () => {
     email: '',
     school: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+    activeButton: true
 
   })
 
@@ -91,6 +93,7 @@ const EducatorForm: NextComponentType = () => {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                   edge="end"
+                  className='text-ek-blue'
                 >
                   {formData.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
@@ -100,7 +103,7 @@ const EducatorForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className='heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white bg-ek-blue'>GET IN</button>
+        <button className={`heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
       </form>
     </div>
   )
