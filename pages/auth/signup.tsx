@@ -1,8 +1,10 @@
 import { Autocomplete, TextField } from '@mui/material'
 import { NextPage } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { Navbar } from '../../components/Auth/Navbar'
+import dragImages from './../../public/img/dragImages.svg'
 
 const signup: NextPage = () => {
 
@@ -61,8 +63,19 @@ const signup: NextPage = () => {
 
     const [step, setStep] = useState(1)
 
+    const previewFile = () => {
+        const file = document.querySelector('#logoImage') as HTMLInputElement
+        const reader = new FileReader()
+        reader.addEventListener('load', () => {
+            setFormData({ ...formData, logoImageStr: reader.result as string })
+        })
+        if (file.files) {
+            reader.readAsDataURL(file.files[0])
+        }
+    }
+
     return (
-        <div className='w-screen h-screen flex flex-col items-center justify-start'>
+        <div className='w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
             <Navbar page={'signup'} />
             <Head>
                 <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet" />
@@ -93,7 +106,7 @@ const signup: NextPage = () => {
                                             style: { color: 'black' },
                                         }}
                                         value={formData.schoolName}
-                                        className='bg-ek-blue/10 my-4 w-full text-lg' label='School Name'
+                                        className=' my-4 w-full text-lg' label='School Name'
                                         onChange={handleChange('schoolName')}
                                         focused={true}
                                         required={true}
@@ -104,7 +117,7 @@ const signup: NextPage = () => {
                                             style: { color: 'black' },
                                         }}
                                         value={formData.shortForm}
-                                        className='bg-ek-blue/10 my-4 w-full text-lg' label='Short Form'
+                                        className=' my-4 w-full text-lg' label='Short Form'
                                         onChange={handleChange('shortForm')}
                                         focused={true}
                                         required={true}
@@ -117,9 +130,9 @@ const signup: NextPage = () => {
                                         options={schoolTypes}
                                         autoHighlight={true}
                                         sx={{ width: '100%' }}
-                                        className='w-full my-4 bg-ek-blue/10'
+                                        className='w-full my-4 '
                                         ListboxProps={{ color: 'red' }}
-                                        renderInput={(params) => <TextField value={formData.schoolName} onChange={handleChange('type')} required={true} autoFocus={true} {...params} label="School" />}
+                                        renderInput={(params) => <TextField value={formData.type} onChange={handleChange('type')} required={true} autoFocus={true} {...params} label="Type" />}
                                     />
 
                                     <div className='w-full flex items-center justify-center my-8'>
@@ -152,7 +165,7 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.province}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='Province'
+                                            className=' my-4 w-full text-lg' label='Province'
                                             onChange={handleChange('province')}
                                             focused={true}
                                             required={true}
@@ -163,7 +176,7 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.district}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='District'
+                                            className=' my-4 w-full text-lg' label='District'
                                             onChange={handleChange('district')}
                                             focused={true}
                                             required={true}
@@ -174,7 +187,7 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.sector}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='Sector'
+                                            className=' my-4 w-full text-lg' label='Sector'
                                             onChange={handleChange('sector')}
                                             focused={true}
                                             required={true}
@@ -186,7 +199,7 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.cell}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='Cell'
+                                            className=' my-4 w-full text-lg' label='Cell'
                                             onChange={handleChange('cell')}
                                             focused={true}
                                             required={true}
@@ -197,7 +210,7 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.village}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='Village'
+                                            className=' my-4 w-full text-lg' label='Village'
                                             onChange={handleChange('village')}
                                             focused={true}
                                             required={true}
@@ -211,7 +224,7 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.headTeacher}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='Head Teacher'
+                                            className=' my-4 w-full text-lg' label='Head Teacher'
                                             onChange={handleChange('headTeacher')}
                                             focused={true}
                                             required={true}
@@ -222,15 +235,28 @@ const signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.moto}
-                                            className='bg-ek-blue/10 my-4 w-full text-lg' label='Moto'
+                                            className=' my-4 w-full text-lg' label='Moto'
                                             onChange={handleChange('moto')}
                                             focused={true}
                                             required={true}
                                         />
-                                        <div className='relative bg-ek-blue/10 my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
-                                            <span className='absolute -top-[15px] left-2 bg-white text-base text-[#1976d2] h-[15px] text-center w-12 roboto'>Logo*</span>
-                                            <label htmlFor="logoImage" className='w-full h-full flex items-center justify-center'></label>
-                                            <input type="file" className='logo hidden' name="logo" id="logoImage" />
+                                        <div className='relative w-full my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
+                                            <span className='absolute -top-[15px] left-2 bg-ek-blue/5 text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto'>Logo *</span>
+                                            {formData.logoImageStr ?
+                                                <div className='w-full flex items-center justify-around h-full'>
+                                                    <div className='flex items-center justify-center flex-col'>
+                                                        <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded my-2 text-lg submitButton`} onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }}>REMOVE</button>
+                                                        <label htmlFor='logoImage' className={`text-center flex items-center justify-center bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded my-2 text-lg submitButton`}>CHANGE</label>
+                                                    </div>
+                                                    <div className='w-1/2 h-4/5 flex items-center justify-center rounded'><Image objectFit='cover' width={400} height={250} className='w-full h-full' src={formData.logoImageStr}></Image></div>
+                                                </div>
+                                                :
+                                                <label htmlFor="logoImage" className='w-full h-full flex flex-col items-center justify-center'>
+                                                    <Image width={200} height={100} src={dragImages}></Image>
+                                                    <span className='text-lg text-ek-blue-50 font-questrial'>Drop file here</span>
+                                                </label>
+                                            }
+                                            <input onChange={previewFile} type="file" className='logo hidden' name="logo" id="logoImage" />
                                         </div>
                                     </div>
 
