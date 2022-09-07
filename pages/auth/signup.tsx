@@ -1,5 +1,6 @@
 import { Autocomplete, TextField } from '@mui/material'
 import { NextPage } from 'next'
+import Head from 'next/head'
 import React, { useState } from 'react'
 import { Navbar } from '../../components/Auth/Navbar'
 
@@ -63,6 +64,9 @@ const signup: NextPage = () => {
     return (
         <div className='w-screen h-screen flex flex-col items-center justify-start'>
             <Navbar page={'signup'} />
+            <Head>
+                <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet" />
+            </Head>
             <div className='w-full h-full flex items-center justify-center'>
                 <div className="steps flex mr-8 flex-col items-center justify-center">
                     <div className={`h-16 w-1 my-1 rounded-[3px] ${step === 1 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
@@ -223,6 +227,11 @@ const signup: NextPage = () => {
                                             focused={true}
                                             required={true}
                                         />
+                                        <div className='relative bg-ek-blue/10 my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
+                                            <span className='absolute -top-[15px] left-2 bg-white text-base text-[#1976d2] h-[15px] text-center w-12 roboto'>Logo*</span>
+                                            <label htmlFor="logoImage" className='w-full h-full flex items-center justify-center'></label>
+                                            <input type="file" className='logo hidden' name="logo" id="logoImage" />
+                                        </div>
                                     </div>
 
                         }
