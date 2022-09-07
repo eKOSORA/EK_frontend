@@ -5,10 +5,18 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { Navbar } from '../../components/Auth/Navbar'
 import dragImages from './../../public/img/dragImages.svg'
+import { VscClose } from 'react-icons/vsc'
+import { AiFillEdit } from 'react-icons/ai'
 
 const signup: NextPage = () => {
 
-
+    const commonSx = {
+        '& .MuiAutocomplete-input': {
+            borderColor: '#3F7CAC'
+        },
+        width: '100%',
+        borderColor: 'blue'
+    }
 
     const handleSubmit = async (e: any) => {
         setFormData({ ...formData, activeButton: false })
@@ -78,15 +86,16 @@ const signup: NextPage = () => {
         <div className='w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
             <Navbar page={'signup'} />
             <Head>
+                <title>Signup | eKOSORA</title>
                 <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet" />
             </Head>
-            <div className='w-full h-full flex items-center justify-center'>
-                <div className="steps flex mr-8 flex-col items-center justify-center">
-                    <div className={`h-16 w-1 my-1 rounded-[3px] ${step === 1 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
-                    <div className={`h-16 w-1 my-1 rounded-[3px] ${step === 2 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
-                    <div className={`h-16 w-1 my-1 rounded-[3px] ${step === 3 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
+            <div className='w-full h-full flex flex-col sm10:flex-row items-center justify-center'>
+                <div className="steps flex sm10:mr-8 sm10:flex-col items-center justify-center">
+                    <div className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 1 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
+                    <div className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 2 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
+                    <div className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 3 ? 'bg-ek-blue' : 'bg-ek-blue/20'}`}></div>
                 </div>
-                <div className='w-[600px] h-fit p-8 rounded border-2 border-ek-blue flex flex-col items-start justify-start'>
+                <div className='w-11/12 my-0 mmsm:w-4/5 smm20:w-[600px] h-fit p-2 mmsm:p-8 rounded mmsm:border-2 border-ek-blue flex flex-col items-start justify-start'>
                     {
                         step === 1 ?
                             <span className='text-2xl my-4 text-ek-blue questrialtext'>Basic info</span>
@@ -129,15 +138,17 @@ const signup: NextPage = () => {
                                         id="combo-box-demo"
                                         options={schoolTypes}
                                         autoHighlight={true}
-                                        sx={{ width: '100%' }}
-                                        className='w-full my-4 '
+                                        sx={commonSx}
+                                        className='rounded border-ek-blue outlie outline-0 w-full my-4 '
+
                                         ListboxProps={{ color: 'red' }}
-                                        renderInput={(params) => <TextField value={formData.type} onChange={handleChange('type')} required={true} autoFocus={true} {...params} label="Type" />}
+                                        renderInput={(params) => <TextField className='' value={formData.type} onChange={handleChange('type')} required={true} autoFocus={true} {...params} label="Type" />}
                                     />
 
-                                    <div className='w-full flex items-center justify-center my-8'>
+                                    <div className='w-full flex items-start sm10:items-center justify-center my-8'>
                                         <span className='text-lg text-ek-blue-50 font-questrial'>Programme</span>
-                                        <div className='w-10/12 flex items-center justify-around'>
+                                        <div className='w-10/12 flex flex-col sm10:ml-0 ml-4 sm10:flex-row items-start sm10:items-center justify-around'>
+                                            {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
                                                 <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
                                                 <span className='text-lg text-black font-questrial'>REB</span>
@@ -146,6 +157,8 @@ const signup: NextPage = () => {
                                                 <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
                                                 <span className='text-lg text-black font-questrial'>WDA</span>
                                             </div>
+                                            {/* </div> */}
+                                            {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
                                                 <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
                                                 <span className='text-lg text-black font-questrial'>Cambridge</span>
@@ -154,6 +167,7 @@ const signup: NextPage = () => {
                                                 <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
                                                 <span className='text-lg text-black font-questrial'>Other</span>
                                             </div>
+                                            {/* </div> */}
                                         </div>
                                     </div>
                                 </div>
@@ -241,14 +255,14 @@ const signup: NextPage = () => {
                                             required={true}
                                         />
                                         <div className='relative w-full my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
-                                            <span className='absolute -top-[15px] left-2 bg-ek-blue/5 text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto'>Logo *</span>
+                                            <span className='absolute -top-[15px] left-2  border-b-2 border-b-white text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto z-10'>Logo *</span>
                                             {formData.logoImageStr ?
-                                                <div className='w-full flex items-center justify-around h-full'>
-                                                    <div className='flex items-center justify-center flex-col'>
-                                                        <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded my-2 text-lg submitButton`} onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }}>REMOVE</button>
-                                                        <label htmlFor='logoImage' className={`text-center flex items-center justify-center bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded my-2 text-lg submitButton`}>CHANGE</label>
+                                                <div className='relative w-full flex items-center justify-around h-full'>
+                                                    <div className='absolute top-2 right-2 flex items-center justify-center flex-row z-10'>
+                                                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }}><VscClose /></button>
+                                                        <label htmlFor='logoImage' className={`text-center flex items-center justify-center p-2 bg-ek-blue-75 text-white mx-2 cursor-pointer  rounded my-2 text-lg submitButton`}><AiFillEdit /></label>
                                                     </div>
-                                                    <div className='w-1/2 h-4/5 flex items-center justify-center rounded'><Image objectFit='cover' width={400} height={250} className='w-full h-full' src={formData.logoImageStr}></Image></div>
+                                                    <div className='w-full h-full flex items-center justify-center rounded'><Image objectFit='cover' layout='fill' className='w-full h-full' src={formData.logoImageStr}></Image></div>
                                                 </div>
                                                 :
                                                 <label htmlFor="logoImage" className='w-full h-full flex flex-col items-center justify-center'>

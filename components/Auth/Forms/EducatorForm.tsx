@@ -53,7 +53,7 @@ const EducatorForm: NextComponentType = () => {
   ];
 
   return (
-    <div className='duration-1000 h-4/5  w-4/5 rounded-lg border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
+    <div className='duration-1000 h-4/5  w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
       <h1 className='heading-text text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
       <form onSubmit={handleSubmit} className='flex w-10/12 mt-12 items-center justify-start flex-col'>
 

@@ -5,10 +5,11 @@ module.exports = {
   content: ["./pages/**/*.{html,js,jsx,tsx}", "./components/**/*.{html,js,jsx,tsx}"],
   theme: {
     screens: {
-      'mmsm': '380px',
+      'mmsm': '360px',
       'msm': '435px',
+      'smm20': '620px',
       'sm': '640px',
-      'mmd': '685px',
+      'sm10': '650px',
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
