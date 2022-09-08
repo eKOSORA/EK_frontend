@@ -10,14 +10,6 @@ import { AiFillEdit } from 'react-icons/ai'
 
 const signup: NextPage = () => {
 
-    const commonSx = {
-        '& .MuiAutocomplete-input': {
-            borderColor: '#3F7CAC'
-        },
-        width: '100%',
-        borderColor: 'blue'
-    }
-
     const handleSubmit = async (e: any) => {
         setFormData({ ...formData, activeButton: false })
         e.preventDefault()
@@ -134,15 +126,13 @@ const signup: NextPage = () => {
 
                                     <Autocomplete
                                         // isOptionEqualToValue
-                                        disablePortal
                                         id="combo-box-demo"
                                         options={schoolTypes}
                                         autoHighlight={true}
-                                        sx={commonSx}
+                                        sx={{}}
+                                        onChange={(event, value) => handleChange('type')}
                                         className='rounded border-ek-blue outlie outline-0 w-full my-4 '
-
-                                        ListboxProps={{ color: 'red' }}
-                                        renderInput={(params) => <TextField className='' value={formData.type} onChange={handleChange('type')} required={true} autoFocus={true} {...params} label="Type" />}
+                                        renderInput={(params) => <TextField className='' value={formData.type} required={true} autoFocus={true} {...params} label="Type" />}
                                     />
 
                                     <div className='w-full flex items-start sm10:items-center justify-center my-8'>
@@ -150,21 +140,21 @@ const signup: NextPage = () => {
                                         <div className='w-10/12 flex flex-col sm10:ml-0 ml-4 sm10:flex-row items-start sm10:items-center justify-around'>
                                             {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
+                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'REB'} id="" />
                                                 <span className='text-lg text-black font-questrial'>REB</span>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
+                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'WDA'} id="" />
                                                 <span className='text-lg text-black font-questrial'>WDA</span>
                                             </div>
                                             {/* </div> */}
                                             {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
+                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Cambridge'} id="" />
                                                 <span className='text-lg text-black font-questrial'>Cambridge</span>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={handleChange('programme')} id="" />
+                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Other'} id="" />
                                                 <span className='text-lg text-black font-questrial'>Other</span>
                                             </div>
                                             {/* </div> */}
@@ -276,13 +266,13 @@ const signup: NextPage = () => {
 
                         }
                         <div className='flex items-end justify-end mt-8'>
-                            <button className={` mx-2 ${step === 1 ? 'cursor-not-allowed text-ek-blue-75/50 ' : ' text-ek-blue-75  cursor-pointer'} w-32 h-12 rounded text-lg`} onClick={() => { setStep(step - 1) }}>BACK</button>
+                            <button className={` mx-2 ${step === 1 ? 'cursor-not-allowed text-ek-blue-75/50 ' : ' text-ek-blue-75  cursor-pointer'} w-32 h-12 rounded text-lg`} type='button' onClick={() => { setStep(step - 1) }}>BACK</button>
 
                             {
                                 step === 3 ?
                                     <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'>FINISH</button>
                                     :
-                                    <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} onClick={() => { setStep(step + 1) }}>NEXT</button>
+                                    <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='button' onClick={() => { setStep(step + 1) }}>NEXT</button>
                             }
                         </div>
                     </form>
