@@ -8,6 +8,57 @@ import students from './../../public/img/students.png'
 import announcement from './../../public/img/notification.png'
 import marks from './../../public/img/marks.png'
 import setting from './../../public/img/setting.svg'
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { faker } from '@faker-js/faker';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+export const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top' as const,
+        },
+        title: {
+            display: true,
+            text: 'Chart.js Bar Chart',
+        },
+    },
+};
+
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+export const data = {
+    labels,
+    datasets: [
+        {
+            label: 'Dataset 1',
+            data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+        {
+            label: 'Dataset 2',
+            data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+            backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        },
+    ],
+};
 
 const dashboard = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
@@ -62,9 +113,16 @@ const dashboard = () => {
                                 <span className=''>The students are starting to behave very wrong. I think that the parents should allows us to beat the shit out there children!</span>
                                 <span className='w-full text-end mt-[20px] text-[#0006]'>Posted by <strong>A.IV</strong> on <strong>Thu Sep 01 2022</strong></span>
                             </div>
-
                         </div>
                     </div>
+
+                    <div className='w-full flex flex-col items-start my-8 justify-start'>
+                        <span className='text-4xl heading-text mb-4 flex items-center justify-center'><span>Announcements</span><span className='text-[14px] flex items-center justify-center h-6 py-[2.5px] px-[5px] bg-ek-blue-50 text-white ml-1 -translate-y-1 w-[35px] rounded-xl'>4</span></span>
+                        <div className='w-full flex flex-col items-center justify-center'>
+                            <Bar options={options} data={data} />
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
