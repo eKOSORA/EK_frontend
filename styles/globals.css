@@ -112,3 +112,20 @@ input[type="radio"] {
 .roboto{
 font-family:Roboto;
 }
+
+input[type="checkbox"]:checked {
+  background: #3f7cac;
+  transform: scale(1.1);
+}
+
+input[type="checkbox"] {
+  border-radius: 5px;
+  width: 25px;
+  border:2px solid #3f7cac;
+  height: 25px;
+  appearance: none;
+  cursor: pointer;
+}
+.roboto{
+font-family:Roboto;
+}
