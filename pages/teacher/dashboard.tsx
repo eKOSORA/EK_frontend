@@ -3,11 +3,10 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
-import timetable from './../../public/img/timetable.png'
-import students from './../../public/img/students.png'
-import announcement from './../../public/img/notification.png'
-import marks from './../../public/img/marks.png'
-import setting from './../../public/img/setting.svg'
+import timetable from '../../public/img/timetable.png'
+import announcement from '../../public/img/notification.png'
+import marks from '../../public/img/marks.png'
+import setting from '../../public/img/setting.svg'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -63,7 +62,7 @@ export const data = {
 const dashboard = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
     return (
-        <div className='w-screen bg-[#f0f0f0]'>
+        <div className='bg-[#f0f0f0]'>
             <Head>
                 <title>Teacher Dashboard | eKOSORA</title>
                 <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"></link>
@@ -77,7 +76,7 @@ const dashboard = () => {
                         :
                         null
                 }
-                <div className='w-full flex flex-col items-center justify-start pt-[60px] h-fit p-10'>
+                <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
                     <div className='w-full flex flex-col items-start my-8 justify-start'>
                         <span className='text-4xl heading-text mb-4'>Quick Access</span>
                         <div className='w-full flex items-center justify-center'>
@@ -117,9 +116,9 @@ const dashboard = () => {
                     </div>
 
                     <div className='w-full flex flex-col items-start my-8 justify-start'>
-                        <span className='text-4xl heading-text mb-4 flex items-center justify-center'><span>Announcements</span><span className='text-[14px] flex items-center justify-center h-6 py-[2.5px] px-[5px] bg-ek-blue-50 text-white ml-1 -translate-y-1 w-[35px] rounded-xl'>4</span></span>
+                        <span className='text-4xl heading-text mb-4 flex items-center justify-center'><span>Statistics Summary</span></span>
                         <div className='w-full flex flex-col items-center justify-center'>
-                            <Bar options={options} data={data} />
+                            <Bar options={options} className='w-1/2' data={data} />
                         </div>
                     </div>
 

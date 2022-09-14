@@ -14,7 +14,7 @@ export const Navbar = (props: any) => {
 
   }
   return (
-    <div className='fixed  w-screen h-[60px] py-[20px] px-[10px] sm:px-[40px] bg-ek-blue-50 flex items-center justify-between'>
+    <div className='fixed z-10 w-screen h-[60px] py-[20px] px-[10px] sm:px-[40px] bg-ek-blue-50 flex items-center justify-between'>
       <div className='flex items-center justify-center'>
         {
           props.sideBarActive ?
