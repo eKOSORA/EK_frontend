@@ -213,7 +213,7 @@ const marks = () => {
                     <tbody>
                       {
                         studentMarks.map((marks) => {
-                          return <tr className='my-1'>
+                          return <tr className='my-1 even:bg-gray-500'>
                             <td className='flex items-center justify-center -w-10 h-8'><input type="checkbox" name="" id="" /></td>
                             <td>{marks.studentName}</td>
                             <td>{marks.records[0].mark}</td>
