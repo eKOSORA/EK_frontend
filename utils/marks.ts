@@ -60,34 +60,60 @@ export const courses: Array<CourseObject> = [
         availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
     },
     {
-        name: "Year 3 A",
+        name: "Mathematics",
         value: 'year3a',
         availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
         availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
     },
     {
-        name: "Year 3 B",
+        name: "Physics",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "English",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Embedded Systems",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Web Development with HTML and CSS",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Web Development with Javascript ",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Data structures and Algorithms",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Fundamentals of Database",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Graphical User Interface Development",
+        value: 'year3b',
+        availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
+        availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
+    },{
+        name: "Discipline",
         value: 'year3b',
         availableForClass: ['year1a', 'year1b', 'year3a', 'year3b'],
         availableForTeacher: ['year1a', 'year1b', 'year3a', 'year3b']
     },
 ]
 
-export interface studentMarksObject {
-    studentId: string,
-    studentName: string,
-    records: Array<recordObject>
-}
-export interface recordObject {
-    _id: string,
-    recordName: string,
-    date: Number,
-    mark: any,
-    max: number,
-    subject: string,
-    reversed: boolean
-}
-export const studentMarks: Array<studentMarksObject> = [{
+export const studentMarks: any = [{
     "studentId": "622905d4c931a6ccb74f4ead",
     "studentName": "AMIZERO IRIZA PEACE MARY", "records": [{ "_id": "6310e2e92a7694134fee9787", "recordName": "WUI Surprise Quiz", "date": 1661990400000, "mark": 3, "max": 30, "subject": "WUI", "reversed": true }]
 }, {

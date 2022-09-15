@@ -1,14 +1,15 @@
 import Head from 'next/head'
-import React, { Fragment, useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { IoIosAdd } from 'react-icons/io'
 import { GoAlert } from 'react-icons/go'
 import { useSnackbar } from 'notistack'
-import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material'
+import { FormControl, Input, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { classes, courses, studentMarks } from '../../utils/marks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Link from 'next/link'
 
 const marks = () => {
   const [sideBarActive, setSideBarActive] = useState(false)
@@ -23,7 +24,7 @@ const marks = () => {
     class: "",
     course: ""
   });
-  const [selectedMarks, setSelectedMarks] = useState([])
+  const [selectedMarks, setSelectedMarks]: any = useState([])
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const handleChange = (prop: keyof State) => (event: any) => {
@@ -154,7 +155,7 @@ const marks = () => {
         }
         <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
           <div className='w-full flex items-start  justify-around mt-6 h-fit'>
-            <div className=' w-[45%] '>
+            <div className=' w-[40%] '>
               <div className='pt-5 px-10 pb-10 border-2 rounded-lg border-ek-blue-50 flex flex-col items-start justify-start'>
                 <h1 className='font-medium text-4xl font-questrial text-ek-blue-75'>Choose</h1>
                 <FormControl className='my-4' fullWidth>
@@ -168,6 +169,7 @@ const marks = () => {
                     onChange={handleChange('class')}
                     autoFocus={true}
                     MenuProps={{ disablePortal: true }}
+
                   >
                     <MenuItem value={''} className='italic'>None</MenuItem>
                     {
@@ -207,8 +209,8 @@ const marks = () => {
                 </div>
               </div>
             </div>
-            <div className='neumorphism relative w-[52%] px-2  h-[97%] rounded-lg flex flex-col items-start '>
-              <button className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white '><IoIosAdd size={30} /></button>
+            <div className='neumorphism relative w-[55%] px-2  h-[97%] rounded-lg flex flex-col items-start '>
+              <Link href={'/teacher/record/new'} ><IoIosAdd className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
               <span className={`${editMode ? 'flex' : 'hidden'} w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}><GoAlert size={30} color='#dc2626' className='mr-2' /><span className='text-xl font-medium'>Currently in Editing Mode</span></span>
               {
                 (marksData.course && marksData.class) ?
@@ -224,15 +226,15 @@ const marks = () => {
                     </thead>
                     <tbody>
                       {
-                        studentMarks.map((marks) => {
+                        studentMarks.map((studentMark: any) => {
                           return <tr key={Math.random()} className='my-1 even:bg-gray-300 py-1 h-8'>
-                            <td className='flex items-center justify-center py-1 -w-10 h-8'><input className='studentCheckbox' type="checkbox" name="" id="" /></td>
-                            <td className='py-1'>{marks.studentName}</td>
+                            <td className='flex items-center justify-center py-1 -w-10 h-8'><input onChange={() => setSelectedMarks([...selectedMarks, studentMark])} className='studentCheckbox' defaultChecked={false} type="checkbox" name="" id="" /></td>
+                            <td className='py-1'>{studentMark.studentName}</td>
                             <td align='center' className='py-1'>{
                               editMode && editAsMode === 'individually' ?
-                                <input type="number" max={marks.records[0].max} defaultValue={marks.records[0].mark} className={`px-4 bg-inherit`} />
+                                <input type="number" max={studentMark.records[0].max} defaultValue={studentMark.records[0].mark} className={`px-4 text-center py-1 bg-inherit`} />
                                 :
-                                <span>{marks.records[0].mark}</span>
+                                <span>{studentMark.records[0].mark}</span>
                             }
                             </td>
                           </tr>
@@ -241,9 +243,9 @@ const marks = () => {
                     </tbody>
                     <tfoot>
                       <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                     </tfoot>
                   </table>
