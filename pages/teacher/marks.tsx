@@ -23,7 +23,7 @@ const marks = () => {
     class: "",
     course: ""
   });
-  const [selectedMarks, setSelectMarks] = useState([])
+  const [selectedMarks, setSelectedMarks] = useState([])
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const handleChange = (prop: keyof State) => (event: any) => {
@@ -55,6 +55,16 @@ const marks = () => {
   interface State {
     class: string;
     course: string;
+  }
+
+  const selectAllStudents = (e: any) => {
+    const checkboxes = document.querySelectorAll('.studentCheckbox')
+    const masterCheckbox = document.querySelector('.AllStudentsCheckbox') as HTMLInputElement
+    console.log(masterCheckbox.checked);
+    checkboxes.forEach((checkbox: any) => {
+      checkbox.checked = masterCheckbox.checked
+    })
+    setSelectedMarks(studentMarks)
   }
 
   return (
@@ -157,6 +167,7 @@ const marks = () => {
                     label="Class"
                     onChange={handleChange('class')}
                     autoFocus={true}
+                    MenuProps={{ disablePortal: true }}
                   >
                     <MenuItem value={''} className='italic'>None</MenuItem>
                     {
@@ -175,6 +186,7 @@ const marks = () => {
                     label="Course"
                     onChange={handleChange('course')}
                     autoFocus={true}
+                    MenuProps={{ disablePortal: true }}
                   >
                     <MenuItem value={''} className='italic'>None</MenuItem>
                     {
@@ -204,7 +216,7 @@ const marks = () => {
                     <thead>
                       <tr>
                         <th className='flex items-center justify-center -w-10 h-8'>
-                          <input type="checkbox" name="" id="" />
+                          <input onChange={selectAllStudents} className='AllStudentsCheckbox' type="checkbox" name="" id="" />
                         </th>
                         <th className='w-5/12 bg-ek-blue-50 text-white'>Name</th>
                         <th className='w-5/12 bg-ek-blue-50 text-white'>/30</th>
@@ -213,14 +225,27 @@ const marks = () => {
                     <tbody>
                       {
                         studentMarks.map((marks) => {
-                          return <tr className='my-1 even:bg-gray-500'>
-                            <td className='flex items-center justify-center -w-10 h-8'><input type="checkbox" name="" id="" /></td>
-                            <td>{marks.studentName}</td>
-                            <td>{marks.records[0].mark}</td>
+                          return <tr key={Math.random()} className='my-1 even:bg-gray-300 py-1 h-8'>
+                            <td className='flex items-center justify-center py-1 -w-10 h-8'><input className='studentCheckbox' type="checkbox" name="" id="" /></td>
+                            <td className='py-1'>{marks.studentName}</td>
+                            <td align='center' className='py-1'>{
+                              editMode && editAsMode === 'individually' ?
+                                <input type="number" max={marks.records[0].max} defaultValue={marks.records[0].mark} className={`px-4 bg-inherit`} />
+                                :
+                                <span>{marks.records[0].mark}</span>
+                            }
+                            </td>
                           </tr>
                         })
                       }
                     </tbody>
+                    <tfoot>
+                      <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      </tr>
+                    </tfoot>
                   </table>
                   :
                   <div className='w-full flex items-center justify-center'><span className='text-lg text-gray-400 my-24'>Nothing Selected</span></div>

@@ -73,8 +73,21 @@ export const courses: Array<CourseObject> = [
     },
 ]
 
-
-export const studentMarks = [{
+export interface studentMarksObject {
+    studentId: string,
+    studentName: string,
+    records: Array<recordObject>
+}
+export interface recordObject {
+    _id: string,
+    recordName: string,
+    date: Number,
+    mark: any,
+    max: number,
+    subject: string,
+    reversed: boolean
+}
+export const studentMarks: Array<studentMarksObject> = [{
     "studentId": "622905d4c931a6ccb74f4ead",
     "studentName": "AMIZERO IRIZA PEACE MARY", "records": [{ "_id": "6310e2e92a7694134fee9787", "recordName": "WUI Surprise Quiz", "date": 1661990400000, "mark": 3, "max": 30, "subject": "WUI", "reversed": true }]
 }, {
