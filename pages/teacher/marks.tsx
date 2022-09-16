@@ -13,6 +13,7 @@ import Link from 'next/link'
 import 'animate.css'
 
 const marks = () => {
+  //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [editAsMode, setEditAsMode] = useState('')
@@ -26,7 +27,10 @@ const marks = () => {
     course: ""
   });
   const [selectedMarks, setSelectedMarks]: any = useState([])
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
+
+
 
   const handleChange = (prop: keyof State) => (event: any) => {
     setMarksData({ ...marksData, [prop]: event.target.value });
@@ -210,7 +214,7 @@ const marks = () => {
                 </div>
               </div>
             </div>
-            <div className='neumorphism relative w-[55%] px-2  h-[97%] rounded-lg flex flex-col items-start '>
+            <div className='neumorphism relative w-[55%] px-2  h-[inherit] rounded-lg flex flex-col items-start '>
               <Link href={'/teacher/record/new'} ><IoIosAdd className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
               <span className={`${editMode ? 'flex' : 'hidden'} w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}><GoAlert size={30} color='#dc2626' className='mr-2' /><span className='text-xl font-medium'>Currently in Editing Mode</span></span>
               {
