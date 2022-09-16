@@ -1,10 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import 'animate.css';
+
 
 const Sidebar = (props: any) => {
   return (
-    <div className='sidebar w-[300px] pt-[60px] h-screen sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between'>
+    <div className={`animate__animated  ${props.sideBarActive ? 'animate__slideOutLeft' : 'animate__slideInLeft'} sidebar w-[300px] pt-[60px] h-screen sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between`}>
       <div className='w-full h-32  flex flex-col items-center justify-start'>
         <a href="/teacher/dashboard" className={`${props.active === 'dashboard' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
           <span>Dashboard</span>

@@ -10,6 +10,7 @@ import { classes, courses, studentMarks } from '../../utils/marks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
+import 'animate.css'
 
 const marks = () => {
   const [sideBarActive, setSideBarActive] = useState(false)
@@ -69,7 +70,7 @@ const marks = () => {
   }
 
   return (
-    <div className='bg-[#f0f0f0] min-h-screen'>
+    <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
       {
         editAsMode === 'group'
           ?
@@ -149,7 +150,7 @@ const marks = () => {
         {
           sideBarActive
             ?
-            <Sidebar active='dashboard' />
+            <Sidebar active='marks' />
             :
             null
         }
@@ -228,7 +229,7 @@ const marks = () => {
                       {
                         studentMarks.map((studentMark: any) => {
                           return <tr key={Math.random()} className='my-1 even:bg-gray-300 py-1 h-8'>
-                            <td className='flex items-center justify-center py-1 -w-10 h-8'><input onChange={() => setSelectedMarks([...selectedMarks, studentMark])} className='studentCheckbox' defaultChecked={false} type="checkbox" name="" id="" /></td>
+                            <td className='flex items-center justify-center py-1 -w-10 h-8'><input onChange={() => setSelectedMarks([...selectedMarks, studentMark])} className='studentCheckbox' type="checkbox" name="" id="" /></td>
                             <td className='py-1'>{studentMark.studentName}</td>
                             <td align='center' className='py-1'>{
                               editMode && editAsMode === 'individually' ?

@@ -38,7 +38,7 @@ const signup: NextPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className='flex w-full sm:w-8/12 md:w-7/12 xl:w-5/12 items-center justify-center h-full'>
+                <div className='animate__animated animate__fadeInRightBig flex w-full sm:w-8/12 md:w-7/12 xl:w-5/12 items-center justify-center h-full'>
                     {
                         active === 'parent' ?
                             <ParentForm />

@@ -126,7 +126,7 @@ const signup: NextPage = () => {
 
                                     <Autocomplete
                                         // isOptionEqualToValue
-                                        
+
                                         id="combo-box-demo"
                                         options={schoolTypes}
                                         autoHighlight={true}
