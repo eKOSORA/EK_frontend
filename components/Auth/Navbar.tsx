@@ -20,8 +20,8 @@ export const Navbar = (props: any) => {
                     null
             }
             <div className='flex items-center justify-center'>
-                <a className='login-button' href={'/auth/login'}><button className={`login-button ${props.page === 'signup' ? 'flex' : 'hidden sm:flex'} items-center justify-center hover:grayscale-[50%] button-text bg-ek-blue-50 text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200`} style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></a>
-                <a className='login-button ' href={'/auth/signup'}><button className={`login-button ${props.page === 'signup' ? 'hidden md:flex' : 'flex'} hover:grayscale-[50%] button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200`} style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>SIGN UP</button></a>
+                <Link href={'/auth/login'}><button className={`login-button ${props.page === 'signup' ? 'flex' : 'hidden sm:flex'} items-center justify-center hover:grayscale-[50%] button-text bg-ek-blue-50 text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200`} style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></Link>
+                <Link href={'/auth/signup'}><button className={`login-button ${props.page === 'signup' ? 'hidden md:flex' : 'flex'} hover:grayscale-[50%] button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200`} style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>SIGN UP</button></Link>
             </div>
         </div>
     )

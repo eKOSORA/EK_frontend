@@ -141,21 +141,21 @@ const signup: NextPage = () => {
                                         <div className='w-10/12 flex flex-col sm10:ml-0 ml-4 sm10:flex-row items-start sm10:items-center justify-around'>
                                             {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'REB'} id="" />
+                                                <input checked={formData.programme === 'REB'}  type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'REB'} id="" />
                                                 <span className='text-lg text-black font-questrial'>REB</span>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'WDA'} id="" />
+                                                <input  checked={formData.programme === 'WDA'}  type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'WDA'} id="" />
                                                 <span className='text-lg text-black font-questrial'>WDA</span>
                                             </div>
                                             {/* </div> */}
                                             {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Cambridge'} id="" />
+                                                <input checked={formData.programme === 'Cambridge'} type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Cambridge'} id="" />
                                                 <span className='text-lg text-black font-questrial'>Cambridge</span>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <input type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Other'} id="" />
+                                                <input  checked={formData.programme === 'Other'}  type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Other'} id="" />
                                                 <span className='text-lg text-black font-questrial'>Other</span>
                                             </div>
                                             {/* </div> */}
