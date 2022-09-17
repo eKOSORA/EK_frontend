@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 
-const studentsSettings = () => {
+const studentAnnouncements = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -29,12 +29,12 @@ const studentsSettings = () => {
         <title> Settings | Student Dashboard | eKOSORA</title>
         <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"></link>
       </Head>
-      <Navbar page='Settings' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
+      <Navbar page='Announcements' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
       <div className='w-full flex h-full items-start justify-start'>
         {
           sideBarActive
             ?
-            <Sidebar page='students' active='settings' />
+            <Sidebar page='dashboard' active='dashboard' />
             :
             null
         }
@@ -46,4 +46,4 @@ const studentsSettings = () => {
   )
 }
 
-export default studentsSettings
+export default studentAnnouncements

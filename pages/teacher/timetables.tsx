@@ -29,7 +29,7 @@ const timeTablesPage = () => {
         <title> Students | Teacher Dashboard | eKOSORA</title>
         <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"></link>
       </Head>
-      <Navbar page='timetables' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
+      <Navbar page='Timetables' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
       <div className='w-full flex h-full items-start justify-start'>
         {
           sideBarActive
