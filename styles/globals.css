@@ -149,3 +149,6 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.marksCard{
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
