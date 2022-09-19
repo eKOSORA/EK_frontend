@@ -19,7 +19,7 @@ const studentsSettings = () => {
     editMode: false,
     password: 'password@gmail.com',
     email: 'damascene10@gmail.com',
-    code: '001',
+    code: 'RCA033RLN',
     name: 'Jean Damascene HABANABASHAKA',
     class: 'Year 2B',
     parents: ['PHP', 'WUI', 'FOD'],
@@ -28,7 +28,7 @@ const studentsSettings = () => {
   interface State {
     name: string,
     email: string,
-    telephone: string,
+    class: string,
     password: boolean,
   }
   const handleChange = (prop: keyof State) => (event: any) => {
@@ -88,20 +88,16 @@ const studentsSettings = () => {
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Code: </h3>
-                  <input type="number" value={formData.code} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
+                  <input type="text" value={formData.code} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Tel: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Class: </h3>
                   {
                     formData.editMode ?
-                      <TextField onChange={handleChange('telephone')} label='Telephone' variant='outlined' focused={true} id='outlined-basic2' size='small' value={formData.telephone} className='bg-ek-blue/10 ml-2.5 py-[7px] px-[15px] text-base flex-grow' />
+                      <TextField onChange={handleChange('class')} label='Telephone' variant='outlined' focused={true} id='outlined-basic2' size='small' value={formData.class} className='bg-ek-blue/10 ml-2.5 py-[7px] px-[15px] text-base flex-grow' />
                       :
-                      <input type={'tel'} value={formData.telephone} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
+                      <input type={'tel'} value={formData.class} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                   }
-                </div>
-                <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Title: </h3>
-                  <input type="text" value={formData.title} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Email: </h3>
@@ -113,8 +109,8 @@ const studentsSettings = () => {
                   }
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Lessons: </h3>
-                  <input type="text" value={formData.lessons.map(lesson => `${lesson}`)} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
+                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Parents: </h3>
+                  <input type="text" value={formData.parents.map(parent => `${parent}`)} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Password: </h3>
