@@ -21,7 +21,9 @@ const settings = () => {
     title: 'unknown',
     lessons: ['PHP', 'WUI', 'FOD'],
     showPassword: false,
+    profileImageStr: 'http://res.cloudinary.com/dyrneab5i/image/upload/v1647457738/tpkcgy3l9penta3gwb3a.png'
   })
+
   interface State {
     name: string,
     email: string,
@@ -32,10 +34,22 @@ const settings = () => {
     setFormData({ ...formData, [prop]: event.target.value });
   };
 
+  const previewFile = () => {
+    const reader = new FileReader()
+    const file = document.querySelector('#profileImageUpload') as HTMLInputElement
+    reader.addEventListener('load', () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      setFormData({ ...formData, profileImageStr: reader.result })
+    })
+    if (file.files) {
+      reader.readAsDataURL(file.files[0])
+    }
+  }
+
   const handleChangeSettings = (e: any) => {
     e.preventDefault()
     console.log(formData)
-    setFormData({...formData,editMode:!formData.editMode})
+    setFormData({ ...formData, editMode: !formData.editMode })
   }
 
   return (
@@ -67,11 +81,13 @@ const settings = () => {
         }
         <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-fit p-10`}>
           <div className='neumorphism p-5 rounded max-w-[900px]  mt-8  min-h-[300px] flex items-center w-11/12'>
-            <div className='profileImage mr-10 w-[250px] h-[250px] flex items-center justify-center'>
-              <Image width={250} height={250} src={'http://res.cloudinary.com/dyrneab5i/image/upload/v1647457738/tpkcgy3l9penta3gwb3a.png'} className='rounded-full'></Image>
+            <div className='relative profileImage mr-10 w-[250px] h-[250px] flex items-center justify-center'>
+              <Image onMouseEnter={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('hidden', 'flex') }} onMouseLeave={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('flex', 'hidden') }} width={250} height={250} src={formData.profileImageStr} className='object-cover rounded-full'></Image>
+              <label htmlFor="profileImageUpload" id='profileImageUploadLabel' title='Change you profile image' className='cursor-pointer absolute top-0 left-0 w-full h-full rounded-full hidden items-center justify-center text-white bg-black/50'> <span>Change Profile</span> </label>
             </div>
             <div className='w-8/12 flex flex-col flex-grow'>
               <form onSubmit={handleChangeSettings} className='w-full flex flex-col items-start justify-center'>
+              <input onChange={previewFile} type="file" name="profileImageUpload" id="profileImageUpload" className='hidden' />
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Names: </h3>
                   {

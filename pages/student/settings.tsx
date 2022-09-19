@@ -15,16 +15,29 @@ const studentsSettings = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     editMode: false,
     password: 'password@gmail.com',
     email: 'damascene10@gmail.com',
     code: 'RCA033RLN',
     name: 'Jean Damascene HABANABASHAKA',
     class: 'Year 2B',
-    parents: ['PHP', 'WUI', 'FOD'],
+    parents: ['precieuxmugisha@gmail.com', 'undimubyeyi@gmail.com', 'inyongera@gmail.com'],
     showPassword: false,
+    profileImageStr: 'http://res.cloudinary.com/dyrneab5i/image/upload/v1647457738/tpkcgy3l9penta3gwb3a.png',
+
   })
+  const previewFile = () => {
+    const reader = new FileReader()
+    const file = document.querySelector('#profileImageUpload') as HTMLInputElement
+    reader.addEventListener('load', () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      setFormData({ ...formData, profileImageStr: reader.result })
+    })
+    if (file.files) {
+      reader.readAsDataURL(file.files[0])
+    }
+  }
   interface State {
     name: string,
     email: string,
@@ -38,7 +51,7 @@ const studentsSettings = () => {
   const handleChangeSettings = (e: any) => {
     e.preventDefault()
     console.log(formData)
-    setFormData({...formData,editMode:!formData.editMode})
+    setFormData({ ...formData, editMode: !formData.editMode })
   }
 
 
@@ -71,12 +84,14 @@ const studentsSettings = () => {
             null
         }
         <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
-        <div className='neumorphism p-5 rounded max-w-[900px]  mt-8  min-h-[300px] flex items-center w-11/12'>
-            <div className='profileImage mr-10 w-[250px] h-[250px] flex items-center justify-center'>
-              <Image width={250} height={250} src={'http://res.cloudinary.com/dyrneab5i/image/upload/v1647457738/tpkcgy3l9penta3gwb3a.png'} className='rounded-full'></Image>
+          <div className='neumorphism p-5 rounded max-w-[900px]  mt-8  min-h-[300px] flex items-center w-11/12'>
+            <div className='relative profileImage mr-10 w-[250px] h-[250px] flex items-center justify-center'>
+              <Image onMouseEnter={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('hidden', 'flex') }} onMouseLeave={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('flex', 'hidden') }} width={250} height={250} src={formData.profileImageStr} className='object-cover rounded-full'></Image>
+              <label htmlFor="profileImageUpload" id='profileImageUploadLabel' title='Change you profile image' className='cursor-pointer absolute top-0 left-0 w-full h-full rounded-full hidden items-center justify-center text-white bg-black/50'> <span>Change Profile</span> </label>
             </div>
             <div className='w-8/12 flex flex-col flex-grow'>
               <form onSubmit={handleChangeSettings} className='w-full flex flex-col items-start justify-center'>
+                <input onChange={previewFile} type="file" name="profileImageUpload" id="profileImageUpload" className='hidden' />
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Names: </h3>
                   {
@@ -108,9 +123,11 @@ const studentsSettings = () => {
                       <input type="email" value={formData.email} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                   }
                 </div>
-                <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
+                <div className='w-full flex flex-row items-start justify-start mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Parents: </h3>
-                  <input type="text" value={formData.parents.map(parent => `${parent}`)} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
+                  <div className='flex flex-col items-start justify-start'>
+                    {formData.parents.map(parent => <span className='text-white py-2 px-4 rounded-full my-1 bg-ek-blue-50  ml-2.5 outline-none border-none text-base flex-grow' >{parent}</span>)}
+                  </div>
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Password: </h3>
@@ -138,3 +155,6 @@ const studentsSettings = () => {
 }
 
 export default studentsSettings
+
+
+// export const getS
