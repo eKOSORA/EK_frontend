@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import { Navbar } from '../../components/Dashboard/Navbar'
-import Sidebar from '../../components/Dashboard/Sidebar'
+import { Navbar } from '../../../components/Dashboard/Navbar'
+import Sidebar from '../../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userTeacher } from '../../utils/faker'
+import { userTeacher } from '../../../utils/faker'
 
 const studentsPage = () => {
   //Important states
