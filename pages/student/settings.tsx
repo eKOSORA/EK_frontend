@@ -83,10 +83,10 @@ const studentsSettings = () => {
             :
             null
         }
-        <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
+        <div className={`${sideBarActive ? 'w-full md:w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
           <div className='neumorphism p-5 rounded max-w-[900px]  mt-8  min-h-[300px] flex md:flex-row flex-col  items-center w-11/12'>
             <div className={`relative w-[250px] h-[250px] profileImage mr-10   flex items-center justify-center`}>
-              <Image onMouseEnter={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('hidden', 'flex') }} onMouseLeave={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('flex', 'hidden') }} width={250} height={250} src={formData.profileImageStr} className={`w-full object-cover rounded-full`}></Image>
+              <Image onMouseEnter={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('hidden', 'flex') }} onMouseLeave={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('flex', 'hidden') }} width={250} height={250} src={formData.profileImageStr} style={{zIndex:-1}} className={`-z-1 w-full object-cover rounded-full`}></Image>
               <label htmlFor="profileImageUpload" id='profileImageUploadLabel' title='Change you profile image' className='cursor-pointer absolute top-0 left-0 w-full h-full rounded-full hidden items-center justify-center text-white bg-black/50'> <span>Change Profile</span> </label>
             </div>
             <div className='w-11/12 md:w-8/12 flex flex-col flex-grow'>
