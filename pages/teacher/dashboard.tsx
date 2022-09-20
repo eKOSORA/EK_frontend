@@ -19,6 +19,7 @@ import {
 import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import 'animate.css'
+import { userTeacher } from '../../utils/faker'
 
 ChartJS.register(
     CategoryScale,
@@ -73,7 +74,7 @@ const dashboard = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar active='dashboard' />
+                        <Sidebar user={userTeacher} active='dashboard' />
                         :
                         null
                 }

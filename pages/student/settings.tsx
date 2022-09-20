@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { TextField } from '@mui/material'
 import visibilityOff from './../../public/img/visibility_off.svg'
 import visibility from './../../public/img/visibility.svg'
+import { userStudent } from '../../utils/faker'
 
 
 const studentsSettings = () => {
@@ -30,7 +31,7 @@ const studentsSettings = () => {
   const previewFile = () => {
     const reader = new FileReader()
     const file = document.querySelector('#profileImageUpload') as HTMLInputElement
-    reader.addEventListener('load', () => {
+    reader.addEventListener('loadend', () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       setFormData({ ...formData, profileImageStr: reader.result })
     })
@@ -59,7 +60,7 @@ const studentsSettings = () => {
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -79,7 +80,7 @@ const studentsSettings = () => {
         {
           sideBarActive
             ?
-            <Sidebar page='students' active='settings' />
+            <Sidebar user={userStudent} page='students' active='settings' />
             :
             null
         }
@@ -93,7 +94,7 @@ const studentsSettings = () => {
               <form onSubmit={handleChangeSettings} className='w-full flex flex-col items-start justify-center'>
                 <input onChange={previewFile} type="file" name="profileImageUpload" id="profileImageUpload" className='hidden' />
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Names: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Names: </h3>
                   {
                     formData.editMode ?
                       <TextField onChange={handleChange('name')} label='Name' variant='outlined' focused={true} id='outlined-basic1' size='small' value={formData.name} className='bg-ek-blue/10 ml-2.5 py-[7px] px-[15px] text-base flex-grow' />
@@ -102,11 +103,11 @@ const studentsSettings = () => {
                   }
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Code: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Code: </h3>
                   <input type="text" value={formData.code} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Class: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Class: </h3>
                   {
                     formData.editMode ?
                       <TextField onChange={handleChange('class')} label='Telephone' variant='outlined' focused={true} id='outlined-basic2' size='small' value={formData.class} className='bg-ek-blue/10 ml-2.5 py-[7px] px-[15px] text-base flex-grow' />
@@ -115,7 +116,7 @@ const studentsSettings = () => {
                   }
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Email: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Email: </h3>
                   {
                     formData.editMode ?
                       <TextField onChange={handleChange('email')} label='Email' variant='outlined' focused={true} id='outlined-basic3' size='small' value={formData.email} className='bg-ek-blue/10 ml-2.5 py-[7px] px-[15px] text-base flex-grow' />
@@ -124,13 +125,13 @@ const studentsSettings = () => {
                   }
                 </div>
                 <div className='w-full flex flex-row items-start justify-start mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Parents: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Parents: </h3>
                   <div className='flex flex-col items-start justify-start'>
                     {formData.parents.map(parent => <span className='text-white py-2 px-4 rounded-full my-1 bg-ek-blue-50  ml-2.5 outline-none border-none text-base flex-grow' >{parent}</span>)}
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
-                  <h3 className='font-questrial font-semibold text-lg w-[100px]'>Password: </h3>
+                  <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Password: </h3>
                   {
                     formData.editMode ?
                       <TextField type={formData.showPassword ? 'text' : 'password'} label='Password' variant='outlined' focused={true} id='outlined-basic4' onChange={handleChange('password')} size='small' value={formData.password} className='bg-ek-blue/10 ml-2.5 py-[7px] px-[15px] text-base flex-grow' />

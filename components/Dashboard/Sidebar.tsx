@@ -33,10 +33,10 @@ const Sidebar = (props: any) => {
       <a href={'/teacher/account'} className='bg-ek-blue-75 w-full flex items-center justify-center'>
         <div className='w-full h-[85px] flex px-4 items-center justify-end'>
           <div className='h-full  mr-[20px] flex flex-col items-end justify-center'>
-            <span className='text-white text-[1.17em] font-bold questrialtext'>Damascene</span>
-            <span className='text-white/[54%] text-[1.17em]'>educator</span>
+            <span className='text-white text-[1.17em] font-bold questrialtext'>{props.user.name.split(' ')[props.user.name.split(' ').length - 1]}</span>
+            <span className='text-white/[54%] text-[1.17em]'>{props.user.type}</span>
           </div>
-          <Image className='object-cover rounded-full' width={45} height={45} src={'http://res.cloudinary.com/dyrneab5i/image/upload/v1647457738/tpkcgy3l9penta3gwb3a.png'}></Image>
+          <Image className='object-cover rounded-full' width={45} height={45} src={props.user.profileImage}></Image>
         </div>
       </a>
     </div>

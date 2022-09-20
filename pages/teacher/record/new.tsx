@@ -9,6 +9,7 @@ import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, T
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { courses } from '../../../utils/marks'
+import { userTeacher } from '../../../utils/faker'
 
 const newRecord = () => {
   const [sideBarActive, setSideBarActive] = useState(false)
@@ -39,7 +40,7 @@ const newRecord = () => {
   return (
     <div className='bg-[#f0f0f0] min-h-screen'>
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -59,7 +60,7 @@ const newRecord = () => {
         {
           sideBarActive
             ?
-            <Sidebar active='dashboard' />
+            <Sidebar user={userTeacher} active='dashboard' />
             :
             null
         }

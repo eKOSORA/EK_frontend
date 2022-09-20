@@ -66,7 +66,7 @@ const signup: NextPage = () => {
     const previewFile = () => {
         const file = document.querySelector('#logoImage') as HTMLInputElement
         const reader = new FileReader()
-        reader.addEventListener('load', () => {
+        reader.addEventListener('loadend', () => {
             setFormData({ ...formData, logoImageStr: reader.result as string })
         })
         if (file.files) {

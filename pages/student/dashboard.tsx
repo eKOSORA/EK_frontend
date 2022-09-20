@@ -20,6 +20,7 @@ import {
 import { faker } from '@faker-js/faker'
 import announcement from '../../public/img/notification.png'
 import marks from '../../public/img/marks.png'
+import { userStudent } from '../../utils/faker'
 
 const studentsDashboard = () => {
   //Important states
@@ -69,7 +70,7 @@ const data = {
     <div className=' bg-[#f0f0f0] min-h-screen'>
 
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -89,7 +90,7 @@ const data = {
         {
           sideBarActive
             ?
-            <Sidebar page='students' active='dashboard' />
+            <Sidebar user={userStudent} page='students' active='dashboard' />
             :
             null
         }

@@ -11,6 +11,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
 import 'animate.css'
+import { userTeacher } from '../../utils/faker'
 
 const marks = () => {
   //Important states
@@ -45,7 +46,7 @@ const marks = () => {
     if (selectedMarks.length === 0) {
       console.log("No marks were selected")
       toast.error('No marks were selected!!!', {
-        position: "top-center",
+        position: "bottom-center",
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -134,7 +135,7 @@ const marks = () => {
           null
       }
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -154,7 +155,7 @@ const marks = () => {
         {
           sideBarActive
             ?
-            <Sidebar active='marks' />
+            <Sidebar user={userTeacher} active='marks' />
             :
             null
         }

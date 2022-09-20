@@ -5,6 +5,7 @@ import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
+import { userTeacher } from '../../utils/faker'
 
 const timeTablesPage = () => {
   //Important states
@@ -14,7 +15,7 @@ const timeTablesPage = () => {
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -34,7 +35,7 @@ const timeTablesPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar active='timetables' />
+            <Sidebar user={userTeacher} active='timetables' />
             :
             null
         }

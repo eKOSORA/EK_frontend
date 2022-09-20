@@ -5,6 +5,7 @@ import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
+import { userParent } from '../../utils/faker'
 
 const studentsMarks = () => {
   //Important states
@@ -22,7 +23,7 @@ const studentsMarks = () => {
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
       <ToastContainer
-        position="top-center"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -42,7 +43,7 @@ const studentsMarks = () => {
         {
           sideBarActive
             ?
-            <Sidebar page='students' active='marks' />
+            <Sidebar user={userParent} page='students' active='marks' />
             :
             null
         }
