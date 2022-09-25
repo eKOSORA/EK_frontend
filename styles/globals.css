@@ -109,9 +109,9 @@ td {
   padding: 15px 6px;
 }
 
-table{
-  border:none;
-  border-collapse:collapse;
+table {
+  border: none;
+  border-collapse: collapse;
 }
 
 input[type="radio"] {
@@ -146,13 +146,12 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
-.marksCard{
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+.marksCard {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 @-webkit-keyframes rotating /* Safari and Chrome */ {
   from {
@@ -190,6 +189,13 @@ input[type=number] {
   animation: rotating 2s linear infinite;
 }
 
-th{
-  background-color:#4CA7CE !important;
+th {
+  background-color: #4ca7ce !important;
+}
+
+.Toastify__toast--error {
+  width: 100% !important;
+}
+.Toastify__toast-container--bottom-center{
+  width: 340px !important;
 }

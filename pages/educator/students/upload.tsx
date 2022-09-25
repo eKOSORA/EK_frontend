@@ -13,11 +13,16 @@ import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
 import FileData from '../../../utils/interfaces'
 import { totalmem } from 'os'
-
+import { useDropzone } from 'react-dropzone'
 
 const studentsUpload = () => {
     //Important states
+    // const { getRootProps, getInputProps } = useDropzone({
+    //     accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',
+    //     onDrop: (acceptedFiles) => {
 
+    //     }
+    // })
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
@@ -54,10 +59,8 @@ const studentsUpload = () => {
         const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
 
         if (inputElement.files) {
-            console.log(inputElement.files);
-
             if (inputElement.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-                toast.error('Only excel files are uploaded(.xlsx,.csv)!!', {
+                toast.error("Only excel files are uploaded ('.xlsx', '.csv')!!", {
                     position: "bottom-center",
                     autoClose: 5000,
                     hideProgressBar: true,
@@ -66,7 +69,7 @@ const studentsUpload = () => {
                     draggable: true,
                     theme: "colored"
                 })
-                setFileData({ ...fileData, loader: false })
+                setFileData({ ...fileData, loading: false })
                 return
             }
 
@@ -201,7 +204,7 @@ const studentsUpload = () => {
                                             <span className='text-xl w-11/12'>The first row should be in the following format. And the columns must be arranged accordingly.</span>
                                         </span>
                                     </div>
-                                    <div className='mx-auto lg:scale-90 xl:scale-100 my-8 bg-white flex flex-row items-center justify-center w-fit rounded h-fit'>
+                                    <div className='mx-auto hidden mxl:scale-90 xl:scale-100 my-8 bg-white mxl:flex flex-row items-center justify-center w-fit rounded h-fit'>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>First Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Last Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Code/ID</div>
@@ -209,6 +212,17 @@ const studentsUpload = () => {
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Class</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Parent Email(s)</div>
                                         <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0 '>Parent Tel(s)</div>
+                                    </div>
+                                    <div className='flex mxl:hidden w-full items-center justify-center'>
+                                        <ul className='text-lg font-questrial list-disc w-1/2'>
+                                            <li className='w-full'>First Name</li>
+                                            <li className='w-full'>Last Name</li>
+                                            <li className='w-full'>Code/ID</li>
+                                            <li className='w-full'>Year/Grade</li>
+                                            <li className='w-full'>Class</li>
+                                            <li className='w-full'>Parent Email(s)</li>
+                                            <li className='w-full'>Parent Tel(s)</li>
+                                        </ul>
                                     </div>
                                     <button className='px-6 mt-8 absolute right-12 bottom-6 rounded text-white font-normal py-2 bg-ek-blue-75 cursor-pointer' onClick={() => { setStep(2) }}>GOT IT</button>
                                 </div>
