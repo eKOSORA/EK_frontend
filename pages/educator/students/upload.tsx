@@ -9,6 +9,7 @@ import { userTeacher } from '../../../utils/faker'
 import { BiCog, BiInfoCircle } from 'react-icons/bi'
 import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
+import * as XLSX from 'xlsx';
 
 const studentsUpload = () => {
     //Important states
@@ -22,36 +23,9 @@ const studentsUpload = () => {
         errorState: false,
         errorMessage: ""
     })
-
-    const initApp = () => {
-        const droparea = document.querySelector('.droparea');
-        console.log(droparea);
-
-        const active = () => droparea?.classList.add("border-2 border-green-500 border-dashed");
-
-        const inactive = () => droparea?.classList.remove("border-2 border-green-500 border-dashed");
-
-        const prevents = (e: any) => e.preventDefault();
-
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evtName => {
-            droparea?.addEventListener(evtName, prevents);
-        });
-
-        ['dragenter', 'dragover'].forEach(evtName => {
-            droparea?.addEventListener(evtName, active);
-        });
-
-        ['dragleave', 'drop'].forEach(evtName => {
-            droparea?.addEventListener(evtName, inactive);
-        });
-
-        droparea?.addEventListener("drop", handleDrop);
-
-    }
-
     useEffect(() => {
-        document?.addEventListener("DOMContentLoaded", initApp);
     }, [])
+
 
     const handleDrop = (e: any) => {
         const dt = e.dataTransfer;
@@ -61,11 +35,40 @@ const studentsUpload = () => {
         console.log(fileArray);
     }
 
-    const previewFile = () => {
-        const inputElt = document.querySelector('#excelFileToUpload') as HTMLInputElement
-        const file = inputElt.files ? inputElt.files[0] : ''
-        console.log(file);
-
+    const previewFile = async () => {
+        var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
+        if (inputElement.files) {
+            var name = inputElement.files[0].name;
+            const reader = new FileReader();
+            reader.addEventListener('load', (e: any) => { // e = on_file_select event
+                /* Parse data */
+                const bstr = e.target.result;
+                const wb = XLSX.read(bstr, { type: 'binary' });
+                /* Get first worksheet */
+                const sheetCount = wb.SheetNames.length;
+                if (sheetCount > 1) {
+                    const studentSheetData = []
+                    for (let i = 0; i < sheetCount; i++) {
+                        const wsname = wb.SheetNames[i];
+                        const ws = wb.Sheets[wsname];
+                        /* Convert array of arrays */
+                        const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+                        console.log(data);
+                        studentSheetData.push({ sheetName: wb.SheetNames[i], data })
+                    }
+                    console.log(studentSheetData);
+                }
+                else {
+                    const wsname = wb.SheetNames[0];
+                    const ws = wb.Sheets[wsname];
+                    /* Convert array of arrays */
+                    const data = XLSX.utils.sheet_to_csv(ws, {});
+                    /* Update state */
+                    console.log(data);
+                }
+            })
+            reader.readAsBinaryString(inputElement.files[0]);
+        }
     }
 
     return (
@@ -148,7 +151,7 @@ const studentsUpload = () => {
                                     <div className='droparea w-11/12 rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center'>
                                         <div className='flex flex-col items-center justify-center'>
                                             <input type="file" id='excelFileToUpload' className='hidden' onChange={previewFile} name='excelFileToUpload' />
-                                            <label className='w-full flex-col flex items-center justify-center' htmlFor="excelFileToUpload">
+                                            <label className='w-full flex-col flex items-center justify-center' htmlFor="excelFileToUpload" id='excelFileToUploadLabel'>
                                                 <Image width={200} height={100} src={uploadExcel}></Image>
                                                 <p>Drop file here</p>
                                             </label>
