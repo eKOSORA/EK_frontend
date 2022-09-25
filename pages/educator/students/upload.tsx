@@ -11,20 +11,13 @@ import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
+import FileData from '../../../utils/interfaces'
+import { totalmem } from 'os'
 
-interface FileData {
-    students: Array<unknown>,
-    fileName: string,
-    timeUploaded: string,
-    isFileUploaded: boolean,
-    errorState: boolean,
-    errorMessage: string,
-    loading: boolean
-
-}
 
 const studentsUpload = () => {
     //Important states
+
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
@@ -37,22 +30,46 @@ const studentsUpload = () => {
         loading: false
     })
     useEffect(() => {
+        window.addEventListener('keydown', checkKeyPress)
+    }, [])
+
+    function checkKeyPress(key: any) {
+
+        if (key.keyCode === 39) {
+            setStep(2)
+        }
+        else if (key.keyCode === 37) {
+            setStep(1)
+        }
+    }
+    useEffect(() => {
     }, [])
 
 
-    const handleDrop = (e: any) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        const fileArray = [...files];
-        console.log(files); // FileList
-        console.log(fileArray);
-    }
-
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
+
+
+
         const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
 
         if (inputElement.files) {
+            console.log(inputElement.files);
+
+            if (inputElement.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                toast.error('Only excel files are uploaded(.xlsx,.csv)!!', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "colored"
+                })
+                setFileData({ ...fileData, loader: false })
+                return
+            }
+
             setFileData({ ...fileData, loading: true })
             var name = inputElement.files[0].name;
             const reader = new FileReader();
@@ -160,7 +177,7 @@ const studentsUpload = () => {
                 }
                 <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-screen p-10`}>
 
-                    <div className='my-auto h-3/5 w-9/12 flex flex-col sm:flex-row items-center justify-center'>
+                    <div className='my-auto h-3/5 w-8/12 flex flex-col sm:flex-row items-center justify-center'>
                         {
                             fileData.isFileUploaded
                                 ?
@@ -210,7 +227,7 @@ const studentsUpload = () => {
                                         :
                                         <div className='droparea w-11/12 rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center'>
                                             <div className='flex flex-col items-center justify-center'>
-                                                <input type="file" id='excelFileToUpload' className='hidden' onChange={previewFile} name='excelFileToUpload' />
+                                                <input accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' type="file" id='excelFileToUpload' className='hidden' onChange={previewFile} name='excelFileToUpload' />
                                                 <label className='w-full flex-col flex items-center justify-center' htmlFor="excelFileToUpload" id='excelFileToUploadLabel'>
                                                     <Image width={200} height={100} src={uploadExcel}></Image>
                                                     <p>Drop file here</p>
