@@ -102,7 +102,7 @@ function StudentUploadTablePreview(props: any) {
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
                         ).map((row: any) => (
-                            <tr className='even:bg-ek-blue-75/5' key={row['Code/ID']}>
+                            <tr className='even:bg-ek-blue-75/20' key={row['Code/ID']}>
                                 <td style={{ width: 260 }} align="right">
                                     {row['First Name']}
                                 </td>

@@ -12,11 +12,22 @@ import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
 
+interface FileData {
+    students: Array<unknown>,
+    fileName: string,
+    timeUploaded: string,
+    isFileUploaded: boolean,
+    errorState: boolean,
+    errorMessage: string,
+    loading: boolean
+
+}
+
 const studentsUpload = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
-    const [fileData, setFileData] = useState({
+    const [fileData, setFileData] = useState<FileData>({
         students: [],
         fileName: '',
         timeUploaded: '',
@@ -75,7 +86,7 @@ const studentsUpload = () => {
                         fileData.students.push(data)
                         console.log(data);
                     }
-                    setFileData({...fileData,isFileUploaded:true,})
+                    setFileData({ ...fileData, isFileUploaded: true, })
                 }
                 else {
                     const wsname = wb.SheetNames[0];
@@ -215,15 +226,3 @@ const studentsUpload = () => {
 }
 
 export default studentsUpload
-
-/* fileData.isFileUploaded ?
-fileData.errorState
-?
-<div>
-    <BiInfoCircle size={45} color="#4CA7CE" className='mx-8' />
-    <span className='text-xl'>{fileData.errorMessage}</span>
-    <button className='px-6 mt-8 absolute right-12 bottom-6 rounded text-white font-normal py-2 bg-ek-blue-75 cursor-pointer' onClick={() => { setStep(2) }}>GOT IT</button>
-</div>
-:
-
-*/
