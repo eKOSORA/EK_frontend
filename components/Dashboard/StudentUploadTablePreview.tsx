@@ -84,9 +84,9 @@ function StudentUploadTablePreview(props: any) {
     return (
         <div className='w-full flex flex-col items-center justify-center'>
             <h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Table Preview</h1>
-            <Root sx={{ maxWidth: '100%', width: '100%' }}>
+            <Root sx={{ maxWidth: '100%',borderRadius:'10px', width: '100%' }}>
                 <table className='rounded' aria-label="custom pagination table">
-                    <thead className=''>
+                    <thead className='text-white'>
                         <tr className='font-questrial bg-ek-blue'>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -97,12 +97,12 @@ function StudentUploadTablePreview(props: any) {
                             <th>Parent Tel(s)</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='font-questrial'>
                         {(rowsPerPage > 0
                             ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             : rows
                         ).map((row: any) => (
-                            <tr key={row['Code/ID']}>
+                            <tr className='even:bg-ek-blue-75/5' key={row['Code/ID']}>
                                 <td style={{ width: 260 }} align="right">
                                     {row['First Name']}
                                 </td>

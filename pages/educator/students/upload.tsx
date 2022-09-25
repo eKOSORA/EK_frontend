@@ -71,7 +71,7 @@ const studentsUpload = () => {
                             return
                         }
                         const columns = Object.keys(data[0])
-  
+
                         fileData.students.push(data)
                         console.log(data);
                     }
