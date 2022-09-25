@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const colors =require('tailwindcss/colors')
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: ["./pages/**/*.{html,js,jsx,tsx}", "./components/**/*.{html,js,jsx,tsx}"],
@@ -15,21 +15,32 @@ module.exports = {
       'xl': '1280px',
       '2xl': '1536px',
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        ring: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(1deg)' },
+          '75%': { transform: 'rotate(-1deg)' }
+        }
+      },
+      animation: {
+        ring: 'ring .5s ease-in-out',
+      }
+    },
     fontFamily: {
-      'sans': ['ui-sans-serif', 'system-ui', ],
-      'serif': ['ui-serif', 'Georgia', ],
-      'mono': ['ui-monospace', 'SFMono-Regular', ],
-      'display': ['Oswald', ],
-      'body': ['"Open Sans"', ],
-      'questrial': ['"Questrial"', ],
+      'sans': ['ui-sans-serif', 'system-ui',],
+      'serif': ['ui-serif', 'Georgia',],
+      'mono': ['ui-monospace', 'SFMono-Regular',],
+      'display': ['Oswald',],
+      'body': ['"Open Sans"',],
+      'questrial': ['"Questrial"',],
     },
     colors: {
       ...colors,
       'ek-blue': {
         DEFAULT: '#3F7CAC',
         '50': '#3F7CAC',
-        '75':'#4CA7CE',
+        '75': '#4CA7CE',
         '100': '#376D97',
         '200': '#28506E',
         '300': '#193245',
