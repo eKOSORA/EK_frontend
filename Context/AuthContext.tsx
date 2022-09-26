@@ -27,11 +27,27 @@ export default function AuthProvider({ children }: any) {
         }
         return setUser({});
     };
+
+    const getUserById = async (id: string) => {
+        try {
+
+            return {}
+        } catch (error) {
+            console.log(error);
+            return null
+        }
+    };
+
+
+    const login = ({ loginData }: any) => {
+
+    }
+
     React.useEffect(() => {
         decodeToken();
     }, []);
 
-    let value = { user, setUser };
+    let value = { user, setUser, getUserById, login };
 
     return (
         <>
@@ -42,12 +58,3 @@ export default function AuthProvider({ children }: any) {
     );
 }
 
-export const getUserById = async (id: string) => {
-    try {
-
-        return {}
-    } catch (error) {
-        console.log(error);
-        return null
-    }
-};
