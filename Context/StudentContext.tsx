@@ -12,7 +12,7 @@ const StudentProvider = ({ children }: any) => {
     const [school, setStudent] = useState({})
     const { user }: any = useAuth()
 
-    const getAll = async () => {
+    const getAllStudents = async () => {
 
     }
     const registerStudent = async ({ studentData }: any) => {
@@ -33,9 +33,19 @@ const StudentProvider = ({ children }: any) => {
     const getRecords = ({ _class, _year }: any) => {
 
     }
+    const deleteRecord = (_id: string) => {
+
+    }
+    const addParent = ({ parent_mail, studentID }: any) => {
+
+    }
+
+    const getSummary = () => {
+
+    }
 
     return (
-        <StudentContext.Provider value={{ registerStudent }}>
+        <StudentContext.Provider value={{ registerStudent, editStudent, addParent, addRecord, deleteRecord, getAllStudents, getRecords, getSummary, updateMark }}>
             {children}
         </StudentContext.Provider>
     );
