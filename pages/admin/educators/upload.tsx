@@ -14,6 +14,8 @@ import EducatorUploadTablePreview from '../../../components/Dashboard/EducatorUp
 import { EducatorFileData } from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
+import { arrayComparer } from '../../../utils/comparer'
+
 
 const upload = () => {
     //Important states
@@ -51,12 +53,10 @@ const upload = () => {
     }, [])
 
 
+    const needed = ["First Name", "Last Name", "Code/ID", "Lessons", "Telephone", "Email", "Type", "NID Number"
+    ]
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
-
-
-
-        const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
 
         if (inputElement.files) {
             if (inputElement.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
@@ -101,7 +101,7 @@ const upload = () => {
                             console.log("No data found");
                             return
                         }
-                        const columns = Object.keys(data[0])
+                        // const columns = Object.keys(data[0])
 
                         fileData.educators.push(data)
                         console.log(data);
@@ -128,7 +128,8 @@ const upload = () => {
                         return
                     }
                     const columns = Object.keys(data[0])
-                    if (columns !== needed) {
+                    console.log(needed, columns);
+                    if (arrayComparer(columns,needed)) {
                         setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                         toast.error("Columns are not in the right order", {
                             position: "bottom-center",
@@ -180,7 +181,7 @@ const upload = () => {
                 }
                 <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-screen p-10`}>
 
-                    <div className='my-auto h-3/5 w-8/12 flex flex-col sm:flex-row items-center justify-center'>
+                    <div className='my-auto  mxl:h-3/5 w-8/12 flex flex-col sm:flex-row items-center justify-center'>
                         {
                             fileData.isFileUploaded
                                 ?
@@ -208,20 +209,20 @@ const upload = () => {
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>First Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Last Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Code/ID</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Year/Grade</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Class</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Parent Email(s)</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0 '>Parent Tel(s)</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Lessons</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Telephone</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Email</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Telephone</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0'>NID Number</div>
                                     </div>
                                     <div className='flex mxl:hidden w-full items-center justify-center'>
                                         <ul className='text-lg font-questrial list-disc w-1/2'>
-                                            <li className='w-full'>First Name</li>
-                                            <li className='w-full'>Last Name</li>
-                                            <li className='w-full'>Code/ID</li>
-                                            <li className='w-full'>Year/Grade</li>
-                                            <li className='w-full'>Class</li>
-                                            <li className='w-full'>Parent Email(s)</li>
-                                            <li className='w-full'>Parent Tel(s)</li>
+                                            {
+                                                needed.map((cred: any) =>
+
+                                                    <li className='w-full'>{cred}</li>
+                                                )
+                                            }
                                         </ul>
                                     </div>
                                     <button className='px-6 mt-8 absolute right-12 bottom-6 rounded text-white font-normal py-2 bg-ek-blue-75 cursor-pointer' onClick={() => { setStep(2) }}>GOT IT</button>
