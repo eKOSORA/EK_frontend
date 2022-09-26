@@ -1,4 +1,4 @@
-export default interface FileData {
+export interface FileData {
     students: Array<unknown>,
     fileName: string,
     timeUploaded: string,
@@ -7,4 +7,14 @@ export default interface FileData {
     errorMessage: string,
     loading: boolean
 
+}
+
+export interface EducatorFileData{
+    educators: Array<unknown>,
+    fileName: string,
+    timeUploaded: string,
+    isFileUploaded: boolean,
+    errorState: boolean,
+    errorMessage: string,
+    loading: boolean
 }

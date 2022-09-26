@@ -10,8 +10,8 @@ import { BiCog, BiInfoCircle } from 'react-icons/bi'
 import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
-import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
-import FileData from '../../../utils/interfaces'
+import EducatorUploadTablePreview from '../../../components/Dashboard/EducatorUploadTablePreview'
+import { EducatorFileData } from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
 
@@ -25,8 +25,8 @@ const upload = () => {
     // })
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
-    const [fileData, setFileData] = useState<FileData>({
-        students: [],
+    const [fileData, setFileData] = useState<EducatorFileData>({
+        educators: [],
         fileName: '',
         timeUploaded: '',
         isFileUploaded: false,
@@ -103,7 +103,7 @@ const upload = () => {
                         }
                         const columns = Object.keys(data[0])
 
-                        fileData.students.push(data)
+                        fileData.educators.push(data)
                         console.log(data);
                     }
                     setFileData({ ...fileData, isFileUploaded: true, })
@@ -142,7 +142,7 @@ const upload = () => {
                         console.log("Columns are not in the right order");
                         return
                     }
-                    setFileData({ ...fileData, loading: false, students: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
+                    setFileData({ ...fileData, loading: false, educators: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
                     console.log(data);
                 }
             })
@@ -166,15 +166,15 @@ const upload = () => {
                 theme='colored'
             />
             <Head>
-                <title> Students | Teacher Dashboard | eKOSORA</title>
+                <title> Educators | Admin Dashboard | eKOSORA</title>
                 <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"></link>
             </Head>
-            <Navbar page='Add students' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
+            <Navbar page='Admin Dashboard' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
             <div className='w-full flex h-full items-start justify-start'>
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} active='students' />
+                        <Sidebar user={userTeacher} active='dashboard' />
                         :
                         null
                 }
@@ -237,7 +237,7 @@ const upload = () => {
                                     :
                                     fileData.isFileUploaded
                                         ?
-                                        <StudentUploadTablePreview fileData={fileData} />
+                                        <EducatorUploadTablePreview fileData={fileData} />
                                         :
                                         <div className='droparea w-11/12 rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center'>
                                             <div className='flex flex-col items-center justify-center'>
