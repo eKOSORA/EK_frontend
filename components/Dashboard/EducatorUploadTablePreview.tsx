@@ -141,7 +141,7 @@ function EducatorUploadTablePreview(props: any) {
                             <CustomTablePagination
                                 className='w-full'
                                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                                colSpan={7}
+                                colSpan={8}
                                 count={rows.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
