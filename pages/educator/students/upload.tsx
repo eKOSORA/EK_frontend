@@ -11,9 +11,11 @@ import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
-import FileData from '../../../utils/interfaces'
+import {FileData} from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
+import { arrayComparer } from '../../../utils/comparer'
+
 
 const studentsUpload = () => {
     //Important states
@@ -102,7 +104,20 @@ const studentsUpload = () => {
                             return
                         }
                         const columns = Object.keys(data[0])
-
+                        if (!arrayComparer(columns,needed)) {
+                            setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
+                            toast.error("Columns are not in the right order", {
+                                position: "bottom-center",
+                                autoClose: 5000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                theme: "colored"
+                            })
+                            console.log("Columns are not in the right order");
+                            return
+                        }
                         fileData.students.push(data)
                         console.log(data);
                     }
@@ -128,7 +143,7 @@ const studentsUpload = () => {
                         return
                     }
                     const columns = Object.keys(data[0])
-                    if (columns !== needed) {
+                    if (!arrayComparer(columns,needed)) {
                         setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                         toast.error("Columns are not in the right order", {
                             position: "bottom-center",
