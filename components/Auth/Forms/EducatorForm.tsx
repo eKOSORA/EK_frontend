@@ -3,19 +3,23 @@ import { Autocomplete, CircularProgress, FormControl, IconButton, InputAdornment
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
 import 'animate.css';
+import { useAuth } from '../../../Context/AuthContext'
 
 const EducatorForm: NextComponentType = () => {
 
+  const {login}:any = useAuth()
 
   const handleSubmit = async (e: any) => {
     setSubmitLoader(true)
     e.preventDefault()
     console.log(formData)
+    const data = login()
   }
 
   const [submitLoader, setSubmitLoader] = useState(false)
 
   interface State {
+    type:tring
     email: string;
     school: string;
     password: string;
