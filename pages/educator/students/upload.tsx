@@ -11,20 +11,14 @@ import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
-import {FileData} from '../../../utils/interfaces'
+import { FileData } from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
 import { arrayComparer } from '../../../utils/comparer'
 
 
 const studentsUpload = () => {
-    //Important states
-    // const { getRootProps, getInputProps } = useDropzone({
-    //     accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',
-    //     onDrop: (acceptedFiles) => {
 
-    //     }
-    // })
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
@@ -34,7 +28,8 @@ const studentsUpload = () => {
         isFileUploaded: false,
         errorState: false,
         errorMessage: "",
-        loading: false
+        loading: false,
+        sheets: 0
     })
     useEffect(() => {
         window.addEventListener('keydown', checkKeyPress)
@@ -85,6 +80,7 @@ const studentsUpload = () => {
                 /* Get first worksheet */
                 const sheetCount = wb.SheetNames.length;
                 if (sheetCount > 1) {
+                    setFileData({ ...fileData, sheets: sheetCount })
                     for (let i = 0; i < sheetCount; i++) {
                         const wsname = wb.SheetNames[i];
                         const ws = wb.Sheets[wsname];
@@ -104,7 +100,7 @@ const studentsUpload = () => {
                             return
                         }
                         const columns = Object.keys(data[0])
-                        if (!arrayComparer(columns,needed)) {
+                        if (!arrayComparer(columns, needed)) {
                             setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                             toast.error("Columns are not in the right order", {
                                 position: "bottom-center",
@@ -143,7 +139,7 @@ const studentsUpload = () => {
                         return
                     }
                     const columns = Object.keys(data[0])
-                    if (!arrayComparer(columns,needed)) {
+                    if (!arrayComparer(columns, needed)) {
                         setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                         toast.error("Columns are not in the right order", {
                             position: "bottom-center",

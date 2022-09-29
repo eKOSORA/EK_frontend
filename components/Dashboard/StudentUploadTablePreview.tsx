@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classes,
@@ -60,8 +60,8 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 
 function StudentUploadTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [sheets, setSheets] = useState(props.fileData.sheets)
     const rows = props.fileData.students[0]
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -84,7 +84,13 @@ function StudentUploadTablePreview(props: any) {
     return (
         <div className='w-full flex flex-col items-center justify-center'>
             <h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Table Preview</h1>
-            <Root sx={{ maxWidth: '100%',borderRadius:'10px', width: '100%' }}>
+
+            {
+                sheets > 1
+                ?
+                <span></span>
+                :
+                <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
                 <table className='rounded' aria-label="custom pagination table">
                     <thead className='text-white'>
                         <tr className='font-questrial bg-ek-blue'>
@@ -156,7 +162,7 @@ function StudentUploadTablePreview(props: any) {
                         </tr>
                     </tfoot>
                 </table>
-            </Root>
+            </Root>}
         </div>
     );
 }

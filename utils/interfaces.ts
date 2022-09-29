@@ -6,6 +6,7 @@ export interface FileData {
     errorState: boolean,
     errorMessage: string,
     loading: boolean
+    sheets:Number
 
 }
 
@@ -17,4 +18,6 @@ export interface EducatorFileData{
     errorState: boolean,
     errorMessage: string,
     loading: boolean
+    sheets:Number
+
 }
