@@ -11,7 +11,7 @@ import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
-import FileData from '../../../utils/interfaces'
+import { FileData } from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
 
@@ -32,7 +32,8 @@ const upload = () => {
         isFileUploaded: false,
         errorState: false,
         errorMessage: "",
-        loading: false
+        loading: false,
+        sheets:0
     })
     useEffect(() => {
         window.addEventListener('keydown', checkKeyPress)

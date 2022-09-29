@@ -19,7 +19,7 @@ const EducatorForm: NextComponentType = () => {
   const [submitLoader, setSubmitLoader] = useState(false)
 
   interface State {
-    type:tring
+    type:string
     email: string;
     school: string;
     password: string;
@@ -43,6 +43,7 @@ const EducatorForm: NextComponentType = () => {
   };
 
   const [formData, setFormData] = useState({
+    type:'educator',
     email: '',
     school: '',
     password: '',

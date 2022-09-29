@@ -101,6 +101,7 @@ const studentsUpload = () => {
                         }
                         const columns = Object.keys(data[0])
                         if (!arrayComparer(columns, needed)) {
+                            console.log(columns,needed)
                             setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                             toast.error("Columns are not in the right order", {
                                 position: "bottom-center",
