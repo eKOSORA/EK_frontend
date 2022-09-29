@@ -12,10 +12,10 @@ const studentsMarks = () => {
   const [sideBarActive, setSideBarActive] = useState(false)
 
   const studentMarks = [
-    { name: 'Maths Quiz', subject: 'Maths', shortForm: 'MTC', marks: 90, max: 100, date: 'Tue May 24 2022' },
-    { name: 'WUI Quiz', subject: 'Web User Interface', shortForm: 'WUI', marks: 90, max: 100, date: 'Tue May 24 2022' },
-    { name: 'PHP Quiz', subject: 'PHP', shortForm: 'PHP', marks: 90, max: 100, date: 'Tue May 24 2022' },
-    { name: 'FOP Quiz', subject: 'Fundamentals of Programming', shortForm: 'FOP', marks: 90, max: 100, date: 'Tue May 24 2022' },
+    { name: 'Maths Quiz', subject: 'Maths', initial: 'MTC', marks: 90, max: 100, date: 'Tue May 24 2022' },
+    { name: 'WUI Quiz', subject: 'Web User Interface', initial: 'WUI', marks: 90, max: 100, date: 'Tue May 24 2022' },
+    { name: 'PHP Quiz', subject: 'PHP', initial: 'PHP', marks: 90, max: 100, date: 'Tue May 24 2022' },
+    { name: 'FOP Quiz', subject: 'Fundamentals of Programming', initial: 'FOP', marks: 90, max: 100, date: 'Tue May 24 2022' },
 
   ]
 
@@ -58,7 +58,7 @@ const studentsMarks = () => {
                   <p className="Date text-black/60">{studentMark.date}</p>
                   <div className='absolute h-full rounded-r-md text-white text-2xl heading-text w-[50px] items-center justify-center flex bg-ek-blue-75 right-0 top-0 flex-col'>
                     {
-                      studentMark.shortForm.split('').map((letter) => <span>{letter}</span>)
+                      studentMark.initial.split('').map((letter) => <span>{letter}</span>)
                     }
                   </div>
                 </div>

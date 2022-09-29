@@ -11,7 +11,7 @@ export const useParents = () => {
 const ParentProvider = ({ children }: any) => {
     const [school, setParent] = useState({})
     const { user }: any = useAuth()
-
+    const baseURL = 'https://ekosora-backend.cyclic.app'
     const registerParent = async ({ parentData }: any) => {
 
     }

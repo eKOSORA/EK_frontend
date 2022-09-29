@@ -11,7 +11,7 @@ export const useStudents = () => {
 const StudentProvider = ({ children }: any) => {
     const [school, setStudent] = useState({})
     const { user }: any = useAuth()
-
+    const baseURL = 'https://ekosora-backend.cyclic.app'
     const getAllStudents = async () => {
 
     }

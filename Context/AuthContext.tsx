@@ -11,7 +11,7 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }: any) {
     let [user, setUser] = useState({});
-
+    const baseURL = 'https://ekosora-backend.cyclic.app'
     const decodeToken = async () => {
         const token = getCookie("token");
         if (token) {

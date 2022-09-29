@@ -11,7 +11,7 @@ export const useAnnouncements = () => {
 const AnnouncementProvider = ({ children }: any) => {
     const [school, setAnnouncement] = useState({})
     const { user }: any = useAuth()
-
+    const baseURL = 'https://ekosora-backend.cyclic.app'
     const getAllAnnouncements = () => {
 
     }

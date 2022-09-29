@@ -11,7 +11,7 @@ export const useSettings = () => {
 const SettingProvider = ({ children }: any) => {
     const [school, setSchool] = useState({})
     const { user }: any = useAuth()
-
+    const baseURL = 'https://ekosora-backend.cyclic.app'
     const updateSettings = () => {
 
     }

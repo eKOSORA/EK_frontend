@@ -23,18 +23,14 @@ const signup: NextPage = () => {
 
 
     interface State {
-        shortForm: string;
+        initials: string;
         type: string;
         programme: string;
-        province: string;
-        district: string;
-        sector: string;
-        cell: string;
-        village: string;
-        headTeacher: string;
+        address: object;
+        head: string;
         moto: string;
         logoImageStr: string;
-        schoolName: string;
+        name: string;
     }
 
     const handleChange =
@@ -50,18 +46,20 @@ const signup: NextPage = () => {
 
     const [submitLoader, setSubmitLoader] = useState(false)
     const [formData, setFormData] = useState({
-        shortForm: '',
+        initials: '',
         type: '',
         programme: '',
-        province: "",
-        district: "",
-        sector: "",
-        cell: "",
-        village: "",
-        headTeacher: '',
+        address: {
+            province: "",
+            district: "",
+            sector: "",
+            cell: "",
+            village: "",
+        },
+        head: '',
         moto: '',
         logoImageStr: '',
-        schoolName: '',
+        name: '',
         activeButton: false
     })
 
@@ -112,27 +110,28 @@ const signup: NextPage = () => {
                                         InputProps={{
                                             style: { color: 'black' },
                                         }}
-                                        value={formData.schoolName}
+                                        value={formData.name}
                                         className=' my-4 w-full text-lg' label='School Name'
-                                        onChange={handleChange('schoolName')}
+                                        onChange={handleChange('name')}
                                         focused={true}
                                         required={true}
+                                        autoComplete='off'
                                     />
 
                                     <TextField
+                                        autoComplete='off'
                                         InputProps={{
                                             style: { color: 'black' },
                                         }}
-                                        value={formData.shortForm}
+                                        value={formData.initials}
                                         className=' my-4 w-full text-lg' label='Short Form'
-                                        onChange={handleChange('shortForm')}
+                                        onChange={handleChange('initials')}
                                         focused={true}
                                         required={true}
                                     />
 
                                     <Autocomplete
                                         // isOptionEqualToValue
-
                                         id="combo-box-demo"
                                         options={schoolTypes}
                                         autoHighlight={true}
@@ -175,33 +174,36 @@ const signup: NextPage = () => {
                                             InputProps={{
                                                 style: { color: 'black' },
                                             }}
-                                            value={formData.province}
+                                            value={formData.address.province}
                                             className=' my-4 w-full text-lg' label='Province'
-                                            onChange={handleChange('province')}
+                                            onChange={(e) => setFormData({ ...formData, address: { ...formData.address, province: e.target.value } })}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
 
                                         <TextField
                                             InputProps={{
                                                 style: { color: 'black' },
                                             }}
-                                            value={formData.district}
+                                            value={formData.address.district}
                                             className=' my-4 w-full text-lg' label='District'
-                                            onChange={handleChange('district')}
+                                            onChange={(e) => setFormData({ ...formData, address: { ...formData.address, district: e.target.value } })}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
 
                                         <TextField
                                             InputProps={{
                                                 style: { color: 'black' },
                                             }}
-                                            value={formData.sector}
+                                            value={formData.address.sector}
                                             className=' my-4 w-full text-lg' label='Sector'
-                                            onChange={handleChange('sector')}
+                                            onChange={(e) => setFormData({ ...formData, address: { ...formData.address, sector: e.target.value } })}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
 
 
@@ -209,22 +211,24 @@ const signup: NextPage = () => {
                                             InputProps={{
                                                 style: { color: 'black' },
                                             }}
-                                            value={formData.cell}
+                                            value={formData.address.cell}
                                             className=' my-4 w-full text-lg' label='Cell'
-                                            onChange={handleChange('cell')}
+                                            onChange={(e) => setFormData({ ...formData, address: { ...formData.address, cell: e.target.value } })}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
 
                                         <TextField
                                             InputProps={{
                                                 style: { color: 'black' },
                                             }}
-                                            value={formData.village}
+                                            value={formData.address.village}
                                             className=' my-4 w-full text-lg' label='Village'
-                                            onChange={handleChange('village')}
+                                            onChange={(e) => setFormData({ ...formData, address: { ...formData.address, village: e.target.value } })}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
 
                                     </div>
@@ -234,11 +238,12 @@ const signup: NextPage = () => {
                                             InputProps={{
                                                 style: { color: 'black' },
                                             }}
-                                            value={formData.headTeacher}
+                                            value={formData.head}
                                             className=' my-4 w-full text-lg' label='Head Teacher'
-                                            onChange={handleChange('headTeacher')}
+                                            onChange={handleChange('head')}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
 
                                         <TextField
@@ -250,6 +255,7 @@ const signup: NextPage = () => {
                                             onChange={handleChange('moto')}
                                             focused={true}
                                             required={true}
+                                            autoComplete='off'
                                         />
                                         <div className='relative w-full my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
                                             <span className='absolute -top-[15px] left-2  border-b-2 border-b-white text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto z-10'>Logo *</span>
@@ -282,7 +288,7 @@ const signup: NextPage = () => {
                                         <button className={`m-auto bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'><CircularProgress color='inherit' size={25} /></button>
 
                                         :
-                                        <button  className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'>FINISH</button>
+                                        <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'>FINISH</button>
                                     :
                                     <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='button' onClick={() => { setStep(step + 1) }}>NEXT</button>
                             }
