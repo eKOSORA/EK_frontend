@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from '@mui/material'
+import { Autocomplete, CircularProgress, TextField } from '@mui/material'
 import { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -7,13 +7,18 @@ import { Navbar } from '../../components/Auth/Navbar'
 import dragImages from './../../public/img/dragImages.svg'
 import { VscClose } from 'react-icons/vsc'
 import { AiFillEdit } from 'react-icons/ai'
+import { useSchools } from '../../Context/SchoolContext'
 
 const signup: NextPage = () => {
-
+    const { registerSchool }: any = useSchools()
     const handleSubmit = async (e: any) => {
+        setSubmitLoader(true)
         setFormData({ ...formData, activeButton: false })
         e.preventDefault()
         console.log(formData)
+        const data = await registerSchool({ formData })
+        console.log(data)
+        setSubmitLoader(false)
     }
 
 
@@ -43,6 +48,7 @@ const signup: NextPage = () => {
         event.preventDefault();
     };
 
+    const [submitLoader, setSubmitLoader] = useState(false)
     const [formData, setFormData] = useState({
         shortForm: '',
         type: '',
@@ -141,11 +147,11 @@ const signup: NextPage = () => {
                                         <div className='w-10/12 flex flex-col sm10:ml-0 ml-4 sm10:flex-row items-start sm10:items-center justify-around'>
                                             {/* <div className='w-11/12 sm10:w-1/2 flex items-center justify-around'> */}
                                             <div className='flex items-center justify-center'>
-                                                <input checked={formData.programme === 'REB'}  type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'REB'} id="" />
+                                                <input checked={formData.programme === 'REB'} type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'REB'} id="" />
                                                 <span className='text-lg text-black font-questrial'>REB</span>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <input  checked={formData.programme === 'WDA'}  type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'WDA'} id="" />
+                                                <input checked={formData.programme === 'WDA'} type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'WDA'} id="" />
                                                 <span className='text-lg text-black font-questrial'>WDA</span>
                                             </div>
                                             {/* </div> */}
@@ -155,7 +161,7 @@ const signup: NextPage = () => {
                                                 <span className='text-lg text-black font-questrial'>Cambridge</span>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <input  checked={formData.programme === 'Other'}  type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Other'} id="" />
+                                                <input checked={formData.programme === 'Other'} type="radio" className='mr-2' name="programme" onChange={(e) => { setFormData({ ...formData, programme: e.target.value }) }} value={'Other'} id="" />
                                                 <span className='text-lg text-black font-questrial'>Other</span>
                                             </div>
                                             {/* </div> */}
@@ -271,7 +277,12 @@ const signup: NextPage = () => {
 
                             {
                                 step === 3 ?
-                                    <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'>FINISH</button>
+                                    submitLoader
+                                        ?
+                                        <button className={`m-auto bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'><CircularProgress color='inherit' size={25} /></button>
+
+                                        :
+                                        <button  className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'>FINISH</button>
                                     :
                                     <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='button' onClick={() => { setStep(step + 1) }}>NEXT</button>
                             }
