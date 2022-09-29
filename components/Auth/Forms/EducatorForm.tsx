@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Autocomplete, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
+import { Autocomplete, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
 import 'animate.css';
@@ -8,11 +8,12 @@ const EducatorForm: NextComponentType = () => {
 
 
   const handleSubmit = async (e: any) => {
-    setFormData({...formData,activeButton:false})
+    setSubmitLoader(true)
     e.preventDefault()
     console.log(formData)
   }
 
+  const [submitLoader, setSubmitLoader] = useState(false)
 
   interface State {
     email: string;
@@ -42,8 +43,6 @@ const EducatorForm: NextComponentType = () => {
     school: '',
     password: '',
     showPassword: false,
-    activeButton: true
-
   })
 
   const schools = [
@@ -105,7 +104,13 @@ const EducatorForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
+        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
+          submitLoader
+            ?
+            <CircularProgress className='m-auto' size={30} color='inherit' />
+            :
+            'GET IN'
+        }</button>
       </form>
     </div>
   )

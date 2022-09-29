@@ -1,12 +1,15 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Autocomplete, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
+import { Autocomplete, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
 
 const StudentForm: NextComponentType = () => {
 
+  const [submitLoader, setSubmitLoader] = useState(false)
+
   const handleSubmit = async (e: any) => {
-    setFormData({...formData,activeButton:false})
+    setSubmitLoader(true)
+    setFormData({ ...formData, activeButton: false })
     e.preventDefault()
     console.log(formData)
   }
@@ -19,7 +22,7 @@ const StudentForm: NextComponentType = () => {
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
       if (prop === 'code') {
-        setFormData({ ...formData, [prop]: 'RCA'+event.target.value });
+        setFormData({ ...formData, [prop]: 'RCA' + event.target.value });
       }
       else {
         setFormData({ ...formData, [prop]: event.target.value });
@@ -79,6 +82,7 @@ const StudentForm: NextComponentType = () => {
             required={true}
             className='bg-ek-blue/10 my-4 ml-2 w-4/5 text-lg' label='Code'
             onChange={handleChange('code')}
+            autoComplete={'off'}
             focused={true} />
         </div>
 
@@ -108,8 +112,13 @@ const StudentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className={`heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
-      </form>
+        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
+          submitLoader
+            ?
+            <CircularProgress className='m-auto' size={30} color='inherit' />
+            :
+            'GET IN'
+        }</button>      </form>
     </div>
   )
 }

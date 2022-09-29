@@ -47,7 +47,6 @@ const signup: NextPage = () => {
                                 <StudentForm />
                                 :
                                 <EducatorForm />
-
                     }
                 </div>
             </div>

@@ -1,14 +1,16 @@
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
+import { CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
 
 const ParentForm: NextComponentType = () => {
 
+  const [submitLoader, setSubmitLoader] = useState(false)
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    setSubmitLoader(true)
     setFormData({ ...formData, activeButton: false })
     console.log(formData)
   }
@@ -84,8 +86,13 @@ const ParentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className={`heading-text w-11/12 mt-12 h-12 rounded text-2xl text-white  ${formData.activeButton ? 'cursor-pointer bg-ek-blue' : 'cursor-not-allowed bg-ek-blue-300/40 text-slate-500'}`}>GET IN</button>
-      </form>
+        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
+          submitLoader
+            ?
+            <CircularProgress className='m-auto' size={30} color='inherit' />
+            :
+            'GET IN'
+        }</button>      </form>
     </div>
   )
 }
