@@ -16,13 +16,7 @@ import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
 
 const upload = () => {
-    //Important states
-    // const { getRootProps, getInputProps } = useDropzone({
-    //     accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',
-    //     onDrop: (acceptedFiles) => {
 
-    //     }
-    // })
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({

@@ -82,22 +82,22 @@ const dashboard = () => {
                     <div className='w-full flex flex-col items-start  animate__animated animate__fadeInLeft my-8 justify-start'>
                         <span className='text-4xl heading-text mb-4'>Quick Access</span>
                         <div className='w-full flex items-center justify-center'>
-                            <a href={'/teacher/marks'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
+                            <a href={'/educator/marks'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
                                 <Image src={marks} width={150} height={150} ></Image>
                                 <span className='text-lg questrialtext'>Marks</span>
                             </a>
 
-                            <a href={'/teacher/settings'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
+                            <a href={'/educator/settings'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
                                 <Image src={setting} width={150} height={150} ></Image>
                                 <span className='text-lg questrialtext'>Settings</span>
                             </a>
 
-                            <a href={'/teacher/timetables'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
+                            <a href={'/educator/timetables'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
                                 <Image src={timetable} width={150} height={150} ></Image>
                                 <span className='text-lg questrialtext'>Timetable(s)</span>
                             </a>
 
-                            <a href={'/teacher/announcements'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
+                            <a href={'/educator/announcements'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
                                 <Image src={announcement} width={150} height={150} ></Image>
                                 <span className='text-lg questrialtext'>Announcements</span>
                             </a>

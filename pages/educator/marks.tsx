@@ -64,15 +64,15 @@ const marks = () => {
     course: string;
   }
 
-  const selectAllStudents = (e: any) => {
-    const checkboxes = document.querySelectorAll('.studentCheckbox')
-    const masterCheckbox = document.querySelector('.AllStudentsCheckbox') as HTMLInputElement
-    console.log(masterCheckbox.checked);
-    checkboxes.forEach((checkbox: any) => {
-      checkbox.checked = masterCheckbox.checked
-    })
-    setSelectedMarks(studentMarks)
-  }
+  // const selectAllStudents = (e: any) => {
+  //   const checkboxes = document.querySelectorAll('.studentCheckbox')
+  //   const masterCheckbox = document.querySelector('.AllStudentsCheckbox') as HTMLInputElement
+  //   console.log(masterCheckbox.checked);
+  //   checkboxes.forEach((checkbox: any) => {
+  //     checkbox.checked = masterCheckbox.checked
+  //   })
+  //   setSelectedMarks(studentMarks)
+  // }
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -216,7 +216,7 @@ const marks = () => {
               </div>
             </div>
             <div className='neumorphism relative w-[55%] px-2  h-[inherit] rounded-lg flex flex-col items-start '>
-              <Link href={'/teacher/record/new'} ><IoIosAdd className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
+              <Link href={'/educator/record/new'} ><IoIosAdd className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
               <span className={`${editMode ? 'flex' : 'hidden'} w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}><GoAlert size={30} color='#dc2626' className='mr-2' /><span className='text-xl font-medium'>Currently in Editing Mode</span></span>
               {
                 (marksData.course && marksData.class) ?
@@ -224,7 +224,7 @@ const marks = () => {
                     <thead>
                       <tr>
                         <th className='flex items-center justify-center -w-10 h-8'>
-                          <input onChange={selectAllStudents} className='AllStudentsCheckbox' type="checkbox" name="" id="" />
+                          <input /*onChange={selectAllStudents}*/ className='AllStudentsCheckbox' type="checkbox" name="" id="" />
                         </th>
                         <th className='w-5/12 bg-ek-blue-50 text-white'>Name</th>
                         <th className='w-5/12 bg-ek-blue-50 text-white'>/30</th>

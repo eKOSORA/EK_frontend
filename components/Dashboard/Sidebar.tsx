@@ -17,10 +17,10 @@ const Sidebar = (props: any) => {
         {props.page !== 'students' ?
           <>
 
-            <a href={`/teacher/timetables`} className={`${props.active === 'timetables' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
+            <a href={`/educator/timetables`} className={`${props.active === 'timetables' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
               <span>Timetables</span>
             </a>
-            <a href={`/teacher/students`} className={`${props.active === 'students' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
+            <a href={`/educator/students`} className={`${props.active === 'students' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
               <span>Students</span>
             </a>
           </>
@@ -30,7 +30,7 @@ const Sidebar = (props: any) => {
           <span>Settings</span>
         </a>
       </div>
-      <a href={'/teacher/account'} className='bg-ek-blue-75 w-full flex items-center justify-center'>
+      <a href={'/educator/account'} className='bg-ek-blue-75 w-full flex items-center justify-center'>
         <div className='w-full h-[85px] flex px-4 items-center justify-end'>
           <div className='h-full  mr-[20px] flex flex-col items-end justify-center'>
             <span className='text-white text-[1.17em] font-bold questrialtext'>{props.user.name.split(' ')[props.user.name.split(' ').length - 1]}</span>
