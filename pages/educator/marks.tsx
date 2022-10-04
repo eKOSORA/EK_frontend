@@ -75,6 +75,15 @@ const marks = () => {
     return
   }
 
+  const selectAllMarks = (e: any) => {
+    e.target.checked = !e.target.checked
+    const allCheckboxes = document.querySelectorAll('input[type=checkbox]') //as Array<HTMLInputElement>
+    allCheckboxes.forEach((element: any) => {
+      element.checked = true
+    });
+    setSelectedMarks(studentMarks)
+  }
+
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
       {
@@ -230,7 +239,7 @@ const marks = () => {
                       <thead>
                         <tr>
                           <th className='flex items-center justify-center  -w-10 py-4   '>
-                            <input className='AllStudentsCheckbox border-white checked:bg-white' type="checkbox" name="" id="" />
+                            <input onChange={selectAllMarks} className='AllStudentsCheckbox border-white checked:bg-white' type="checkbox" name="" id="" />
                           </th>
                           <th className='w-5/12 bg-ek-blue-50 text-white'>Name</th>
                           <th className='w-5/12 bg-ek-blue-50 text-white'>/30</th>
