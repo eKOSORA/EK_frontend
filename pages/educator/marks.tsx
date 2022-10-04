@@ -2,21 +2,23 @@ import Head from 'next/head'
 import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
-import { IoIosAdd } from 'react-icons/io'
-import { GoAlert } from 'react-icons/go'
 import { useSnackbar } from 'notistack'
-import { FormControl, Input, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import { classes, courses, studentMarks } from '../../utils/marks'
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { classes, courses, registeredMarks } from '../../utils/marks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import Link from 'next/link'
 import 'animate.css'
 import { userTeacher } from '../../utils/faker'
+import { IoIosAdd } from 'react-icons/io'
+import Link from 'next/link'
+import { GoAlert, GoSearch } from 'react-icons/go'
 
 const marks = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const [studentMarks, setStudentMarks] = useState(registeredMarks)
   const [editAsMode, setEditAsMode] = useState('')
   const [marksFormData, setMarksFormData] = useState({
     marksCount: 0,
@@ -46,7 +48,7 @@ const marks = () => {
     if (selectedMarks.length === 0) {
       console.log("No marks were selected")
       toast.error('No marks were selected!!!', {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -64,15 +66,14 @@ const marks = () => {
     course: string;
   }
 
-  // const selectAllStudents = (e: any) => {
-  //   const checkboxes = document.querySelectorAll('.studentCheckbox')
-  //   const masterCheckbox = document.querySelector('.AllStudentsCheckbox') as HTMLInputElement
-  //   console.log(masterCheckbox.checked);
-  //   checkboxes.forEach((checkbox: any) => {
-  //     checkbox.checked = masterCheckbox.checked
-  //   })
-  //   setSelectedMarks(studentMarks)
-  // }
+  const handleSearchStudents = (e: any) => {
+    const query = e.target.value
+    if (query === '') return setStudentMarks(registeredMarks)
+
+    const searchedStudents = studentMarks.filter((student: any) => student.studentName.toLowerCase().includes(query));
+    setStudentMarks(searchedStudents)
+    return
+  }
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -111,7 +112,6 @@ const marks = () => {
                   <input onChange={() => { setMarksFormData({ ...marksFormData, notifyParents: !marksFormData.notifyParents }) }} type="checkbox" className='' value={'notifyparents'} />
                   <span className='ml-4'>Notify Parents/Guardians</span>
                 </div>
-
               </form>
 
               {
@@ -135,7 +135,7 @@ const marks = () => {
           null
       }
       <ToastContainer
-        position="bottom-center"
+        position="top-center"
         autoClose={1000}
         hideProgressBar={true}
         newestOnTop={false}
@@ -217,44 +217,51 @@ const marks = () => {
             </div>
             <div className='neumorphism relative w-[55%] px-2  h-[inherit] rounded-lg flex flex-col items-start '>
               <Link href={'/educator/record/new'} ><IoIosAdd className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
-              <span className={`${editMode ? 'flex' : 'hidden'} w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}><GoAlert size={30} color='#dc2626' className='mr-2' /><span className='text-xl font-medium'>Currently in Editing Mode</span></span>
+              <span className={`${editMode ? 'flex' : 'hidden'} w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}><GoAlert size={30} color='#dc2626' className='mr-2' /><span onClick={() => setEditMode(false)} title="Cancel" className='text-xl font-medium'>Currently in Editing Mode</span></span>
               {
                 (marksData.course && marksData.class) ?
-                  <table className='mt-16 w-full'>
-                    <thead>
-                      <tr>
-                        <th className='flex items-center justify-center -w-10 h-8'>
-                          <input /*onChange={selectAllStudents}*/ className='AllStudentsCheckbox' type="checkbox" name="" id="" />
-                        </th>
-                        <th className='w-5/12 bg-ek-blue-50 text-white'>Name</th>
-                        <th className='w-5/12 bg-ek-blue-50 text-white'>/30</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        studentMarks.map((studentMark: any) => {
-                          return <tr key={Math.random()} className='my-1 even:bg-gray-300 py-1 h-8'>
-                            <td className='flex items-center justify-center py-1 -w-10 h-8'><input onChange={() => setSelectedMarks([...selectedMarks, studentMark])} className='studentCheckbox' type="checkbox" name="" id="" /></td>
-                            <td className='py-1'>{studentMark.studentName}</td>
-                            <td align='center' className='py-1'>{
-                              editMode && editAsMode === 'individually' ?
-                                <input type="number" max={studentMark.records[0].max} defaultValue={studentMark.records[0].mark} className={`px-4 text-center py-1 bg-inherit`} />
-                                :
-                                <span>{studentMark.records[0].mark}</span>
-                            }
-                            </td>
-                          </tr>
-                        })
-                      }
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tfoot>
-                  </table>
+                  <div className='flex flex-col w-full'>
+                    <div className='my-4 float-right mx-4 px-2 rounded-3xl w-7/12 font-questrial items-center justify-center flex text-lg neumorphism'>
+                      <GoSearch size={20} color='grey' />
+                      <input type="text" maxLength={30} placeholder='Search' onChange={handleSearchStudents} className="outline-none w-[90%] border-none bg-inherit p-2.5 " />
+                    </div>
+
+                    <table className=' w-full'>
+                      <thead>
+                        <tr>
+                          <th className='flex items-center justify-center  -w-10 py-4   '>
+                            <input className='AllStudentsCheckbox border-white checked:bg-white' type="checkbox" name="" id="" />
+                          </th>
+                          <th className='w-5/12 bg-ek-blue-50 text-white'>Name</th>
+                          <th className='w-5/12 bg-ek-blue-50 text-white'>/30</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          studentMarks.map((studentMark: any) => {
+                            return <tr key={Math.random()} className='my-1 even:bg-gray-300 py-1 h-8'>
+                              <td className='flex items-center justify-center py-1 -w-10 h-8'><input onChange={() => selectedMarks.push(studentMark)} className='studentCheckbox' type="checkbox" name="" id="" /></td>
+                              <td className='py-1'>{studentMark.studentName}</td>
+                              <td align='center' className='py-1'>{
+                                editMode && editAsMode === 'individually' ?
+                                  <input type="number" max={studentMark.records[0].max} defaultValue={studentMark.records[0].mark} className={`px-4 text-center py-1 bg-inherit`} />
+                                  :
+                                  <span>{studentMark.records[0].mark}</span>
+                              }
+                              </td>
+                            </tr>
+                          })
+                        }
+                      </tbody>
+                      <tfoot className='text-white font-questrial bg-ek-blue-75'>
+                        <tr>
+                          <td className='text-center text-xl font-semibold' colSpan={2}>Total: </td>
+                          <td className='text-center text-xl font-semibold'><span>{ }</span>/<span>{registeredMarks[0].records[0].max}</span></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
                   :
                   <div className='w-full flex items-center justify-center'><span className='text-lg text-gray-400 my-24'>Nothing Selected</span></div>
               }
@@ -267,3 +274,4 @@ const marks = () => {
 }
 
 export default marks
+

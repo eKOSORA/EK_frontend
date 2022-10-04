@@ -7,7 +7,7 @@ export const userStudent = {
 
 
 export const userTeacher = {
-    type:'teacher',
+    type:'educator',
     name:'HABANABASHAKA Jean Damascene',
     email:'damascene10@gmail.com',
     profileImage:'http://res.cloudinary.com/dyrneab5i/image/upload/v1647457738/tpkcgy3l9penta3gwb3a.png',

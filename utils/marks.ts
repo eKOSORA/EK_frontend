@@ -113,7 +113,7 @@ export const courses: Array<CourseObject> = [
     },
 ]
 
-export const studentMarks: any = [{
+export const registeredMarks: any = [{
     "studentId": "622905d4c931a6ccb74f4ead",
     "studentName": "AMIZERO IRIZA PEACE MARY", "records": [{ "_id": "6310e2e92a7694134fee9787", "recordName": "WUI Surprise Quiz", "date": 1661990400000, "mark": 3, "max": 30, "subject": "WUI", "reversed": true }]
 }, {

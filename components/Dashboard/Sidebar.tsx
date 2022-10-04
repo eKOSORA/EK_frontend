@@ -8,10 +8,10 @@ const Sidebar = (props: any) => {
   return (
     <div className={`animate__animated  ${props.sideBarActive ? 'animate__slideOutLeft' : 'animate__slideInLeft'} sidebar w-[300px] pt-[60px] h-screen absolute md:z-1 md:sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between`}>
       <div className='w-full h-32  flex flex-col items-center justify-start'>
-        <a href={`/${props.page === 'students' ? 'student' : 'teacher'}/dashboard`} className={`${props.active === 'dashboard' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
+        <a href={`/${props.page === 'students' ? 'student' : 'educator'}/dashboard`} className={`${props.active === 'dashboard' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
           <span>Dashboard</span>
         </a>
-        <a href={`/${props.page === 'students' ? 'student' : 'teacher'}/marks`} className={`${props.active === 'marks' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
+        <a href={`/${props.page === 'students' ? 'student' : 'educator'}/marks`} className={`${props.active === 'marks' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
           <span>Marks</span>
         </a>
         {props.page !== 'students' ?
@@ -26,7 +26,7 @@ const Sidebar = (props: any) => {
           </>
           : null
         }
-        <a href={`/${props.page === 'students' ? 'student' : 'teacher'}/settings`} className={`${props.active === 'settings' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
+        <a href={`/${props.page === 'students' ? 'student' : 'educator'}/settings`} className={`${props.active === 'settings' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
           <span>Settings</span>
         </a>
       </div>
