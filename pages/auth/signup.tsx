@@ -77,6 +77,13 @@ const signup: NextPage = () => {
             reader.readAsDataURL(file.files[0])
         }
     }
+    const handleGetLocation = () => {
+        const longitude = navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)
+        const latitude = navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)
+
+        console.log(`Latitude: ${latitude}`)
+        console.log(`Longitude: ${longitude}`)
+    }
 
     return (
         <div className='w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
@@ -97,7 +104,10 @@ const signup: NextPage = () => {
                             <span className='text-2xl my-4 text-ek-blue questrialtext'>Basic info</span>
                             :
                             step === 2 ?
-                                <span className='text-2xl my-4 text-ek-blue questrialtext'>Whereabouts</span>
+                                <div className='flex items-center w-full justify-between'>
+                                    <span className='text-2xl my-4 text-ek-blue questrialtext'>Whereabouts</span>
+                                    <span onClick={handleGetLocation} className='underline text-ek-blue-75 cursor-pointer font-questrial'>Locate me</span>
+                                </div>
                                 :
                                 <span className='text-2xl my-4 text-ek-blue questrialtext'>More about the school</span>
 
