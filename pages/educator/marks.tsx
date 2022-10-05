@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { useSnackbar } from 'notistack'
@@ -22,7 +22,7 @@ const marks = () => {
   const [editAsMode, setEditAsMode] = useState('')
   const [marksFormData, setMarksFormData] = useState({
     marksCount: 0,
-    notifyParents: false,
+    notifyParents: true,
     subject: ''
   })
   const [marksData, setMarksData] = useState({
@@ -30,6 +30,14 @@ const marks = () => {
     course: ""
   });
   const [selectedMarks, setSelectedMarks]: any = useState([])
+  const [stats, setStats] = useState({
+    total: 0,
+    maxTotal: 0,
+    average: 0,
+    maxAverage: 0,
+
+  })
+
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
@@ -76,13 +84,35 @@ const marks = () => {
   }
 
   const selectAllMarks = (e: any) => {
-    e.target.checked = !e.target.checked
-    const allCheckboxes = document.querySelectorAll('input[type=checkbox]') //as Array<HTMLInputElement>
-    allCheckboxes.forEach((element: any) => {
-      element.checked = true
-    });
-    setSelectedMarks(studentMarks)
+    const allSelector = e.target
+    const allCheckboxes = document.querySelectorAll('table input[type=checkbox]') as any //Array<HTMLInputElement>
+
   }
+
+  const calculateAverage = (selectedArray: Array<any>) => {
+
+    const allMarks = selectedArray.map((studentMark: any) => parseInt(studentMark.records[0].mark))
+    const _totalMarks = allMarks.reduce((partialSum: number, a: number) => partialSum + a, 0)
+    console.log(_totalMarks);
+
+    const allMaxMarks = selectedArray.map((studentMark: any) => parseInt(studentMark.records[0].max))
+    const _totalMaxMarks = allMaxMarks.reduce((partialSum: number, a: number) => partialSum + a, 0)
+    console.log(_totalMaxMarks);
+
+    const _average = _totalMarks / allMarks.length
+    const _maxAverage = _totalMaxMarks / allMarks.length
+
+    setStats({
+      total: _totalMarks,
+      maxTotal: _totalMaxMarks,
+      average: _average,
+      maxAverage: _maxAverage,
+    })
+
+  }
+  useEffect(() => {
+    calculateAverage(studentMarks);
+  }, [studentMarks])
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -118,26 +148,26 @@ const marks = () => {
                   </Select>
                 </FormControl>
                 <div className='flex items-center justify-center'>
-                  <input onChange={() => { setMarksFormData({ ...marksFormData, notifyParents: !marksFormData.notifyParents }) }} type="checkbox" className='' value={'notifyparents'} />
+                  <input defaultChecked onChange={() => { setMarksFormData({ ...marksFormData, notifyParents: !marksFormData.notifyParents }) }} type="checkbox" className='' value={'notifyparents'} />
                   <span className='ml-4'>Notify Parents/Guardians</span>
                 </div>
-              </form>
 
-              {
-                marksFormData.notifyParents ?
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Message"
-                    multiline
-                    rows={4}
-                    defaultValue=""
-                    className='bg-ek-blue/10 my-8 w-full'
-                    focused={true}
-                  />
-                  :
-                  null
-              }
-              <button></button>
+                {
+                  marksFormData.notifyParents ?
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Message"
+                      multiline
+                      rows={4}
+                      defaultValue=""
+                      className='bg-ek-blue/10 my-8 w-full'
+                      focused={true}
+                    />
+                    :
+                    null
+                }
+                <button type="submit" className='rounded-lg py-2.5 px-12 bg-ek-blue-75 cursor-pointer text-white'>Done</button>
+              </form>
             </div>
           </div>
           :
@@ -225,16 +255,18 @@ const marks = () => {
               </div>
             </div>
             <div className='neumorphism relative w-[55%] px-2  h-[inherit] rounded-lg flex flex-col items-start '>
-              <Link href={'/educator/record/new'} ><IoIosAdd className=' p-1 absolute right-2 top-2 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
               <span className={`${editMode ? 'flex' : 'hidden'} w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}><GoAlert size={30} color='#dc2626' className='mr-2' /><span onClick={() => setEditMode(false)} title="Cancel" className='text-xl font-medium'>Currently in Editing Mode</span></span>
               {
                 (marksData.course && marksData.class) ?
-                  <div className='flex flex-col w-full'>
-                    <div className='my-4 float-right mx-4 px-2 rounded-3xl w-7/12 font-questrial items-center justify-center flex text-lg neumorphism'>
-                      <GoSearch size={20} color='grey' />
-                      <input type="text" maxLength={30} placeholder='Search' onChange={handleSearchStudents} className="outline-none w-[90%] border-none bg-inherit p-2.5 " />
-                    </div>
+                  <div className='flex flex-col px-6 w-full'>
 
+                    <div className='flex items-center justify-between w-full py-4'>
+                      <div className='my-4 float-right px-2 rounded-3xl w-7/12 font-questrial items-center justify-center flex text-lg neumorphism'>
+                        <GoSearch size={20} color='grey' />
+                        <input type="text" maxLength={30} placeholder='Search' onChange={handleSearchStudents} className="text-[#808080] outline-none w-[90%] border-none bg-inherit p-2.5 " />
+                      </div>
+                      <Link href={'/educator/record/new'} ><IoIosAdd className=' p-1 bg-ek-blue-75 rounded-full cursor-pointer text-white hover:rotate-12 ' size={35} /></Link>
+                    </div>
                     <table className=' w-full'>
                       <thead>
                         <tr>
@@ -265,7 +297,11 @@ const marks = () => {
                       <tfoot className='text-white font-questrial bg-ek-blue-75'>
                         <tr>
                           <td className='text-center text-xl font-semibold' colSpan={2}>Total: </td>
-                          <td className='text-center text-xl font-semibold'><span>{ }</span>/<span>{registeredMarks[0].records[0].max}</span></td>
+                          <td className='text-center text-xl font-semibold'><span>{Math.round(stats.total * 10) / 10}</span>/<span>{stats.maxTotal}</span></td>
+                        </tr>
+                        <tr>
+                          <td className='text-center text-xl font-semibold' colSpan={2}>Average: </td>
+                          <td className='text-center text-xl font-semibold'><span>{Math.round(stats.average * 10) / 10}</span>/<span>{stats.maxAverage}</span></td>
                         </tr>
                       </tfoot>
                     </table>
