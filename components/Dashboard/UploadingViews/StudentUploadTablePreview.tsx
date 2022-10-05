@@ -63,13 +63,11 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 function StudentUploadTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [sheets, setSheets] = useState(props.sheets)
     const rows = props.fileData.students[0]
     const [sheetNo, setSheetNo] = useState(0)
-    // useEffect(() => {
-        console.log(props.fileData)
-    // }, [])
-    // Avoid a layout jump when reaching the last page with empty rows.
+
+    console.log(props.sheets)
+
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -92,12 +90,12 @@ function StudentUploadTablePreview(props: any) {
             <h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Table Preview</h1>
 
             {
-                sheets > 1
+                props.sheets > 1
                     ?
-                    <div className='w-4/5 flex items-center justify-around'>
-                        <div onClick={() => setSheetNo(sheetNo - 1)} className={`${sheetNo === 0 ? 'cursor-not-allowed grayscale-[40%]' : 'cursor-pointer'} p-4 cursor-pointer rounded-full flex items-center justify-center bg-ek-blue-75`}><BiChevronLeft color='white' size={20} /></div>
-                        <MultiTablePreview students={props.fileData.students[sheetNo]} />
-                        <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo + 1 === sheets ? 'cursor-not-allowed grayscale-[40%]' : 'cursor-pointer'} p-4  rounded-full flex items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
+                    <div className='w-full flex items-center justify-around'>
+                        <div onClick={() => setSheetNo(sheetNo - 1)} className={`${sheetNo - 1 === 0 ? 'hidden' : 'flex'} p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}><BiChevronLeft color='white' size={20} /></div>
+                        <MultiTablePreview sheets={props.sheets} students={props.fileData.students[sheetNo]} />
+                        <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo === props.sheets ? 'hidden' : 'flex'} p-2  rounded-full items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
                     </div>
                     :
                     <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>

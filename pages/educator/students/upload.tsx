@@ -18,6 +18,7 @@ import _ from 'lodash';
 const studentsUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
+    const [loadingPercentage, setLoadingPercentage] = useState(0)
     const [fileData, setFileData] = useState<FileData>({
         students: [],
         fileName: '',
@@ -45,10 +46,10 @@ const studentsUpload = () => {
     }, [])
 
 
+    const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
 
-        const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
 
         if (inputElement.files) {
             if (inputElement.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
@@ -74,9 +75,9 @@ const studentsUpload = () => {
                 const wb = XLSX.read(bstr, { type: 'binary' });
                 /* Get first worksheet */
                 const sheetCount = wb.SheetNames.length;
-                console.log("Before: "+sheetCount)
+                console.log("Before: " + sheetCount)
                 setFileData({ ...fileData, sheets: sheetCount })
-                console.log("After: "+sheetCount)
+                console.log("After: " + sheetCount)
                 if (sheetCount > 1) {
                     for (let i = 0; i < sheetCount; i++) {
                         const wsname = wb.SheetNames[i];
@@ -116,6 +117,10 @@ const studentsUpload = () => {
                         }
                         fileData.students.push(data)
                         console.log(data);
+
+                        const percentage = ((i + 1) / sheetCount) * 100;
+                        console.log(percentage)
+                        setLoadingPercentage(Math.round(percentage))
                     }
                     setFileData({ ...fileData, isFileUploaded: true, })
                 }
@@ -196,7 +201,7 @@ const studentsUpload = () => {
                 }
                 <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-screen p-10`}>
 
-                    <div className='my-auto h-3/5 w-8/12 flex flex-col sm:flex-row items-center justify-center'>
+                    <div className={`my-auto h-3/5 ${fileData.isFileUploaded ? ' w-full ' : ' w-8/12 '} flex flex-col sm:flex-row items-center justify-center`}>
                         {
                             fileData.isFileUploaded
                                 ?
@@ -208,7 +213,7 @@ const studentsUpload = () => {
                                 </div>}
                         {
                             step === 1 ?
-                                <div className={`relative ${sideBarActive ? 'w-full' : 'w-11/12'} rounded h-full flex flex-col bg-ek-blue/10  items-start justify-center`}>
+                                <div className={`relative ${sideBarActive ? 'w-full' : 'w-11/12'} rounded h-fit mxl:h-full flex flex-col bg-ek-blue/10  items-start justify-center`}>
                                     <div className='flex items-center justify-start my-4 w-full'>
                                         <BiInfoCircle size={45} color="#4CA7CE" className='mx-8' />
                                         <span className='text-ek-blue text-3xl font-questrial'>Instructions</span>
@@ -231,13 +236,9 @@ const studentsUpload = () => {
                                     </div>
                                     <div className='flex mxl:hidden w-full items-center justify-center'>
                                         <ul className='text-lg font-questrial list-disc w-1/2'>
-                                            <li className='w-full'>First Name</li>
-                                            <li className='w-full'>Last Name</li>
-                                            <li className='w-full'>Code/ID</li>
-                                            <li className='w-full'>Year/Grade</li>
-                                            <li className='w-full'>Class</li>
-                                            <li className='w-full'>Parent Email(s)</li>
-                                            <li className='w-full'>Parent Tel(s)</li>
+                                            {
+                                                needed.map((need: string) => <li className='w-full'>{need}</li>)
+                                            }
                                         </ul>
                                     </div>
                                     <button className='px-6 mt-8 absolute right-12 bottom-6 rounded text-white font-normal py-2 bg-ek-blue-75 cursor-pointer' onClick={() => { setStep(2) }}>GOT IT</button>
@@ -248,6 +249,7 @@ const studentsUpload = () => {
                                         <div className='flex flex-col items-center justify-center'>
                                             <BiCog size={45} color="#4CA7CE" className='rotating my-4 mx-8' />
                                             <span>Processing...</span>
+                                            <span>{loadingPercentage}%</span>
                                         </div>
                                     </div>
                                     :

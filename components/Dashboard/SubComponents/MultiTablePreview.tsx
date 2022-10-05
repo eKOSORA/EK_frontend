@@ -62,10 +62,9 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 function MultiTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const rows = props.fileData.students[0]
+    const rows = props.students
     // useEffect(() => {
-        console.log("From subcomponent: " + props.fileData.sheets)
-        console.log("From subcomponent: " + props.sheets)
+
         // }, [])
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -88,7 +87,7 @@ function MultiTablePreview(props: any) {
     return (
         <div className='w-full flex flex-col items-center justify-center'>
             <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
-                <table className='rounded' aria-label="custom pagination table">
+                <table className='rounded mx-2' aria-label="custom pagination table">
                     <thead className='text-white'>
                         <tr className='font-questrial bg-ek-blue'>
                             <th>First Name</th>
