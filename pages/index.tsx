@@ -4,28 +4,27 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Navbar } from '../components/Index/Navbar'
 import remote from './../public/img/remoteWork.png'
-import logo from './../public/img/bigLogo.svg'
 import migrate from './../public/img/migrate.png'
 import time from './../public/img/timeManagement.png'
 import speed from './../public/img/speed.png'
 
 const Home: NextPage = () => {
-
   return (
     <div className='h-screen'>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'true'} />
-      <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet" />
       <Head>
-        <link rel="icon" href="/public/logo.svg" />
+
         <title>Home | eKOSORA</title>
       </Head>
       <Navbar />
       <div className='h-[500px] w-full flex items-center justify-between' style={{ background: ' linear-gradient(180deg, #3F7CAC 0%, #ACDBFF 100%)' }}>
         <div className='grid sm:w-1/2 place-content-center p-[30px] '>
           <h1 className='text-black text-[32px] heading-text'>Work Smarter. Not Harder</h1>
+          
           <p className="mt-[10px] text-[22px] text-white">Work from anywhere you are, at any time of the day</p>
-          <a className='login-button' href={'/auth/login'}><button className='hover:animate-ring login-button hover:grayscale-[50%] mt-[15px] button-text bg-[#4ca7ce] text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{  boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></a>
+          <a className='login-button' href={'/auth/login'}><button className='hover:animate-ring login-button hover:grayscale-[50%] mt-[15px] button-text bg-[#4ca7ce] text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG IN</button></a>
         </div>
         <div className='relative h-full hidden sm:block w-1/2'>
           <div className='hidden sm:flex md:ml-24 -translate-x-[100px] -translate-y-[69px]' style={{ transform: ' translate(-100px, 69px)' }} ><Image className='' width={'575px'} height={'500px'} src={remote} /></div>

@@ -10,31 +10,27 @@ import { BiCog, BiInfoCircle } from 'react-icons/bi'
 import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
-import EducatorUploadTablePreview from '../../../components/Dashboard/EducatorUploadTablePreview'
-import { EducatorFileData } from '../../../utils/interfaces'
-import { totalmem } from 'os'
-import { useDropzone } from 'react-dropzone'
-import { arrayComparer } from '../../../utils/comparer'
+import StudentUploadTablePreview from '../../../components/Dashboard/UploadingViews/StudentUploadTablePreview'
+import { FileData } from '../../../utils/interfaces'
+
+import _ from 'lodash';
+
+const studentsUpload = () => {
+
+    const needed = ["First Name", "Last Name", "Code/ID", "Lessons", "Telephone", "Email", "Type", "NID Number"]
 
 
-const upload = () => {
-    //Important states
-    // const { getRootProps, getInputProps } = useDropzone({
-    //     accept: '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel',
-    //     onDrop: (acceptedFiles) => {
-
-    //     }
-    // })
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
-    const [fileData, setFileData] = useState<EducatorFileData>({
-        educators: [],
+    const [fileData, setFileData] = useState<FileData>({
+        students: [],
         fileName: '',
         timeUploaded: '',
         isFileUploaded: false,
         errorState: false,
         errorMessage: "",
-        loading: false
+        loading: false,
+        sheets: 0
     })
     useEffect(() => {
         window.addEventListener('keydown', checkKeyPress)
@@ -53,8 +49,6 @@ const upload = () => {
     }, [])
 
 
-    const needed = ["First Name", "Last Name", "Code/ID", "Lessons", "Telephone", "Email", "Type", "NID Number"
-    ]
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
 
@@ -83,6 +77,7 @@ const upload = () => {
                 /* Get first worksheet */
                 const sheetCount = wb.SheetNames.length;
                 if (sheetCount > 1) {
+                    setFileData({ ...fileData, sheets: sheetCount })
                     for (let i = 0; i < sheetCount; i++) {
                         const wsname = wb.SheetNames[i];
                         const ws = wb.Sheets[wsname];
@@ -101,9 +96,25 @@ const upload = () => {
                             console.log("No data found");
                             return
                         }
-                        // const columns = Object.keys(data[0])
-
-                        fileData.educators.push(data)
+                        const columns = Object.keys(data[0])
+                        console.log(_.difference(columns, needed).length)
+                        console.log(_.difference(columns, needed))
+                        let empty: Array<string> = []
+                        if (_.difference(columns, needed).length !== 0) {
+                            setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
+                            toast.error(`Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]} should be`, {
+                                position: "bottom-center",
+                                autoClose: 5000,
+                                hideProgressBar: true,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                theme: "colored"
+                            })
+                            console.log("Columns are not in the right order");
+                            return
+                        }
+                        fileData.students.push(data)
                         console.log(data);
                     }
                     setFileData({ ...fileData, isFileUploaded: true, })
@@ -128,8 +139,8 @@ const upload = () => {
                         return
                     }
                     const columns = Object.keys(data[0])
-                    console.log(needed, columns);
-                    if (!arrayComparer(columns,needed)) {
+                    let empty: Array<string> = []
+                    if (_.difference(columns, needed).length !== 0) {
                         setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                         toast.error("Columns are not in the right order", {
                             position: "bottom-center",
@@ -143,7 +154,7 @@ const upload = () => {
                         console.log("Columns are not in the right order");
                         return
                     }
-                    setFileData({ ...fileData, loading: false, educators: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
+                    setFileData({ ...fileData, loading: false, students: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
                     console.log(data);
                 }
             })
@@ -167,21 +178,21 @@ const upload = () => {
                 theme='colored'
             />
             <Head>
-                <title> Educators | Admin Dashboard | eKOSORA</title>
+                <title> Students | Teacher Dashboard | eKOSORA</title>
                 <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"></link>
             </Head>
-            <Navbar page='Admin Dashboard' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
+            <Navbar page='Add students' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
             <div className='w-full flex h-full items-start justify-start'>
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} active='dashboard' />
+                        <Sidebar user={userTeacher} active='students' />
                         :
                         null
                 }
                 <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-screen p-10`}>
 
-                    <div className='my-auto  mxl:h-3/5 w-8/12 flex flex-col sm:flex-row items-center justify-center'>
+                    <div className='my-auto h-3/5 w-8/12 flex flex-col sm:flex-row items-center justify-center'>
                         {
                             fileData.isFileUploaded
                                 ?
@@ -209,20 +220,18 @@ const upload = () => {
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>First Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Last Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Code/ID</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Lessons</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Telephone</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Email</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Telephone</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0'>NID Number</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Year/Grade</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Class</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Parent Email(s)</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0 '>Parent Tel(s)</div>
                                     </div>
                                     <div className='flex mxl:hidden w-full items-center justify-center'>
                                         <ul className='text-lg font-questrial list-disc w-1/2'>
                                             {
-                                                needed.map((cred: any) =>
+                                                needed.map((need: string) => <li className='w-full'>{need}</li>)
 
-                                                    <li className='w-full'>{cred}</li>
-                                                )
                                             }
+
                                         </ul>
                                     </div>
                                     <button className='px-6 mt-8 absolute right-12 bottom-6 rounded text-white font-normal py-2 bg-ek-blue-75 cursor-pointer' onClick={() => { setStep(2) }}>GOT IT</button>
@@ -238,7 +247,7 @@ const upload = () => {
                                     :
                                     fileData.isFileUploaded
                                         ?
-                                        <EducatorUploadTablePreview fileData={fileData} />
+                                        <StudentUploadTablePreview fileData={fileData} />
                                         :
                                         <div className='droparea w-11/12 rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center'>
                                             <div className='flex flex-col items-center justify-center'>
@@ -257,4 +266,4 @@ const upload = () => {
     )
 }
 
-export default upload
+export default studentsUpload

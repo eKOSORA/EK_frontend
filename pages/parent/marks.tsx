@@ -6,8 +6,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userParent } from '../../utils/faker'
+import { NextPage } from 'next'
 
-const studentsMarks = () => {
+const studentsMarks: NextPage = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 

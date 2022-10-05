@@ -10,7 +10,7 @@ import { BiCog, BiInfoCircle } from 'react-icons/bi'
 import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
-import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
+import StudentUploadTablePreview from '../../../components/Dashboard/UploadingViews/StudentUploadTablePreview'
 import { FileData } from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'

@@ -10,15 +10,12 @@ import { BiCog, BiInfoCircle } from 'react-icons/bi'
 import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
-import StudentUploadTablePreview from '../../../components/Dashboard/StudentUploadTablePreview'
+import StudentUploadTablePreview from '../../../components/Dashboard/UploadingViews/StudentUploadTablePreview'
 import { FileData } from '../../../utils/interfaces'
-import { totalmem } from 'os'
-import { useDropzone } from 'react-dropzone'
-import { arrayComparer } from '../../../utils/comparer'
 
+import _ from 'lodash';
 
 const studentsUpload = () => {
-
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
@@ -79,8 +76,9 @@ const studentsUpload = () => {
                 const wb = XLSX.read(bstr, { type: 'binary' });
                 /* Get first worksheet */
                 const sheetCount = wb.SheetNames.length;
+                console.log(sheetCount)
+                setFileData({ ...fileData, sheets: sheetCount })
                 if (sheetCount > 1) {
-                    setFileData({ ...fileData, sheets: sheetCount })
                     for (let i = 0; i < sheetCount; i++) {
                         const wsname = wb.SheetNames[i];
                         const ws = wb.Sheets[wsname];
@@ -100,10 +98,12 @@ const studentsUpload = () => {
                             return
                         }
                         const columns = Object.keys(data[0])
-                        console.log(!arrayComparer(columns, needed))
-                        if (!arrayComparer(columns, needed)) {
+                        console.log(_.difference(columns, needed).length)
+                        console.log(_.difference(columns, needed))
+                        let empty: Array<string> = []
+                        if (_.difference(columns, needed).length !== 0) {
                             setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
-                            toast.error("Columns are not in the right order", {
+                            toast.error(`Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]} should be`, {
                                 position: "bottom-center",
                                 autoClose: 5000,
                                 hideProgressBar: true,
@@ -140,7 +140,8 @@ const studentsUpload = () => {
                         return
                     }
                     const columns = Object.keys(data[0])
-                    if (!arrayComparer(columns, needed)) {
+                    let empty: Array<string> = []
+                    if (_.difference(columns, needed).length !== 0) {
                         setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                         toast.error("Columns are not in the right order", {
                             position: "bottom-center",

@@ -22,7 +22,7 @@ import announcement from '../../public/img/notification.png'
 import marks from '../../public/img/marks.png'
 import { userParent } from '../../utils/faker'
 
-const studentsDashboard = () => {
+const parentDashboard = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -157,4 +157,4 @@ const data = {
   )
 }
 
-export default studentsDashboard
+export default parentDashboard

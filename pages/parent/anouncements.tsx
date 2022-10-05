@@ -6,8 +6,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userParent } from '../../utils/faker'
+import { NextPage } from 'next'
 
-const studentAnnouncements = () => {
+const Annoucements: NextPage = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -47,4 +48,4 @@ const studentAnnouncements = () => {
   )
 }
 
-export default studentAnnouncements
+export default Annoucements

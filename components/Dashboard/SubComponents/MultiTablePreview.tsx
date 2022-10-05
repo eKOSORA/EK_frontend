@@ -1,10 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
-const Root = styled('div')`
+type Props = {
+    students: Array<any>,
+
+}
+
+const MultiTablePreview = (props: Props) => {
+
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const rows = props.students
+
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+
+    const Root = styled('div')`
   table {
       font-family: arial, sans-serif;
       border-collapse: collapse;
@@ -23,7 +53,7 @@ const Root = styled('div')`
     }
     `;
 
-const CustomTablePagination = styled(TablePaginationUnstyled)`
+    const CustomTablePagination = styled(TablePaginationUnstyled)`
   & .${classes.toolbar} {
       display: flex;
       flex-direction: column;
@@ -58,39 +88,9 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 }
 `;
 
-function StudentUploadTablePreview(props: any) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [sheets, setSheets] = useState(props.fileData.sheets)
-    const rows = props.fileData.students[0]
-    // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
     return (
-        <div className='w-full flex flex-col items-center justify-center'>
-            <h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Table Preview</h1>
-
-            {
-                sheets > 1
-                ?
-                <span></span>
-                :
-                <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
+        <div>
+            <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
                 <table className='rounded' aria-label="custom pagination table">
                     <thead className='text-white'>
                         <tr className='font-questrial bg-ek-blue'>
@@ -162,9 +162,9 @@ function StudentUploadTablePreview(props: any) {
                         </tr>
                     </tfoot>
                 </table>
-            </Root>}
+            </Root>
         </div>
-    );
+    )
 }
 
-export default StudentUploadTablePreview
+export default MultiTablePreview
