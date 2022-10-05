@@ -13,14 +13,15 @@ const EducatorForm: NextComponentType = () => {
     setSubmitLoader(true)
     e.preventDefault()
     console.log(formData)
-    const data = login()
+    const data = login({formData})
+    
   }
 
   const [submitLoader, setSubmitLoader] = useState(false)
 
   interface State {
     type:string
-    email: string;
+    emailorcode: string;
     school: string;
     password: string;
     showPassword: boolean;
@@ -43,8 +44,8 @@ const EducatorForm: NextComponentType = () => {
   };
 
   const [formData, setFormData] = useState({
-    type:'educator',
-    email: '',
+    accountType:'educator',
+    emailorcode: '',
     school: '',
     password: '',
     showPassword: false,
@@ -79,7 +80,7 @@ const EducatorForm: NextComponentType = () => {
             style: { color: 'black' },
           }}
           className='bg-ek-blue/10 my-4 w-full text-lg' label='Email'
-          onChange={handleChange('email')}
+          onChange={handleChange('emailorcode')}
           focused={true}
           required={true}
         />

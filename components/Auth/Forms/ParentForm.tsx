@@ -3,6 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
+import { useAuth } from '../../../Context/AuthContext';
 
 const ParentForm: NextComponentType = () => {
 
@@ -13,11 +14,20 @@ const ParentForm: NextComponentType = () => {
     setSubmitLoader(true)
     setFormData({ ...formData, activeButton: false })
     console.log(formData)
+
+    const { login }: any = useAuth()
+
+    const data = login({ formData })
+    console.log(data)
+
+
   }
 
   interface State {
-    emailOrPhoneNumber: string;
+    emailorcode: string;
     password: string;
+    school: string;
+    accountType: string;
     showPassword: boolean;
     activeButton: boolean;
   }
@@ -39,8 +49,10 @@ const ParentForm: NextComponentType = () => {
   };
 
   const [formData, setFormData] = useState({
-    emailOrPhoneNumber: '',
+    accountType: 'parent',
+    emailorcode: '',
     password: '',
+    school: '',
     showPassword: false,
     activeButton: true
   })
@@ -55,7 +67,7 @@ const ParentForm: NextComponentType = () => {
           InputProps={{
             style: { color: 'black' },
           }}
-          onChange={handleChange('emailOrPhoneNumber')}
+          onChange={handleChange('emailorcode')}
           required={true}
           className='bg-ek-blue/10 my-4 w-full text-lg' label='PhoneNumber / Email'
           focused={true} />

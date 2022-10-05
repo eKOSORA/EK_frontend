@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
@@ -12,36 +13,105 @@ const StudentProvider = ({ children }: any) => {
     const [school, setStudent] = useState({})
     const { user }: any = useAuth()
     const baseURL = 'https://ekosora-backend.cyclic.app'
-    const getAllStudents = async () => {
-
+    const getAllStudents = async ({ year, className }: any) => {
+        try {
+            const data = await axios.get(`${baseURL}/student/getAll?year=${year}&class=${className}`)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
     }
     const registerStudent = async ({ studentData }: any) => {
+        try {
 
+            const data = await axios.post(`${baseURL}/student/add`, studentData)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
     }
-    const editStudent = async ({ newStudentData, studentID, parentEmails, email }: any) => {
+    const editStudent = async ({ studentData }: any) => {
+        try {
 
+            const data = await axios.post(`${baseURL}/student/edit`, studentData)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
     }
 
     const addRecord = async ({ recordData }: any) => {
 
-    }
-
-    const updateMark = async ({ studentId, recordId, mark, remark }: any) => {
-
-    }
-
-    const getRecords = ({ _class, _year }: any) => {
-
-    }
-    const deleteRecord = (_id: string) => {
-
-    }
-    const addParent = ({ parent_mail, studentID }: any) => {
+        try {
+            const data = await axios.post(`${baseURL}/student/addRecord`, recordData)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
 
     }
 
-    const getSummary = () => {
+    const updateMark = async ({ newMark }: any) => {
 
+        try {
+            const data = await axios.post(`${baseURL}/student/updateMark`, newMark)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
+
+    }
+
+    const getRecords = async ({ _class, _year }: any) => {
+        try {
+            const data = await axios.post(`${baseURL}/student/getRecords?_class=${_class}&_year=${_year}`)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
+    }
+    const deleteRecord = async (_id: string) => {
+        try {
+            const data = await axios.delete(`${baseURL}/student/deleteRecord`, { _id })
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
+    }
+    const addParent = async ({ parent_email, studentI }: any) => {
+        try {
+            const data = await axios.post(`${baseURL}/student/addParent`, { parent_email, studentI })
+            return data;
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
+    }
+
+    const getSummary = async () => {
+        try {
+            const data = await axios.post(`${baseURL}/student/getSummary`)
+            return data;
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error);
+            return
+        }
     }
 
     return (

@@ -2,6 +2,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Autocomplete, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
+import { useAuth } from '../../../Context/AuthContext';
 
 const StudentForm: NextComponentType = () => {
 
@@ -12,16 +13,23 @@ const StudentForm: NextComponentType = () => {
     setFormData({ ...formData, activeButton: false })
     e.preventDefault()
     console.log(formData)
+    const { login }: any = useAuth()
+
+    const data = login({ formData })
+    console.log(data)
+    
   }
   interface State {
-    code: string;
+    accountType: string;
+    school: string;
+    emailorcode: string;
     password: string;
     showPassword: boolean;
   }
 
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (prop === 'code') {
+      if (prop === 'emailorcode') {
         setFormData({ ...formData, [prop]: 'RCA' + event.target.value });
       }
       else {
@@ -41,11 +49,12 @@ const StudentForm: NextComponentType = () => {
   };
 
   const [formData, setFormData] = useState({
-    code: '',
+    emailorcode: '',
     password: '',
     showPassword: false,
-    activeButton: true
-
+    activeButton: true,
+    school: '',
+    accountType: 'student'
   })
 
 
@@ -81,7 +90,7 @@ const StudentForm: NextComponentType = () => {
             }}
             required={true}
             className='bg-ek-blue/10 my-4 ml-2 w-4/5 text-lg' label='Code'
-            onChange={handleChange('code')}
+            onChange={handleChange('emailorcode')}
             autoComplete={'off'}
             focused={true} />
         </div>

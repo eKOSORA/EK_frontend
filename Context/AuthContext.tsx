@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import jwtdecode from "jwt-decode";
 import { deleteAllCookies, getCookie } from "../utils/cookies";
+import axios from "axios";
 
 
 let AuthContext = React.createContext({});
@@ -38,16 +39,21 @@ export default function AuthProvider({ children }: any) {
         }
     };
 
+    const logout = async () => {
+        const data = await axios.get(`${baseURL}/auth/logout`)
+        return data;
+    }
 
-    const login = ({ loginData }: any) => {
-
+    const login = async ({ formData }: any) => {
+        const data = await axios.post(`${baseURL}/auth/login`, formData)
+        return data;
     }
 
     React.useEffect(() => {
         decodeToken();
     }, []);
 
-    let value = { user, setUser, getUserById, login };
+    let value = { user, logout,setUser, getUserById, login };
 
     return (
         <>
