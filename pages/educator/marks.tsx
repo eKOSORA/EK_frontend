@@ -111,8 +111,13 @@ const marks = () => {
 
   }
   useEffect(() => {
+
     calculateAverage(studentMarks);
+
   }, [studentMarks])
+
+
+
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -274,18 +279,18 @@ const marks = () => {
                             <input onChange={selectAllMarks} className='AllStudentsCheckbox border-white checked:bg-white' type="checkbox" name="" id="" />
                           </th>
                           <th className='w-5/12 bg-ek-blue-50 text-white'>Name</th>
-                          <th className='w-5/12 bg-ek-blue-50 text-white'>/30</th>
+                          <th id='marksColumn' className='w-5/12 bg-ek-blue-50 text-white'>/30</th>
                         </tr>
                       </thead>
                       <tbody>
                         {
-                          studentMarks.map((studentMark: any) => {
+                          studentMarks.map((studentMark: any, index: number) => {
                             return <tr key={Math.random()} className='my-1 even:bg-gray-300 py-1 h-8'>
                               <td className='flex items-center justify-center py-1 -w-10 h-8'><input onChange={() => selectedMarks.push(studentMark)} className='studentCheckbox' type="checkbox" name="" id="" /></td>
                               <td className='py-1'>{studentMark.studentName}</td>
                               <td align='center' className='py-1'>{
                                 editMode && editAsMode === 'individually' ?
-                                  <input type="number" max={studentMark.records[0].max} defaultValue={studentMark.records[0].mark} className={`px-4 text-center py-1 bg-inherit`} />
+                                  <input type={'number'} maxLength={studentMark.records[0].max} onChange={(e) => studentMarks[index].records.mark = e.target.value} defaultValue={studentMark.records[0].mark} className={`px-4 text-center py-1 bg-inherit`} />
                                   :
                                   <span>{studentMark.records[0].mark}</span>
                               }
