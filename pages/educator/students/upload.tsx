@@ -48,8 +48,6 @@ const studentsUpload = () => {
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
 
-
-
         const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
 
         if (inputElement.files) {
@@ -76,8 +74,9 @@ const studentsUpload = () => {
                 const wb = XLSX.read(bstr, { type: 'binary' });
                 /* Get first worksheet */
                 const sheetCount = wb.SheetNames.length;
-                console.log(sheetCount)
+                console.log("Before: "+sheetCount)
                 setFileData({ ...fileData, sheets: sheetCount })
+                console.log("After: "+sheetCount)
                 if (sheetCount > 1) {
                     for (let i = 0; i < sheetCount; i++) {
                         const wsname = wb.SheetNames[i];
@@ -100,7 +99,7 @@ const studentsUpload = () => {
                         const columns = Object.keys(data[0])
                         console.log(_.difference(columns, needed).length)
                         console.log(_.difference(columns, needed))
-                        let empty: Array<string> = []
+
                         if (_.difference(columns, needed).length !== 0) {
                             setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                             toast.error(`Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]} should be`, {
@@ -140,7 +139,7 @@ const studentsUpload = () => {
                         return
                     }
                     const columns = Object.keys(data[0])
-                    let empty: Array<string> = []
+
                     if (_.difference(columns, needed).length !== 0) {
                         setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
                         toast.error("Columns are not in the right order", {
@@ -162,6 +161,10 @@ const studentsUpload = () => {
             reader.readAsBinaryString(inputElement.files[0]);
         }
     }
+
+    useEffect(() => {
+        console.log(fileData)
+    }, [fileData])
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -250,7 +253,7 @@ const studentsUpload = () => {
                                     :
                                     fileData.isFileUploaded
                                         ?
-                                        <StudentUploadTablePreview fileData={fileData} />
+                                        <StudentUploadTablePreview fileData={fileData} sheets={fileData.sheets} />
                                         :
                                         <div className='droparea w-11/12 rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center'>
                                             <div className='flex flex-col items-center justify-center'>

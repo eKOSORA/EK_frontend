@@ -1,40 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 
-type Props = {
-    students: Array<any>,
-
-}
-
-const MultiTablePreview = (props: Props) => {
-
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const rows = props.students
-
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-
-    const Root = styled('div')`
+const Root = styled('div')`
   table {
       font-family: arial, sans-serif;
       border-collapse: collapse;
@@ -53,7 +24,7 @@ const MultiTablePreview = (props: Props) => {
     }
     `;
 
-    const CustomTablePagination = styled(TablePaginationUnstyled)`
+const CustomTablePagination = styled(TablePaginationUnstyled)`
   & .${classes.toolbar} {
       display: flex;
       flex-direction: column;
@@ -88,8 +59,34 @@ const MultiTablePreview = (props: Props) => {
 }
 `;
 
+function MultiTablePreview(props: any) {
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const rows = props.fileData.students[0]
+    // useEffect(() => {
+        console.log("From subcomponent: " + props.fileData.sheets)
+        console.log("From subcomponent: " + props.sheets)
+        // }, [])
+    // Avoid a layout jump when reaching the last page with empty rows.
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     return (
-        <div>
+        <div className='w-full flex flex-col items-center justify-center'>
             <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
                 <table className='rounded' aria-label="custom pagination table">
                     <thead className='text-white'>
@@ -164,7 +161,7 @@ const MultiTablePreview = (props: Props) => {
                 </table>
             </Root>
         </div>
-    )
+    );
 }
 
 export default MultiTablePreview

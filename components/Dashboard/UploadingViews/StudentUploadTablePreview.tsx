@@ -63,11 +63,11 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 function StudentUploadTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [sheets, setSheets] = useState(props.fileData.sheets)
+    const [sheets, setSheets] = useState(props.sheets)
     const rows = props.fileData.students[0]
     const [sheetNo, setSheetNo] = useState(0)
     // useEffect(() => {
-        console.log(props.fileData.sheets)
+        console.log(props.fileData)
     // }, [])
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -94,7 +94,7 @@ function StudentUploadTablePreview(props: any) {
             {
                 sheets > 1
                     ?
-                    <div className='flex items-center justify-around'>
+                    <div className='w-4/5 flex items-center justify-around'>
                         <div onClick={() => setSheetNo(sheetNo - 1)} className={`${sheetNo === 0 ? 'cursor-not-allowed grayscale-[40%]' : 'cursor-pointer'} p-4 cursor-pointer rounded-full flex items-center justify-center bg-ek-blue-75`}><BiChevronLeft color='white' size={20} /></div>
                         <MultiTablePreview students={props.fileData.students[sheetNo]} />
                         <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo + 1 === sheets ? 'cursor-not-allowed grayscale-[40%]' : 'cursor-pointer'} p-4  rounded-full flex items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
