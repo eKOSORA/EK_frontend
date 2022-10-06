@@ -8,10 +8,13 @@ import { FaRegUserCircle } from 'react-icons/fa'
 import { IoLogOutOutline } from 'react-icons/io5'
 import { GrFormClose } from 'react-icons/gr'
 import { IoMdClose } from 'react-icons/io'
+import { useAuth } from '../../Context/AuthContext'
 
 export const Navbar = (props: any) => {
   const handleLogout = async () => {
-
+    const { logout }: any = useAuth()
+    const data = await logout()
+    console.log(data)
   }
   return (
     <div className='fixed z-10 w-screen h-[60px] py-[20px] px-[10px] sm:px-[40px] bg-ek-blue-50 flex items-center justify-between'>
@@ -27,8 +30,8 @@ export const Navbar = (props: any) => {
       </div>
       <span className='hidden mmsm:flex heading-text text-white text-3xl'>{props.page}</span>
       <div className='flex items-center justify-center'>
-        <a className='login-button ' href={'/auth/login'}><button className='btn hidden md:flex login-button hover:grayscale-[50%] text-center items-center justify-center button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG OUT</button></a>
-        <a className='login-button' href={'/auth/login'}><IoLogOutOutline className='btn flex md:hidden text-white' size={38} /></a>
+        <Link className='login-button ' href={'/auth/login'}><button onClick={handleLogout} className='btn hidden md:flex login-button hover:grayscale-[50%] text-center items-center justify-center button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG OUT</button></Link>
+        <Link className='login-button' href={'/auth/login'}><IoLogOutOutline onClick={handleLogout} className='btn flex md:hidden text-white' size={38} /></Link>
       </div>
     </div>
   )

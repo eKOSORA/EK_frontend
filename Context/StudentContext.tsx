@@ -84,7 +84,7 @@ const StudentProvider = ({ children }: any) => {
     }
     const deleteRecord = async (_id: any) => {
         try {
-            const data = await axios.delete(`${baseURL}/student/deleteRecord`)
+            const data = await axios.delete(`${baseURL}/student/deleteRecord`, { headers:{}, data: { _id } })
             return data
         } catch (error) {
             console.log("Fetch error")

@@ -1,10 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'animate.css';
+import { useAuth } from '../../Context/AuthContext';
 
 
 const Sidebar = (props: any) => {
+
+  const { user }: any = useAuth()
+  useEffect(() => {
+    if (!user) return window.location.replace('/auth/login')
+  }, [])
+
   return (
     <div className={`animate__animated  ${props.sideBarActive ? 'animate__slideOutLeft' : 'animate__slideInLeft'} sidebar w-[300px] pt-[60px] h-screen absolute md:z-1 md:sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between`}>
       <div className='w-full h-32  flex flex-col items-center justify-start'>
