@@ -82,9 +82,9 @@ const StudentProvider = ({ children }: any) => {
             return
         }
     }
-    const deleteRecord = async (_id: string) => {
+    const deleteRecord = async (_id: any) => {
         try {
-            const data = await axios.delete(`${baseURL}/student/deleteRecord`, { _id })
+            const data = await axios.delete(`${baseURL}/student/deleteRecord`)
             return data
         } catch (error) {
             console.log("Fetch error")
@@ -92,9 +92,9 @@ const StudentProvider = ({ children }: any) => {
             return
         }
     }
-    const addParent = async ({ parent_email, studentI }: any) => {
+    const addParent = async ({ parent_email, studentId }: any) => {
         try {
-            const data = await axios.post(`${baseURL}/student/addParent`, { parent_email, studentI })
+            const data = await axios.post(`${baseURL}/student/addParent`, { parent_email, studentId })
             return data;
         } catch (error) {
             console.log("Fetch error")

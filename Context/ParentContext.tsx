@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
@@ -12,14 +13,28 @@ const ParentProvider = ({ children }: any) => {
     const [school, setParent] = useState({})
     const { user }: any = useAuth()
     const baseURL = 'https://ekosora-backend.cyclic.app'
-    const registerParent = async ({ parentData }: any) => {
-
+    const registerParent = async ({ parentData, studentID }: any) => {
+        try {
+            const data = await axios.post(`${baseURL}/parent/register?id=${studentID}`, parentData)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error)
+            return
+        }
     }
-    const getInfo = async (parentID: string) => {
-
+    const getInfo = async ({ parentId }: any) => {
+        try {
+            const data = await axios.post(`${baseURL}/parent/getInfo`, parentId)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error)
+            return
+        }
     }
     return (
-        <ParentContext.Provider value={{ registerParent }}>
+        <ParentContext.Provider value={{ getInfo, registerParent }}>
             {children}
         </ParentContext.Provider>
     );

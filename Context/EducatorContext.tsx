@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
@@ -12,14 +13,35 @@ const EducatorProvider = ({ children }: any) => {
     const [school, setEducator] = useState({})
     const { user }: any = useAuth()
     const baseURL = 'https://ekosora-backend.cyclic.app'
-    const addEducator = ({ educatorData }: any) => {
-
+    const addEducator = async ({ educatorData }: any) => {
+        try {
+            const data = await axios.post(`${baseURL}/educator/add`, educatorData)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error)
+            return
+        }
     }
-    const getAllEducators = () => {
-
+    const getAllEducators = async () => {
+        try {
+            const data = await axios.get(`${baseURL}/educator/getAll`)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error)
+            return
+        }
     }
-    const editEducator = () => {
-
+    const editEducator = async ({ educatorData }: any) => {
+        try {
+            const data = await axios.get(`${baseURL}/educator/getAll`, educatorData)
+            return data
+        } catch (error) {
+            console.log("Fetch error")
+            console.log(error)
+            return
+        }
     }
     return (
         <EducatorContext.Provider value={{ addEducator, getAllEducators, editEducator }}>
