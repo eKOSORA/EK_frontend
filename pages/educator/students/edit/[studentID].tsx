@@ -4,11 +4,11 @@ import React from 'react'
 const editStudent = () => {
 
   const router = useRouter()
-  const { studentId } = router.query
-
+  const { studentID } = router.query
+  console.log(router)
   return (
     <div>
-{studentId}
+      The ID is {studentID}
     </div>
   )
 }

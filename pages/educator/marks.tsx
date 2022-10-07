@@ -18,6 +18,7 @@ const marks = () => {
   const [sideBarActive, setSideBarActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [studentMarks, setStudentMarks] = useState(registeredMarks)
+  const [_studentMarks, set_StudentMarks] = useState(registeredMarks)
   const [editAsMode, setEditAsMode] = useState('')
   const [marksFormData, setMarksFormData] = useState({
     marksCount: 0,
@@ -75,13 +76,25 @@ const marks = () => {
 
   const handleSearchStudents = (e: any) => {
     const query = e.target.value
-    if (query === '') return setStudentMarks(registeredMarks)
-
-    const searchedStudents = studentMarks.filter((student: any) => student.studentName.toLowerCase().includes(query));
+    if (query === "") return setStudentMarks(_studentMarks)
+    console.log(query)
+    const searchedStudents = _studentMarks.filter((student: any) => student.studentName.toLowerCase().includes(query));
+    console.log(searchedStudents)
     setStudentMarks(searchedStudents)
     return
   }
 
+  /*
+      const handleSearchStudents = (e: any) => {
+        const query = e.target.value
+        if (query === "") return setStudents(_students)
+        console.log(query)
+        const searchedStudents = _students.filter((student: any) => student['First Name'].toLowerCase().includes(query) || student['Last Name'].toLowerCase().includes(query));
+        console.log(searchedStudents)
+        setStudents(searchedStudents)
+        return
+    }
+  */
   const selectAllMarks = (e: any) => {
     const allSelector = e.target
     const allCheckboxes = document.querySelectorAll('table input[type=checkbox]') as any //Array<HTMLInputElement>
