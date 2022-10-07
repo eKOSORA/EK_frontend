@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/UploadingViews/StudentUploadTablePreview'
 import { FileData } from '../../../utils/interfaces'
 import _ from 'lodash';
-import { IUploadStudentsInterface } from '../../types/students'
+import { IUploadStudentsInterface } from '../../@types/students'
 
 const studentsUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
