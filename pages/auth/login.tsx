@@ -24,7 +24,6 @@ const signup: NextPage = () => {
         <div className='w-screen h-screen flex flex-col items-center justify-start'>
             <Head>
                 <title>Login | eKOSORA</title>
-                <link href="https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Raleway:ital,wght@0,200;0,400;0,500;1,200&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,500;1,700&display=swap" rel="stylesheet"/>
             </Head>
             <Navbar />
             <div className='main w-full h-full flex sm:flex-row flex-col items-center justify-center'>

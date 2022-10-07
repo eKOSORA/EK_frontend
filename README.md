@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p style="text-align: center;">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+</p>
 
-## Getting Started
+<h3 style="text-align: center;">eKOSORA</h3>
 
-First, run the development server:
+<div style="text-align: center;">
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+</div>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+---
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+<p style="text-align: center;"> Few lines describing your project.
+    <br>
+</p>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 📝 Table of Contents
 
-## Learn More
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [TODO](../TODO.md)
+- [Contributing](../CONTRIBUTING.md)
+- [Authors](#authors)
+- [Acknowledgments](#acknowledgement)
 
-To learn more about Next.js, take a look at the following resources:
+## 🧐 About <a href = "#about"></a>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+eKOSORA is an overall school management system that provides different features that will boost your school's perfomance.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🏁 Getting Started <a href = "#getting_started"></a>
 
-## Deploy on Vercel
+This information will give you a glimpse of what eKOSORA is going to do for you.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎈 Usage <a href="usage"></a>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+To use eKOSORA head to ekosora.rw then you can explore every single eKOSORA delivers to you
+
+## ⛏️ Built Using <a href = "#built_using"></a>
+
+- [MongoDB](https://www.mongodb.com/) - Database
+- [MUI](https://mui.com/) - Web Styling Component
+- [NextJS](https://nextjs.org/) - Web Framework
+- [NestJS](https://nestjs.com) - Server Environment
+
+## ✍️ Authors <a href = "#authors"></a>
+
+- [@IVainqueur](https://github.com/IVainqueur) - Idea & Initial work
+- [@mugishap](https://github.com/mugishap) - Design Implementation and API integration.
+
+See also the list of [contributors](https://github.com/IVainqueur/EK_frontend/contributors) who participated in this project.
+
+## 🎉 Acknowledgements <a href = "#acknowledgement"></a>
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- References
