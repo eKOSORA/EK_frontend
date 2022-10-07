@@ -8,12 +8,13 @@ import 'animate.css'
 import { classes, studentsDisplay, userTeacher, years } from '../../../utils/faker'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { GoSearch } from 'react-icons/go'
-import { HiPlusCircle, HiSortDescending, HiUserGroup } from 'react-icons/hi'
+import { HiOutlinePencilAlt, HiPlusCircle, HiSortDescending, HiUserGroup } from 'react-icons/hi'
 import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
   tablePaginationUnstyledClasses as classNames,
 } from '@mui/base/TablePaginationUnstyled';
 import Link from 'next/link'
+import { FiTrash } from 'react-icons/fi'
 
 
 const studentsPage = () => {
@@ -77,6 +78,9 @@ const studentsPage = () => {
 
   }
 
+  const handleDeleteStudent = () => {
+
+  }
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -185,7 +189,7 @@ const studentsPage = () => {
             <div className='flex flex-col items-start justify-start w-1/2'>
               <h1 className='font-medium text-4xl font-questrial text-ek-blue-75'>Choose</h1>
               <div className='pt-5 w-full pb-10 flex items-center justify-start'>
-                <FormControl className='my-4 w-1/3 mx-4'>
+                <FormControl className='my-4 w-1/3 mr-4'>
                   <InputLabel id="demo-simple-select-label">Year</InputLabel>
                   <Select
                     className='bg-ek-blue/10'
@@ -242,7 +246,7 @@ const studentsPage = () => {
                 </div>
               </Link>
 
-              <Link title='Go Back to students and their classes' href={'/educator/students'}>
+              <Link title='Go Back to students and their classes' href={'/educator/students/all'}>
                 <div className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
                   <HiUserGroup size={25} color={'#808080'} />
                 </div>
@@ -263,8 +267,8 @@ const studentsPage = () => {
                     <th>Code/ID</th>
                     <th>Year/Grade</th>
                     <th>Class</th>
-                    <th>Parent Email(s)</th>
                     <th>Parent Tel(s)</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody className='font-questrial'>
@@ -289,10 +293,11 @@ const studentsPage = () => {
                         {row['Class']}
                       </td>
                       <td style={{ width: 360 }} align="right">
-                        {row['Parent Email(s)']}
-                      </td>
-                      <td style={{ width: 360 }} align="right">
                         {row['Parent Tel(s)']}
+                      </td>
+                      <td className='flex items-center justify-center' style={{ width: 360 }} align="right">
+                        <Link href={`/educator/students/edit/${row['Code/ID']}`}><HiOutlinePencilAlt size={26} className="text-lg mx-4 text-ek-blue font-bold cursor-pointer" /></Link>
+                        <FiTrash size={26} onClick={handleDeleteStudent} className="text-lg mx-4 text-[#E63C3C] font-bold cursor-pointer" />
                       </td>
                     </tr>
                   ))}

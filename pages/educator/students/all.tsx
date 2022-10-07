@@ -8,13 +8,14 @@ import 'animate.css'
 import { AllStudentsDisplay, classes, studentsDisplay, userTeacher, years } from '../../../utils/faker'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { GoSearch } from 'react-icons/go'
-import { HiPlusCircle, HiSortDescending } from 'react-icons/hi'
+import { HiOutlinePencilAlt, HiPlusCircle, HiSortDescending } from 'react-icons/hi'
 import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classNames,
 } from '@mui/base/TablePaginationUnstyled';
 import Link from 'next/link'
 import { TiMediaPlayReverse } from 'react-icons/ti'
+import { FiTrash } from 'react-icons/fi'
 
 const AllStudents = () => {
     //Important states
@@ -134,6 +135,9 @@ const AllStudents = () => {
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
 
+    const handleDeleteStudent = () => {
+
+    }
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -198,8 +202,8 @@ const AllStudents = () => {
                                         <th>Code/ID</th>
                                         <th>Year/Grade</th>
                                         <th>Class</th>
-                                        <th>Parent Email(s)</th>
                                         <th>Parent Tel(s)</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody className='font-questrial'>
@@ -224,10 +228,11 @@ const AllStudents = () => {
                                                 {row['Class']}
                                             </td>
                                             <td style={{ width: 360 }} align="right">
-                                                {row['Parent Email(s)']}
-                                            </td>
-                                            <td style={{ width: 360 }} align="right">
                                                 {row['Parent Tel(s)']}
+                                            </td>
+                                            <td className='flex items-center justify-center' style={{ width: 360 }} align="right">
+                                                <Link href={`/educator/students/edit/${row['Code/ID']}`}><HiOutlinePencilAlt size={26} className="text-lg mx-4 text-ek-blue font-bold cursor-pointer" /></Link>
+                                                <FiTrash size={26} onClick={handleDeleteStudent} className="text-lg mx-4 text-[#E63C3C] font-bold cursor-pointer" />
                                             </td>
                                         </tr>
                                     ))}
