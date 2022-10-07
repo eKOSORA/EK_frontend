@@ -53,7 +53,7 @@ const studentsMarks: NextPage = () => {
           <div className='flex items-center justify-start w-full px-5 my-4'>
             {
               studentMarks.map((studentMark) => {
-                return <div className='mx-3 pr-16   rounded-md relative h-40 justify-around flex flex-col items-center w-72 py-2.5 px-5 marksCard'>
+                return <div key={Math.random()} className='mx-3 pr-16   rounded-md relative h-40 justify-around flex flex-col items-center w-72 py-2.5 px-5 marksCard'>
                   <h3 className='w-full text-center heading-text text-black text-2xl mb-5'>{studentMark.name}</h3>
                   <h3 className='w-full text-center heading-text text-black/60 text-2xl mb-5'>{studentMark.marks}/{studentMark.max}</h3>
                   <p className="Date text-black/60">{studentMark.date}</p>

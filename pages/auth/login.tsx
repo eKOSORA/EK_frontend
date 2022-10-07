@@ -1,24 +1,13 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import EducatorForm from '../../components/Auth/Forms/EducatorForm'
 import ParentForm from '../../components/Auth/Forms/ParentForm'
 import StudentForm from '../../components/Auth/Forms/StudentForm'
 import { Navbar } from '../../components/Auth/Navbar'
 
-const signup: NextPage = () => {
+const login: NextPage = () => {
     const [active, setActive] = useState('parent')
-    const [formData, setFormData] = useState({
-        code: '',
-        phoneNumber: null,
-        password: ''
-    })
-
-
-    const handleSubmit = async (e: any) => {
-        e.preventDefault()
-        console.log(formData)
-    }
 
     return (
         <div className='w-screen h-screen flex flex-col items-center justify-start'>
@@ -53,4 +42,4 @@ const signup: NextPage = () => {
     )
 }
 
-export default signup
+export default login

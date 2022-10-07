@@ -39,7 +39,7 @@ const settings = () => {
     const reader = new FileReader()
     const file = document.querySelector('#profileImageUpload') as HTMLInputElement
     reader.addEventListener('loadend', () => {
-      setFormData({ ...formData, profileImageStr: reader.result })
+      setFormData({ ...formData, profileImageStr: reader.result as string })
     })
     if (file.files) {
       reader.readAsDataURL(file.files[0])
@@ -87,7 +87,7 @@ const settings = () => {
             </div>
             <div className='w-8/12 flex flex-col flex-grow'>
               <form onSubmit={handleChangeSettings} className='w-full flex flex-col items-start justify-center'>
-              <input onChange={previewFile} type="file" name="profileImageUpload" id="profileImageUpload" className='hidden' />
+                <input onChange={previewFile} type="file" name="profileImageUpload" id="profileImageUpload" className='hidden' />
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-[100px]'>Names: </h3>
                   {

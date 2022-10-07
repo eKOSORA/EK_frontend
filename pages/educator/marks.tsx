@@ -4,7 +4,6 @@ import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { useSnackbar } from 'notistack'
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { classes, courses, registeredMarks } from '../../utils/marks'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';

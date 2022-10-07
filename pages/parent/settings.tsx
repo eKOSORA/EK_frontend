@@ -50,7 +50,7 @@ const studentsSettings = () => {
     const reader = new FileReader()
     const file = document.querySelector('#profileImageUpload') as HTMLInputElement
     reader.addEventListener('loadend', () => {
-      setFormData({ ...formData, profileImageStr: reader.result})
+      setFormData({ ...formData, profileImageStr: reader.result as string})
     })
     if (file.files) {
       reader.readAsDataURL(file.files[0])
@@ -144,7 +144,7 @@ const studentsSettings = () => {
                 <div className='w-full flex flex-row items-start justify-start mb-1 flex-wrap'>
                   <h3 className='font-questrial font-semibold text-lg w-16 smm20:w-[100px]'>Children: </h3>
                   <div className='flex flex-col items-start justify-start'>
-                    {formData.children.map(parent => <span className='text-white py-2 px-4 rounded-full my-1 bg-ek-blue-50  ml-2.5 outline-none border-none text-base flex-grow' >{parent}</span>)}
+                    {formData.children.map(parent => <span key={Math.random()} className='text-white py-2 px-4 rounded-full my-1 bg-ek-blue-50  ml-2.5 outline-none border-none text-base flex-grow' >{parent}</span>)}
                   </div>
                 </div>
                 <div className='w-full flex items-center justify-center mb-1 flex-wrap'>

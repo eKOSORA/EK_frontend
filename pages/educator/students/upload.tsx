@@ -237,7 +237,7 @@ const studentsUpload = () => {
                                     <div className='flex mxl:hidden w-full items-center justify-center'>
                                         <ul className='text-lg font-questrial list-disc w-1/2'>
                                             {
-                                                needed.map((need: string) => <li className='w-full'>{need}</li>)
+                                                needed.map((need: string) => <li key={Math.random()} className='w-full'>{need}</li>)
                                             }
                                         </ul>
                                     </div>
