@@ -5,6 +5,9 @@ import TablePaginationUnstyled, {
 } from '@mui/base/TablePaginationUnstyled';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import MultiTablePreview from '../SubComponents/MultiTablePreview';
+import swal from 'sweetalert'
+import { submitStudents } from '../../../pages/educator/students/upload';
+
 
 const Root = styled('div')`
   table {
@@ -66,7 +69,31 @@ function StudentUploadTablePreview(props: any) {
     const rows = props.fileData.students[0]
     const [sheetNo, setSheetNo] = useState(0)
 
-    console.log(props.sheets)
+    const comfirmCancellation = () => {
+
+        const alertUser: any = swal({
+            title: "Are you sure?",
+            text: "Once cancelled you'll start from zero",
+            icon: "warning",
+            dangerMode: true,
+        })
+
+        alertUser.then((willDelete: any) => {
+            if (willDelete) {
+                swal({
+                    title: "",
+                    text: "Your upload session has been cancelled",
+                    icon: "success",
+                    dangerMode: false,
+                });
+                window.location.replace('/educator/')
+            }
+        });
+
+    }
+
+    console.log("Sheets from, student upload table " + props.sheets)
+    console.log("Sheets from, student upload table " + props.fileData.sheets)
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -84,6 +111,10 @@ function StudentUploadTablePreview(props: any) {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const handleSubmit = async () => {
+        await submitStudents({ sheets: props.sheets, students: props.fileData.students })
+    }
 
     return (
         <div className='w-full flex flex-col items-center justify-center'>
@@ -170,9 +201,15 @@ function StudentUploadTablePreview(props: any) {
                                 </tr>
                             </tfoot>
                         </table>
-                    </Root>}
+                    </Root>
+            }
+            <div className='w-full flex justify-around my-8 text-white items-center'>
+                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={comfirmCancellation}>CANCEL</button>
+                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={handleSubmit}>FINISH</button>
+            </div>
         </div>
     );
 }
 
 export default StudentUploadTablePreview
+

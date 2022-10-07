@@ -12,8 +12,8 @@ import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/UploadingViews/StudentUploadTablePreview'
 import { FileData } from '../../../utils/interfaces'
-
 import _ from 'lodash';
+import { IUploadStudentsInterface } from '../../types/students'
 
 const studentsUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
@@ -32,6 +32,8 @@ const studentsUpload = () => {
     useEffect(() => {
         window.addEventListener('keydown', checkKeyPress)
     }, [])
+
+
 
     function checkKeyPress(key: any) {
 
@@ -75,9 +77,7 @@ const studentsUpload = () => {
                 const wb = XLSX.read(bstr, { type: 'binary' });
                 /* Get first worksheet */
                 const sheetCount = wb.SheetNames.length;
-                console.log("Before: " + sheetCount)
                 setFileData({ ...fileData, sheets: sheetCount })
-                console.log("After: " + sheetCount)
                 if (sheetCount > 1) {
                     for (let i = 0; i < sheetCount; i++) {
                         const wsname = wb.SheetNames[i];
@@ -115,12 +115,11 @@ const studentsUpload = () => {
                             console.log("Columns are not in the right order");
                             return
                         }
+                        const percentage = ((i + 1) / sheetCount) * 100;
+                        setLoadingPercentage(Math.round(percentage))
                         fileData.students.push(data)
                         console.log(data);
-
-                        const percentage = ((i + 1) / sheetCount) * 100;
-                        console.log(percentage)
-                        setLoadingPercentage(Math.round(percentage))
+                        console.log(Math.round(percentage))
                     }
                     setFileData({ ...fileData, isFileUploaded: true, })
                 }
@@ -249,7 +248,7 @@ const studentsUpload = () => {
                                         <div className='flex flex-col items-center justify-center'>
                                             <BiCog size={45} color="#4CA7CE" className='rotating my-4 mx-8' />
                                             <span>Processing...</span>
-                                            <span>{loadingPercentage}%</span>
+                                            <span id='percentage'>{loadingPercentage}%</span>
                                         </div>
                                     </div>
                                     :
@@ -275,3 +274,10 @@ const studentsUpload = () => {
 }
 
 export default studentsUpload
+
+
+export const submitStudents = async ({ sheets, students }: IUploadStudentsInterface) => {
+
+    console.log(sheets)
+    console.log(students)
+}
