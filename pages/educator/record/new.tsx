@@ -57,7 +57,7 @@ const newRecord = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} active='dashboard' />
+            <Sidebar page="educator" user={userTeacher} active='dashboard' />
             :
             null
         }

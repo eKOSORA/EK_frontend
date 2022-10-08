@@ -211,7 +211,7 @@ const marks = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} active='marks' />
+            <Sidebar page="educator" user={userTeacher} active='marks' />
             :
             null
         }

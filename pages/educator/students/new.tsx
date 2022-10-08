@@ -76,18 +76,18 @@ const newStudent = () => {
                 <title>Add Student | eKOSORA</title>
 
             </Head>
-            <Navbar page='Edit Student' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
+            <Navbar page='Add Student' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
             <div className='w-full flex h-full items-start justify-start'>
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} page='dashboard' active='dashboard' />
+                        <Sidebar user={userTeacher} page='educator' active='dashboard' />
                         :
                         null
                 }
                 <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
                     <div className='m-auto border-2 w-[550px] border-ek-blue-75 rounded-xl p-10 mt-14 flex flex-col items-center justify-center'>
-                        <span className='w-full text-center text-4xl heading-text text-ek-blue-50'>Edit Student</span>
+                        <span className='w-full text-center text-4xl heading-text text-ek-blue-50'>Add Student</span>
                         <form onSubmit={handleUpdateStudent} className="mt-8 w-full flex-col flex items-center justify-center">
                             <TextField onChange={(e) => setFormData({ ...formData, name: e.target.value })} focused={true} className="my-2 w-full bg-ek-blue-50/10 font-questrial" id={`outlined-basic${Math.ceil(Math.random() * 10)}`} label="Names" required={true} variant="outlined" />
                             <TextField onChange={(e) => setFormData({ ...formData, code: e.target.value })} focused={true} className="my-2 w-full bg-ek-blue-50/10 font-questrial" id={`outlined-basic${Math.ceil(Math.random() * 10)}`} label="Code/ID" required={true} variant="outlined" />

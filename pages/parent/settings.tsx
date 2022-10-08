@@ -97,7 +97,7 @@ const studentsSettings = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userStudent} page='students' active='settings' />
+            <Sidebar user={userStudent} page='parent' active='settings' />
             :
             null
         }

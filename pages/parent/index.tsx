@@ -90,7 +90,7 @@ const data = {
         {
           sideBarActive
             ?
-            <Sidebar user={userParent} page='students' active='dashboard' />
+            <Sidebar user={userParent} page='parent' active='dashboard' />
             :
             null
         }

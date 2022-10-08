@@ -27,14 +27,14 @@ const index = () => {
       />
       <Head>
         <title>Admin Dashboard | eKOSORA</title>
-        
+
       </Head>
       <Navbar page='Admin Dashboard' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
       <div className='w-full flex h-full items-start justify-start'>
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} page='dashboard' active='dashboard' />
+            <Sidebar user={userTeacher} page='admin' active='dashboard' />
             :
             null
         }

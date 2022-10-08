@@ -36,7 +36,7 @@ const Annoucements: NextPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userParent} page='dashboard' active='dashboard' />
+            <Sidebar user={userParent} page='parent' active='dashboard' />
             :
             null
         }

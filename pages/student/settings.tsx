@@ -32,7 +32,7 @@ const studentsSettings = () => {
     const reader = new FileReader()
     const file = document.querySelector('#profileImageUpload') as HTMLInputElement
     reader.addEventListener('loadend', () => {
-      
+
       setFormData({ ...formData, profileImageStr: reader.result as string})
     })
     if (file.files) {
@@ -80,7 +80,7 @@ const studentsSettings = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userStudent} page='students' active='settings' />
+            <Sidebar user={userStudent} page='student' active='settings' />
             :
             null
         }

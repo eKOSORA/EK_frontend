@@ -35,7 +35,7 @@ const timeTablesPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} active='timetables' />
+            <Sidebar page="educator" user={userTeacher} active='timetables' />
             :
             null
         }

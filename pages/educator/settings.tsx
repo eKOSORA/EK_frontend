@@ -75,7 +75,7 @@ const settings = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} active='settings' />
+            <Sidebar user={userTeacher} page="educator" active='settings' />
             :
             null
         }

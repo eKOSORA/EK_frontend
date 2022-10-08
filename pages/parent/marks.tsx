@@ -44,7 +44,7 @@ const studentsMarks: NextPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userParent} page='students' active='marks' />
+            <Sidebar user={userParent} page='parent' active='marks' />
             :
             null
         }

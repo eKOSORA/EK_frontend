@@ -34,7 +34,7 @@ const index = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} page='dashboard' active='dashboard' />
+                        <Sidebar user={userTeacher} page='admin' active='dashboard' />
                         :
                         null
                 }

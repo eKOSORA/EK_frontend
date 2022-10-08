@@ -186,7 +186,7 @@ const studentsUpload = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} active='students' />
+                        <Sidebar user={userTeacher} page="admin" active='students' />
                         :
                         null
                 }

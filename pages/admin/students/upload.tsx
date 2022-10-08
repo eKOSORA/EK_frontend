@@ -169,7 +169,7 @@ const upload = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} active='students' />
+                        <Sidebar page="admin" user={userTeacher} active='students' />
                         :
                         null
                 }
