@@ -12,3 +12,13 @@ interface uploadedStudentObject {
     'Parent Email(s)': Array<String>
     'Parent Tel(s)': Array<Number>
 }
+
+
+export interface AddStudentFormData {
+    name: string;
+    code: string;
+    class: string;
+    email: string;
+    parentEmails: Array<string>,
+    year: number,
+}

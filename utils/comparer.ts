@@ -8,3 +8,11 @@ export function arrayComparer(arr1: Array<string>, arr2: Array<string>) {
     })
     return !res.includes(false)
 }
+
+
+export const ValidateEmail = (mail: string) => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+        return (true)
+    }
+    return (false)
+}
