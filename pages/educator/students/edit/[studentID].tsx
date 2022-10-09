@@ -11,7 +11,7 @@ import { TextField } from '@mui/material'
 import { IoMdClose } from 'react-icons/io'
 import { ValidateEmail } from '../../../../utils/comparer'
 
-const index = () => {
+const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
   const router = useRouter()
@@ -100,7 +100,7 @@ const index = () => {
               <div className='w-full flex items-center justify-center flex-col'>
                 <div className='Emails w-full flex flex-col'>
                   {formData.parentEmails.map((email: String) =>
-                    <div className='w-7/12 py-[4px] my-1 flex items-center justify-between px-4 rounded-xl bg-ek-blue-75 text-white'>
+                    <div key={Math.floor(Math.random() * 100)} className='w-7/12 py-[4px] my-1 flex items-center justify-between px-4 rounded-xl bg-ek-blue-75 text-white'>
                       <span>
                         {email}
                       </span>
@@ -121,4 +121,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Index

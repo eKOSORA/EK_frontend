@@ -22,7 +22,7 @@ import announcement from '../../public/img/notification.png'
 import marks from '../../public/img/marks.png'
 import { userStudent } from '../../utils/faker'
 
-const studentsDashboard = () => {
+const StudentsDashboard = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -99,18 +99,18 @@ const data = {
             <span className='text-4xl heading-text mb-4'>Quick Access</span>
             <div className='w-full flex items-center justify-center'>
               <a href={'/educator/marks'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
-                <Image src={marks} width={150} height={150} ></Image>
+                <Image alt=""  src={marks} width={150} height={150} ></Image>
                 <span className='text-lg questrialtext'>Marks</span>
               </a>
 
               <a href={'/educator/settings'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
-                <Image src={students} width={150} height={150} ></Image>
+                <Image alt=""  src={students} width={150} height={150} ></Image>
                 <span className='text-lg questrialtext'>Settings</span>
               </a>
 
 
               <a href={'/educator/announcements'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
-                <Image src={announcement} width={150} height={150} ></Image>
+                <Image alt=""  src={announcement} width={150} height={150} ></Image>
                 <span className='text-lg questrialtext'>Announcements</span>
               </a>
 
@@ -157,4 +157,4 @@ const data = {
   )
 }
 
-export default studentsDashboard
+export default StudentsDashboard

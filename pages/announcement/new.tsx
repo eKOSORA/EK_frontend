@@ -1,9 +1,9 @@
 import React from 'react'
 
-const newAnnouncement = () => {
+const NewAnnouncement = () => {
   return (
     <div>newAnnouncement</div>
   )
 }
 
-export default newAnnouncement
+export default NewAnnouncement

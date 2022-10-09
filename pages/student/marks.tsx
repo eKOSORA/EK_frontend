@@ -48,7 +48,7 @@ const studentsMarks = () => {
             null
         }
         <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-fit p-10`}>
-          <h3 className='w-full text-center heading-text text-black text-3xl my-4'>MUGISHA PRECIEUX's marks</h3>
+          <h3 className='w-full text-center heading-text text-black text-3xl my-4'>MUGISHA PRECIEUX&apos;s marks</h3>
           <div className='flex items-center justify-start w-full px-5 my-4'>
             {
               studentMarks.map((studentMark) => {

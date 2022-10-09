@@ -9,7 +9,7 @@ export const useAnnouncements = () => {
     return useContext(AnnouncementContext)
 }
 
-const AnnouncementProvider = ({ children }: any) => {
+export const AnnouncementProvider = ({ children }: any) => {
     const [school, setAnnouncement] = useState({})
     const { user }: any = useAuth()
     const baseURL = 'https://ekosora-backend.cyclic.app'

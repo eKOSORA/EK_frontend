@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userTeacher } from '../../utils/faker'
 
-const timeTablesPage = () => {
+const TimeTablesPage = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -47,4 +47,4 @@ const timeTablesPage = () => {
   )
 }
 
-export default timeTablesPage
+export default TimeTablesPage

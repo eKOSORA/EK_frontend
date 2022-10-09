@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userTeacher } from '../../../utils/faker'
 
-const index = () => {
+const Index = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -46,4 +46,4 @@ const index = () => {
     )
 }
 
-export default index
+export default Index

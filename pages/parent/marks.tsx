@@ -8,7 +8,7 @@ import 'animate.css'
 import { userParent } from '../../utils/faker'
 import { NextPage } from 'next'
 
-const studentsMarks: NextPage = () => {
+const StudentsMarks: NextPage = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -49,7 +49,7 @@ const studentsMarks: NextPage = () => {
             null
         }
         <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-center pt-[60px] h-fit p-10`}>
-          <h3 className='w-full text-center heading-text text-black text-3xl my-4'>MUGISHA PRECIEUX's marks</h3>
+          <h3 className='w-full text-center heading-text text-black text-3xl my-4'>MUGISHA PRECIEUX&apos;s marks</h3>
           <div className='flex items-center justify-start w-full px-5 my-4'>
             {
               studentMarks.map((studentMark) => {
@@ -59,7 +59,7 @@ const studentsMarks: NextPage = () => {
                   <p className="Date text-black/60">{studentMark.date}</p>
                   <div className='absolute h-full rounded-r-md text-white text-2xl heading-text w-[50px] items-center justify-center flex bg-ek-blue-75 right-0 top-0 flex-col'>
                     {
-                      studentMark.initial.split('').map((letter) => <span>{letter}</span>)
+                      studentMark.initial.split('').map((letter) => <span key={Math.random()}>{letter}</span>)
                     }
                   </div>
                 </div>
@@ -72,4 +72,4 @@ const studentsMarks: NextPage = () => {
   )
 }
 
-export default studentsMarks
+export default StudentsMarks

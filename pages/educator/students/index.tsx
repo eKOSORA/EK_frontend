@@ -17,7 +17,7 @@ import Link from 'next/link'
 import { FiTrash } from 'react-icons/fi'
 
 
-const studentsPage = () => {
+const StudentsPage = () => {
   //Important states
 
   const [page, setPage] = React.useState(0);
@@ -339,4 +339,4 @@ const studentsPage = () => {
   )
 }
 
-export default studentsPage
+export default StudentsPage

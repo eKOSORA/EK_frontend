@@ -6,7 +6,7 @@ import ParentForm from '../../components/Auth/Forms/ParentForm'
 import StudentForm from '../../components/Auth/Forms/StudentForm'
 import { Navbar } from '../../components/Auth/Navbar'
 
-const login: NextPage = () => {
+const Login: NextPage = () => {
     const [active, setActive] = useState('parent')
 
     return (
@@ -42,4 +42,4 @@ const login: NextPage = () => {
     )
 }
 
-export default login
+export default Login

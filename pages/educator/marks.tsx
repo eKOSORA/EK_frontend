@@ -13,7 +13,7 @@ import { IoIosAdd } from 'react-icons/io'
 import Link from 'next/link'
 import { GoAlert, GoSearch } from 'react-icons/go'
 
-const marks = () => {
+const Marks = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
@@ -335,5 +335,5 @@ const marks = () => {
   )
 }
 
-export default marks
+export default Marks
 

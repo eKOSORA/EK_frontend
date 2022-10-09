@@ -9,7 +9,7 @@ import { VscClose } from 'react-icons/vsc'
 import { AiFillEdit } from 'react-icons/ai'
 import { useSchools } from '../../Context/SchoolContext'
 
-const signup: NextPage = () => {
+const Signup: NextPage = () => {
     const { registerSchool }: any = useSchools()
     const handleSubmit = async (e: any) => {
         setSubmitLoader(true)
@@ -275,11 +275,11 @@ const signup: NextPage = () => {
                                                         <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }}><VscClose /></button>
                                                         <label htmlFor='logoImage' className={`text-center flex items-center justify-center p-2 bg-ek-blue-75 text-white mx-2 cursor-pointer  rounded my-2 text-lg submitButton`}><AiFillEdit /></label>
                                                     </div>
-                                                    <div className='w-full h-full flex items-center justify-center rounded'><Image objectFit='cover' layout='fill' className='w-full h-full' src={formData.logoImageStr}></Image></div>
+                                                    <div className='w-full h-full flex items-center justify-center rounded'><Image alt={"Logo image string"} objectFit='cover' layout='fill' className='w-full h-full' src={formData.logoImageStr}></Image></div>
                                                 </div>
                                                 :
                                                 <label htmlFor="logoImage" className='w-full h-full flex flex-col items-center justify-center'>
-                                                    <Image width={200} height={100} src={dragImages}></Image>
+                                                    <Image alt='Drag images image' width={200} height={100} src={dragImages}></Image>
                                                     <span className='text-lg text-ek-blue-50 font-questrial'>Drop file here</span>
                                                 </label>
                                             }
@@ -312,4 +312,4 @@ const signup: NextPage = () => {
     )
 }
 
-export default signup
+export default Signup

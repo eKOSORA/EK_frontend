@@ -15,7 +15,7 @@ import { FileData } from '../../../utils/interfaces'
 
 import _ from 'lodash';
 
-const studentsUpload = () => {
+const StudentsUpload = () => {
 
     const needed = ["First Name", "Last Name", "Code/ID", "Lessons", "Telephone", "Email", "Type", "NID Number"]
 
@@ -210,7 +210,7 @@ const studentsUpload = () => {
                                         <span className='text-ek-blue text-3xl font-questrial'>Instructions</span>
                                     </div>
                                     <div className='w-full flex items-start px-28 flex-col justify-start '>
-                                        <span className='text-xl text-black font-questrial'>There are some simple changes that you'll have to make on your excel file to make it easier for our system to use.</span>
+                                        <span className='text-xl text-black font-questrial'>There are some simple changes that you&apos;ll have to make on your excel file to make it easier for our system to use.</span>
                                         <span className='flex items-start my-4 justify-start'>
                                             <input onChange={() => { }} className='mr-4 ' type="checkbox" name="" checked id="" />
                                             <span className='text-xl w-11/12'>The first row should be in the following format. And the columns must be arranged accordingly.</span>
@@ -253,7 +253,7 @@ const studentsUpload = () => {
                                             <div className='flex flex-col items-center justify-center'>
                                                 <input accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' type="file" id='excelFileToUpload' className='hidden' onChange={previewFile} name='excelFileToUpload' />
                                                 <label className='w-full flex-col flex items-center justify-center' htmlFor="excelFileToUpload" id='excelFileToUploadLabel'>
-                                                    <Image width={200} height={100} src={uploadExcel}></Image>
+                                                    <Image alt="Upload Excel File Image" width={200} height={100} src={uploadExcel}></Image>
                                                     <p>Drop file here</p>
                                                 </label>
                                             </div>
@@ -266,4 +266,4 @@ const studentsUpload = () => {
     )
 }
 
-export default studentsUpload
+export default StudentsUpload

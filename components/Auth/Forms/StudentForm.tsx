@@ -8,7 +8,7 @@ const StudentForm: NextComponentType = () => {
 
   const [submitLoader, setSubmitLoader] = useState(false)
 
-  const handleSubmit = async (e: any) => {
+  const HandleSubmit = async (e: any) => {
     setSubmitLoader(true)
     setFormData({ ...formData, activeButton: false })
     e.preventDefault()
@@ -17,7 +17,7 @@ const StudentForm: NextComponentType = () => {
 
     const data = login({ formData })
     console.log(data)
-    
+
   }
   interface State {
     accountType: string;
@@ -69,7 +69,7 @@ const StudentForm: NextComponentType = () => {
   return (
     <div className=' h-4/5 w-11/12 msm:w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4'>
       <h1 className='heading-text text-4xl w-full text-center text-ek-blue my-4 '>LOGIN</h1>
-      <form onSubmit={handleSubmit} className='flex w-full msm:w-10/12 mt-12 items-center justify-start flex-col'>
+      <form onSubmit={HandleSubmit} className='flex w-full msm:w-10/12 mt-12 items-center justify-start flex-col'>
 
         <div className='flex items-center justify-between w-full'>
 

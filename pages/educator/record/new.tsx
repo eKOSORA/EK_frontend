@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { courses } from '../../../utils/marks'
 import { userTeacher } from '../../../utils/faker'
 
-const newRecord = () => {
+const NewRecord = () => {
   const [sideBarActive, setSideBarActive] = useState(false)
   const [formData, setFormData] = useState({
     class: "",
@@ -121,4 +121,4 @@ const newRecord = () => {
   )
 }
 
-export default newRecord
+export default NewRecord

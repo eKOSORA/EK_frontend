@@ -75,7 +75,7 @@ const Sidebar = (props: any) => {
             <span className='text-white text-[1.17em] font-bold questrialtext'>{props.user.name.split(' ')[props.user.name.split(' ').length - 1]}</span>
             <span className='text-white/[54%] text-[1.17em]'>{props.user.type}</span>
           </div>
-          <Image className='object-cover rounded-full' width={45} height={45} src={props.user.profileImage}></Image>
+          <Image alt=""  className='object-cover rounded-full' width={45} height={45} src={props.user.profileImage}></Image>
         </div>
       </a>
     </div>

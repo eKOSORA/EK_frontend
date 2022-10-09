@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userTeacher } from '../../utils/faker'
 
-const studentAnnouncements = () => {
+const StudentAnnouncements = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
 
@@ -81,4 +81,4 @@ const studentAnnouncements = () => {
   )
 }
 
-export default studentAnnouncements
+export default StudentAnnouncements

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import jwtdecode from "jwt-decode";
 import { deleteAllCookies, getCookie } from "../utils/cookies";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 
 let AuthContext = React.createContext({});
@@ -10,7 +11,11 @@ export const useAuth = () => {
     return React.useContext(AuthContext);
 };
 
+
 export default function AuthProvider({ children }: any) {
+
+    const router = useRouter()
+
     let [user, setUser] = useState({});
     const baseURL = 'https://ekosora-backend.cyclic.app'
     const decodeToken = async () => {
@@ -49,11 +54,12 @@ export default function AuthProvider({ children }: any) {
         return data;
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
         decodeToken();
     }, []);
 
-    let value = { user, logout,setUser, getUserById, login };
+    let value = { user, logout, setUser, getUserById, login };
 
     return (
         <>
