@@ -174,7 +174,7 @@ const Signup: NextPage = () => {
                                         sx={{}}
                                         onChange={(event, value) => { console.log(value); setFormData({ ...formData, type: value?.replace(' ', '-').toLowerCase() as string }) }}
                                         className='rounded border-ek-blue outlie outline-0 w-full my-4 '
-                                        renderInput={(params) => <TextField className='' value={formData.type} required={true} autoFocus={true} {...params} label="Type" />}
+                                        renderInput={(params) => <TextField className='' value={formData.type} required={true} autoFocus={true} focused={true} {...params} label="Type" />}
                                     />
 
                                     <div className='w-full flex items-start sm10:items-center justify-center my-8'>

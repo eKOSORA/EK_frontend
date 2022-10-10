@@ -18,11 +18,6 @@ export const SchoolProvider = ({ children }: any) => {
         //console.log("This element wants to cause problems",data.data)
     }
 
-    const router = useRouter()
-    const user = useAuth()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
 
     return (
         <SchoolContext.Provider value={{ registerSchool }}>

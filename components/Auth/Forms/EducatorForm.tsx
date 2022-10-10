@@ -71,7 +71,7 @@ const EducatorForm: NextComponentType = () => {
           sx={{ width: '100%' }}
           className='w-full my-4 bg-ek-blue/10'
           ListboxProps={{ color: 'red' }}
-          renderInput={(params) => <TextField onChange={handleChange('school')} required={true} autoFocus={true} {...params} label="School" />}
+          renderInput={(params) => <TextField onChange={handleChange('school')} required={true} focused={true} autoFocus={true} {...params} label="School" />}
         />
 
 

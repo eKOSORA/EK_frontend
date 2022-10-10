@@ -81,7 +81,7 @@ const StudentForm: NextComponentType = () => {
             sx={{ width: 140 }}
             className='bg-ek-blue/10'
             ListboxProps={{ color: 'red' }}
-            renderInput={(params) => <TextField required={true} autoFocus={true} {...params} label="School" />}
+            renderInput={(params) => <TextField focused={true} required={true} autoFocus={true} {...params} label="School" />}
 
           />
           <TextField
