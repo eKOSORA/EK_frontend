@@ -10,7 +10,7 @@ const Sidebar = (props: any) => {
   const { user }: any = useAuth()
   useEffect(() => {
     if (!user) return window.location.replace('/auth/login')
-  }, [])
+  }, [user])
 
   return (
     <div className={`animate__animated  ${props.sideBarActive ? 'animate__slideOutLeft' : 'animate__slideInLeft'} sidebar w-[300px] pt-[60px] h-screen absolute md:z-1 md:sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between`}>
@@ -75,10 +75,11 @@ const Sidebar = (props: any) => {
             <span className='text-white text-[1.17em] font-bold questrialtext'>{props.user.name.split(' ')[props.user.name.split(' ').length - 1]}</span>
             <span className='text-white/[54%] text-[1.17em]'>{props.user.type}</span>
           </div>
-          <Image alt=""  className='object-cover rounded-full' width={45} height={45} src={props.user.profileImage}></Image>
+          <Image alt="" className='object-cover rounded-full' width={45} height={45} src={props.user.profileImage}></Image>
         </div>
       </a>
     </div>
+
   )
 }
 

@@ -12,7 +12,7 @@ import { IoMdClose } from 'react-icons/io'
 import { ValidateEmail } from '../../../utils/comparer'
 import { AddStudentFormData } from '../../@types/students'
 
-const newStudent = () => {
+const NewStudent = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
     const [formData, setFormData] = useState<AddStudentFormData>({
@@ -97,7 +97,7 @@ const newStudent = () => {
                             <div className='w-full flex items-center justify-center flex-col'>
                                 <div className='Emails w-full flex flex-col'>
                                     {formData.parentEmails.map((email: String) =>
-                                        <div className='w-7/12 py-[4px] my-1 flex items-center justify-between px-4 rounded-xl bg-ek-blue-75 text-white'>
+                                        <div key={Math.floor(Math.random() * 100)} className='w-7/12 py-[4px] my-1 flex items-center justify-between px-4 rounded-xl bg-ek-blue-75 text-white'>
                                             <span>
                                                 {email}
                                             </span>
@@ -118,4 +118,4 @@ const newStudent = () => {
     )
 }
 
-export default newStudent
+export default NewStudent

@@ -42,7 +42,7 @@ const StudentsPage = () => {
     setStudents(studentsDisplay[`${studentsData.year}`])
     set_Students(studentsDisplay[`${studentsData.year}`])
     console.log((studentsDisplay[`${studentsData.year}`]))
-  }, [])
+  }, [studentsData.year])
 
 
   const handleSearchStudents = (e: any) => {
