@@ -41,16 +41,16 @@ const StudentsPage = () => {
   useEffect(() => {
     setStudents(studentsDisplay[`${studentsData.year}`])
     set_Students(studentsDisplay[`${studentsData.year}`])
-    console.log((studentsDisplay[`${studentsData.year}`]))
+    //console.log((studentsDisplay[`${studentsData.year}`]))
   }, [studentsData.year])
 
 
   const handleSearchStudents = (e: any) => {
     const query = e.target.value
     if (query === "") return setStudents(_students)
-    console.log(query)
+    //console.log(query)
     const searchedStudents = _students.filter((student: any) => student['First Name'].toLowerCase().includes(query) || student['Last Name'].toLowerCase().includes(query));
-    console.log(searchedStudents)
+    //console.log(searchedStudents)
     setStudents(searchedStudents)
     return
   }
@@ -64,17 +64,17 @@ const StudentsPage = () => {
   const handleChangeYear = (e: any) => {
     setStudentsData({ ...studentsData, class: "", year: e.target.value })
     setStudents(studentsDisplay[e.target.value])
-    console.log(studentsDisplay[e.target.value])
+    //console.log(studentsDisplay[e.target.value])
   }
 
   const handleChangeClass = (e: any) => {
     setStudentsData({ ...studentsData, class: e.target.value })
     const className = e.target.value
-    console.log("Class Name: " + className)
-    console.log(studentsData.year)
+    //console.log("Class Name: " + className)
+    //console.log(studentsData.year)
     const neededStudents = studentsDisplay[studentsData.year].filter((student: { [x: string]: any }) => student['Class'] === className)
     setStudents(neededStudents)
-    console.log(neededStudents)
+    //console.log(neededStudents)
 
   }
 

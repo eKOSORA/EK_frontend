@@ -18,8 +18,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.get(`${baseURL}/student/getAll?year=${year}&class=${className}`)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }
@@ -29,8 +29,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/add`, studentData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }
@@ -40,8 +40,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/edit`, studentData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }
@@ -52,8 +52,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/addRecord`, recordData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
 
@@ -65,8 +65,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/updateMark`, newMark)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
 
@@ -77,8 +77,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/getRecords?_class=${_class}&_year=${_year}`)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }
@@ -87,8 +87,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.delete(`${baseURL}/student/deleteRecord`, { headers:{}, data: { _id } })
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }
@@ -97,8 +97,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/addParent`, { parent_email, studentId })
             return data;
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }
@@ -108,8 +108,8 @@ const StudentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/student/getSummary`)
             return data;
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error);
+            //console.log("Fetch error")
+            //console.log(error);
             return
         }
     }

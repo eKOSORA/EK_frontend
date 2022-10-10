@@ -23,11 +23,11 @@ export default function AuthProvider({ children }: any) {
         if (token) {
             try {
                 const userDetails: any = await jwtdecode(token);
-                console.log(userDetails);
+                //console.log(userDetails);
                 const userd: any = await getUserById(userDetails.userid);
                 return setUser(userd);
             } catch (err) {
-                console.log(err);
+                //console.log(err);
                 return setUser({});
             }
         }
@@ -39,7 +39,7 @@ export default function AuthProvider({ children }: any) {
 
             return {}
         } catch (error) {
-            console.log(error);
+            //console.log(error);
             return null
         }
     };

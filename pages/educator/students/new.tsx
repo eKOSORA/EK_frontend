@@ -37,7 +37,7 @@ const NewStudent = () => {
         const input = document.querySelector("#parent-email") as HTMLInputElement
         const enteredMail = input.value
         if (!enteredMail) return
-        console.log("Key Pressed")
+        //console.log("Key Pressed")
         if (!ValidateEmail(enteredMail)) {
             toast.error("Invalid email entered", {
                 position: "bottom-center",
@@ -55,7 +55,7 @@ const NewStudent = () => {
 
     const handleUpdateStudent = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(formData)
+        //console.log(formData)
     }
 
     return (

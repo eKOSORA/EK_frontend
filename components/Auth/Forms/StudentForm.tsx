@@ -12,11 +12,11 @@ const StudentForm: NextComponentType = () => {
     setSubmitLoader(true)
     setFormData({ ...formData, activeButton: false })
     e.preventDefault()
-    console.log(formData)
+    //console.log(formData)
     const { login }: any = useAuth()
 
     const data = login({ formData })
-    console.log(data)
+    //console.log(data)
 
   }
   interface State {

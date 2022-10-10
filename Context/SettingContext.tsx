@@ -18,8 +18,8 @@ const SettingProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/settings/newTerm`, newSettings)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -28,8 +28,8 @@ const SettingProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/settings/newTerm`, newTermData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -38,8 +38,8 @@ const SettingProvider = ({ children }: any) => {
             const data = await axios.get(`${baseURL}/settings/newTerm`)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -49,8 +49,8 @@ const SettingProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/settings/updateProfile`, newProfileData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }

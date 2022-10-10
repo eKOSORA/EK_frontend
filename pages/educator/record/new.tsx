@@ -20,7 +20,7 @@ const NewRecord = () => {
   })
   const handeSubmit = (e: any) => {
     e.preventDefault()
-    console.log(formData)
+    //console.log(formData)
   }
   interface State {
     class: string,

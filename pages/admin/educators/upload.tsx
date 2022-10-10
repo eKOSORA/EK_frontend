@@ -93,12 +93,12 @@ const StudentsUpload = () => {
                                 draggable: true,
                                 theme: "colored"
                             })
-                            console.log("No data found");
+                            //console.log("No data found");
                             return
                         }
                         const columns = Object.keys(data[0])
-                        console.log(_.difference(columns, needed).length)
-                        console.log(_.difference(columns, needed))
+                        //console.log(_.difference(columns, needed).length)
+                        //console.log(_.difference(columns, needed))
                         let empty: Array<string> = []
                         if (_.difference(columns, needed).length !== 0) {
                             setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
@@ -111,11 +111,11 @@ const StudentsUpload = () => {
                                 draggable: true,
                                 theme: "colored"
                             })
-                            console.log("Columns are not in the right order");
+                            //console.log("Columns are not in the right order");
                             return
                         }
                         fileData.students.push(data)
-                        console.log(data);
+                        //console.log(data);
                     }
                     setFileData({ ...fileData, isFileUploaded: true, })
                 }
@@ -135,7 +135,7 @@ const StudentsUpload = () => {
                             draggable: true,
                             theme: "colored"
                         })
-                        console.log("No data found");
+                        //console.log("No data found");
                         return
                     }
                     const columns = Object.keys(data[0])
@@ -151,11 +151,11 @@ const StudentsUpload = () => {
                             draggable: true,
                             theme: "colored"
                         })
-                        console.log("Columns are not in the right order");
+                        //console.log("Columns are not in the right order");
                         return
                     }
                     setFileData({ ...fileData, loading: false, students: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
-                    console.log(data);
+                    //console.log(data);
                 }
             })
             reader.readAsBinaryString(inputElement.files[0]);

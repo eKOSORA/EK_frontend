@@ -72,12 +72,12 @@ const StudentsUpload = () => {
     }
 
     const onDrop = (acceptedFiles: File[]) => {
-        console.log(acceptedFiles)
+        //console.log(acceptedFiles)
         previewUploadedFile(fileData, setFileData, setLoadingPercentage, acceptedFiles[0])
     }
 
     useEffect(() => {
-        console.log(fileData)
+        //console.log(fileData)
     }, [fileData])
 
     return (
@@ -197,6 +197,6 @@ export default StudentsUpload
 
 export const submitStudents = async ({ sheets, students }: IUploadStudentsInterface) => {
 
-    console.log(sheets)
-    console.log(students)
+    //console.log(sheets)
+    //console.log(students)
 }

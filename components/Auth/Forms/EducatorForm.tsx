@@ -12,9 +12,9 @@ const EducatorForm: NextComponentType = () => {
   const handleSubmit = async (e: any) => {
     setSubmitLoader(true)
     e.preventDefault()
-    console.log(formData)
+    //console.log(formData)
     const data = login({formData})
-    
+
   }
 
   const [submitLoader, setSubmitLoader] = useState(false)

@@ -41,16 +41,16 @@ const AllStudents = () => {
     useEffect(() => {
         setStudents(AllStudentsDisplay.sort())
         set_Students(AllStudentsDisplay.sort())
-        console.log(AllStudentsDisplay.sort())
+        //console.log(AllStudentsDisplay.sort())
     }, [])
 
 
     const handleSearchStudents = (e: any) => {
         const query = e.target.value
         if (query === "") return setStudents(_students)
-        console.log(query)
+        //console.log(query)
         const searchedStudents = _students.filter((student: any) => student['First Name'].toLowerCase().includes(query) || student['Last Name'].toLowerCase().includes(query));
-        console.log(searchedStudents)
+        //console.log(searchedStudents)
         setStudents(searchedStudents)
         return
     }

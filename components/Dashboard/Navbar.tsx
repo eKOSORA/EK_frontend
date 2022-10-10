@@ -14,7 +14,7 @@ export const Navbar = (props: any) => {
   const HandleLogout = async () => {
     const { logout }: any = useAuth()
     const data = await logout()
-    console.log(data)
+    //console.log(data)
   }
   return (
     <div className='fixed z-10 w-screen h-[60px] py-[20px] px-[10px] sm:px-[40px] bg-ek-blue-50 flex items-center justify-between'>

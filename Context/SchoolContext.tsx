@@ -14,7 +14,7 @@ export const SchoolProvider = ({ children }: any) => {
     const baseURL = 'https://ekosora-backend.cyclic.app'
     const registerSchool = async ({ formData }: any) => {
         const data = await axios.post(`${baseURL}/auth/signup`, formData)
-        console.log("This element wants to cause problems",data.data)
+        //console.log("This element wants to cause problems",data.data)
     }
     return (
         <SchoolContext.Provider value={{ registerSchool }}>

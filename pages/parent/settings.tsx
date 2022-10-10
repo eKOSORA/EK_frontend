@@ -32,7 +32,7 @@ const StudentsSettings = () => {
   const previewFile = () => {
 
     const isImage = checkFileType('profile-image-update')
-    //console.log(checkFileType('profile-image-update'))
+    ////console.log(checkFileType('profile-image-update'))
     if (isImage === false) {
       toast.success("Only images can be uploaded", {
         position: "bottom-center",
@@ -68,7 +68,7 @@ const StudentsSettings = () => {
 
   const handleChangeSettings = (e: any) => {
     e.preventDefault()
-    console.log(formData)
+    //console.log(formData)
     setFormData({ ...formData, editMode: !formData.editMode })
   }
 

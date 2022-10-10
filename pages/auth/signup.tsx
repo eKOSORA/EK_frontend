@@ -19,9 +19,9 @@ const Signup: NextPage = () => {
         setSubmitLoader(true)
         setFormData({ ...formData, activeButton: false })
         e.preventDefault()
-        console.log(formData)
+        //console.log(formData)
         const data = await registerSchool({ formData })
-        console.log(data)
+        //console.log(data)
         setSubmitLoader(false)
     }
 
@@ -89,10 +89,10 @@ const Signup: NextPage = () => {
         }
     }
     const onDrop = (acceptedFiles: File[]) => {
-        console.log(acceptedFiles)
+        //console.log(acceptedFiles)
         const reader = new FileReader()
         reader.addEventListener('load', () => {
-            console.log(reader.result)
+            //console.log(reader.result)
             setFormData({...formData, logoImageStr: reader.result as string })
         })
         reader.readAsDataURL(acceptedFiles[0])
@@ -101,8 +101,8 @@ const Signup: NextPage = () => {
         const longitude = navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)
         const latitude = navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)
 
-        console.log(`Latitude: ${latitude}`)
-        console.log(`Longitude: ${longitude}`)
+        //console.log(`Latitude: ${latitude}`)
+        //console.log(`Longitude: ${longitude}`)
     }
 
     return (

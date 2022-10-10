@@ -48,7 +48,7 @@ const Settings = () => {
 
   const handleChangeSettings = (e: any) => {
     e.preventDefault()
-    console.log(formData)
+    //console.log(formData)
     setFormData({ ...formData, editMode: !formData.editMode })
   }
 

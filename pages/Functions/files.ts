@@ -33,12 +33,12 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                         draggable: true,
                         theme: "colored"
                     })
-                    console.log("No data found");
+                    //console.log("No data found");
                     return
                 }
                 const columns = Object.keys(data[0])
-                console.log(_.difference(columns, needed).length)
-                console.log(_.difference(columns, needed))
+                //console.log(_.difference(columns, needed).length)
+                //console.log(_.difference(columns, needed))
 
                 if (_.difference(columns, needed).length !== 0) {
                     setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
@@ -51,14 +51,14 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                         draggable: true,
                         theme: "colored"
                     })
-                    console.log("Columns are not in the right order");
+                    //console.log("Columns are not in the right order");
                     return
                 }
                 const percentage = ((i + 1) / sheetCount) * 100;
                 setLoadingPercentage(Math.round(percentage))
                 fileData.students.push(data)
-                console.log(data);
-                console.log(Math.round(percentage))
+                //console.log(data);
+                //console.log(Math.round(percentage))
             }
             setFileData({ ...fileData, isFileUploaded: true, })
         }
@@ -78,7 +78,7 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                     draggable: true,
                     theme: "colored"
                 })
-                console.log("No data found");
+                //console.log("No data found");
                 return
             }
             const columns = Object.keys(data[0])
@@ -94,11 +94,11 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                     draggable: true,
                     theme: "colored"
                 })
-                console.log("Columns are not in the right order");
+                //console.log("Columns are not in the right order");
                 return
             }
             setFileData({ ...fileData, loading: false, students: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
-            console.log(data);
+            //console.log(data);
         }
     })
     reader.readAsBinaryString(file);

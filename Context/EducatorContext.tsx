@@ -18,8 +18,8 @@ const EducatorProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/educator/add`, educatorData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -28,8 +28,8 @@ const EducatorProvider = ({ children }: any) => {
             const data = await axios.get(`${baseURL}/educator/getAll`)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -38,8 +38,8 @@ const EducatorProvider = ({ children }: any) => {
             const data = await axios.get(`${baseURL}/educator/getAll`, educatorData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }

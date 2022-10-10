@@ -18,8 +18,8 @@ export const AnnouncementProvider = ({ children }: any) => {
             const data = await axios.get(`${baseURL}/announcement/getAll`)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -28,8 +28,8 @@ export const AnnouncementProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/announcement/new`, announcementData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }

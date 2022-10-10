@@ -49,12 +49,12 @@ const Marks = () => {
 
   const handleChangeGroupMarks = (e: any) => {
     e.preventDefault()
-    console.log(marksFormData)
+    //console.log(marksFormData)
   }
 
   const selectEditAsMethod = () => {
     if (selectedMarks.length === 0) {
-      console.log("No marks were selected")
+      //console.log("No marks were selected")
       toast.error('No marks were selected!!!', {
         position: "top-center",
         autoClose: 1000,
@@ -77,9 +77,9 @@ const Marks = () => {
   const handleSearchStudents = (e: any) => {
     const query = e.target.value
     if (query === "") return setStudentMarks(_studentMarks)
-    console.log(query)
+    //console.log(query)
     const searchedStudents = _studentMarks.filter((student: any) => student.studentName.toLowerCase().includes(query));
-    console.log(searchedStudents)
+    //console.log(searchedStudents)
     setStudentMarks(searchedStudents)
     return
   }
@@ -88,9 +88,9 @@ const Marks = () => {
       const handleSearchStudents = (e: any) => {
         const query = e.target.value
         if (query === "") return setStudents(_students)
-        console.log(query)
+        //console.log(query)
         const searchedStudents = _students.filter((student: any) => student['First Name'].toLowerCase().includes(query) || student['Last Name'].toLowerCase().includes(query));
-        console.log(searchedStudents)
+        //console.log(searchedStudents)
         setStudents(searchedStudents)
         return
     }
@@ -105,11 +105,11 @@ const Marks = () => {
 
     const allMarks = selectedArray.map((studentMark: any) => parseInt(studentMark.records[0].mark))
     const _totalMarks = allMarks.reduce((partialSum: number, a: number) => partialSum + a, 0)
-    console.log(_totalMarks);
+    //console.log(_totalMarks);
 
     const allMaxMarks = selectedArray.map((studentMark: any) => parseInt(studentMark.records[0].max))
     const _totalMaxMarks = allMaxMarks.reduce((partialSum: number, a: number) => partialSum + a, 0)
-    console.log(_totalMaxMarks);
+    //console.log(_totalMaxMarks);
 
     const _average = _totalMarks / allMarks.length
     const _maxAverage = _totalMaxMarks / allMarks.length

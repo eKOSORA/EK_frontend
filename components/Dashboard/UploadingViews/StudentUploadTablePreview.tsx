@@ -92,8 +92,8 @@ function StudentUploadTablePreview(props: any) {
 
     }
 
-    console.log("Sheets from, student upload table " + props.sheets)
-    console.log("Sheets from, student upload table " + props.fileData.sheets)
+    //console.log("Sheets from, student upload table " + props.sheets)
+    //console.log("Sheets from, student upload table " + props.fileData.sheets)
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;

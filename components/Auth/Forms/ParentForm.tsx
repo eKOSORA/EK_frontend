@@ -13,12 +13,12 @@ const ParentForm: NextComponentType = () => {
     e.preventDefault()
     setSubmitLoader(true)
     setFormData({ ...formData, activeButton: false })
-    console.log(formData)
+    //console.log(formData)
 
     const { login }: any = useAuth()
 
     const data = login({ formData })
-    console.log(data)
+    //console.log(data)
 
 
   }

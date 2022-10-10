@@ -18,8 +18,8 @@ const ParentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/parent/register?id=${studentID}`, parentData)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
@@ -28,8 +28,8 @@ const ParentProvider = ({ children }: any) => {
             const data = await axios.post(`${baseURL}/parent/getInfo`, parentId)
             return data
         } catch (error) {
-            console.log("Fetch error")
-            console.log(error)
+            //console.log("Fetch error")
+            //console.log(error)
             return
         }
     }
