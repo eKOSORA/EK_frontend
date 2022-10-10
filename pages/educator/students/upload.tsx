@@ -14,6 +14,8 @@ import StudentUploadTablePreview from '../../../components/Dashboard/UploadingVi
 import { FileData } from '../../../utils/interfaces'
 import _ from 'lodash';
 import { IUploadStudentsInterface } from '../../@types/students'
+import { previewUploadedFile } from '../../Functions/files'
+import Dropzone from 'react-dropzone'
 
 const StudentsUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
@@ -51,8 +53,6 @@ const StudentsUpload = () => {
     const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
-
-
         if (inputElement.files) {
             if (inputElement.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                 toast.error("Only excel files are uploaded ('.xlsx', '.csv')!!", {
@@ -67,103 +67,13 @@ const StudentsUpload = () => {
                 setFileData({ ...fileData, loading: false })
                 return
             }
-
-            setFileData({ ...fileData, loading: true })
-            var name = inputElement.files[0].name;
-            const reader = new FileReader();
-            reader.addEventListener('load', (e: any) => { // e = on_file_select event
-                /* Parse data */
-                const bstr = e.target.result;
-                const wb = XLSX.read(bstr, { type: 'binary' });
-                /* Get first worksheet */
-                const sheetCount = wb.SheetNames.length;
-                setFileData({ ...fileData, sheets: sheetCount })
-                if (sheetCount > 1) {
-                    for (let i = 0; i < sheetCount; i++) {
-                        const wsname = wb.SheetNames[i];
-                        const ws = wb.Sheets[wsname];
-                        const data = XLSX.utils.sheet_to_json(ws, {});
-                        if (!data[0]) {
-                            setFileData({ ...fileData, errorState: true, errorMessage: "No data found in the excel file" })
-                            toast.error(`No data found in the sheet called ${wsname} excel file`, {
-                                position: "bottom-center",
-                                autoClose: 5000,
-                                hideProgressBar: true,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                theme: "colored"
-                            })
-                            console.log("No data found");
-                            return
-                        }
-                        const columns = Object.keys(data[0])
-                        console.log(_.difference(columns, needed).length)
-                        console.log(_.difference(columns, needed))
-
-                        if (_.difference(columns, needed).length !== 0) {
-                            setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
-                            toast.error(`Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]} should be`, {
-                                position: "bottom-center",
-                                autoClose: 5000,
-                                hideProgressBar: true,
-                                closeOnClick: true,
-                                pauseOnHover: true,
-                                draggable: true,
-                                theme: "colored"
-                            })
-                            console.log("Columns are not in the right order");
-                            return
-                        }
-                        const percentage = ((i + 1) / sheetCount) * 100;
-                        setLoadingPercentage(Math.round(percentage))
-                        fileData.students.push(data)
-                        console.log(data);
-                        console.log(Math.round(percentage))
-                    }
-                    setFileData({ ...fileData, isFileUploaded: true, })
-                }
-                else {
-                    const wsname = wb.SheetNames[0];
-                    const ws = wb.Sheets[wsname];
-                    /* Convert array of arrays */
-                    const data = XLSX.utils.sheet_to_json(ws, {});
-                    if (!data[0]) {
-                        setFileData({ ...fileData, errorState: true, errorMessage: "No data found in the excel file" })
-                        toast.error("No data found in the excel file", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            theme: "colored"
-                        })
-                        console.log("No data found");
-                        return
-                    }
-                    const columns = Object.keys(data[0])
-
-                    if (_.difference(columns, needed).length !== 0) {
-                        setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
-                        toast.error("Columns are not in the right order", {
-                            position: "bottom-center",
-                            autoClose: 5000,
-                            hideProgressBar: true,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            theme: "colored"
-                        })
-                        console.log("Columns are not in the right order");
-                        return
-                    }
-                    setFileData({ ...fileData, loading: false, students: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
-                    console.log(data);
-                }
-            })
-            reader.readAsBinaryString(inputElement.files[0]);
+            previewUploadedFile(fileData, setFileData, setLoadingPercentage, inputElement.files[0])
         }
+    }
+
+    const onDrop = (acceptedFiles: File[]) => {
+        console.log(acceptedFiles)
+        previewUploadedFile(fileData, setFileData, setLoadingPercentage, acceptedFiles[0])
     }
 
     useEffect(() => {
@@ -257,13 +167,22 @@ const StudentsUpload = () => {
                                         <StudentUploadTablePreview fileData={fileData} sheets={fileData.sheets} />
                                         :
                                         <div className='droparea w-11/12 rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center'>
-                                            <div className='flex flex-col items-center justify-center'>
-                                                <input accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' type="file" id='excelFileToUpload' className='hidden' onChange={previewFile} name='excelFileToUpload' />
-                                                <label className='w-full flex-col flex items-center justify-center' htmlFor="excelFileToUpload" id='excelFileToUploadLabel'>
-                                                    <Image alt="" width={200} height={100} src={uploadExcel}></Image>
-                                                    <p>Drop file here</p>
-                                                </label>
-                                            </div>
+                                            <Dropzone
+                                                accept={{ '.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel': [] }}
+                                                onDrop={onDrop}
+                                            >
+                                                {({ getRootProps, getInputProps }) => {
+                                                    return (
+                                                        <div {...getRootProps({ className: 'dropzone' })} className='flex w-full h-full flex-col items-center justify-center'>
+                                                            <input {...getInputProps()} accept='.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel' type="file" id='excelFileToUpload' className='hidden' onChange={previewFile} name='excelFileToUpload' />
+                                                            <label className='w-full flex-col flex items-center justify-center' htmlFor="excelFileToUpload" id='excelFileToUploadLabel'>
+                                                                <Image alt="" width={200} height={100} src={uploadExcel}></Image>
+                                                                <p>Drop file here</p>
+                                                            </label>
+                                                        </div>
+                                                    )
+                                                }}
+                                            </Dropzone>
                                         </div>
                         }
                     </div>
