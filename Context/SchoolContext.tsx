@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
 import axios from 'axios'
+import { useRouter } from "next/router";
 
 const SchoolContext = React.createContext({})
 
@@ -16,6 +17,13 @@ export const SchoolProvider = ({ children }: any) => {
         const data = await axios.post(`${baseURL}/auth/signup`, formData)
         //console.log("This element wants to cause problems",data.data)
     }
+
+    const router = useRouter()
+    const user = useAuth()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
+
     return (
         <SchoolContext.Provider value={{ registerSchool }}>
             {children}

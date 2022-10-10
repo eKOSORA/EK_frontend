@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
@@ -33,6 +34,12 @@ const ParentProvider = ({ children }: any) => {
             return
         }
     }
+
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
+
     return (
         <ParentContext.Provider value={{ getInfo, registerParent }}>
             {children}

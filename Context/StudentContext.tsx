@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
@@ -84,7 +85,7 @@ const StudentProvider = ({ children }: any) => {
     }
     const deleteRecord = async (_id: any) => {
         try {
-            const data = await axios.delete(`${baseURL}/student/deleteRecord`, { headers:{}, data: { _id } })
+            const data = await axios.delete(`${baseURL}/student/deleteRecord`, { headers: {}, data: { _id } })
             return data
         } catch (error) {
             //console.log("Fetch error")
@@ -113,6 +114,11 @@ const StudentProvider = ({ children }: any) => {
             return
         }
     }
+
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
 
     return (
         <StudentContext.Provider value={{ registerStudent, editStudent, addParent, addRecord, deleteRecord, getAllStudents, getRecords, getSummary, updateMark }}>

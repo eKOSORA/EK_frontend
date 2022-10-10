@@ -56,9 +56,7 @@ export default function AuthProvider({ children }: any) {
 
     useEffect(() => {
         if (!user) router.push('/auth/login')
-        decodeToken();
-    }, []);
-
+    }, [router, user])
     let value = { user, logout, setUser, getUserById, login };
 
     return (
