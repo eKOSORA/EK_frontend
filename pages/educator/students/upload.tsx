@@ -16,25 +16,18 @@ import _ from 'lodash';
 import { IUploadStudentsInterface } from '../../@types/students'
 import { previewUploadedFile } from '../../Functions/files'
 import Dropzone from 'react-dropzone'
+import { useRecoilState } from 'recoil'
+import { fileDataState } from '../../../components/states/sheets'
+import { loaderState } from '../../../components/states/loader'
 
 const StudentsUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
     const [step, setStep] = useState(1)
-    const [loadingPercentage, setLoadingPercentage] = useState(0)
-    const [fileData, setFileData] = useState<FileData>({
-        students: [],
-        fileName: '',
-        timeUploaded: '',
-        isFileUploaded: false,
-        errorState: false,
-        errorMessage: "",
-        loading: false,
-        sheets: 0
-    })
+    const [loadingPercentage, setLoadingPercentage] = useRecoilState<number>(loaderState)
+    const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState)
     useEffect(() => {
         window.addEventListener('keydown', checkKeyPress)
     }, [])
-
 
 
     function checkKeyPress(key: any) {
@@ -72,13 +65,8 @@ const StudentsUpload = () => {
     }
 
     const onDrop = (acceptedFiles: File[]) => {
-        //console.log(acceptedFiles)
         previewUploadedFile(fileData, setFileData, setLoadingPercentage, acceptedFiles[0])
     }
-
-    useEffect(() => {
-        //console.log(fileData)
-    }, [fileData])
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>

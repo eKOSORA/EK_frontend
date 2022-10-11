@@ -5,19 +5,20 @@ export interface FileData {
     isFileUploaded: boolean,
     errorState: boolean,
     errorMessage: string,
-    loading: boolean
-    sheets:Number
-
+    loading: boolean,
+    sheets: Number,
+    // __cTag: any
 }
 
-export interface EducatorFileData{
+export interface EducatorFileData {
     educators: Array<unknown>,
     fileName: string,
     timeUploaded: string,
     isFileUploaded: boolean,
     errorState: boolean,
     errorMessage: string,
-    loading: boolean
-    sheets:Number
+    loading: boolean,
+    sheets: Number,
+    __cTag: any
 
 }

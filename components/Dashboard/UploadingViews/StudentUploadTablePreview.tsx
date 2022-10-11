@@ -7,6 +7,8 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import MultiTablePreview from '../SubComponents/MultiTablePreview';
 import swal from 'sweetalert'
 import { submitStudents } from '../../../pages/educator/students/upload';
+import { useRecoilValue } from 'recoil';
+import { fileDataState } from '../../states/sheets';
 
 
 const Root = styled('div')`
@@ -66,7 +68,9 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 function StudentUploadTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const rows = props.fileData.students[0]
+    const fileData = useRecoilValue(fileDataState)
+    const rows = fileData.students[0] as Array<any>
+    console.log(rows)
     const [sheetNo, setSheetNo] = useState(0)
 
     const comfirmCancellation = () => {
@@ -91,9 +95,10 @@ function StudentUploadTablePreview(props: any) {
         });
 
     }
+    console.log(fileData)
 
-    //console.log("Sheets from, student upload table " + props.sheets)
-    //console.log("Sheets from, student upload table " + props.fileData.sheets)
+    console.log(fileData.sheets)
+
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -113,20 +118,25 @@ function StudentUploadTablePreview(props: any) {
     };
 
     const handleSubmit = async () => {
-        await submitStudents({ sheets: props.sheets, students: props.fileData.students })
+        await submitStudents({ sheets: fileData.sheets, students: fileData.students })
     }
 
     return (
         <div className='w-full flex flex-col items-center justify-center'>
-            <h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Table Preview</h1>
+            {fileData.sheets > 1
+                ?
+                < h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Sheet {sheetNo + 1} of {fileData.sheets}</h1>
+                :
+                <h1 className='w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue'>Table Preview</h1>
+            }
 
             {
-                props.sheets > 1
+                fileData.sheets > 1
                     ?
-                    <div className='w-full flex items-center justify-around'>
-                        <div onClick={() => setSheetNo(sheetNo - 1)} className={`${sheetNo - 1 === 0 ? 'hidden' : 'flex'} p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}><BiChevronLeft color='white' size={20} /></div>
-                        <MultiTablePreview sheets={props.sheets} students={props.fileData.students[sheetNo]} />
-                        <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo === props.sheets ? 'hidden' : 'flex'} p-2  rounded-full items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
+                    <div className='w-full flex items-center justify-between'>
+                        <div onClick={() => setSheetNo(sheetNo - 1)} className={`${sheetNo === 0 ? 'hidden' : 'flex'} p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}><BiChevronLeft color='white' size={20} /></div>
+                        <MultiTablePreview sheetNo={sheetNo} />
+                        <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo === 3 ? 'hidden' : 'flex'} p-2  rounded-full items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
                     </div>
                     :
                     <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
@@ -207,7 +217,7 @@ function StudentUploadTablePreview(props: any) {
                 <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={comfirmCancellation}>CANCEL</button>
                 <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={handleSubmit}>FINISH</button>
             </div>
-        </div>
+        </div >
     );
 }
 

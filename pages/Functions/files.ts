@@ -5,7 +5,6 @@ import _ from "lodash";
 
 
 export const previewUploadedFile = async (fileData: FileData, setFileData: Function, setLoadingPercentage: Function, file: File) => {
-
     const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
     setFileData({ ...fileData, loading: true })
     var name = file.name;
@@ -18,6 +17,7 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
         const sheetCount = wb.SheetNames.length;
         setFileData({ ...fileData, sheets: sheetCount })
         if (sheetCount > 1) {
+            const studentArray = []
             for (let i = 0; i < sheetCount; i++) {
                 const wsname = wb.SheetNames[i];
                 const ws = wb.Sheets[wsname];
@@ -33,12 +33,10 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                         draggable: true,
                         theme: "colored"
                     })
-                    //console.log("No data found");
+                    console.log("No data found");
                     return
                 }
                 const columns = Object.keys(data[0])
-                //console.log(_.difference(columns, needed).length)
-                //console.log(_.difference(columns, needed))
 
                 if (_.difference(columns, needed).length !== 0) {
                     setFileData({ ...fileData, errorState: true, errorMessage: "The excel file has columns in wrong format" })
@@ -51,16 +49,14 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                         draggable: true,
                         theme: "colored"
                     })
-                    //console.log("Columns are not in the right order");
                     return
                 }
                 const percentage = ((i + 1) / sheetCount) * 100;
                 setLoadingPercentage(Math.round(percentage))
-                fileData.students.push(data)
-                //console.log(data);
-                //console.log(Math.round(percentage))
+                // setFileData({ ...fileData, students: [...fileData.students, data] })
+                studentArray.push(data)
             }
-            setFileData({ ...fileData, isFileUploaded: true, })
+            setFileData({ ...fileData, students: studentArray, sheets: sheetCount, isFileUploaded: true, })
         }
         else {
             const wsname = wb.SheetNames[0];
@@ -78,7 +74,7 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                     draggable: true,
                     theme: "colored"
                 })
-                //console.log("No data found");
+                console.log("No data found");
                 return
             }
             const columns = Object.keys(data[0])
@@ -94,11 +90,11 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                     draggable: true,
                     theme: "colored"
                 })
-                //console.log("Columns are not in the right order");
+                console.log("Columns are not in the right order");
                 return
             }
             setFileData({ ...fileData, loading: false, students: data, fileName: name, timeUploaded: new Date().toLocaleString(), isFileUploaded: true })
-            //console.log(data);
+            console.log(data);
         }
     })
     reader.readAsBinaryString(file);

@@ -4,9 +4,11 @@ import { SnackbarProvider } from 'notistack'
 import { SchoolProvider } from '../Context/SchoolContext'
 import AuthProvider from '../Context/AuthContext'
 import { AnnouncementProvider } from '../Context/AnnouncementContext'
+import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <AuthProvider>
+  return  <RecoilRoot>
+   <AuthProvider>
     <SchoolProvider>
       <AnnouncementProvider>
         <SnackbarProvider>
@@ -15,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </AnnouncementProvider>
     </SchoolProvider >
   </AuthProvider >
+  </RecoilRoot>
 }
 
 export default MyApp

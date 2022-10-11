@@ -4,6 +4,8 @@ import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import { useRecoilValue } from 'recoil';
+import { fileDataState } from '../../states/sheets';
 
 const Root = styled('div')`
   table {
@@ -62,11 +64,9 @@ const CustomTablePagination = styled(TablePaginationUnstyled)`
 function MultiTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const rows = props.students
-    // useEffect(() => {
+    const fileData = useRecoilValue(fileDataState)
+    const rows = fileData.students[props.sheetNo] as Array<any>
 
-        // }, [])
-    // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -85,7 +85,7 @@ function MultiTablePreview(props: any) {
     };
 
     return (
-        <div className='w-full flex flex-col items-center justify-center'>
+        <div className='w-11/12 m-auto flex flex-col items-center justify-center'>
             <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
                 <table className='rounded mx-2' aria-label="custom pagination table">
                     <thead className='text-white'>
