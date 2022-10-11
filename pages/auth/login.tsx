@@ -16,7 +16,7 @@ const Login: NextPage = () => {
             </Head>
             <Navbar />
             <div className='main w-full h-full flex sm:flex-row flex-col items-center justify-center'>
-                <div className='flex md:w-5/12 xl:w-7/12  items-center justify-center  mt-24 sm:h-4/5 flex-col'>
+                <div className='flex w-fit  items-center justify-center  mt-24 sm:h-4/5 flex-col'>
                     <div className='flex flex-col justify-start items-start'>
                         <span className='text-2xl mx-2 my-4 questrialtext'>Login as</span>
                         <div className='flex items-center sm:flex-col justify-center'>

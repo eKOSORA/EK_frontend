@@ -224,6 +224,7 @@ const StudentsPage = () => {
                         onChange={handleChangeClass}
                         autoFocus={true}
                         MenuProps={{ disablePortal: true }}
+
                       >
                         <MenuItem value={''} className='italic'>None</MenuItem>
                         {

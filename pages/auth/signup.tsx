@@ -4,7 +4,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Auth/Navbar'
-import dragImages from './../../public/img/dragImages.svg'
 import { VscClose } from 'react-icons/vsc'
 import { AiFillEdit } from 'react-icons/ai'
 import { useSchools } from '../../Context/SchoolContext'
@@ -12,8 +11,30 @@ import CropModal from '../../components/Dashboard/Images/CropModal'
 import { CreateSchoolFormDataState } from '../interfaces/school'
 import Dropzone from 'react-dropzone'
 import { BiCrop } from 'react-icons/bi'
+import axios from 'axios'
 
 const Signup: NextPage = () => {
+    const [submitLoader, setSubmitLoader] = useState(false)
+    const [formData, setFormData] = useState({
+        initials: '',
+        type: '',
+        programme: '',
+        address: {
+            province: "",
+            district: "",
+            sector: "",
+            cell: "",
+            village: "",
+        },
+        head: '',
+        moto: '',
+        logoImageStr: '',
+        name: '',
+        activeButton: false
+    })
+    const [cropMode, setCropMode] = useState<boolean>(false)
+    const [step, setStep] = useState(1)
+
     const { registerSchool }: any = useSchools()
     const handleSubmit = async (e: any) => {
         setSubmitLoader(true)
@@ -37,29 +58,9 @@ const Signup: NextPage = () => {
         event.preventDefault();
     };
 
-    const [submitLoader, setSubmitLoader] = useState(false)
-    const [formData, setFormData] = useState({
-        initials: '',
-        type: '',
-        programme: '',
-        address: {
-            province: "",
-            district: "",
-            sector: "",
-            cell: "",
-            village: "",
-        },
-        head: '',
-        moto: '',
-        logoImageStr: '',
-        name: '',
-        activeButton: false
-    })
 
     const schoolTypes = ['Government Aided', 'Private', 'Fully Government']
 
-    const [cropMode, setCropMode] = useState(false)
-    const [step, setStep] = useState(1)
 
     useEffect(() => {
         window.addEventListener('keydown', checkKeyPress)
@@ -88,32 +89,40 @@ const Signup: NextPage = () => {
             reader.readAsDataURL(file.files[0])
         }
     }
+
+    const handleCropEvents = () => {
+        console.log(cropMode)
+        setCropMode(!cropMode)
+    }
+
     const onDrop = (acceptedFiles: File[]) => {
-        //console.log(acceptedFiles)
+
         const reader = new FileReader()
         reader.addEventListener('load', () => {
-            //console.log(reader.result)
-            setFormData({...formData, logoImageStr: reader.result as string })
+
+            setFormData({ ...formData, logoImageStr: reader.result as string })
         })
         reader.readAsDataURL(acceptedFiles[0])
     }
-    const handleGetLocation = () => {
+    const handleGetLocation = async () => {
         const longitude = navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)
         const latitude = navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)
 
         //console.log(`Latitude: ${latitude}`)
         //console.log(`Longitude: ${longitude}`)
+
+        const data = await axios.get('/api/getLocation', {})
     }
 
     return (
-        <div className='w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
+        <div className='z-1 w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
             {
                 cropMode ?
-
-                    <CropModal formData={formData} imageSrc={formData.logoImageStr} setCropMode={setCropMode} setFormData={setFormData} />
+                    <CropModal cropMode={cropMode} formData={formData} setCropMode={setCropMode} setFormData={setFormData} />
                     :
                     null
             }
+            {/* <CropModal formData={formData} imageSrc={formData.logoImageStr} setCropMode={setCropMode} setFormData={setFormData} /> */}
             <Navbar page={'signup'} />
             <Head>
                 <title>Signup | eKOSORA</title>
@@ -275,7 +284,7 @@ const Signup: NextPage = () => {
                                                 style: { color: 'black' },
                                             }}
                                             value={formData.head}
-                                            className=' my-4 w-full text-lg' label='Head Teacher'
+                                            className=' my-4 w-full text-lg' label='Head Master'
                                             onChange={handleChange('head')}
                                             focused={true}
                                             required={true}
@@ -294,11 +303,11 @@ const Signup: NextPage = () => {
                                             autoComplete='off'
                                         />
                                         <div className='relative w-full my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
-                                            <span className='absolute -top-[15px] left-2  border-b-2 border-b-white text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto z-10'>Logo *</span>
+                                            <span className='z-[1] absolute -top-[15px] left-2  border-b-2 border-b-white text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto'>Logo *</span>
                                             {formData.logoImageStr ?
                                                 <div className='relative w-full flex items-center justify-around h-full'>
-                                                    <div className='absolute top-2 right-2 flex items-center justify-center flex-row z-10'>
-                                                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(!cropMode)} type="button" title={"Crop Image"}><BiCrop /></button>
+                                                    <div className='absolute top-2 right-2 flex items-center justify-center flex-row z-[1]'>
+                                                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(true)} type="button" title={"Crop Image"}><BiCrop /></button>
                                                         <label htmlFor='logoImage' className={`text-center flex items-center justify-center p-2 bg-ek-blue-75 text-white mx-2 cursor-pointer  rounded my-2 text-lg submitButton`} title={"Change Image"}><AiFillEdit /></label>
                                                         <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} type="button" onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }} title={"Remove Image"}><VscClose /></button>
                                                     </div>
@@ -314,7 +323,7 @@ const Signup: NextPage = () => {
                                                         <div {...getRootProps({ className: 'dropzone' })} className="w-full h-full">
 
                                                             <label htmlFor="logoImage" className='w-full h-full flex flex-col items-center justify-center'>
-                                                                <Image alt='Drag images image' width={200} height={100} src={dragImages}></Image>
+                                                                <Image alt='Drag images image' width={200} height={100} src={'/img/dragImages.svg'}></Image>
                                                                 <span className='text-lg text-ek-blue-50 font-questrial'>Drop file here</span>
                                                             </label>
                                                             <input {...getInputProps()} onChange={previewFile} type="file" className='logo hidden' name="logo" id="logoImage" />
@@ -333,8 +342,7 @@ const Signup: NextPage = () => {
                                 step === 3 ?
                                     submitLoader
                                         ?
-                                        <button className={`m-auto bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'><CircularProgress color='inherit' size={25} /></button>
-
+                                        <button className={`m-auto bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='button'><CircularProgress color='inherit' size={25} /></button>
                                         :
                                         <button className={`bg-ek-blue-75 text-white mx-2 cursor-pointer w-32 h-12 rounded text-lg submitButton`} type='submit'>FINISH</button>
                                     :

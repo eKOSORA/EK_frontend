@@ -7,7 +7,7 @@ import { CreateSchoolFormDataState } from '../../../pages/interfaces/school';
 
 type Props = {
     setCropMode: Function,
-    imageSrc: string;
+    cropMode:boolean
     setFormData: Function,
     formData: CreateSchoolFormDataState;
 }
@@ -25,19 +25,30 @@ const CropModal = (props: Props) => {
         props.setCropMode(false)
     };
 
+    useEffect(() => {
+        localStorage.setItem('uploadedImage', props.formData.logoImageStr)
+    },[props.formData.logoImageStr])
+
+    const restoreImage = () => {
+        setCropData(localStorage.getItem('uploadedImage') as string)
+    }
+
     return (
-        <div className="absolute w-full h-full top-0 left-0 bg-black/70 flex items-center justify-center z-[2]">
+        <div className="absolute w-screen h-screen top-0 left-0 bg-black/70 flex items-center justify-center z-[2]">
             <div className='absolute z-[3] h-full w-full' onClick={props.setCropMode(false)}></div>
-            {/*
-            <div className='z-[4] bg-white rounded-lg h-fit w-11/12 sm:w-10/12 md:w-8/12 lg:w-6/12 flex items-center justify-start flex-col p-8'>
+
+            <div className='z-[4] bg-white rounded-lg h-fit w-11/12 sm:w-10/12 md:w-8/12 lg:w-6/12 flex items-center justify-center flex-col p-8'>
                 <div className='flex items-end justify-end w-full'>
                     <AiOutlineClose color='black' size={25} className='cursor-pointer ' onClick={props.setCropMode(false)} />
                 </div>
                 <div className='my-3 w-full flex items-center justify-around'>
-                    <button className='text-white font-questrial px-4 py-2 bg-ek-blue-75 rounded-lg cursor-pointer' onClick={getCropData}>
+                    <button className='text-white font-questrial px-4 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer' onClick={getCropData}>
                         Crop Image
                     </button>
-                    <label htmlFor='logoImage' className='px-4 py-2 rounded bg-ek-blue-75 text-white font-questrial'>CHANGE</label>
+                    <button className='text-white font-questrial px-4 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer' onClick={restoreImage}>
+                        Reset Image
+                    </button>
+                    <label htmlFor='logoImage' className='px-4 py-2 cursor-pointer rounded hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 text-white font-questrial'>Change Image</label>
                 </div>
                 <div className='w-full'>
                     <div className='w-full'>
@@ -61,23 +72,20 @@ const CropModal = (props: Props) => {
                         />
                     </div>
                     <div className='w-full flex items-center justify-start md:flex-row flex-col'>
-                        <div className="md:w-1/2 w-full flex flex-col items-center justify-start">
+                        <div className="w-full flex flex-col items-center justify-start">
                             <h1 className='heading-text text-ek-blue text-xl'>Preview</h1>
                             <div
-                                className="overflow-hidden img-preview"
-                                style={{ width: "100%", float: "left", height: "300px" }}
+                                className="w-48 rounded-full overflow-hidden img-preview"
+                                style={{ height: "12rem" }}
                             />
-                        </div>
-                        <div className="md:w-1/2 w-full flex flex-col items-center justify-start">
-                            <h1 className='heading-text text-ek-blue text-xl'>Cropped Image</h1>
-                            <div className="w-1/2 h-full">
-                                <Image width={200} height={300} style={{ width: "100%" }} src={cropData} alt="cropped" />
-                            </div>
                         </div>
                     </div>
                     <br style={{ clear: "both" }} />
                 </div>
-            </div> */}
+                <button className='text-white font-questrial px-6 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer m-auto' onClick={props.setCropMode(false)}>
+                    SAVE
+                </button>
+            </div>
         </div>
     )
 }
