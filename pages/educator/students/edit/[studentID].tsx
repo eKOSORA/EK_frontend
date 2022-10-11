@@ -15,7 +15,7 @@ import { sidebarState } from '../../../../components/states/sidebar'
 
 const Index = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
   const router = useRouter()
   const { studentID } = router.query
 

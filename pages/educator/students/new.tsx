@@ -16,7 +16,7 @@ import { sidebarState } from '../../../components/states/sidebar'
 
 const NewStudent = () => {
     //Important states
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
     const [formData, setFormData] = useState<AddStudentFormData>({
         name: "",
         code: "",

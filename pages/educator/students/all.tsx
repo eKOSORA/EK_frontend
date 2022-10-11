@@ -24,7 +24,7 @@ const AllStudents = () => {
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
     const [studentsData, setStudentsData] = useState<any>({
         year: "year_1",
         class: "",

@@ -64,7 +64,7 @@ export const data = {
 };
 
 const Dashboard = () => {
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
     return (
         <div className='bg-[#f0f0f0] '>
             <Head>

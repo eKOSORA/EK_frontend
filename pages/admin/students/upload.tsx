@@ -19,7 +19,7 @@ import { sidebarState } from '../../../components/states/sidebar'
 
 const Upload = () => {
 
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
         students: [],

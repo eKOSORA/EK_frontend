@@ -17,7 +17,7 @@ import { sidebarState } from '../../components/states/sidebar'
 
 const Marks = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [studentMarks, setStudentMarks] = useState(registeredMarks)
   const [_studentMarks, set_StudentMarks] = useState(registeredMarks)

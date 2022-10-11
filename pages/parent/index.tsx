@@ -26,7 +26,7 @@ import { sidebarState } from '../../components/states/sidebar'
 
 const ParentDashboard = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
 
   ChartJS.register(
     CategoryScale,

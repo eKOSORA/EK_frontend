@@ -12,7 +12,7 @@ import { sidebarState } from '../../components/states/sidebar'
 
 const StudentsMarks: NextPage = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
 
   const studentMarks = [
     { name: 'Maths Quiz', subject: 'Maths', initial: 'MTC', marks: 90, max: 100, date: 'Tue May 24 2022' },

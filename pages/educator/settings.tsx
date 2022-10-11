@@ -13,7 +13,7 @@ import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../components/states/sidebar'
 
 const Settings = () => {
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
   const [formData, setFormData] = useState({
     editMode: false,
     password: 'password@gmail.com',

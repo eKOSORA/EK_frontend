@@ -11,7 +11,7 @@ import { sidebarState } from '../../../components/states/sidebar'
 
 const Index = () => {
     //Important states
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>

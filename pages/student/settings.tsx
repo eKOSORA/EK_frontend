@@ -16,7 +16,7 @@ import { sidebarState } from '../../components/states/sidebar'
 
 const StudentsSettings = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
 
   const [formData, setFormData] = useState({
     editMode: false,

@@ -22,7 +22,7 @@ const StudentsUpload = () => {
     const needed = ["First Name", "Last Name", "Code/ID", "Lessons", "Telephone", "Email", "Type", "NID Number"]
 
 
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
         students: [],

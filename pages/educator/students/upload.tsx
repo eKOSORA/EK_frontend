@@ -22,7 +22,7 @@ import { loaderState } from '../../../components/states/loader'
 import { sidebarState } from '../../../components/states/sidebar'
 
 const StudentsUpload = () => {
-    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+    const [sideBarActive, setSideBarActive]  = useState(false)
     const [step, setStep] = useState(1)
     const [loadingPercentage, setLoadingPercentage] = useRecoilState<number>(loaderState)
     const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState)

@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../../components/states/sidebar'
 
 const NewRecord = () => {
-  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
+  const [sideBarActive, setSideBarActive]  = useState(false)
   const [formData, setFormData] = useState({
     class: "",
     recordName: "",
