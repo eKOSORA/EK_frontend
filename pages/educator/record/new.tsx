@@ -7,9 +7,11 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { courses } from '../../../utils/marks'
 import { userTeacher } from '../../../utils/faker'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../../components/states/sidebar'
 
 const NewRecord = () => {
-  const [sideBarActive, setSideBarActive] = useState(false)
+  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
   const [formData, setFormData] = useState({
     class: "",
     recordName: "",

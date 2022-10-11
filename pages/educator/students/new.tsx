@@ -11,10 +11,12 @@ import { TextField } from '@mui/material'
 import { IoMdClose } from 'react-icons/io'
 import { ValidateEmail } from '../../../utils/comparer'
 import { AddStudentFormData } from '../../@types/students'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../../components/states/sidebar'
 
 const NewStudent = () => {
     //Important states
-    const [sideBarActive, setSideBarActive] = useState(false)
+    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
     const [formData, setFormData] = useState<AddStudentFormData>({
         name: "",
         code: "",

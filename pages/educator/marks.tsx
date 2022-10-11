@@ -12,10 +12,12 @@ import { userTeacher } from '../../utils/faker'
 import { IoIosAdd } from 'react-icons/io'
 import Link from 'next/link'
 import { GoAlert, GoSearch } from 'react-icons/go'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../components/states/sidebar'
 
 const Marks = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useState(false)
+  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
   const [editMode, setEditMode] = useState(false)
   const [studentMarks, setStudentMarks] = useState(registeredMarks)
   const [_studentMarks, set_StudentMarks] = useState(registeredMarks)

@@ -21,10 +21,12 @@ import { faker } from '@faker-js/faker'
 import announcement from '../../public/img/notification.png'
 import marks from '../../public/img/marks.png'
 import { userParent } from '../../utils/faker'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../components/states/sidebar'
 
 const ParentDashboard = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useState(false)
+  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
 
   ChartJS.register(
     CategoryScale,

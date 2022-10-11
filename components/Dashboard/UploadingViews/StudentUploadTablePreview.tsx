@@ -9,7 +9,7 @@ import swal from 'sweetalert'
 import { submitStudents } from '../../../pages/educator/students/upload';
 import { useRecoilValue } from 'recoil';
 import { fileDataState } from '../../states/sheets';
-
+import 'animate.css';
 
 const Root = styled('div')`
   table {

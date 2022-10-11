@@ -4,8 +4,10 @@ import * as XLSX from 'xlsx'
 import _ from "lodash";
 
 
-export const previewUploadedFile = async (fileData: FileData, setFileData: Function, setLoadingPercentage: Function, file: File) => {
+export const previewUploadedFile = async (fileData: FileData, setFileData: Function, setLoadingPercentage: Function,loadingPercentage:number, file: File) => {
     const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
+    console.log(file)
+    if(!file) return
     setFileData({ ...fileData, loading: true })
     var name = file.name;
     const reader = new FileReader();
@@ -53,7 +55,7 @@ export const previewUploadedFile = async (fileData: FileData, setFileData: Funct
                 }
                 const percentage = ((i + 1) / sheetCount) * 100;
                 setLoadingPercentage(Math.round(percentage))
-                // setFileData({ ...fileData, students: [...fileData.students, data] })
+                loadingPercentage=Math.round(percentage)
                 studentArray.push(data)
             }
             setFileData({ ...fileData, students: studentArray, sheets: sheetCount, isFileUploaded: true, })

@@ -20,6 +20,8 @@ import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import 'animate.css'
 import { userTeacher } from '../../utils/faker'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../components/states/sidebar'
 
 ChartJS.register(
     CategoryScale,
@@ -62,7 +64,7 @@ export const data = {
 };
 
 const Dashboard = () => {
-    const [sideBarActive, setSideBarActive] = useState(false)
+    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
     return (
         <div className='bg-[#f0f0f0] '>
             <Head>

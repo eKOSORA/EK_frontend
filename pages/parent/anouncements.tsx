@@ -7,10 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userParent } from '../../utils/faker'
 import { NextPage } from 'next'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../components/states/sidebar'
 
 const Annoucements: NextPage = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useState(false)
+  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>

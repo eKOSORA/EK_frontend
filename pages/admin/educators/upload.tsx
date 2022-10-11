@@ -14,13 +14,15 @@ import StudentUploadTablePreview from '../../../components/Dashboard/UploadingVi
 import { FileData } from '../../../utils/interfaces'
 
 import _ from 'lodash';
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../../components/states/sidebar'
 
 const StudentsUpload = () => {
 
     const needed = ["First Name", "Last Name", "Code/ID", "Lessons", "Telephone", "Email", "Type", "NID Number"]
 
 
-    const [sideBarActive, setSideBarActive] = useState(false)
+    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
         students: [],

@@ -5,7 +5,9 @@ import TablePaginationUnstyled, {
 } from '@mui/base/TablePaginationUnstyled';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { useRecoilValue } from 'recoil';
+import 'animate.css';
 import { fileDataState } from '../../states/sheets';
+
 
 const Root = styled('div')`
   table {
@@ -85,7 +87,7 @@ function MultiTablePreview(props: any) {
     };
 
     return (
-        <div className='w-11/12 m-auto flex flex-col items-center justify-center'>
+        <div className='animate__animated animate__backInRight w-11/12 m-auto flex flex-col items-center justify-center'>
             <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
                 <table className='rounded mx-2' aria-label="custom pagination table">
                     <thead className='text-white'>

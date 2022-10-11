@@ -10,10 +10,12 @@ import { useRouter } from 'next/router'
 import { TextField } from '@mui/material'
 import { IoMdClose } from 'react-icons/io'
 import { ValidateEmail } from '../../../../utils/comparer'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../../../components/states/sidebar'
 
 const Index = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useState(false)
+  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
   const router = useRouter()
   const { studentID } = router.query
 

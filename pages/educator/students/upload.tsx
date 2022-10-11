@@ -19,9 +19,10 @@ import Dropzone from 'react-dropzone'
 import { useRecoilState } from 'recoil'
 import { fileDataState } from '../../../components/states/sheets'
 import { loaderState } from '../../../components/states/loader'
+import { sidebarState } from '../../../components/states/sidebar'
 
 const StudentsUpload = () => {
-    const [sideBarActive, setSideBarActive] = useState(false)
+    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
     const [step, setStep] = useState(1)
     const [loadingPercentage, setLoadingPercentage] = useRecoilState<number>(loaderState)
     const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState)
@@ -60,12 +61,12 @@ const StudentsUpload = () => {
                 setFileData({ ...fileData, loading: false })
                 return
             }
-            previewUploadedFile(fileData, setFileData, setLoadingPercentage, inputElement.files[0])
+            previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
         }
     }
 
     const onDrop = (acceptedFiles: File[]) => {
-        previewUploadedFile(fileData, setFileData, setLoadingPercentage, acceptedFiles[0])
+        previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
     }
 
     return (

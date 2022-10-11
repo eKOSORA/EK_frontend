@@ -14,10 +14,12 @@ import StudentUploadTablePreview from '../../../components/Dashboard/UploadingVi
 import { FileData } from '../../../utils/interfaces'
 import { totalmem } from 'os'
 import { useDropzone } from 'react-dropzone'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../../components/states/sidebar'
 
 const Upload = () => {
 
-    const [sideBarActive, setSideBarActive] = useState(false)
+    const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
     const [step, setStep] = useState(1)
     const [fileData, setFileData] = useState<FileData>({
         students: [],

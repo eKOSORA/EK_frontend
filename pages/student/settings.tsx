@@ -10,11 +10,13 @@ import { TextField } from '@mui/material'
 import visibilityOff from './../../public/img/visibility_off.svg'
 import visibility from './../../public/img/visibility.svg'
 import { userStudent } from '../../utils/faker'
+import { useRecoilState } from 'recoil'
+import { sidebarState } from '../../components/states/sidebar'
 
 
 const StudentsSettings = () => {
   //Important states
-  const [sideBarActive, setSideBarActive] = useState(false)
+  const [sideBarActive, setSideBarActive] = useRecoilState(sidebarState)
 
   const [formData, setFormData] = useState({
     editMode: false,
