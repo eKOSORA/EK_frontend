@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import jwtdecode from "jwt-decode";
 import { deleteAllCookies, getCookie } from "../utils/cookies";
 import axios from "axios";
 import { useRouter } from "next/router";
 
 
-let AuthContext = React.createContext({});
+let AuthContext = createContext({});
 
 export const useAuth = () => {
-    return React.useContext(AuthContext);
+    return useContext(AuthContext);
 };
 
 

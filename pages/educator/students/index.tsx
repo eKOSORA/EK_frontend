@@ -240,17 +240,17 @@ const StudentsPage = () => {
             <div className='w-1/2 my-auto flex flex-row items-center justify-around'>
               <div className='my-4 float-right px-2 rounded-3xl w-8/12 font-questrial items-center justify-center flex text-lg neumorphism'>
                 <GoSearch size={20} color='grey' />
-                <input type="text" maxLength={30} placeholder='Search' onChange={handleSearchStudents} className="text-[#808080] outline-none w-[90%] border-none bg-inherit p-2.5 " />
+                <input type="text" maxLength={30} placeholder='Search' onChange={handleSearchStudents} className="hover:rotate-6 text-[#808080] outline-none w-[90%] border-none bg-inherit p-2.5 " />
               </div>
 
               <Link href={'/educator/students/new'}>
-                <div title='Add a student' onClick={sortStudents} className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
+                <div title='Add a student' onClick={sortStudents} className='hover:rotate-6 p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
                   <HiPlusCircle size={25} color={'#808080'} />
                 </div>
               </Link>
 
               <Link title='Go Back to students and their classes' href={'/educator/students/all'}>
-                <div className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
+                <div className='p-3 cursor-pointer rounded-full flex hover:rotate-6 items-center justify-center text-[#808080] neumorphism'>
                   <HiUserGroup size={25} color={'#808080'} />
                 </div>
               </Link>

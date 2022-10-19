@@ -12,12 +12,10 @@ import { userTeacher } from '../../utils/faker'
 import { IoIosAdd } from 'react-icons/io'
 import Link from 'next/link'
 import { GoAlert, GoSearch } from 'react-icons/go'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../components/states/sidebar'
 
 const Marks = () => {
   //Important states
-  const [sideBarActive, setSideBarActive]  = useState(false)
+  const [sideBarActive, setSideBarActive] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [studentMarks, setStudentMarks] = useState(registeredMarks)
   const [_studentMarks, set_StudentMarks] = useState(registeredMarks)
@@ -31,6 +29,8 @@ const Marks = () => {
     class: "",
     course: ""
   });
+
+
   const [selectedMarks, setSelectedMarks]: any = useState([])
   const [stats, setStats] = useState({
     total: 0,
@@ -86,20 +86,22 @@ const Marks = () => {
     return
   }
 
-  /*
-      const handleSearchStudents = (e: any) => {
-        const query = e.target.value
-        if (query === "") return setStudents(_students)
-        //console.log(query)
-        const searchedStudents = _students.filter((student: any) => student['First Name'].toLowerCase().includes(query) || student['Last Name'].toLowerCase().includes(query));
-        //console.log(searchedStudents)
-        setStudents(searchedStudents)
-        return
-    }
-  */
   const selectAllMarks = (e: any) => {
     const allSelector = e.target
-    const allCheckboxes = document.querySelectorAll('table input[type=checkbox]') as any //Array<HTMLInputElement>
+    const allCheckboxes = document.querySelectorAll('table input[type=checkbox]') as any
+
+    if (allSelector.checked) {
+      allSelector.checked = false
+      allCheckboxes.forEach((checkbox: any) => {
+        checkbox.checked = false
+      })
+    }
+    else {
+      allSelector.checked = true
+      allCheckboxes.forEach((checkbox: any) => {
+        checkbox.checked = true
+      })
+    }
 
   }
 

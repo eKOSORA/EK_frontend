@@ -6,8 +6,6 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userTeacher } from '../../utils/faker'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../components/states/sidebar'
 
 const TimeTablesPage = () => {
   //Important states
@@ -42,6 +40,8 @@ const TimeTablesPage = () => {
             null
         }
         <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
+
+
 
         </div>
       </div>
