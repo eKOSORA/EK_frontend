@@ -1,16 +1,16 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import { Navbar } from '../../../components/Dashboard/Navbar'
-import Sidebar from '../../../components/Dashboard/Sidebar'
+import { Navbar } from '../../../../components/Dashboard/Navbar'
+import Sidebar from '../../../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userTeacher } from '../../../utils/faker'
-import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from '../../interfaces/timetables'
+import { userTeacher } from '../../../../utils/faker'
+import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from '../../../interfaces/timetables'
 import { TextField } from '@mui/material'
 import { BiX } from 'react-icons/bi'
 
-const Timetables = () => {
+const NewTimeTable = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
     const [hours, setHours] = useState<Array<HourObject>>([])
@@ -170,4 +170,4 @@ const Timetables = () => {
     )
 }
 
-export default Timetables
+export default NewTimeTable

@@ -6,7 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['res.cloudinary.com','raw.githubusercontent.com'],
+    domains: ['res.cloudinary.com', 'raw.githubusercontent.com', 'matheasily.com'],
   },
   // pwa: {
   //   dest: "public",

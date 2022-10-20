@@ -38,6 +38,7 @@ module.exports = {
     },
     colors: {
       ...colors,
+      "delete-red": "#d72222",
       'ek-blue': {
         DEFAULT: '#3F7CAC',
         '50': '#3F7CAC',

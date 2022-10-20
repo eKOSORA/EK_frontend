@@ -34,3 +34,8 @@ export interface EditModeObject {
 }
 
 
+export interface TimeTableViewObject {
+    name: string,
+    lastEdited: string,
+    imageUrl:string
+}
