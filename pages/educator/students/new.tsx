@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 import Sidebar from '../../../components/Dashboard/Sidebar'
 import { toast, ToastContainer } from 'react-toastify'
@@ -13,10 +13,12 @@ import { ValidateEmail } from '../../../utils/comparer'
 import { AddStudentFormData } from '../../@types/students'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../../components/states/sidebar'
+import { useAuth } from '../../../Context/AuthContext'
 
 const NewStudent = () => {
     //Important states
     const [sideBarActive, setSideBarActive]  = useState(false)
+    const { user }:any = useAuth()
     const [formData, setFormData] = useState<AddStudentFormData>({
         name: "",
         code: "",
@@ -60,6 +62,12 @@ const NewStudent = () => {
         //console.log(formData)
     }
 
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
+
+
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
             <ToastContainer
@@ -83,7 +91,7 @@ const NewStudent = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} page='educator' active='dashboard' />
+                        <Sidebar user={user} page='educator' active='dashboard' />
                         :
                         null
                 }

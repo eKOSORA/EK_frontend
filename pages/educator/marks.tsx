@@ -12,10 +12,13 @@ import { userTeacher } from '../../utils/faker'
 import { IoIosAdd } from 'react-icons/io'
 import Link from 'next/link'
 import { GoAlert, GoSearch } from 'react-icons/go'
+import { useRouter } from 'next/router'
+import { useAuth } from '../../Context/AuthContext'
 
 const Marks = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
+  const { user }: any = useAuth()
   const [editMode, setEditMode] = useState(false)
   const [studentMarks, setStudentMarks] = useState(registeredMarks)
   const [_studentMarks, set_StudentMarks] = useState(registeredMarks)
@@ -132,8 +135,10 @@ const Marks = () => {
 
   }, [studentMarks])
 
-
-
+  const router = useRouter()
+  useEffect(() => {
+    if (!user) router.push('/auth/login')
+  }, [router, user])
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -215,7 +220,7 @@ const Marks = () => {
         {
           sideBarActive
             ?
-            <Sidebar page="educator" user={userTeacher} active='marks' />
+            <Sidebar page="educator" user={user} active='marks' />
             :
             null
         }

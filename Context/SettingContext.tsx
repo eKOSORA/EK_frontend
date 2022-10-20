@@ -39,8 +39,8 @@ const SettingProvider = ({ children }: any) => {
             const data = await axios.get(`${baseURL}/settings/newTerm`)
             return data
         } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error)
+            console.log("Fetch error")
+            console.log(error)
             return
         }
     }

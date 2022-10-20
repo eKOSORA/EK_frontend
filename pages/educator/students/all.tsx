@@ -18,11 +18,14 @@ import { TiMediaPlayReverse } from 'react-icons/ti'
 import { FiTrash } from 'react-icons/fi'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../../components/states/sidebar'
+import { useAuth } from '../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 const AllStudents = () => {
     //Important states
 
     const [page, setPage] = React.useState(0);
+    const { user }:any = useAuth()
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [sideBarActive, setSideBarActive]  = useState(false)
     const [studentsData, setStudentsData] = useState<any>({
@@ -141,6 +144,12 @@ const AllStudents = () => {
 
     }
 
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
+
+
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
@@ -165,7 +174,7 @@ const AllStudents = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar page="educator" user={userTeacher} active='students' />
+                        <Sidebar page="educator" user={user} active='students' />
                         :
                         null
                 }

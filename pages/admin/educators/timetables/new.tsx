@@ -9,11 +9,14 @@ import { userTeacher } from '../../../../utils/faker'
 import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from '../../../interfaces/timetables'
 import { TextField } from '@mui/material'
 import { BiX } from 'react-icons/bi'
-import { useDrag,useDrop } from 'react-dnd'
+import { useDrag, useDrop } from 'react-dnd'
+import { useAuth } from '../../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 const NewTimeTable = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
+    const { user }: any = useAuth()
     const [hours, setHours] = useState<Array<HourObject>>([])
     const [hour, setHour] = useState<HourObject>({
         from: '00:00',
@@ -131,6 +134,12 @@ const NewTimeTable = () => {
         })
     }
 
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
+
+
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
             <ToastContainer
@@ -153,7 +162,7 @@ const NewTimeTable = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} page='admin' active='dashboard' />
+                        <Sidebar user={user} page='admin' active='dashboard' />
                         :
                         null
                 }
@@ -230,7 +239,7 @@ const NewTimeTable = () => {
                                                     <td className='w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4'>{day.toUpperCase()}</td>
                                                     {
                                                         timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
-                                                            <td  className={` text-black border-b-2{`} key={index}>{subject.initial}</td>
+                                                            <td className={` text-black border-b-2{`} key={index}>{subject.initial}</td>
                                                         )
                                                         )
                                                     }

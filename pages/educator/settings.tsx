@@ -8,12 +8,11 @@ import Image from 'next/image'
 import { TextField } from '@mui/material'
 import visibilityOff from './../../public/img/visibility_off.svg'
 import visibility from './../../public/img/visibility.svg'
-import { userTeacher } from '../../utils/faker'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../components/states/sidebar'
+import { useAuth } from '../../Context/AuthContext'
 
 const Settings = () => {
   const [sideBarActive, setSideBarActive]  = useState(false)
+  const { user }:any = useAuth()
   const [formData, setFormData] = useState({
     editMode: false,
     password: 'password@gmail.com',
@@ -77,7 +76,7 @@ const Settings = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} page="educator" active='settings' />
+            <Sidebar user={user} page="educator" active='settings' />
             :
             null
         }

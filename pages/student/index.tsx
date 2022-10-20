@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
@@ -23,10 +23,19 @@ import marks from '../../public/img/marks.png'
 import { userStudent } from '../../utils/faker'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../components/states/sidebar'
+import { useRouter } from 'next/router'
+import { useAuth } from '../../Context/AuthContext'
 
 const StudentsDashboard = () => {
   //Important states
   const [sideBarActive, setSideBarActive]  = useState(false)
+  const { user }: any = useAuth()
+
+  const router = useRouter()
+  useEffect(() => {
+    if (!user) router.push('/auth/login')
+  }, [router, user])
+
 
   ChartJS.register(
     CategoryScale,

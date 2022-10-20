@@ -3,6 +3,7 @@ import jwtdecode from "jwt-decode";
 import { deleteAllCookies, getCookie } from "../utils/cookies";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { UserObject } from "../pages/interfaces/user";
 
 
 let AuthContext = createContext({});
@@ -16,7 +17,7 @@ export default function AuthProvider({ children }: any) {
 
     const router = useRouter()
 
-    let [user, setUser] = useState({});
+    let [user, setUser] = useState<UserObject | undefined>(undefined);
     const baseURL = 'https://ekosora-backend.cyclic.app'
     const decodeToken = async () => {
         const token = getCookie("token");
@@ -28,10 +29,10 @@ export default function AuthProvider({ children }: any) {
                 return setUser(userd);
             } catch (err) {
                 //console.log(err);
-                return setUser({});
+                return setUser(undefined);
             }
         }
-        return setUser({});
+        return setUser(undefined);
     };
 
     const getUserById = async (id: string) => {
@@ -57,6 +58,7 @@ export default function AuthProvider({ children }: any) {
     useEffect(() => {
         if (!user) router.push('/auth/login')
     }, [router, user])
+
     let value = { user, logout, setUser, getUserById, login };
 
     return (

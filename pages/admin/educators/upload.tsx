@@ -20,9 +20,12 @@ import { useRecoilState } from 'recoil'
 import { fileDataState } from '../../../components/states/sheets'
 import { loaderState } from '../../../components/states/loader'
 import { sidebarState } from '../../../components/states/sidebar'
+import { useAuth } from '../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 const StudentsUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
+    const { user }: any = useAuth()
     const [step, setStep] = useState(1)
     const [loadingPercentage, setLoadingPercentage] = useRecoilState<number>(loaderState)
     const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState)
@@ -69,6 +72,12 @@ const StudentsUpload = () => {
         previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
     }
 
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
+
+
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
@@ -93,7 +102,7 @@ const StudentsUpload = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} page="educator" active='students' />
+                        <Sidebar user={user} page="educator" active='students' />
                         :
                         null
                 }

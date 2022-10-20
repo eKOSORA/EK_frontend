@@ -37,6 +37,7 @@ export const AnnouncementProvider = ({ children }: any) => {
     const router = useRouter()
     useEffect(() => {
         if (!user) router.push('/auth/login')
+        getAllAnnouncements()
     }, [router, user])
     return (
         <AnnouncementContext.Provider value={{ getAllAnnouncements, newAnnouncement }}>

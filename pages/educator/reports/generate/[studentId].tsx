@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../../../components/Dashboard/Navbar'
 import Sidebar from '../../../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
@@ -8,10 +8,18 @@ import 'animate.css'
 import { userTeacher } from '../../../../utils/faker'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../../../components/states/sidebar'
+import { useAuth } from '../../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 const GenerateReport = () => {
   //Important states
-  const [sideBarActive, setSideBarActive]  = useState(false)
+  const [sideBarActive, setSideBarActive] = useState(false)
+  const { user }: any = useAuth()
+
+  const router = useRouter()
+  useEffect(() => {
+      if (!user) router.push('/auth/login')
+  }, [router, user])
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -36,7 +44,7 @@ const GenerateReport = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} page='educator' active='dashboard' />
+            <Sidebar user={user} page='educator' active='dashboard' />
             :
             null
         }

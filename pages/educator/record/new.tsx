@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 import Sidebar from '../../../components/Dashboard/Sidebar'
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
@@ -9,9 +9,12 @@ import { courses } from '../../../utils/marks'
 import { userTeacher } from '../../../utils/faker'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../../components/states/sidebar'
+import { useAuth } from '../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 const NewRecord = () => {
-  const [sideBarActive, setSideBarActive]  = useState(false)
+  const [sideBarActive, setSideBarActive] = useState(false)
+  const { user }: any = useAuth()
   const [formData, setFormData] = useState({
     class: "",
     recordName: "",
@@ -36,6 +39,12 @@ const NewRecord = () => {
     setFormData({ ...formData, [prop]: event.target.value });
   };
 
+  const router = useRouter()
+  useEffect(() => {
+    if (!user) router.push('/auth/login')
+  }, [router, user])
+
+
   return (
     <div className='bg-[#f0f0f0] min-h-screen'>
       <ToastContainer
@@ -59,7 +68,7 @@ const NewRecord = () => {
         {
           sideBarActive
             ?
-            <Sidebar page="educator" user={userTeacher} active='dashboard' />
+            <Sidebar page="educator" user={user} active='dashboard' />
             :
             null
         }

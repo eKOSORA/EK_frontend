@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
@@ -23,10 +23,19 @@ import marks from '../../public/img/marks.png'
 import { userParent } from '../../utils/faker'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../components/states/sidebar'
+import { useRouter } from 'next/router'
+import { useAuth } from '../../Context/AuthContext'
 
 const ParentDashboard = () => {
   //Important states
-  const [sideBarActive, setSideBarActive]  = useState(false)
+  const [sideBarActive, setSideBarActive] = useState(false)
+  const { user }: any = useAuth()
+
+  const router = useRouter()
+  useEffect(() => {
+    if (!user) router.push('/auth/login')
+  }, [router, user])
+
 
   ChartJS.register(
     CategoryScale,
@@ -35,38 +44,38 @@ const ParentDashboard = () => {
     Title,
     Tooltip,
     Legend
-);
+  );
 
-const options = {
+  const options = {
     responsive: true,
     plugins: {
-        legend: {
-            position: 'top' as const,
-        },
-        title: {
-            display: true,
-            text: 'Chart.js Bar Chart',
-        },
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart',
+      },
     },
-};
+  };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-const data = {
+  const data = {
     labels,
     datasets: [
-        {
-            label: 'WUI',
-            data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-        {
-            label: 'JAVASCRIPT',
-            data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
+      {
+        label: 'WUI',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'JAVASCRIPT',
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
     ],
-};
+  };
 
   return (
     <div className=' bg-[#f0f0f0] min-h-screen'>
@@ -101,18 +110,18 @@ const data = {
             <span className='text-4xl heading-text mb-4'>Quick Access</span>
             <div className='w-full flex items-center justify-center'>
               <a href={'/educator/marks'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
-                <Image alt=""  src={marks} width={150} height={150} ></Image>
+                <Image alt="" src={marks} width={150} height={150} ></Image>
                 <span className='text-lg questrialtext'>Marks</span>
               </a>
 
               <a href={'/educator/settings'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
-                <Image alt=""  src={students} width={150} height={150} ></Image>
+                <Image alt="" src={students} width={150} height={150} ></Image>
                 <span className='text-lg questrialtext'>Settings</span>
               </a>
 
 
               <a href={'/educator/announcements'} className='neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full'>
-                <Image alt=""  src={announcement} width={150} height={150} ></Image>
+                <Image alt="" src={announcement} width={150} height={150} ></Image>
                 <span className='text-lg questrialtext'>Announcements</span>
               </a>
 

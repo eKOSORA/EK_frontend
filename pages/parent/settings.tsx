@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { toast, ToastContainer } from 'react-toastify'
@@ -13,11 +13,20 @@ import { userStudent } from '../../utils/faker'
 import { checkFileType } from '../../utils/cookies'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../components/states/sidebar'
+import { useAuth } from '../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 
 const StudentsSettings = () => {
   //Important states
   const [sideBarActive, setSideBarActive]  = useState(false)
+  const { user }: any = useAuth()
+
+  const router = useRouter()
+  useEffect(() => {
+    if (!user) router.push('/auth/login')
+  }, [router, user])
+
 
   const [formData, setFormData] = useState({
     editMode: false,

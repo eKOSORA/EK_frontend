@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../../../components/Dashboard/Navbar'
 import Sidebar from '../../../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
@@ -16,11 +16,14 @@ import EditTimetableView from '../../../../components/Dashboard/admin/EditTimeta
 import swal from 'sweetalert'
 import Link from 'next/link'
 import { AiFillCalendar } from 'react-icons/ai'
+import { useAuth } from '../../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 
 const Index = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
+    const { user }: any = useAuth()
     const [timetables, setTimetables] = useState<Array<TimeTableViewObject>>(timetablesView)
     const [viewTimetable, setViewTimetable] = useState<boolean>(false)
     const [editTimetable, setEditTimetable] = useState<Boolean>(false)
@@ -68,6 +71,10 @@ const Index = () => {
         setViewTimetable(false)
         setEditTimetable(false)
     }
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -92,7 +99,7 @@ const Index = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={userTeacher} page='admin' active='dashboard' />
+                        <Sidebar user={user} page='admin' active='dashboard' />
                         :
                         null
                 }

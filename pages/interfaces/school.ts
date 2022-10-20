@@ -9,3 +9,4 @@ export interface CreateSchoolFormDataState {
     logoImageStr: string;
     name: string;
 }
+

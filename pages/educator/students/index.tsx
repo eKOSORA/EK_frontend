@@ -17,6 +17,8 @@ import Link from 'next/link'
 import { FiTrash } from 'react-icons/fi'
 import { useRecoilState } from 'recoil'
 import { sidebarState } from '../../../components/states/sidebar'
+import { useAuth } from '../../../Context/AuthContext'
+import { useRouter } from 'next/router'
 
 
 const StudentsPage = () => {
@@ -25,6 +27,7 @@ const StudentsPage = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive]  = useState(false)
+  const { user }:any = useAuth()
   const [studentsData, setStudentsData] = useState<any>({
     year: "year_1",
     class: "",
@@ -157,6 +160,10 @@ const StudentsPage = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
 
+    const router = useRouter()
+    useEffect(() => {
+        if (!user) router.push('/auth/login')
+    }, [router, user])
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -182,7 +189,7 @@ const StudentsPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userTeacher} page="educator" active='students' />
+            <Sidebar user={user} page="educator" active='students' />
             :
             null
         }
