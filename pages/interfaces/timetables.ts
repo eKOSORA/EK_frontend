@@ -6,11 +6,11 @@ export interface HourObject {
 export interface LessonObject {
     name: string,
     educator: string,
-    from: number,
-    to: number
+    numberofHours:number,
+    initial:string
 }
 export interface LessonInTimeTableObject {
-
+    index?: number
     name: string,
     from: string,
     to: string,
@@ -37,5 +37,5 @@ export interface EditModeObject {
 export interface TimeTableViewObject {
     name: string,
     lastEdited: string,
-    imageUrl:string
+    imageUrl: string
 }

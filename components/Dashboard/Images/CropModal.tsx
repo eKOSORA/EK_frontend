@@ -7,46 +7,39 @@ import { CreateSchoolFormDataState } from '../../../pages/interfaces/school';
 
 type Props = {
     setCropMode: Function,
-    cropMode:boolean
+    cropMode: boolean
     setFormData: Function,
     formData: CreateSchoolFormDataState;
 }
 
-const CropModal = (props: Props) => {
+const CropModal: React.FC<Props> = ({ setCropMode, cropMode, setFormData, formData }) => {
 
-    const [cropData, setCropData] = useState(props.formData.logoImageStr);
+    const [cropData, setCropData] = useState(formData.logoImageStr);
     const [cropper, setCropper] = useState<any>();
 
     const getCropData = () => {
         if (typeof cropper !== "undefined") {
             setCropData(cropper.getCroppedCanvas().toDataURL());
-            props.setFormData({ ...props.formData, logoImageStr: cropper.getCroppedCanvas().toDataURL() });
+            setFormData({ ...formData, logoImageStr: cropper.getCroppedCanvas().toDataURL() });
         }
-        props.setCropMode(false)
+        setCropMode(false)
     };
 
     useEffect(() => {
-        localStorage.setItem('uploadedImage', props.formData.logoImageStr)
-    },[props.formData.logoImageStr])
-
-    const restoreImage = () => {
-        setCropData(localStorage.getItem('uploadedImage') as string)
-    }
+        localStorage.setItem('uploadedImage', formData.logoImageStr)
+    }, [formData.logoImageStr])
 
     return (
         <div className="absolute w-screen h-screen top-0 left-0 bg-black/70 flex items-center justify-center z-[2]">
-            <div className='absolute z-[3] h-full w-full' onClick={props.setCropMode(false)}></div>
+            <div className='absolute z-[3] h-full w-full' onClick={() => setCropMode(false)}></div>
 
             <div className='z-[4] bg-white rounded-lg h-fit w-11/12 sm:w-10/12 md:w-8/12 lg:w-6/12 flex items-center justify-center flex-col p-8'>
                 <div className='flex items-end justify-end w-full'>
-                    <AiOutlineClose color='black' size={25} className='cursor-pointer ' onClick={props.setCropMode(false)} />
+                    <AiOutlineClose color='black' size={25} className='cursor-pointer ' onClick={setCropMode(false)} />
                 </div>
                 <div className='my-3 w-full flex items-center justify-around'>
                     <button className='text-white font-questrial px-4 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer' onClick={getCropData}>
                         Crop Image
-                    </button>
-                    <button className='text-white font-questrial px-4 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer' onClick={restoreImage}>
-                        Reset Image
                     </button>
                     <label htmlFor='logoImage' className='px-4 py-2 cursor-pointer rounded hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 text-white font-questrial'>Change Image</label>
                 </div>
@@ -57,7 +50,7 @@ const CropModal = (props: Props) => {
                             zoomTo={0.5}
                             initialAspectRatio={1}
                             preview=".img-preview"
-                            src={props.formData.logoImageStr}
+                            src={formData.logoImageStr}
                             viewMode={1}
                             minCropBoxHeight={10}
                             minCropBoxWidth={10}
@@ -82,7 +75,7 @@ const CropModal = (props: Props) => {
                     </div>
                     <br style={{ clear: "both" }} />
                 </div>
-                <button className='text-white font-questrial px-6 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer m-auto' onClick={props.setCropMode(false)}>
+                <button className='text-white font-questrial px-6 py-2 hover:bg-ek-blue-50 hover:animate-ring bg-ek-blue-75 rounded-lg cursor-pointer m-auto' onClick={() => setCropMode(false)}>
                     SAVE
                 </button>
             </div>

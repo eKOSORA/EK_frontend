@@ -108,12 +108,10 @@ const Signup: NextPage = () => {
         const longitude = navigator.geolocation.getCurrentPosition((position) => position.coords.longitude)
         const latitude = navigator.geolocation.getCurrentPosition((position) => position.coords.latitude)
 
-        //console.log(`Latitude: ${latitude}`)
-        //console.log(`Longitude: ${longitude}`)
-
-        const data = await axios.get('/api/getLocation', {})
+        console.log(`Latitude: ${latitude}`)
+        console.log(`Longitude: ${longitude}`)
     }
-
+    cropMode ? console.log("No crop mode") : console.log("Crop mode")
     return (
         <div className='z-1 w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
             {
@@ -122,7 +120,6 @@ const Signup: NextPage = () => {
                     :
                     null
             }
-            {/* <CropModal formData={formData} imageSrc={formData.logoImageStr} setCropMode={setCropMode} setFormData={setFormData} /> */}
             <Navbar page={'signup'} />
             <Head>
                 <title>Signup | eKOSORA</title>
@@ -307,14 +304,13 @@ const Signup: NextPage = () => {
                                             {formData.logoImageStr ?
                                                 <div className='relative w-full flex items-center justify-around h-full'>
                                                     <div className='absolute top-2 right-2 flex items-center justify-center flex-row z-[1]'>
-                                                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(true)} type="button" title={"Crop Image"}><BiCrop /></button>
+                                                        {/* <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(true)} type="button" title={"Crop Image"}><BiCrop /></button> */}
                                                         <label htmlFor='logoImage' className={`text-center flex items-center justify-center p-2 bg-ek-blue-75 text-white mx-2 cursor-pointer  rounded my-2 text-lg submitButton`} title={"Change Image"}><AiFillEdit /></label>
                                                         <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} type="button" onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }} title={"Remove Image"}><VscClose /></button>
                                                     </div>
                                                     <div className='w-full h-full flex items-center justify-center rounded'><Image alt={"Logo image string"} objectFit='cover' layout='fill' className='w-full h-full' src={formData.logoImageStr}></Image></div>
                                                 </div>
                                                 :
-
                                                 <Dropzone
                                                     accept={{ 'image/*': [] }}
                                                     onDrop={onDrop}
@@ -350,8 +346,6 @@ const Signup: NextPage = () => {
                             }
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>

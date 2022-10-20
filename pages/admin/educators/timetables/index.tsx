@@ -13,6 +13,10 @@ import { BiEdit } from 'react-icons/bi'
 import { MdOutlineDelete } from 'react-icons/md'
 import TimetableView from '../../../../components/Dashboard/admin/TimetableView'
 import EditTimetableView from '../../../../components/Dashboard/admin/EditTimetableView'
+import swal from 'sweetalert'
+import Link from 'next/link'
+import { AiFillCalendar } from 'react-icons/ai'
+
 
 const Index = () => {
     //Important states
@@ -39,6 +43,30 @@ const Index = () => {
     const mouseLeave = (id: String) => {
         const timetableDescription = document.querySelector(`#${id}`)
         timetableDescription?.classList.replace('sm:flex', 'sm:hidden')
+    }
+
+    const confirmDeletion = (index: number) => {
+        const alertUser: any = swal({
+            title: "Are you sure?",
+            text: "Once deleted you'll have to generate another timetable!!!",
+            icon: "warning",
+            dangerMode: true,
+        })
+
+        alertUser.then((willDelete: any) => {
+            if (willDelete) {
+                swal({
+                    title: "",
+                    text: "Timetable deleted successfully",
+                    icon: "success",
+                    dangerMode: false,
+                });
+            }
+        });
+
+        timetables.slice(index, 1)
+        setViewTimetable(false)
+        setEditTimetable(false)
     }
 
     return (
@@ -69,13 +97,22 @@ const Index = () => {
                         null
                 }
                 <div className={`${sideBarActive ? 'w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
-
-
+                    <div className='w-full flex items-center justify-between'>
+                        <span className="text-ek-blue text-4xl w-fit text-start heading-text mt-8 mb-0">Saved Timetables</span>
+                        <Link href={'/admin/educators/timetables/new'} >
+                            <button className='px-5 flex items-center justify-center py-2 bg-ek-blue-75 rounded hover:animate-ring text-white cursor-pointer'>
+                                <AiFillCalendar className='mr-2' size={25} color="white" />
+                                <span>
+                                    Create New
+                                </span>
+                            </button>
+                        </Link>
+                    </div>
 
                     {
                         viewTimetable
                             ?
-                            <TimetableView setEditTimetable={setEditTimetable} setViewTimetable={setViewTimetable} activeTimetable={activeTimetable} />
+                            <TimetableView index={timetables.indexOf(activeTimetable)} confirmDeletion={confirmDeletion} setEditTimetable={setEditTimetable} setViewTimetable={setViewTimetable} activeTimetable={activeTimetable} />
                             :
                             null
                     }
@@ -83,7 +120,7 @@ const Index = () => {
                     {
                         editTimetable
                             ?
-                            <EditTimetableView setEditTimetable={setEditTimetable} setViewTimetable={setViewTimetable} activeTimetable={activeTimetable} />
+                            <EditTimetableView index={timetables.indexOf(activeTimetable)} confirmDeletion={confirmDeletion} setEditTimetable={setEditTimetable} setViewTimetable={setViewTimetable} activeTimetable={activeTimetable} />
                             :
                             null
                     }
@@ -96,8 +133,8 @@ const Index = () => {
                                 </div>
                                 <div id={`timetable-description-${index}`} className=' z-[3] w-full absolute flex sm:hidden top-0 left-0 items-end justify-center flex-col bg-gradient-to-t from-black  h-full '>
                                     <div className='absolute  right-0 bottom-auto flex flex-col  items-center justify-center w-12 h-fit '>
-                                        <div className='my-1 bg-ek-blue-75 flex items-center justify-center cursor-pointer text-white h-10 w-10 rounded-full hover:rotate-12'><BiEdit size={23} /></div>
-                                        <div className='my-1 bg-delete-red flex items-center justify-center cursor-pointer text-white h-10 w-10 rounded-full hover:rotate-12'><MdOutlineDelete size={23} /></div>
+                                        <div onClick={() => setEditTimetable(true)} className='my-1 bg-ek-blue-75 flex items-center justify-center cursor-pointer text-white h-10 w-10 rounded-full hover:rotate-12'><BiEdit size={23} /></div>
+                                        <div onClick={() => confirmDeletion(index)} className='my-1 bg-delete-red flex items-center justify-center cursor-pointer text-white h-10 w-10 rounded-full hover:rotate-12'><MdOutlineDelete size={23} /></div>
                                     </div>
                                     <div className='w-full absolute bottom-1 flex mb-3 flex-col px-3'>
                                         <span className='text-white text-xl font-semibold'>{timetable.name}</span>
@@ -109,7 +146,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
