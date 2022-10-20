@@ -90,10 +90,6 @@ const Signup: NextPage = () => {
         }
     }
 
-    const handleCropEvents = () => {
-        console.log(cropMode)
-        setCropMode(!cropMode)
-    }
 
     const onDrop = (acceptedFiles: File[]) => {
 

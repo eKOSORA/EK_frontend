@@ -121,6 +121,7 @@ function StudentUploadTablePreview(props: any) {
         await submitStudents({ sheets: fileData.sheets, students: fileData.students })
     }
 
+
     return (
         <div className='w-full flex flex-col items-center justify-center'>
             {fileData.sheets > 1
@@ -136,7 +137,7 @@ function StudentUploadTablePreview(props: any) {
                     <div className='w-full flex items-center justify-between'>
                         <div onClick={() => setSheetNo(sheetNo - 1)} className={`${sheetNo === 0 ? 'hidden' : 'flex'} p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}><BiChevronLeft color='white' size={20} /></div>
                         <MultiTablePreview sheetNo={sheetNo} />
-                        <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo === 3 ? 'hidden' : 'flex'} p-2  rounded-full items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
+                        <div onClick={() => setSheetNo(sheetNo + 1)} className={` ${sheetNo === (fileData.sheets - 1) ? 'hidden' : 'flex'} p-2  rounded-full items-center justify-center bg-ek-blue-75`}><BiChevronRight color='white' size={20} /></div>
                     </div>
                     :
                     <Root sx={{ maxWidth: '100%', borderRadius: '10px', width: '100%' }}>
