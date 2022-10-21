@@ -56,9 +56,6 @@ const SettingProvider = ({ children }: any) => {
         }
     }
     const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
 
     return (
         <SettingContext.Provider value={{ updateProfile, getTerms, newTerm, updateSettings }}>

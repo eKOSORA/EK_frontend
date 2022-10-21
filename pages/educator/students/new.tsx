@@ -61,13 +61,7 @@ const NewStudent = () => {
         e.preventDefault()
         //console.log(formData)
     }
-
-    const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
-
-
+    
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
             <ToastContainer

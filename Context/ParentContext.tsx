@@ -36,9 +36,7 @@ const ParentProvider = ({ children }: any) => {
     }
 
     const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
+
 
     return (
         <ParentContext.Provider value={{ getInfo, registerParent }}>

@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import EducatorForm from '../../components/Auth/Forms/EducatorForm'
 import ParentForm from '../../components/Auth/Forms/ParentForm'
 import StudentForm from '../../components/Auth/Forms/StudentForm'
@@ -8,6 +9,12 @@ import { Navbar } from '../../components/Auth/Navbar'
 
 const Login: NextPage = () => {
     const [active, setActive] = useState('parent')
+
+    const router = useRouter()
+
+    useEffect(() => {
+        router.prefetch(`/${active}/`)
+    }, [active, router])
 
     return (
         <div className='w-screen h-screen flex flex-col items-center justify-start'>

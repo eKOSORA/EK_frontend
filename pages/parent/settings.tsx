@@ -23,9 +23,7 @@ const StudentsSettings = () => {
   const { user }: any = useAuth()
 
   const router = useRouter()
-  useEffect(() => {
-    if (!user) router.push('/auth/login')
-  }, [router, user])
+
 
 
   const [formData, setFormData] = useState({

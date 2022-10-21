@@ -115,11 +115,6 @@ const StudentProvider = ({ children }: any) => {
         }
     }
 
-    const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
-
     return (
         <StudentContext.Provider value={{ registerStudent, editStudent, addParent, addRecord, deleteRecord, getAllStudents, getRecords, getSummary, updateMark }}>
             {children}

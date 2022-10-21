@@ -25,9 +25,9 @@ const AllStudents = () => {
     //Important states
 
     const [page, setPage] = React.useState(0);
-    const { user }:any = useAuth()
+    const { user }: any = useAuth()
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [sideBarActive, setSideBarActive]  = useState(false)
+    const [sideBarActive, setSideBarActive] = useState(false)
     const [studentsData, setStudentsData] = useState<any>({
         year: "year_1",
         class: "",
@@ -145,10 +145,6 @@ const AllStudents = () => {
     }
 
     const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
-
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
@@ -186,17 +182,15 @@ const AllStudents = () => {
                             <input type="text" maxLength={30} placeholder='Search' onChange={handleSearchStudents} className="text-[#808080] outline-none w-[90%] border-none bg-inherit p-2.5 " />
                         </div>
 
-                        <Link href={'/educator/students/new'}>
-                            <div title='Add a student' onClick={sortStudents} className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
-                                <HiPlusCircle size={25} color={'#808080'} />
-                            </div>
-                        </Link>
 
-                        <Link title='Go Back to students and their classes' href={'/educator/students'}>
-                            <div className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
-                                <TiMediaPlayReverse size={25} color={'#808080'} />
-                            </div>
-                        </Link>
+                        <div title='Add a student' onClick={() => router.push('/educator/students/new')} className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
+                            <HiPlusCircle size={25} color={'#808080'} />
+                        </div>
+
+
+                        <div onClick={() => router.back()} className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
+                            <TiMediaPlayReverse size={25} color={'#808080'} />
+                        </div>
 
                         <div title={`${studentsData.sortType === 'az' ? "Sort from Z to A" : "Sort from A to Z"}`} onClick={sortStudents} className='p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism'>
                             <HiSortDescending className={`${studentsData.sortType === "az" ? 'rotate-180' : studentsData.sortType === "za" ? 'rotate-0' : 'rotate-0'}`} size={25} color={'#808080'} />

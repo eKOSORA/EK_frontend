@@ -159,12 +159,6 @@ const StudentsPage = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
-
-    const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
-
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 

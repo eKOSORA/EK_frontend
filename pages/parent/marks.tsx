@@ -18,9 +18,7 @@ const StudentsMarks: NextPage = () => {
   const { user }: any = useAuth()
 
   const router = useRouter()
-  useEffect(() => {
-    if (!user) router.push('/auth/login')
-  }, [router, user])
+
 
   const studentMarks = [
     { name: 'Maths Quiz', subject: 'Maths', initial: 'MTC', marks: 90, max: 100, date: 'Tue May 24 2022' },

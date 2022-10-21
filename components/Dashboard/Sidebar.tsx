@@ -3,14 +3,12 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import 'animate.css';
 import { useAuth } from '../../Context/AuthContext';
+import { useRouter } from 'next/router';
 
 
 const Sidebar = (props: any) => {
 
   const { user }: any = useAuth()
-  useEffect(() => {
-    if (!user) return window.location.replace('/auth/login')
-  }, [user])
 
   return (
     <div className={`animate__animated  ${props.sideBarActive ? 'animate__slideOutLeft' : 'animate__slideInLeft'} sidebar w-[300px] pt-[60px] h-screen absolute md:z-1 md:sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between`}>
@@ -23,7 +21,8 @@ const Sidebar = (props: any) => {
                 <span>Dashboard</span>
               </a>
               <a href={'/educator/marks'} className={`${props.active === 'marks' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
-                <span>Marks</span>
+                <span>Marks</span>npm run build
+
               </a>
               <a href={'/educator/timetables'} className={`${props.active === 'timetables' ? 'bg-black/10' : 'hover:bg-black/30'} questrialtext text-white text-base w-full py-[15px] px-[20px] inline-block`}>
                 <span>Timetables</span>
@@ -72,10 +71,10 @@ const Sidebar = (props: any) => {
       <a href={''} className='bg-ek-blue-75 w-full flex items-center justify-center'>
         <div className='w-full h-[85px] flex px-4 items-center justify-end'>
           <div className='h-full  mr-[20px] flex flex-col items-end justify-center'>
-            <span className='text-white text-[1.17em] font-bold questrialtext'>{props.user.name.split(' ')[props.user.name.split(' ').length - 1]}</span>
-            <span className='text-white/[54%] text-[1.17em]'>{props.user.type}</span>
+            <span className='text-white text-[1.17em] font-bold questrialtext'>{user.name.split(' ')[user.name.split(' ').length - 1]}</span>
+            <span className='text-white/[54%] text-[1.17em]'>{user.type}</span>
           </div>
-          <Image alt="" className='object-cover rounded-full' width={45} height={45} src={props.user.profileImage}></Image>
+          <Image alt="" className='object-cover rounded-full' width={45} height={45} src={user.profileImage}></Image>
         </div>
       </a>
     </div>

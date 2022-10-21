@@ -33,10 +33,7 @@ const StudentsUpload = () => {
         window.addEventListener('keydown', checkKeyPress)
     }, [])
 
-    const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
+
 
     function checkKeyPress(key: any) {
 
@@ -75,11 +72,6 @@ const StudentsUpload = () => {
     const onDrop = (acceptedFiles: File[]) => {
         previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
     }
-
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
-
 
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>

@@ -7,6 +7,7 @@ import { AnnouncementProvider } from '../Context/AnnouncementContext'
 import { RecoilRoot } from 'recoil'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { EducatorProvider } from '../Context/EducatorContext'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -14,11 +15,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <DndProvider backend={HTML5Backend}>
       <AuthProvider>
         <SchoolProvider>
-          <AnnouncementProvider>
-            <SnackbarProvider>
-              <Component {...pageProps} />
-            </SnackbarProvider>
-          </AnnouncementProvider>
+          <EducatorProvider>
+            <AnnouncementProvider>
+              <SnackbarProvider>
+                <Component {...pageProps} />
+              </SnackbarProvider>
+            </AnnouncementProvider>
+          </EducatorProvider>
         </SchoolProvider >
       </AuthProvider >
     </DndProvider>

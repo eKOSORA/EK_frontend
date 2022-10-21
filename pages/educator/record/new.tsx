@@ -39,12 +39,6 @@ const NewRecord = () => {
     setFormData({ ...formData, [prop]: event.target.value });
   };
 
-  const router = useRouter()
-  useEffect(() => {
-    if (!user) router.push('/auth/login')
-  }, [router, user])
-
-
   return (
     <div className='bg-[#f0f0f0] min-h-screen'>
       <ToastContainer

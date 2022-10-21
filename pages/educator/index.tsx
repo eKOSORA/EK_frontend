@@ -66,12 +66,6 @@ const Dashboard = () => {
     const [sideBarActive, setSideBarActive]  = useState(false)
     const { user }:any = useAuth()
 
-    const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
-
-
     return (
         <div className='bg-[#f0f0f0] '>
             <Head>

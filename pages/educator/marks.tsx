@@ -43,11 +43,6 @@ const Marks = () => {
 
   })
 
-
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-
-
-
   const handleChange = (prop: keyof State) => (event: any) => {
     setMarksData({ ...marksData, [prop]: event.target.value });
   };
@@ -136,9 +131,7 @@ const Marks = () => {
   }, [studentMarks])
 
   const router = useRouter()
-  useEffect(() => {
-    if (!user) router.push('/auth/login')
-  }, [router, user])
+
 
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>

@@ -14,6 +14,7 @@ export const AnnouncementProvider = ({ children }: any) => {
     const [school, setAnnouncement] = useState({})
     const { user }: any = useAuth()
     const baseURL = 'https://ekosora-backend.cyclic.app'
+    // const baseURL = 'http://localhost'
     const getAllAnnouncements = async () => {
         try {
             const data = await axios.get(`${baseURL}/announcement/getAll`)
@@ -35,10 +36,6 @@ export const AnnouncementProvider = ({ children }: any) => {
         }
     }
     const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-        getAllAnnouncements()
-    }, [router, user])
     return (
         <AnnouncementContext.Provider value={{ getAllAnnouncements, newAnnouncement }}>
             {children}

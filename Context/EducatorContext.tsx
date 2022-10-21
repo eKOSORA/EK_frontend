@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
+import { useSchools } from "./SchoolContext";
 
 const EducatorContext = React.createContext({})
 
@@ -10,8 +11,8 @@ export const useEducators = () => {
     return useContext(EducatorContext)
 }
 
-const EducatorProvider = ({ children }: any) => {
-    const [school, setEducator] = useState({})
+export const EducatorProvider = ({ children }: any) => {
+    const { school }: any = useSchools()
     const { user }: any = useAuth()
     const baseURL = 'https://ekosora-backend.cyclic.app'
     const addEducator = async ({ educatorData }: any) => {
@@ -46,9 +47,7 @@ const EducatorProvider = ({ children }: any) => {
     }
 
     const router = useRouter()
-    useEffect(() => {
-        if (!user) router.push('/auth/login')
-    }, [router, user])
+
     return (
         <EducatorContext.Provider value={{ addEducator, getAllEducators, editEducator }}>
             {children}
