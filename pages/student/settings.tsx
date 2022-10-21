@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
@@ -9,9 +9,6 @@ import Image from 'next/image'
 import { TextField } from '@mui/material'
 import visibilityOff from './../../public/img/visibility_off.svg'
 import visibility from './../../public/img/visibility.svg'
-import { userStudent } from '../../utils/faker'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../components/states/sidebar'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../Context/AuthContext'
 
@@ -89,7 +86,7 @@ const StudentsSettings = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userStudent} page='student' active='settings' />
+            <Sidebar user={user} page='student' active='settings' />
             :
             null
         }

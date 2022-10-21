@@ -1,4 +1,4 @@
-import { TimeTableViewObject } from "../pages/interfaces/timetables";
+import { TimeTableViewObject } from "../utils/interfaces/timetables";
 
 export const timetablesView: Array<TimeTableViewObject> = [
     {

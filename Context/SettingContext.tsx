@@ -10,10 +10,10 @@ export const useSettings = () => {
     return useContext(SettingContext)
 }
 
-const SettingProvider = ({ children }: any) => {
+export const SettingProvider = ({ children }: any) => {
     const [school, setSchool] = useState({})
     const { user }: any = useAuth()
-    const baseURL = 'https://ekosora-backend.cyclic.app'
+    const baseURL = process.env.SERVER_URL
     const updateSettings = async ({ newSettings }: any) => {
         try {
             const data = await axios.post(`${baseURL}/settings/newTerm`, newSettings)

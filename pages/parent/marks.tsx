@@ -1,14 +1,11 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userParent } from '../../utils/faker'
 import { NextPage } from 'next'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../components/states/sidebar'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../Context/AuthContext'
 
@@ -52,7 +49,7 @@ const StudentsMarks: NextPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userParent} page='parent' active='marks' />
+            <Sidebar user={user} page='parent' active='marks' />
             :
             null
         }

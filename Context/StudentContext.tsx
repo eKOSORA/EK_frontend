@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
+import { useSchools } from "./SchoolContext";
 
 const StudentContext = React.createContext({})
 
@@ -10,10 +11,10 @@ export const useStudents = () => {
     return useContext(StudentContext)
 }
 
-const StudentProvider = ({ children }: any) => {
-    const [school, setStudent] = useState({})
+export const StudentProvider = ({ children }: any) => {
+    const { school }:any = useSchools()
     const { user }: any = useAuth()
-    const baseURL = 'https://ekosora-backend.cyclic.app'
+    const baseURL = process.env.SERVER_URL
     const getAllStudents = async ({ year, className }: any) => {
         try {
             const data = await axios.get(`${baseURL}/student/getAll?year=${year}&class=${className}`)
@@ -116,7 +117,7 @@ const StudentProvider = ({ children }: any) => {
     }
 
     return (
-        <StudentContext.Provider value={{ registerStudent, editStudent, addParent, addRecord, deleteRecord, getAllStudents, getRecords, getSummary, updateMark }}>
+        <StudentContext.Provider value={{ user, registerStudent, editStudent, addParent, addRecord, deleteRecord, getAllStudents, getRecords, getSummary, updateMark }}>
             {children}
         </StudentContext.Provider>
     );

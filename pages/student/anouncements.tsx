@@ -1,13 +1,10 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userStudent } from '../../utils/faker'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../components/states/sidebar'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../Context/AuthContext'
 
@@ -43,7 +40,7 @@ const StudentAnnouncements = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userStudent} page='student' active='dashboard' />
+            <Sidebar user={user} page='student' active='dashboard' />
             :
             null
         }

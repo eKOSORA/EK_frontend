@@ -8,10 +8,8 @@ import { VscClose } from 'react-icons/vsc'
 import { AiFillEdit } from 'react-icons/ai'
 import { useSchools } from '../../Context/SchoolContext'
 import CropModal from '../../components/Dashboard/Images/CropModal'
-import { CreateSchoolFormDataState } from '../interfaces/school'
+import { CreateSchoolFormDataState } from '../../utils/interfaces/school'
 import Dropzone from 'react-dropzone'
-import { BiCrop } from 'react-icons/bi'
-import axios from 'axios'
 
 const Signup: NextPage = () => {
     const [submitLoader, setSubmitLoader] = useState(false)

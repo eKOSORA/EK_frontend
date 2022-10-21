@@ -13,7 +13,7 @@ export const useAnnouncements = () => {
 export const AnnouncementProvider = ({ children }: any) => {
     const [school, setAnnouncement] = useState({})
     const { user }: any = useAuth()
-    const baseURL = 'https://ekosora-backend.cyclic.app'
+    const baseURL = process.env.SERVER_URL
     // const baseURL = 'http://localhost'
     const getAllAnnouncements = async () => {
         try {
@@ -35,7 +35,6 @@ export const AnnouncementProvider = ({ children }: any) => {
             return
         }
     }
-    const router = useRouter()
     return (
         <AnnouncementContext.Provider value={{ getAllAnnouncements, newAnnouncement }}>
             {children}

@@ -11,10 +11,10 @@ import uploadExcel from '../../../public/img/uploadExcel.svg'
 import Image from 'next/image'
 import * as XLSX from 'xlsx';
 import StudentUploadTablePreview from '../../../components/Dashboard/UploadingViews/StudentUploadTablePreview'
-import { FileData } from '../../../utils/interfaces'
+import { FileData } from '../../../utils/interfaces/interfaces'
 import _ from 'lodash';
-import { IUploadStudentsInterface } from '../../@types/students'
-import { previewUploadedFile } from '../../Functions/files'
+import { IUploadStudentsInterface } from '../../../utils/@types/students'
+import { previewUploadedFile } from '../../../utils/Functions/files'
 import Dropzone from 'react-dropzone'
 import { useRecoilState } from 'recoil'
 import { fileDataState } from '../../../components/states/sheets'

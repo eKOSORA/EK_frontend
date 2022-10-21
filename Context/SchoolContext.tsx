@@ -12,7 +12,7 @@ export const useSchools = () => {
 
 export const SchoolProvider = ({ children }: any) => {
     const [school, setSchool] = useState({})
-    const baseURL = 'https://ekosora-backend.cyclic.app'
+    const baseURL = process.env.SERVER_URL
     const registerSchool = async ({ formData }: any) => {
         const data = await axios.post(`${baseURL}/auth/signup`, formData)
         //console.log("This element wants to cause problems",data.data)

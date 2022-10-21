@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { userTeacher } from '../../../../utils/faker'
-import { TimeTableViewObject } from '../../../interfaces/timetables'
+import { TimeTableViewObject } from '../../../../utils/interfaces/timetables'
 import { timetablesView } from '../../../../utils/timetables'
 import Image from 'next/image'
 import { BiEdit } from 'react-icons/bi'

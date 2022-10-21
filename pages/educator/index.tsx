@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import timetable from '../../public/img/timetable.png'
@@ -20,7 +20,6 @@ import { Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 import 'animate.css'
 import { useAuth } from '../../Context/AuthContext'
-import { useRouter } from 'next/router'
 
 ChartJS.register(
     CategoryScale,

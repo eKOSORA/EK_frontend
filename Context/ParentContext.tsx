@@ -10,10 +10,10 @@ export const useParents = () => {
     return useContext(ParentContext)
 }
 
-const ParentProvider = ({ children }: any) => {
+export const ParentProvider = ({ children }: any) => {
     const [school, setParent] = useState({})
     const { user }: any = useAuth()
-    const baseURL = 'https://ekosora-backend.cyclic.app'
+    const baseURL = process.env.SERVER_URL
     const registerParent = async ({ parentData, studentID }: any) => {
         try {
             const data = await axios.post(`${baseURL}/parent/register?id=${studentID}`, parentData)

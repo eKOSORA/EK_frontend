@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { FileData } from "../../utils/interfaces";
+import { FileData } from "../interfaces/interfaces";
 import * as XLSX from 'xlsx'
 import _ from "lodash";
 

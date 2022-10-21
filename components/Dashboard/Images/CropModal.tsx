@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import Image from 'next/image';
-import { CreateSchoolFormDataState } from '../../../pages/interfaces/school';
+import { CreateSchoolFormDataState } from '../../../utils/interfaces/school';
 
 type Props = {
     setCropMode: Function,

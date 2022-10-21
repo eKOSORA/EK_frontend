@@ -14,7 +14,7 @@ export const useEducators = () => {
 export const EducatorProvider = ({ children }: any) => {
     const { school }: any = useSchools()
     const { user }: any = useAuth()
-    const baseURL = 'https://ekosora-backend.cyclic.app'
+    const baseURL = process.env.SERVER_URL
     const addEducator = async ({ educatorData }: any) => {
         try {
             const data = await axios.post(`${baseURL}/educator/add`, educatorData)

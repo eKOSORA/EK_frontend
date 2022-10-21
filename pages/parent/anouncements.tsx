@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userParent } from '../../utils/faker'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useAuth } from '../../Context/AuthContext'
@@ -43,7 +42,7 @@ const Annoucements: NextPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={userParent} page='parent' active='dashboard' />
+            <Sidebar user={user} page='parent' active='dashboard' />
             :
             null
         }

@@ -5,8 +5,7 @@ import Sidebar from '../../../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userTeacher } from '../../../../utils/faker'
-import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from '../../../interfaces/timetables'
+import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from '../../../../utils/interfaces/timetables'
 import { TextField } from '@mui/material'
 import { BiX } from 'react-icons/bi'
 import { useDrag, useDrop } from 'react-dnd'
@@ -111,10 +110,12 @@ const NewTimeTable = () => {
     const generateTable = () => {
         setViewTableMode(!viewTableMode)
     }
-
-    const handleUpdateHours = () => {
-
-    }
+    useEffect(() => {
+        setTimeTable({
+            ...timetable,
+            monday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
+        })
+    }, [hours, timetable])
 
     const addHour = () => {
         setHours([...hours, hour])
@@ -191,7 +192,7 @@ const NewTimeTable = () => {
                     <div className='grid lg:grid-cols-3  my-12 sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 w-2/3'>
                         {
                             hours.map((hour, index) => {
-                                console.log(`Hour: ${hours.filter((filteredHour) => { filteredHour.from == hour.from })}`)
+                                console.log(hour)
                                 return (
                                     <div onClick={() => populateEditables(hour, index)} key={index} className='my-2 relative px-4 mx-2 cursor-pointer hover:animate-ring rounded font-xl heading-text py-3 login-options text-center bg-ek-blue-50/10 text-ek-blue-50 '>
                                         <span>
@@ -228,17 +229,21 @@ const NewTimeTable = () => {
                                     </thead>
                                     <tbody>
                                         {
-                                            ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day: String, index: number) => (
-                                                <tr key={index}>
-                                                    <td className='w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4'>{day.toUpperCase()}</td>
-                                                    {
-                                                        timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
-                                                            <td className={` text-black border-b-2{`} key={index}>{subject.initial}</td>
-                                                        )
-                                                        )
-                                                    }
-                                                </tr>
-                                            )
+                                            ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day: string, index: number) => {
+                                                console.log(timetable)
+
+                                                return (
+                                                    <tr key={index}>
+                                                        <td className='w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4'>{day.toUpperCase()}</td>
+                                                        {
+                                                            Object.values(timetable)[index + 1].map((subject: LessonInTimeTableObject, index: number) => (
+                                                                <td className={` text-black border-b-2{`} key={index}>{subject.initial}</td>
+                                                            )
+                                                            )
+                                                        }
+                                                    </tr>
+                                                )
+                                            }
                                             )
                                         }
                                     </tbody>
