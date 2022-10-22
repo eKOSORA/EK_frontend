@@ -58,7 +58,7 @@ export default function AuthProvider({ children }: any) {
 
     useEffect(() => {
         if (router.pathname === '/auth/login' || router.pathname === '/auth/signup' || router.pathname === "/") return
-        if (!user) router.push('/auth/login')
+        // if (!user) router.push('/auth/login')
     }, [router, user])
 
     let value = { user, logout, setUser, getUserById, login };

@@ -10,7 +10,9 @@ import { TextField } from '@mui/material'
 import { BiX } from 'react-icons/bi'
 import { useDrag, useDrop } from 'react-dnd'
 import { useAuth } from '../../../../Context/AuthContext'
-import { useRouter } from 'next/router'
+import { v4 as uuidv4 } from 'uuid';
+import LessonBox from '../../../../components/Dashboard/admin/LessonBox'
+import _ from 'lodash'
 
 const NewTimeTable = () => {
     //Important states
@@ -18,78 +20,99 @@ const NewTimeTable = () => {
     const { user }: any = useAuth()
     const [hours, setHours] = useState<Array<HourObject>>([])
     const [hour, setHour] = useState<HourObject>({
+        id: uuidv4(),
         from: '00:00',
         to: '00:00'
     })
     const [lessons, setLessons] = useState<Array<LessonObject>>([
         {
+            id: uuidv4(),
             educator: 'Jean Damascene Habanabashaka',
             name: 'Data Structures and Algorithms',
             initial: 'DSA',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'Rwagaju Aphrodice',
+            name: 'OOP with JAVA',
+            initial: 'OOP',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'NSABYIMANA Egide',
+            name: 'English and General Studies',
+            initial: 'ENG',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'Jean De Dieu',
+            name: 'Physics',
+            initial: 'PHY',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'HATANGIMBABAZI HIlaire',
+            name: 'System Analysis and Design',
+            initial: 'SAD',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'BAZIRAMWABO Gabriel',
+            name: 'Embedded Systems and Robotics',
+            initial: 'ESR',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'HABANABASHAKA Jean Damascene',
+            name: 'Web Services',
+            initial: 'WS',
             numberofHours: 5
         },
         {
+            id: uuidv4(),
             educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            name: 'Advanced Database',
+            initial: 'AD',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'NGABO',
+            name: 'Advanced Networking',
+            initial: 'AN',
             numberofHours: 5
         },
         {
-            educator: 'Jean Damascene Habanabashaka',
-            name: 'Data Structures and Algorithms',
-            initial: 'DSA',
+            id: uuidv4(),
+            educator: 'Uwitonze Jean Bosco',
+            name: 'Mathematics',
+            initial: 'MTC',
             numberofHours: 5
         },
     ])
 
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: "item",
+    const [{ isOver }, drop] = useDrop(() => ({
+        accept: 'lesson',
+        drop: (item: LessonObject) => addLessonToTimetable(item.id),
         collect: (monitor) => ({
-            isDragging: !!monitor.isDragging()
+            isOver: !!monitor.isOver(),
+        }),
+    }));
+
+    const addLessonToTimetable = (id: string) => {
+
+        setTimeTable({
+            ...timetable,
+            
         })
-    }))
+        console.log("Dragged over")
+    };
 
     const [editHourMode, setEditHourMode] = useState<EditModeObject>({
         state: false,
@@ -98,13 +121,13 @@ const NewTimeTable = () => {
     const [viewTableMode, setViewTableMode] = useState(false)
     const [timetable, setTimeTable] = useState<TimeTableObject>({
         name: '',
-        monday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
-        tuesday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
-        wednesday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
-        thursday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
-        friday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
-        saturday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
-        sunday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
+        monday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
+        tuesday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
+        wednesday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
+        thursday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
+        friday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
+        saturday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
+        sunday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
     })
 
     const generateTable = () => {
@@ -113,9 +136,16 @@ const NewTimeTable = () => {
     useEffect(() => {
         setTimeTable({
             ...timetable,
-            monday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "Icy0 ntazi", name: "" })),
+            monday: timetable.monday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
+            tuesday: timetable.tuesday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
+            wednesday: timetable.wednesday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
+            thursday: timetable.thursday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
+            friday: timetable.friday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
+            saturday: timetable.saturday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
+            sunday: timetable.sunday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
         })
-    }, [hours, timetable])
+        console.log(hours)
+    }, [hours])
 
     const addHour = () => {
         setHours([...hours, hour])
@@ -182,7 +212,7 @@ const NewTimeTable = () => {
                             <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-4'>
                                 {
                                     lessons.map((lesson, index) => (
-                                        <div key={index} className={`w-11/12 hover:cursor-move select-none login-options px-6 py-3 my-1 mx-2 text-ek-blue-50 text-center bg-ek-blue-50/10 rounded heading-text ${isDragging ? 'border-2 border-ek-blue' : ''}`}>{lesson.initial}</div>
+                                        <LessonBox key={index} lesson={lesson} />
                                     ))
                                 }
                             </div>
@@ -192,13 +222,12 @@ const NewTimeTable = () => {
                     <div className='grid lg:grid-cols-3  my-12 sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 w-2/3'>
                         {
                             hours.map((hour, index) => {
-                                console.log(hour)
                                 return (
                                     <div onClick={() => populateEditables(hour, index)} key={index} className='my-2 relative px-4 mx-2 cursor-pointer hover:animate-ring rounded font-xl heading-text py-3 login-options text-center bg-ek-blue-50/10 text-ek-blue-50 '>
                                         <span>
                                             {hour.from}-{hour.to}
                                         </span>
-                                        <BiX onClick={() => setHours(hours.filter((filteredHour) => { filteredHour.from != hour.from }))} className='absolute right-1 hover:text-white hover:bg-ek-blue-75 rounded-full top-1' />
+                                        <BiX onClick={() => setHours(_.pull(hours, hour))} className='absolute right-1 hover:text-white hover:bg-ek-blue-75 rounded-full top-1' />
                                     </div>
                                 )
                             })
@@ -214,7 +243,7 @@ const NewTimeTable = () => {
                     }
                     {
                         viewTableMode && hours.length ?
-                            <div className='my-6 flex flex-col items-center justify-center w-full'>
+                            <div className='overflow-x-auto my-6 flex flex-col items-start justify-center w-full'>
                                 <div className='w-full text-center text-2xl heading-text py-2'><span>{timetable.name}</span></div>
                                 <table border={1} className='w-full'>
                                     <thead>
@@ -227,17 +256,17 @@ const NewTimeTable = () => {
                                             }
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className=''>
                                         {
                                             ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day: string, index: number) => {
-                                                console.log(timetable)
 
                                                 return (
-                                                    <tr key={index}>
+                                                    <tr className="" key={index}>
                                                         <td className='w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4'>{day.toUpperCase()}</td>
                                                         {
                                                             Object.values(timetable)[index + 1].map((subject: LessonInTimeTableObject, index: number) => (
-                                                                <td className={` text-black border-b-2{`} key={index}>{subject.initial}</td>
+                                                            // timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
+                                                                <td ref={drop} className={`${isOver ? 'bg-ek-blue/20' : ''} text-[#161616] border-b-2 border-r-2`} key={index}>{subject.initial}</td>
                                                             )
                                                             )
                                                         }

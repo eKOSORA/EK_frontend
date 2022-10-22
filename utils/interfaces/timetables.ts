@@ -1,10 +1,11 @@
 export interface HourObject {
-    // id:
+    id:string
     from: string,
     to: string,
 }
 
 export interface LessonObject {
+    id:string,
     name: string,
     educator: string,
     numberofHours:number,
