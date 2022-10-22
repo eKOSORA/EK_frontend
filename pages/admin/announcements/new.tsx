@@ -5,12 +5,14 @@ import Sidebar from '../../../components/Dashboard/Sidebar'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { TextField } from '@mui/material'
+import { Checkbox, TextField } from '@mui/material'
 import { IoMdClose } from 'react-icons/io'
 import { ValidateEmail } from '../../../utils/comparer'
 import { useAuth } from '../../../Context/AuthContext'
 import { AddAnnouncementFormData } from '../../../utils/@types/announcements'
-
+import Autocomplete from '@mui/material/Autocomplete';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const NewStudent = () => {
     //Important states
@@ -60,6 +62,31 @@ const NewStudent = () => {
                             <TextField onChange={(e) => setFormData({ ...formData, heading: e.target.value })} focused={true} className="my-2 w-full bg-ek-blue-50/10 font-questrial" id={`outlined-basic${Math.ceil(Math.random() * 10)}`} label="Heading" required={true} variant="outlined" />
                             <TextField onChange={(e) => setFormData({ ...formData, content: e.target.value })} multiline={true} rows={6} focused={true} className="my-2 w-full bg-ek-blue-50/10 font-questrial" id={`outlined-basic${Math.ceil(Math.random() * 10)}`} type={'text'} size={'medium'} label="Message" required={true} variant="outlined" />
 
+                            <Autocomplete
+                                multiple
+                                id="checkboxes-tags-demo"
+                                options={meantFor}
+                                disableCloseOnSelect
+                                getOptionLabel={(option) => option.name}
+                                renderOption={(props, option, { selected }) => (
+                                    <li {...props}>
+                                        <Checkbox
+                                            icon={icon}
+                                            checkedIcon={checkedIcon}
+                                            style={{ marginRight: 8 }}
+                                            checked={selected}
+                                        />
+                                        {option.name}
+                                    </li>
+                                )}
+
+                                className={"my-2"}
+                                style={{ width: '100%' }}
+                                renderInput={(params) => (
+                                    <TextField {...params} focused={true} className="bg-ek-blue-50/10" label="Meant For" placeholder="To whom does the announcement concern? " />
+                                )}
+                            />
+
 
                             <button type='submit' className='w-full text-xl my-4 rounded py-2 bg-ek-blue-75 text-white font-questrial'>Publish</button>
 
@@ -72,3 +99,23 @@ const NewStudent = () => {
 }
 
 export default NewStudent
+
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+const meantFor = [
+    {
+
+        name: "Educators",
+        value: "educator"
+    },
+    {
+        name: "Students",
+        value: "student"
+    },
+    {
+        name: "Parents",
+        value: "parent"
+    },
+];

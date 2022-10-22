@@ -167,7 +167,7 @@ const Signup: NextPage = () => {
                                     />
 
                                     <Autocomplete
-                                        
+
                                         id="combo-box-demo"
                                         options={schoolTypes}
                                         autoHighlight={true}
