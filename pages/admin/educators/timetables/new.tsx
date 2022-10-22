@@ -109,7 +109,7 @@ const NewTimeTable = () => {
 
         setTimeTable({
             ...timetable,
-            
+
         })
         console.log("Dragged over")
     };
@@ -145,6 +145,7 @@ const NewTimeTable = () => {
             sunday: timetable.sunday.concat([{ educator: "", from: hour.from, to: hour.to, initial: "", name: "" }]),
         })
         console.log(hours)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hours])
 
     const addHour = () => {
@@ -227,7 +228,7 @@ const NewTimeTable = () => {
                                         <span>
                                             {hour.from}-{hour.to}
                                         </span>
-                                        <BiX onClick={() => setHours(_.pull(hours, hour))} className='absolute right-1 hover:text-white hover:bg-ek-blue-75 rounded-full top-1' />
+                                        <BiX onClick={() => _.pullAt(hours, index)} className='absolute right-1 hover:text-white hover:bg-ek-blue-75 rounded-full top-1' />
                                     </div>
                                 )
                             })
@@ -265,7 +266,7 @@ const NewTimeTable = () => {
                                                         <td className='w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4'>{day.toUpperCase()}</td>
                                                         {
                                                             Object.values(timetable)[index + 1].map((subject: LessonInTimeTableObject, index: number) => (
-                                                            // timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
+                                                                // timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
                                                                 <td ref={drop} className={`${isOver ? 'bg-ek-blue/20' : ''} text-[#161616] border-b-2 border-r-2`} key={index}>{subject.initial}</td>
                                                             )
                                                             )
