@@ -104,6 +104,22 @@ const NewTimeTable = () => {
             isOver: !!monitor.isOver(),
         }),
     }));
+    const [editHourMode, setEditHourMode] = useState<EditModeObject>({
+        state: false,
+        index: undefined
+    })
+    const [viewTableMode, setViewTableMode] = useState(false)
+    const [timetable, setTimeTable] = useState<TimeTableObject>({
+        name: '',
+        monday: [],
+        tuesday: [],
+        wednesday: [],
+        thursday: [],
+        friday: [],
+        saturday: [],
+        sunday: []
+    })
+
 
     const addLessonToTimetable = (id: string) => {
 
@@ -114,25 +130,10 @@ const NewTimeTable = () => {
         console.log("Dragged over")
     };
 
-    const [editHourMode, setEditHourMode] = useState<EditModeObject>({
-        state: false,
-        index: undefined
-    })
-    const [viewTableMode, setViewTableMode] = useState(false)
-    const [timetable, setTimeTable] = useState<TimeTableObject>({
-        name: '',
-        monday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-        tuesday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-        wednesday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-        thursday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-        friday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-        saturday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-        sunday: hours.map((hour, index) => ({ index, educator: "", from: hour.from, to: hour.to, initial: "", name: "" })),
-    })
-
     const generateTable = () => {
         setViewTableMode(!viewTableMode)
     }
+
     useEffect(() => {
         setTimeTable({
             ...timetable,
@@ -155,6 +156,11 @@ const NewTimeTable = () => {
 
         fromElement.value = ''
         toElement.value = ''
+        setHour({
+            id: uuidv4(),
+            from: '',
+            to: '',
+        })
     }
 
     const populateEditables = (passedHour: HourObject, index: number) => {
@@ -201,7 +207,7 @@ const NewTimeTable = () => {
                             <div className='w-full mb-4 sm:w-2/3 md:w-full flex md:flex-row flex-col items-center justify-center md:justify-between'>
                                 <TextField id='from' defaultValue={'00:00'} placeholder="" focused={true} onChange={(e) => setHour({ ...hour, from: e.target.value })} className='ml-0 w-full my-6 md:w-5/12  mx-4' type={'time'} label="From" />
                                 <TextField id='to' defaultValue={'00:00'} focused={true} onChange={(e) => setHour({ ...hour, to: e.target.value })} className='w-full my-6 md:w-5/12 mx-4' type={'time'} label="To" />
-                                <button className={'px-4 w-full md:w-fit my-4 bg-ek-blue-75 text-white py-2 rounded'} onClick={addHour}>ADD</button>
+                                <button disabled={hour.from && hour.to ? false : true} className={'px-4 w-full md:w-fit my-4 bg-ek-blue-75 text-white py-2 rounded'} onClick={addHour}>ADD</button>
                             </div>
                             <div className='w-full flex flex-col'>
                                 <TextField onChange={(e) => setTimeTable({ ...timetable, name: e.target.value })} className='w-full' placeholder="eg: Year 1's Timetable Term 1" focused={true} label="Timetable name" />
@@ -253,7 +259,10 @@ const NewTimeTable = () => {
                                                 Days
                                             </td>
                                             {
-                                                hours.map((hour, index) => <td className='' key={index}>{hour.from}-{hour.to}</td>)
+                                                hours.map((hour, index) => {
+                                                    console.log()
+                                                    return <td className='' key={index}>{hour.from}-{hour.to}</td>
+                                                })
                                             }
                                         </tr>
                                     </thead>

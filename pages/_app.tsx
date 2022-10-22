@@ -11,9 +11,15 @@ import { EducatorProvider } from '../Context/EducatorContext'
 import { ParentProvider } from '../Context/ParentContext'
 import { SettingProvider } from '../Context/SettingContext'
 import { StudentProvider } from '../Context/StudentContext'
+import { useEffect } from 'react'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  useEffect(()=>{
+    console.log('%c Welcome to eKOSORA console.!!','color:#3f7cac;font-weight:bold; font-size:25px;');
+  },[])
+
   return <RecoilRoot>
     <DndProvider backend={HTML5Backend}>
       <AuthProvider>
