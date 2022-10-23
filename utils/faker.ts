@@ -1,3 +1,5 @@
+import { AnnouncementObject } from "./interfaces/interfaces"
+
 export const userStudent = {
     type: 'student',
     name: 'Mugisha Precieux',
@@ -3267,3 +3269,25 @@ export const classes = [
         value: "C"
     },
 ];
+
+
+export const announcementsFaker: AnnouncementObject[] = [
+    {
+        heading: "Discipline issues",
+        content: "The students are starting to behave very wrong. I think that the parents should allows us to beat the shit out there children!",
+        posted: 1666534238354,
+        postedBy: 'Jean Damascene Habanabashaka'
+    },
+    {
+        heading: "Teacher talk",
+        content: "Dukeneye ko abarimu bajya batanga works nyinshi cyane rwose, Murabyumva mute??",
+        posted: 1666534238354,
+        postedBy: 'Stanley Mwizerwa'
+    },
+    {
+        heading: "Parents Please!!!",
+        content: "Mwa babyeyo mwe mwakohereje abana banyu bagatangira igihembwe hakiri kare, nibarenza ejo bataraza mugomba kubaherekeza",
+        posted: 1666534238354,
+        postedBy: 'Nsabyimana Egide'
+    },
+]

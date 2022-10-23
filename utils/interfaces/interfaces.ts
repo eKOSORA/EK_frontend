@@ -24,7 +24,16 @@ export interface EducatorFileData {
 }
 
 
-export interface MeantForInterface{
-    name:string,
-    value:string
+export interface MeantForInterface {
+    name: string,
+    value: string
+}
+
+
+export interface AnnouncementObject {
+    content: string
+    postedBy:string,
+    posted:number
+    heading: string,
+
 }
