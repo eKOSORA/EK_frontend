@@ -22,3 +22,9 @@ export interface EducatorFileData {
     __cTag: any
 
 }
+
+
+export interface MeantForInterface{
+    name:string,
+    value:string
+}

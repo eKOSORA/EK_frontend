@@ -196,6 +196,18 @@ th {
 .Toastify__toast--error {
   width: 100% !important;
 }
-.Toastify__toast-container--bottom-center{
+.Toastify__toast-container--bottom-center {
   width: 340px !important;
+}
+
+.MuiChip-root {
+  background: #4ca7ce;
+  color: white;
+}
+
+*[data-testid="CancelIcon"]{
+  color: white;
+}
+.css-iqd1hh-MuiButtonBase-root-MuiChip-root .MuiChip-deleteIcon{
+  color: white;
 }
