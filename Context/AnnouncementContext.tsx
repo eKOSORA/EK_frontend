@@ -13,7 +13,7 @@ export const useAnnouncements = () => {
 export const AnnouncementProvider = ({ children }: any) => {
     const [school, setAnnouncement] = useState({})
     const { user }: any = useAuth()
-    const baseURL = process.env.SERVER_URL
+    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
     // const baseURL = 'http://localhost'
     const getAllAnnouncements = async () => {
         try {

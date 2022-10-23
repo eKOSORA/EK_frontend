@@ -14,7 +14,7 @@ export const useEducators = () => {
 export const EducatorProvider = ({ children }: any) => {
     const { school }: any = useSchools()
     const { user }: any = useAuth()
-    const baseURL = process.env.SERVER_URL
+    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
     const addEducator = async ({ educatorData }: any) => {
         try {
             const data = await axios.post(`${baseURL}/educator/add`, educatorData)

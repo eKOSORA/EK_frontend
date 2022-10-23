@@ -13,7 +13,7 @@ import Dropzone from 'react-dropzone'
 
 const Signup: NextPage = () => {
     const [submitLoader, setSubmitLoader] = useState(false)
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<CreateSchoolFormDataState>({
         initials: '',
         type: '',
         programme: '',
@@ -26,7 +26,8 @@ const Signup: NextPage = () => {
         },
         head: '',
         moto: '',
-        logoImageStr: '',
+        logoImagePreviewStr: '',
+        logoImage: null,
         name: '',
         activeButton: false
     })
@@ -35,12 +36,14 @@ const Signup: NextPage = () => {
 
     const { registerSchool }: any = useSchools()
     const handleSubmit = async (e: any) => {
-        setSubmitLoader(true)
-        setFormData({ ...formData, activeButton: false })
         e.preventDefault()
-        //console.log(formData)
+        const file = document.querySelector('#logoImage') as HTMLInputElement
+        setSubmitLoader(true)
+        console.log(file)
+
+        setFormData({ ...formData, activeButton: false })
         const data = await registerSchool({ formData })
-        //console.log(data)
+        console.log(data)
         setSubmitLoader(false)
     }
 
@@ -49,13 +52,6 @@ const Signup: NextPage = () => {
         (prop: keyof CreateSchoolFormDataState) => (event: React.ChangeEvent<HTMLInputElement>) => {
             setFormData({ ...formData, [prop]: event.target.value });
         };
-
-
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
 
     const schoolTypes = ['Government Aided', 'Private', 'Fully Government']
 
@@ -81,7 +77,7 @@ const Signup: NextPage = () => {
         const file = document.querySelector('#logoImage') as HTMLInputElement
         const reader = new FileReader()
         reader.addEventListener('loadend', () => {
-            setFormData({ ...formData, logoImageStr: reader.result as string })
+            if (file.files) setFormData({ ...formData,logoImagePreviewStr: reader.result as string })
         })
         if (file.files) {
             reader.readAsDataURL(file.files[0])
@@ -90,11 +86,10 @@ const Signup: NextPage = () => {
 
 
     const onDrop = (acceptedFiles: File[]) => {
-
+        const file = document.querySelector('#logoImage') as HTMLInputElement
         const reader = new FileReader()
         reader.addEventListener('load', () => {
-
-            setFormData({ ...formData, logoImageStr: reader.result as string })
+            setFormData({ ...formData, logoImagePreviewStr: reader.result as string })
         })
         reader.readAsDataURL(acceptedFiles[0])
     }
@@ -105,7 +100,6 @@ const Signup: NextPage = () => {
         console.log(`Latitude: ${latitude}`)
         console.log(`Longitude: ${longitude}`)
     }
-    cropMode ? console.log("No crop mode") : console.log("Crop mode")
     return (
         <div className='z-1 w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start'>
             {
@@ -138,7 +132,7 @@ const Signup: NextPage = () => {
                                 <span className='text-2xl my-4 text-ek-blue questrialtext'>More about the school</span>
 
                     }
-                    <form className='w-full' onSubmit={handleSubmit}>
+                    <form method='POST' encType='multipart/form-data' className='w-full' onSubmit={handleSubmit}>
                         {
                             step === 1 ?
                                 <div className='w-full flex flex-col'>
@@ -172,7 +166,6 @@ const Signup: NextPage = () => {
                                         options={schoolTypes}
                                         autoHighlight={true}
                                         sx={{}}
-                                        value={formData.type ? formData.type : null}
                                         onChange={(event, value) => { console.log(value); setFormData({ ...formData, type: value?.replace(' ', '-').toLowerCase() as string }) }}
                                         className='rounded border-ek-blue outlie outline-0 w-full my-4 '
                                         renderInput={(params) => <TextField className='' value={formData.type} required={true} autoFocus={true} focused={true} {...params} label="Type" />}
@@ -296,14 +289,14 @@ const Signup: NextPage = () => {
                                         />
                                         <div className='relative w-full my-4 text-lg rounded flex items-center justify-center border-2 border-[#1976d2] h-72'>
                                             <span className='z-[1] absolute -top-[15px] left-2  border-b-2 border-b-white text-[13px] text-[#1976d2] h-[15px] text-center w-12 roboto'>Logo *</span>
-                                            {formData.logoImageStr ?
+                                            {formData.logoImagePreviewStr ?
                                                 <div className='relative w-full flex items-center justify-around h-full'>
                                                     <div className='absolute top-2 right-2 flex items-center justify-center flex-row z-[1]'>
                                                         {/* <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(true)} type="button" title={"Crop Image"}><BiCrop /></button> */}
                                                         <label htmlFor='logoImage' className={`text-center flex items-center justify-center p-2 bg-ek-blue-75 text-white mx-2 cursor-pointer  rounded my-2 text-lg submitButton`} title={"Change Image"}><AiFillEdit /></label>
-                                                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} type="button" onClick={() => { setFormData({ ...formData, logoImageStr: '' }) }} title={"Remove Image"}><VscClose /></button>
+                                                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} type="button" onClick={() => { setFormData({ ...formData, logoImagePreviewStr: '' }) }} title={"Remove Image"}><VscClose /></button>
                                                     </div>
-                                                    <div className='w-full h-full flex items-center justify-center rounded'><Image alt={"Logo image string"} objectFit='cover' layout='fill' className='w-full h-full' src={formData.logoImageStr}></Image></div>
+                                                    <div className='w-full h-full flex items-center justify-center rounded'><Image alt={"Logo image string"} objectFit='cover' layout='fill' className='w-full h-full' src={formData.logoImagePreviewStr}></Image></div>
                                                 </div>
                                                 :
                                                 <Dropzone

@@ -13,7 +13,7 @@ export const useSettings = () => {
 export const SettingProvider = ({ children }: any) => {
     const [school, setSchool] = useState({})
     const { user }: any = useAuth()
-    const baseURL = process.env.SERVER_URL
+    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
     const updateSettings = async ({ newSettings }: any) => {
         try {
             const data = await axios.post(`${baseURL}/settings/newTerm`, newSettings)

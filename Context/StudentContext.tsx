@@ -14,7 +14,7 @@ export const useStudents = () => {
 export const StudentProvider = ({ children }: any) => {
     const { school }:any = useSchools()
     const { user }: any = useAuth()
-    const baseURL = process.env.SERVER_URL
+    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
     const getAllStudents = async ({ year, className }: any) => {
         try {
             const data = await axios.get(`${baseURL}/student/getAll?year=${year}&class=${className}`)

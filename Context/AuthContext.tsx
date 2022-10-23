@@ -18,7 +18,7 @@ export default function AuthProvider({ children }: any) {
     const router = useRouter()
 
     let [user, setUser] = useState<UserObject | undefined>(undefined);
-    const baseURL = process.env.SERVER_URL
+    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
 
     const decodeToken = async () => {
         const token = getCookie("token");
@@ -58,7 +58,7 @@ export default function AuthProvider({ children }: any) {
 
     useEffect(() => {
         if (router.pathname === '/auth/login' || router.pathname === '/auth/signup' || router.pathname === "/") return
-        // if (!user) router.push('/auth/login')
+        if (!user) router.push('/auth/login')
     }, [router, user])
 
     let value = { user, logout, setUser, getUserById, login };

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
-import axios from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from "next/router";
 
 const SchoolContext = React.createContext({})
@@ -12,10 +12,15 @@ export const useSchools = () => {
 
 export const SchoolProvider = ({ children }: any) => {
     const [school, setSchool] = useState({})
-    const baseURL = process.env.SERVER_URL
+    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
     const registerSchool = async ({ formData }: any) => {
-        const data = await axios.post(`${baseURL}/auth/signup`, formData)
-        //console.log("This element wants to cause problems",data.data)
+        try {
+            delete formData.logoImagePreviewStr
+            console.log(formData)
+            const data = await axios.post(`${baseURL}/auth/signup`, formData, { headers: { 'Content-Type': 'application/json' } })
+        } catch (error: AxiosResponse | any) {
+            console.log(error.response)
+        }
     }
 
 

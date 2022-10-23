@@ -13,20 +13,20 @@ type Props = {
 
 const CropModal: React.FC<Props> = ({ setCropMode, cropMode, setFormData, formData }) => {
 
-    const [cropData, setCropData] = useState(formData.logoImageStr);
+    const [cropData, setCropData] = useState(formData.logoImagePreviewStr);
     const [cropper, setCropper] = useState<any>();
 
     const getCropData = () => {
         if (typeof cropper !== "undefined") {
             setCropData(cropper.getCroppedCanvas().toDataURL());
-            setFormData({ ...formData, logoImageStr: cropper.getCroppedCanvas().toDataURL() });
+            setFormData({ ...formData, logoImagePreviewStr: cropper.getCroppedCanvas().toDataURL() });
         }
         setCropMode(false)
     };
 
     useEffect(() => {
-        localStorage.setItem('uploadedImage', formData.logoImageStr)
-    }, [formData.logoImageStr])
+        localStorage.setItem('uploadedImage', formData.logoImagePreviewStr)
+    }, [formData.logoImagePreviewStr])
 
     return (
         <div className="absolute w-screen h-screen top-0 left-0 bg-black/70 flex items-center justify-center z-[2]">
@@ -49,7 +49,7 @@ const CropModal: React.FC<Props> = ({ setCropMode, cropMode, setFormData, formDa
                             zoomTo={0.5}
                             initialAspectRatio={1}
                             preview=".img-preview"
-                            src={formData.logoImageStr}
+                            src={formData.logoImagePreviewStr}
                             viewMode={1}
                             minCropBoxHeight={10}
                             minCropBoxWidth={10}
