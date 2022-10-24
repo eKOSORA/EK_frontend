@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { UserObject } from "../utils/interfaces/user";
 
 
-let AuthContext = createContext({});
+let AuthContext = React.createContext({});
 
 export const useAuth = () => {
     return useContext(AuthContext);
@@ -29,7 +29,6 @@ export default function AuthProvider({ children }: any) {
                 const userd: any = await getUserById(userDetails.userid);
                 return setUser(userd);
             } catch (err) {
-                //console.log(err);
                 return setUser(undefined);
             }
         }
