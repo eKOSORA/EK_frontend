@@ -12,7 +12,7 @@ import { ParentProvider } from '../Context/ParentContext'
 import { SettingProvider } from '../Context/SettingContext'
 import { StudentProvider } from '../Context/StudentContext'
 import { useEffect } from 'react'
-
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
 

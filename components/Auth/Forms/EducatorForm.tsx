@@ -7,20 +7,20 @@ import { useAuth } from '../../../Context/AuthContext'
 
 const EducatorForm: NextComponentType = () => {
 
-  const {login}:any = useAuth()
+  const { login }: any = useAuth()
 
   const handleSubmit = async (e: any) => {
     setSubmitLoader(true)
     e.preventDefault()
     //console.log(formData)
-    const data = login({formData})
+    const data = login({ formData })
 
   }
 
   const [submitLoader, setSubmitLoader] = useState(false)
 
   interface State {
-    type:string
+    type: string
     emailorcode: string;
     school: string;
     password: string;
@@ -44,7 +44,7 @@ const EducatorForm: NextComponentType = () => {
   };
 
   const [formData, setFormData] = useState({
-    accountType:'educator',
+    accountType: 'educator',
     emailorcode: '',
     school: '',
     password: '',
@@ -110,7 +110,7 @@ const EducatorForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
+        <button type={submitLoader ? 'button' : 'submit'} className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
           submitLoader
             ?
             <CircularProgress className='m-auto' size={30} color='inherit' />

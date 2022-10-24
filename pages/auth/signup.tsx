@@ -55,7 +55,6 @@ const Signup: NextPage = () => {
 
         setFormData({ ...formData, activeButton: false })
         const data = await registerSchool({ formData })
-        console.log(data.response.data.message[0])
         toast.error(data.response.data.message[0], {
             position: "bottom-center",
             autoClose: 5000,

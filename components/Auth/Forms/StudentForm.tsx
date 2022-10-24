@@ -121,7 +121,7 @@ const StudentForm: NextComponentType = () => {
           />
         </FormControl>
 
-        <button className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
+        <button type={submitLoader ? 'button' : 'submit'} className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}>{
           submitLoader
             ?
             <CircularProgress className='m-auto' size={30} color='inherit' />
