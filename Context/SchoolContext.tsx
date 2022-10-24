@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios, { AxiosResponse } from 'axios'
 import { useRouter } from "next/router";
 import { setCookie } from "../utils/cookies";
+import { useAuth } from "./AuthContext";
 
 const SchoolContext = React.createContext({})
 
@@ -13,6 +14,8 @@ export const SchoolProvider = ({ children }: any) => {
     const [school, setSchool] = useState({})
     const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
     const router = useRouter()
+    const { setUser }: any = useAuth()
+
     const registerSchool = async ({ formData }: any) => {
         try {
             console.log(baseURL)
@@ -28,8 +31,9 @@ export const SchoolProvider = ({ children }: any) => {
                     school: formData.name
                 }, { headers: { 'Content-Type': 'application/json' } })
 
-                if(loginData.data?.code === "#Success" && loginData.statusText === "Logged in successfully") {
-                    setCookie('eKOSORA-USER-TOKEN',loginData.data.token,14)
+                if (loginData.data?.code === "#Success" && loginData.statusText === "Logged in successfully") {
+                    setCookie('eKOSORA-USER-TOKEN', loginData.data.token, 14)
+                    setUser(loginData.data.user)
                     router.push('/admin')
                 }
             }
