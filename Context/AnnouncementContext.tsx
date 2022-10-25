@@ -4,40 +4,45 @@ import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
 
-const AnnouncementContext = React.createContext({})
+const AnnouncementContext = React.createContext({});
 
 export const useAnnouncements = () => {
-    return useContext(AnnouncementContext)
-}
+  return useContext(AnnouncementContext);
+};
 
 export const AnnouncementProvider = ({ children }: any) => {
-    const [school, setAnnouncement] = useState({})
-    const { user }: any = useAuth()
-    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
-    // const baseURL = 'http://localhost'
-    const getAllAnnouncements = async () => {
-        try {
-            const data = await axios.get(`${baseURL}/announcement/getAll`)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error)
-            return
-        }
+  const [school, setAnnouncement] = useState({});
+  const { user }: any = useAuth();
+  const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
+  // const baseURL = 'http://localhost'
+  const getAllAnnouncements = async () => {
+    try {
+      const data = await axios.get(`${baseURL}/announcement/getAll`);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error)
+      return;
     }
-    const newAnnouncement = async ({ announcementData }: any) => {
-        try {
-            const data = await axios.post(`${baseURL}/announcement/new`, announcementData)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error)
-            return
-        }
+  };
+  const newAnnouncement = async ({ announcementData }: any) => {
+    try {
+      const data = await axios.post(
+        `${baseURL}/announcement/new`,
+        announcementData
+      );
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error)
+      return;
     }
-    return (
-        <AnnouncementContext.Provider value={{ getAllAnnouncements, newAnnouncement }}>
-            {children}
-        </AnnouncementContext.Provider>
-    );
-}
+  };
+  return (
+    <AnnouncementContext.Provider
+      value={{ getAllAnnouncements, newAnnouncement }}
+    >
+      {children}
+    </AnnouncementContext.Provider>
+  );
+};

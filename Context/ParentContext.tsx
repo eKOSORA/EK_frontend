@@ -4,43 +4,45 @@ import React, { useEffect, useContext, useState } from "react";
 import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
 
-const ParentContext = React.createContext({})
+const ParentContext = React.createContext({});
 
 export const useParents = () => {
-    return useContext(ParentContext)
-}
+  return useContext(ParentContext);
+};
 
 export const ParentProvider = ({ children }: any) => {
-    const [school, setParent] = useState({})
-    const { user }: any = useAuth()
-    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
-    const registerParent = async ({ parentData, studentID }: any) => {
-        try {
-            const data = await axios.post(`${baseURL}/parent/register?id=${studentID}`, parentData)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error)
-            return
-        }
+  const [school, setParent] = useState({});
+  const { user }: any = useAuth();
+  const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
+  const registerParent = async ({ parentData, studentID }: any) => {
+    try {
+      const data = await axios.post(
+        `${baseURL}/parent/register?id=${studentID}`,
+        parentData
+      );
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error)
+      return;
     }
-    const getInfo = async ({ parentId }: any) => {
-        try {
-            const data = await axios.post(`${baseURL}/parent/getInfo`, parentId)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error)
-            return
-        }
+  };
+  const getInfo = async ({ parentId }: any) => {
+    try {
+      const data = await axios.post(`${baseURL}/parent/getInfo`, parentId);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error)
+      return;
     }
+  };
 
-    const router = useRouter()
+  const router = useRouter();
 
-
-    return (
-        <ParentContext.Provider value={{ getInfo, registerParent }}>
-            {children}
-        </ParentContext.Provider>
-    );
-}
+  return (
+    <ParentContext.Provider value={{ getInfo, registerParent }}>
+      {children}
+    </ParentContext.Provider>
+  );
+};

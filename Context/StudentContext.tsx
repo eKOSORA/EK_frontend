@@ -5,120 +5,137 @@ import { getCookie } from "../utils/cookies";
 import { useAuth } from "./AuthContext";
 import { useSchools } from "./SchoolContext";
 
-const StudentContext = React.createContext({})
+const StudentContext = React.createContext({});
 
 export const useStudents = () => {
-    return useContext(StudentContext)
-}
+  return useContext(StudentContext);
+};
 
 export const StudentProvider = ({ children }: any) => {
-    const { school }:any = useSchools()
-    const { user }: any = useAuth()
-    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
-    const getAllStudents = async ({ year, className }: any) => {
-        try {
-            const data = await axios.get(`${baseURL}/student/getAll?year=${year}&class=${className}`)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  const { school }: any = useSchools();
+  const { user }: any = useAuth();
+  const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
+  const getAllStudents = async ({ year, className }: any) => {
+    try {
+      const data = await axios.get(
+        `${baseURL}/student/getAll?year=${year}&class=${className}`
+      );
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
-    const registerStudent = async ({ studentData }: any) => {
-        try {
-
-            const data = await axios.post(`${baseURL}/student/add`, studentData)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  };
+  const registerStudent = async ({ studentData }: any) => {
+    try {
+      const data = await axios.post(`${baseURL}/student/add`, studentData);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
-    const editStudent = async ({ studentData }: any) => {
-        try {
-
-            const data = await axios.post(`${baseURL}/student/edit`, studentData)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  };
+  const editStudent = async ({ studentData }: any) => {
+    try {
+      const data = await axios.post(`${baseURL}/student/edit`, studentData);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
+  };
 
-    const addRecord = async ({ recordData }: any) => {
-
-        try {
-            const data = await axios.post(`${baseURL}/student/addRecord`, recordData)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
-
+  const addRecord = async ({ recordData }: any) => {
+    try {
+      const data = await axios.post(`${baseURL}/student/addRecord`, recordData);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
+  };
 
-    const updateMark = async ({ newMark }: any) => {
-
-        try {
-            const data = await axios.post(`${baseURL}/student/updateMark`, newMark)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
-
+  const updateMark = async ({ newMark }: any) => {
+    try {
+      const data = await axios.post(`${baseURL}/student/updateMark`, newMark);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
+  };
 
-    const getRecords = async ({ _class, _year }: any) => {
-        try {
-            const data = await axios.post(`${baseURL}/student/getRecords?_class=${_class}&_year=${_year}`)
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  const getRecords = async ({ _class, _year }: any) => {
+    try {
+      const data = await axios.post(
+        `${baseURL}/student/getRecords?_class=${_class}&_year=${_year}`
+      );
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
-    const deleteRecord = async (_id: any) => {
-        try {
-            const data = await axios.delete(`${baseURL}/student/deleteRecord`, { headers: {}, data: { _id } })
-            return data
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  };
+  const deleteRecord = async (_id: any) => {
+    try {
+      const data = await axios.delete(`${baseURL}/student/deleteRecord`, {
+        headers: {},
+        data: { _id },
+      });
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
-    const addParent = async ({ parent_email, studentId }: any) => {
-        try {
-            const data = await axios.post(`${baseURL}/student/addParent`, { parent_email, studentId })
-            return data;
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  };
+  const addParent = async ({ parent_email, studentId }: any) => {
+    try {
+      const data = await axios.post(`${baseURL}/student/addParent`, {
+        parent_email,
+        studentId,
+      });
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
+  };
 
-    const getSummary = async () => {
-        try {
-            const data = await axios.post(`${baseURL}/student/getSummary`)
-            return data;
-        } catch (error) {
-            //console.log("Fetch error")
-            //console.log(error);
-            return
-        }
+  const getSummary = async () => {
+    try {
+      const data = await axios.post(`${baseURL}/student/getSummary`);
+      return data;
+    } catch (error) {
+      //console.log("Fetch error")
+      //console.log(error);
+      return;
     }
+  };
 
-    return (
-        <StudentContext.Provider value={{ user, registerStudent, editStudent, addParent, addRecord, deleteRecord, getAllStudents, getRecords, getSummary, updateMark }}>
-            {children}
-        </StudentContext.Provider>
-    );
-}
+  return (
+    <StudentContext.Provider
+      value={{
+        user,
+        registerStudent,
+        editStudent,
+        addParent,
+        addRecord,
+        deleteRecord,
+        getAllStudents,
+        getRecords,
+        getSummary,
+        updateMark,
+      }}
+    >
+      {children}
+    </StudentContext.Provider>
+  );
+};

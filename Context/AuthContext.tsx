@@ -5,74 +5,70 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { UserObject } from "../utils/interfaces/user";
 
-
 let AuthContext = React.createContext({});
 
 export const useAuth = () => {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 };
 
-
 export default function AuthProvider({ children }: any) {
+  const router = useRouter();
 
-    const router = useRouter()
+  let [user, setUser] = useState<UserObject | undefined>(undefined);
+  const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
-    let [user, setUser] = useState<UserObject | undefined>(undefined);
-    const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
-
-    const decodeToken = async () => {
-        const token = getCookie("token");
-        if (token) {
-            try {
-                const userDetails: any = await jwtdecode(token);
-                //console.log(userDetails);
-                const userd: any = await getUserById(userDetails.userid);
-                return setUser(userd);
-            } catch (err) {
-                return setUser(undefined);
-            }
-        }
+  const decodeToken = async () => {
+    const token = getCookie("token");
+    if (token) {
+      try {
+        const userDetails: any = await jwtdecode(token);
+        //console.log(userDetails);
+        const userd: any = await getUserById(userDetails.userid);
+        return setUser(userd);
+      } catch (err) {
         return setUser(undefined);
-    };
-
-    const getUserById = async (id: string) => {
-        try {
-
-            return {}
-        } catch (error) {
-            //console.log(error);
-            return null
-        }
-    };
-
-    const logout = async () => {
-        const data = await axios.get(`${baseURL}/auth/logout`)
-        return data;
+      }
     }
+    return setUser(undefined);
+  };
 
-    const login = async ({ formData }: any) => {
-        const data = await axios.post(`${baseURL}/auth/login`, formData)
-        return data;
+  const getUserById = async (id: string) => {
+    try {
+      return {};
+    } catch (error) {
+      //console.log(error);
+      return null;
     }
+  };
 
-    useEffect(() => {
-        if (router.pathname === '/auth/login' || router.pathname === '/auth/signup' || router.pathname === "/") return
-        // if (!user) router.push('/auth/login')
-    }, [router, user])
+  const logout = async () => {
+    const data = await axios.get(`${baseURL}/auth/logout`);
+    return data;
+  };
 
-    useEffect(()=>{
-        // decodeToken()
+  const login = async ({ formData }: any) => {
+    const data = await axios.post(`${baseURL}/auth/login`, formData);
+    return data;
+  };
+
+  useEffect(() => {
+    if (
+      router.pathname === "/auth/login" ||
+      router.pathname === "/auth/signup" ||
+      router.pathname === "/"
+    )
+      return;
+    // if (!user) router.push('/auth/login')
+  }, [router, user]);
+
+  useEffect(() => {
+    // decodeToken()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+  }, []);
 
-    let value = { user, logout, setUser, getUserById, login };
+  let value = { user, logout, setUser, getUserById, login };
 
-    return (
-        <>
-            {(
-                <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-            )}
-        </>
-    );
+  return (
+    <>{<AuthContext.Provider value={value}>{children}</AuthContext.Provider>}</>
+  );
 }
-
