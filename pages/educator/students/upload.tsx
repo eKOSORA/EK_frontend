@@ -62,12 +62,12 @@ const StudentsUpload = () => {
                 setFileData({ ...fileData, loading: false })
                 return
             }
-            previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
+            previewUploadedFile(needed,fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
         }
     }
 
     const onDrop = (acceptedFiles: File[]) => {
-        previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
+        previewUploadedFile(needed,fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
     }
 
     return (

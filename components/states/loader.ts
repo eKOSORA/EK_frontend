@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 
 const loaderState = atom({
     key: 'loader-state',
-    default: 20
+    default: 0
 })
 
 const loaderStateSelector = selector({

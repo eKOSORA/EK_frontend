@@ -62,16 +62,16 @@ const StudentsUpload = () => {
                 setFileData({ ...fileData, loading: false })
                 return
             }
-            previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
+            previewUploadedFile(needed,fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
         }
     }
 
     const onDrop = (acceptedFiles: File[]) => {
-        previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
+        previewUploadedFile(needed,fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
     }
 
     return (
-        <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
+        <div className='text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
             <ToastContainer
                 position="bottom-center"

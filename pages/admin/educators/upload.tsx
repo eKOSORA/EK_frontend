@@ -18,7 +18,7 @@ import { fileDataState } from '../../../components/states/sheets'
 import { loaderState } from '../../../components/states/loader'
 import { useAuth } from '../../../Context/AuthContext'
 
-const StudentsUpload = () => {
+const EducatorUpload = () => {
     const [sideBarActive, setSideBarActive] = useState(false)
     const { user }: any = useAuth()
     const [step, setStep] = useState(1)
@@ -42,7 +42,7 @@ const StudentsUpload = () => {
     }, [])
 
 
-    const needed = ['First Name', 'Last Name', 'Code/ID', 'Year/Grade', 'Class', 'Parent Email(s)', 'Parent Tel(s)']
+    const needed = ['First Name', 'Last Name', 'Lessons', 'Title', 'ID Number', 'Email', 'Phone Number']
     const previewFile = async () => {
         var inputElement = document.querySelector('#excelFileToUpload') as HTMLInputElement;
         if (inputElement.files) {
@@ -59,16 +59,16 @@ const StudentsUpload = () => {
                 setFileData({ ...fileData, loading: false })
                 return
             }
-            previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
+            previewUploadedFile(needed,fileData, setFileData, setLoadingPercentage, loadingPercentage, inputElement.files[0])
         }
     }
 
     const onDrop = (acceptedFiles: File[]) => {
-        previewUploadedFile(fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
+        previewUploadedFile(needed,fileData, setFileData, setLoadingPercentage, loadingPercentage, acceptedFiles[0])
     }
 
     return (
-        <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
+        <div className='text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
             <ToastContainer
                 position="bottom-center"
@@ -83,10 +83,10 @@ const StudentsUpload = () => {
                 theme='colored'
             />
             <Head>
-                <title> Students | Teacher Dashboard | eKOSORA</title>
+                <title> Educators | Admin Dashboard | eKOSORA</title>
 
             </Head>
-            <Navbar page='Add students' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
+            <Navbar page='Add educators' sideBarActive={sideBarActive} setSideBarActive={setSideBarActive} />
             <div className='w-full flex h-full items-start justify-start'>
                 {
                     sideBarActive
@@ -124,11 +124,11 @@ const StudentsUpload = () => {
                                     <div className='mx-auto hidden mxl:scale-90 xl:scale-100 my-8 bg-white mxl:flex flex-row items-center justify-center w-fit rounded h-fit'>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>First Name</div>
                                         <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Last Name</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Code/ID</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Year/Grade</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Class</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Parent Email(s)</div>
-                                        <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0 '>Parent Tel(s)</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Lessons</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Title</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>ID Number</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-2 border-r-ek-blue-50/70 mx-0 '>Email</div>
+                                        <div className='text-base text-black px-4 py-1 border-r-ek-blue-50/70 mx-0 '>Telephone</div>
                                     </div>
                                     <div className='flex mxl:hidden w-full items-center justify-center'>
                                         <ul className='text-lg font-questrial list-disc w-1/2'>
@@ -179,4 +179,4 @@ const StudentsUpload = () => {
     )
 }
 
-export default StudentsUpload
+export default EducatorUpload
