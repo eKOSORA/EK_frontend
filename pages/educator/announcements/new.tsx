@@ -2,12 +2,10 @@ import Head from 'next/head'
 import React, { FormEvent, useState } from 'react'
 import { Navbar } from '../../../components/Dashboard/Navbar'
 import Sidebar from '../../../components/Dashboard/Sidebar'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { Checkbox, TextField } from '@mui/material'
-import { IoMdClose } from 'react-icons/io'
-import { ValidateEmail } from '../../../utils/comparer'
 import { useAuth } from '../../../Context/AuthContext'
 import { AddAnnouncementFormData } from '../../../utils/@types/announcements'
 import Autocomplete from '@mui/material/Autocomplete';

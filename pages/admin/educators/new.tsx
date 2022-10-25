@@ -40,9 +40,9 @@ const NewStudent = () => {
 
   const handleAddNewEducator = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!ValidateEmail(formData.email)) {}
-    
+
+    if (!ValidateEmail(formData.email)) {
+    }
   };
 
   return (
@@ -63,7 +63,7 @@ const NewStudent = () => {
         <title>Add Educator | eKOSORA</title>
       </Head>
       <Navbar
-        page="Add Student"
+        page="Add Educator"
         sideBarActive={sideBarActive}
         setSideBarActive={setSideBarActive}
       />
@@ -74,11 +74,11 @@ const NewStudent = () => {
         <div
           className={`${
             sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          } flex flex-col items-center justify-start pt-[60px] h-fit sm:p-10`}
         >
-          <div className="m-auto border-2 w-[550px] border-ek-blue-75 rounded-xl p-10 mt-14 flex flex-col items-center justify-center">
+          <div className="m-auto msm:border-2 w-full sm:w-[550px] border-ek-blue-75 rounded-xl p-10 mt-14 flex flex-col items-center justify-center">
             <span className="w-full text-center text-4xl heading-text text-ek-blue-50">
-              Add Student
+              Add Educator
             </span>
             <form
               onSubmit={handleAddNewEducator}
@@ -155,7 +155,7 @@ const NewStudent = () => {
                           setFormData({
                             ...formData,
                             subjects: formData.subjects.filter(
-                              (subject:string) => subject !== subject
+                              (subject: string) => subject !== subject
                             ),
                           })
                         }

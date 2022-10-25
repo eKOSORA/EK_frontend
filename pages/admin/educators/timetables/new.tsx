@@ -208,7 +208,7 @@ const NewTimeTable = () => {
                                 <TextField id='from' defaultValue={'00:00'} placeholder="" focused={true} onChange={(e) => setHour({ ...hour, from: e.target.value })} className='ml-0 w-full my-6 md:w-5/12  mx-4' type={'time'} label="From" />
                                 <TextField id='to' defaultValue={'00:00'} focused={true} onChange={(e) => setHour({ ...hour, to: e.target.value })} className='w-full my-6 md:w-5/12 mx-4' type={'time'} label="To" />
                                 <button disabled={hour.from && hour.to ? false : true} className={'px-4 w-full md:w-fit my-4 bg-ek-blue-75 text-white py-2 rounded'} onClick={addHour}>ADD</button>
-                            </div>
+                            </div>zzz
                             <div className='w-full flex flex-col'>
                                 <TextField onChange={(e) => setTimeTable({ ...timetable, name: e.target.value })} className='w-full' placeholder="eg: Year 1's Timetable Term 1" focused={true} label="Timetable name" />
                                 <span className='my-3 font-questrial text-xs text-ek-blue'>NB: It is advisable to use descriptive names for the timetables.</span>
