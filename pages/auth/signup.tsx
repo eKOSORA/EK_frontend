@@ -14,7 +14,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Auth/Navbar";
 import { VscClose } from "react-icons/vsc";
-import { AiFillCloseCircle, AiFillEdit } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 import { useSchools } from "../../Context/SchoolContext";
 import CropModal from "../../components/Dashboard/Images/CropModal";
 import { CreateSchoolFormDataState } from "../../utils/interfaces/school";
@@ -142,7 +142,7 @@ const Signup: NextPage = () => {
     console.log(`Longitude: ${longitude}`);
   };
   return (
-    <div className="z-1 w-screen h-screen bg-ek-blue/5 flex flex-col items-center justify-start">
+    <div className="z-1 w-screen h-screen bg-ek-blue/20 bg-white flex flex-col items-center justify-start">
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

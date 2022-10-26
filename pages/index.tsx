@@ -10,7 +10,7 @@ import speed from './../public/img/speed.png'
 
 const Home: NextPage = () => {
   return (
-    <div className='h-screen'>
+    <div className='bg-[#f0f0f0]  h-screen'>
             <Head>
 
         <title>Home | eKOSORA</title>

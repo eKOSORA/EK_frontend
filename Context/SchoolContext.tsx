@@ -46,6 +46,9 @@ export const SchoolProvider = ({ children }: any) => {
           router.push("/admin");
         }
       }
+      else if(data.data?.message.includes == "E11000 duplicate key error collection: ekosora_db.schools index:"){
+return
+      }
       return data;
     } catch (error: AxiosResponse | any) {
       console.log(error.response);

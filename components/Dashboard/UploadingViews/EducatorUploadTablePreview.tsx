@@ -10,6 +10,7 @@ import { submitStudents } from '../../../pages/educator/students/upload';
 import { useRecoilValue } from 'recoil';
 import { fileDataState } from '../../states/sheets';
 import 'animate.css';
+import { confirmCancellation } from '../../../utils/Functions/alerts';
 
 const Root = styled('div')`
   table {
@@ -73,28 +74,6 @@ function EducatorUploadTablePreview(props: any) {
     console.log(rows)
     const [sheetNo, setSheetNo] = useState(0)
 
-    const comfirmCancellation = () => {
-
-        const alertUser: any = swal({
-            title: "Are you sure?",
-            text: "Once cancelled you'll start from zero",
-            icon: "warning",
-            dangerMode: true,
-        })
-
-        alertUser.then((willDelete: any) => {
-            if (willDelete) {
-                swal({
-                    title: "",
-                    text: "Your upload session has been cancelled",
-                    icon: "success",
-                    dangerMode: false,
-                });
-                window.location.replace('/educator/')
-            }
-        });
-
-    }
     console.log(fileData)
 
     console.log(fileData.sheets)
@@ -215,7 +194,7 @@ function EducatorUploadTablePreview(props: any) {
                     </Root>
             }
             <div className='w-full flex justify-around my-8 text-white items-center'>
-                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={comfirmCancellation}>CANCEL</button>
+                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={()=>confirmCancellation("Your upload session has been cancelled","/educator")}>CANCEL</button>
                 <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={handleSubmit}>FINISH</button>
             </div>
         </div >

@@ -66,7 +66,7 @@ const Dashboard = () => {
   const { user }: any = useAuth();
 
   return (
-    <div className="bg-[#f0f0f0] ">
+    <div className="text-black bg-[#f0f0f0] ">
       <Head>
         <title>Teacher Dashboard | eKOSORA</title>
       </Head>

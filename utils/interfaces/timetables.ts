@@ -21,6 +21,9 @@ export interface LessonInTimeTableObject {
 }
 export interface TimeTableObject {
   name: string;
+  days: DaysObject;
+}
+export interface DaysObject {
   monday: LessonInTimeTableObject[];
   tuesday: LessonInTimeTableObject[];
   wednesday: LessonInTimeTableObject[];
@@ -29,7 +32,6 @@ export interface TimeTableObject {
   saturday: LessonInTimeTableObject[];
   sunday: LessonInTimeTableObject[];
 }
-
 export interface EditModeObject {
   state: boolean;
   index: any;

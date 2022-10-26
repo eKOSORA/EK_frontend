@@ -73,7 +73,7 @@ function StudentUploadTablePreview(props: any) {
     console.log(rows)
     const [sheetNo, setSheetNo] = useState(0)
 
-    const comfirmCancellation = () => {
+    const confirmCancellation = () => {
 
         const alertUser: any = swal({
             title: "Are you sure?",
@@ -215,7 +215,7 @@ function StudentUploadTablePreview(props: any) {
                     </Root>
             }
             <div className='w-full flex justify-around my-8 text-white items-center'>
-                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={comfirmCancellation}>CANCEL</button>
+                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={confirmCancellation}>CANCEL</button>
                 <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={handleSubmit}>FINISH</button>
             </div>
         </div >

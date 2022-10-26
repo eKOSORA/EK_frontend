@@ -19,6 +19,9 @@ import { useAuth } from "../../../../Context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import LessonBox from "../../../../components/Dashboard/admin/LessonBox";
 import _ from "lodash";
+import { confirmCancellation } from "../../../../utils/Functions/alerts";
+import { generateTimetable } from "../../../../templates/timetable";
+import jsPDF from "jspdf";
 
 const NewTimeTable = () => {
   //Important states
@@ -117,13 +120,15 @@ const NewTimeTable = () => {
   const [viewTableMode, setViewTableMode] = useState(false);
   const [timetable, setTimeTable] = useState<TimeTableObject>({
     name: "",
-    monday: [],
-    tuesday: [],
-    wednesday: [],
-    thursday: [],
-    friday: [],
-    saturday: [],
-    sunday: [],
+    days: {
+      monday: [],
+      tuesday: [],
+      wednesday: [],
+      thursday: [],
+      friday: [],
+      saturday: [],
+      sunday: [],
+    },
   });
 
   const addLessonToTimetable = (id: string) => {
@@ -137,30 +142,44 @@ const NewTimeTable = () => {
     setViewTableMode(!viewTableMode);
   };
 
+  const handleCancelCreateTimeTableSession = () => {
+    confirmCancellation(
+      "Your timetable creation session has been cancelled",
+      "/admin/educators"
+    );
+  };
+
+  const getPDFTimetable = () => {
+    generateTimetable(hours, timetable.name);
+  };
+
+
   useEffect(() => {
     setTimeTable({
       ...timetable,
-      monday: timetable.monday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
-      tuesday: timetable.tuesday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
-      wednesday: timetable.wednesday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
-      thursday: timetable.thursday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
-      friday: timetable.friday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
-      saturday: timetable.saturday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
-      sunday: timetable.sunday.concat([
-        { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-      ]),
+      days: {
+        monday: timetable.days.monday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+        tuesday: timetable.days.tuesday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+        wednesday: timetable.days.wednesday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+        thursday: timetable.days.thursday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+        friday: timetable.days.friday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+        saturday: timetable.days.saturday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+        sunday: timetable.days.sunday.concat([
+          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+        ]),
+      },
     });
     console.log(hours);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -199,7 +218,7 @@ const NewTimeTable = () => {
   }, []);
 
   return (
-    <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div id="target" className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
         position="bottom-center"
         autoClose={1000}
@@ -264,7 +283,6 @@ const NewTimeTable = () => {
                   ADD
                 </button>
               </div>
-              zzz
               <div className="w-full flex flex-col">
                 <TextField
                   onChange={(e) =>
@@ -378,6 +396,28 @@ const NewTimeTable = () => {
             </div>
           ) : null}
         </div>
+      </div>
+      <div className="flex w-full my-8 items-center justify-around">
+        <button
+          onClick={handleCancelCreateTimeTableSession}
+          className="rounded bg-ek-blue-75 text-white font-questrial px-4 py-2"
+        >
+          CANCEL
+        </button>
+
+        <button
+          onClick={getPDFTimetable}
+          className="rounded bg-ek-blue-75 text-white font-questrial px-4 py-2"
+        >
+          SAVE
+        </button>
+
+        <button
+          // onClick={generateFile}
+          className="rounded bg-ek-blue-75 text-white font-questrial px-4 py-2"
+        >
+          DOWNLOAD
+        </button>
       </div>
     </div>
   );
