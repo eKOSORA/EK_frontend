@@ -211,3 +211,10 @@ th {
 .css-iqd1hh-MuiButtonBase-root-MuiChip-root .MuiChip-deleteIcon{
   color: white;
 }
+.MuiTablePaginationUnstyled-select{
+  background: inherit;
+  border:1px solid #4ca7ce;
+  border-radius: 5px;
+  padding: 2px 0;
+  cursor: pointer;
+}

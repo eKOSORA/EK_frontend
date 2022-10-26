@@ -8,7 +8,7 @@ import { UserObject } from "../utils/interfaces/user";
 let AuthContext = React.createContext({});
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  return React.useContext(AuthContext);
 };
 
 export default function AuthProvider({ children }: any) {
@@ -46,7 +46,8 @@ export default function AuthProvider({ children }: any) {
     return data;
   };
 
-  const login = async ({ formData }: any) => {
+  const login = async ({ formData }: any) => {7
+    console.log(formData)
     const data = await axios.post(`${baseURL}/auth/login`, formData);
     return data;
   };

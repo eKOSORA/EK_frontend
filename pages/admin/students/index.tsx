@@ -361,7 +361,7 @@ const StudentsPage = () => {
                       </td>
                       <td
                         className="flex items-center justify-center"
-                        style={{ width: 360 }}
+                        style={{ width: 180 }}
                         align="right"
                       >
                         <Link

@@ -142,7 +142,7 @@ const Signup: NextPage = () => {
     console.log(`Longitude: ${longitude}`);
   };
   return (
-    <div className="z-1 w-screen h-screen bg-ek-blue/20 bg-white flex flex-col items-center justify-start">
+    <div className="z-1 w-screen h-screen bg-[#f0f0f0]  flex flex-col items-center justify-start">
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -621,8 +621,7 @@ const Signup: NextPage = () => {
                   InputProps={{
                     style: { color: "black" },
                   }}
-                  // value={formData.admin.code}
-                  defaultValue={`${formData.initials}`}
+                  value={formData.admin.code}
                   className=" my-4 w-full text-lg"
                   label="Code"
                   onChange={(e) => {

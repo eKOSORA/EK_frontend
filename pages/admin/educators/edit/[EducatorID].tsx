@@ -1,69 +1,58 @@
 import Head from "next/head";
-import React, { FormEvent, useState } from "react";
-import { Navbar } from "../../../components/Dashboard/Navbar";
-import Sidebar from "../../../components/Dashboard/Sidebar";
-import { toast, ToastContainer } from "react-toastify";
+import React, { FormEvent, useEffect, useState } from "react";
+import { Navbar } from "../../../../components/Dashboard/Navbar";
+import Sidebar from "../../../../components/Dashboard/Sidebar";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
+import { useRouter } from "next/router";
 import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
-import { ValidateEmail } from "../../../utils/comparer";
-import { AddStudentFormData } from "../../../utils/@types/students";
-import { useAuth } from "../../../Context/AuthContext";
-import { useStudents } from "../../../Context/StudentContext";
+import { useAuth } from "../../../../Context/AuthContext";
+import { EducatorObject } from "../../../../utils/interfaces/educator";
+import { AllEducatorsDisplay } from "../../../../utils/faker";
 
-const NewStudent = () => {
+const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
   const { user }: any = useAuth();
-  const [formData, setFormData] = useState<AddStudentFormData>({
-    name: "",
+  const router = useRouter();
+  const { EducatorID } = router.query;
+
+  const [formData, setFormData] = useState<EducatorObject>({
     code: "",
-    class: "",
     email: "",
-    parentEmails: [],
-    year: 1,
+    firstName: "",
+    IdNumber: "",
+    lastName: "",
+    lessons: [],
+    telephone: "",
   });
 
-  const handleAddParent = (e: any) => {
-    if (e.keyCode !== 13) return;
-    if (formData.parentEmails.length === 3)
-      return toast.error(
-        "A child can't have more than three registered parent emails",
-        {
-          position: "bottom-center",
-          autoClose: 5000,
-          draggable: true,
-          hideProgressBar: true,
-          theme: "colored",
-        }
-      );
+  useEffect(() => {
+    const educator = AllEducatorsDisplay.filter(
+      (educator: EducatorObject) => educator.code === EducatorID
+    )[0];
+    setFormData(educator);
+  }, [EducatorID]);
 
-    const input = document.querySelector("#parent-email") as HTMLInputElement;
-    const enteredMail = input.value;
-    if (!enteredMail) return;
-    //console.log("Key Pressed")
-    if (!ValidateEmail(enteredMail)) {
-      toast.error("Invalid email entered", {
-        position: "bottom-center",
-        autoClose: 5000,
-        draggable: true,
-        hideProgressBar: true,
-        theme: "colored",
-      });
-      return;
-    }
+  const handleAddLesson = (e: any) => {
+    if (e.keyCode !== 13) return;
+
+    const input = document.querySelector("#lesson") as HTMLInputElement;
+    const enteredLesson = input.value;
+    if (!enteredLesson) return;
+
     input.value = "";
     setFormData({
       ...formData,
-      parentEmails: [...formData.parentEmails, enteredMail],
+      lessons: [...formData.lessons, enteredLesson],
     });
   };
 
-  const { registerStudent }: any = useStudents();
-  const handleAddStudent = (e: FormEvent<HTMLFormElement>) => {
+  const handleUpdateEducator = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    registerStudent(formData);
+    //console.log(formData)
   };
 
   return (
@@ -81,34 +70,39 @@ const NewStudent = () => {
         theme="colored"
       />
       <Head>
-        <title>Add Student | eKOSORA</title>
+        <title>Edit Educator | eKOSORA</title>
       </Head>
       <Navbar
-        page="Add Student"
+        page="Edit Educator"
         sideBarActive={sideBarActive}
         setSideBarActive={setSideBarActive}
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="dashboard" />
+          <Sidebar user={user} page="educator" active="educators" />
         ) : null}
         <div
           className={`${
             sideBarActive ? "w-10/12" : "w-full"
           } flex flex-col items-center justify-start pt-[60px] h-fit sm:p-10`}
         >
-          <div className="m-auto msm:border-2 w-full sm:w-[550px]  border-ek-blue-75 rounded-xl p-10 mt-14 flex flex-col items-center justify-center">
+          <div className="m-auto sm:border-2 w-full sm:w-[550px] border-ek-blue-75 rounded-xl p-2 sm:p-10 mt-14 flex flex-col items-center justify-center">
             <span className="w-full text-center text-4xl heading-text text-ek-blue-50">
-              Student Info
+              Edit Educator
             </span>
             <form
-              onSubmit={handleAddStudent}
+              onSubmit={handleUpdateEducator}
               className="mt-8 w-full flex-col flex items-center justify-center"
             >
               <TextField
                 onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
+                  setFormData({
+                    ...formData,
+                    firstName: e.target.value.split(" ")[0],
+                    lastName: e.target.value.split(" ")[1] ? e.target.value.split(" ")[1] :"",
+                  })
                 }
+                value={`${formData.firstName} ${formData.lastName}`}
                 focused={true}
                 className="my-2 w-full bg-ek-blue-50/10 font-questrial"
                 id={`outlined-basic${Math.ceil(Math.random() * 10)}`}
@@ -117,6 +111,7 @@ const NewStudent = () => {
                 variant="outlined"
               />
               <TextField
+                value={EducatorID}
                 onChange={(e) =>
                   setFormData({ ...formData, code: e.target.value })
                 }
@@ -129,28 +124,30 @@ const NewStudent = () => {
               />
               <TextField
                 onChange={(e) =>
-                  setFormData({ ...formData, year: parseInt(e.target.value) })
+                  setFormData({ ...formData, IdNumber: e.target.value })
                 }
                 focused={true}
                 className="my-2 w-full bg-ek-blue-50/10 font-questrial"
                 id={`outlined-basic${Math.ceil(Math.random() * 10)}`}
                 type={"number"}
-                label="Year"
+                label="ID Number"
                 required={true}
+                value={formData.IdNumber}
                 variant="outlined"
               />
               <TextField
                 onChange={(e) =>
-                  setFormData({ ...formData, class: e.target.value })
+                  setFormData({ ...formData, telephone: e.target.value })
                 }
                 focused={true}
                 className="my-2 w-full bg-ek-blue-50/10 font-questrial"
                 id={`outlined-basic${Math.ceil(Math.random() * 10)}`}
                 type={"text"}
                 inputProps={{ maxLength: 1 }}
-                label="Class"
+                label="Telephone"
                 required={true}
                 variant="outlined"
+                value={formData.telephone}
               />
               <TextField
                 onChange={(e) =>
@@ -160,22 +157,23 @@ const NewStudent = () => {
                 className="my-2 w-full bg-ek-blue-50/10 font-questrial"
                 id={`outlined-basic${Math.ceil(Math.random() * 10)}`}
                 label="Email"
+                value={formData.email}
                 required={true}
                 variant="outlined"
               />
               <div className="w-full flex items-center justify-center flex-col">
                 <div className="Emails w-full flex flex-col">
-                  {formData.parentEmails.map((email: String) => (
+                  {formData.lessons.map((email: String) => (
                     <div
                       key={Math.floor(Math.random() * 100)}
-                      className="w-7/12 py-[4px] my-1 flex items-center justify-between px-4 rounded-xl bg-ek-blue-75 text-white"
+                      className="w-fit py-[4px] my-1 flex items-center justify-between px-4 rounded-xl bg-ek-blue-75 text-white"
                     >
-                      <span>{email}</span>
+                      <span className="mr-3">{email}</span>
                       <IoMdClose
                         onClick={() =>
                           setFormData({
                             ...formData,
-                            parentEmails: formData.parentEmails.filter(
+                            lessons: formData.lessons.filter(
                               (mail) => mail !== email
                             ),
                           })
@@ -188,13 +186,13 @@ const NewStudent = () => {
                 </div>
                 <TextField
                   type={"email"}
-                  onKeyDown={handleAddParent}
+                  onKeyDown={handleAddLesson}
                   focused={true}
                   className="my-2 w-full bg-ek-blue-50/10 font-questrial"
-                  id={`parent-email`}
-                  label="Parent Email(s)"
+                  id={`lesson`}
+                  label="Lessons"
                   required={false}
-                  placeholder="Add Parent Email"
+                  placeholder="Add Lesson"
                   variant="outlined"
                 />
               </div>
@@ -213,4 +211,4 @@ const NewStudent = () => {
   );
 };
 
-export default NewStudent;
+export default Index;

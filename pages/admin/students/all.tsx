@@ -246,9 +246,10 @@ const AllStudents = () => {
 
           <div className="w-full flex items-center justify-center">
             <Root
+            className="overflow-x-scroll"
               sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}
             >
-              <table className="rounded" aria-label="custom pagination table">
+              <table className="min-w-full" aria-label="custom pagination table">
                 <thead className="text-white">
                   <tr className="font-questrial bg-ek-blue">
                     <th>First Name</th>
@@ -289,7 +290,7 @@ const AllStudents = () => {
                       </td>
                       <td
                         className="flex items-center justify-center"
-                        style={{ width: 360 }}
+                        style={{ width: 180 }}
                         align="right"
                       >
                         <Link

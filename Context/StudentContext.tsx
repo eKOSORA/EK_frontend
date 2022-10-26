@@ -30,6 +30,7 @@ export const StudentProvider = ({ children }: any) => {
   const registerStudent = async ({ studentData }: any) => {
     try {
       const data = await axios.post(`${baseURL}/student/add`, studentData);
+      console.log(data)
       return data;
     } catch (error) {
       //console.log("Fetch error")

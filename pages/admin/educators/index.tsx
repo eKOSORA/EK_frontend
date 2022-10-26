@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import {
-  AllStudentsDisplay,
+  AllEducatorsDisplay,
 } from "../../../utils/faker";
 import { GoSearch } from "react-icons/go";
 import {
@@ -26,22 +26,23 @@ import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
 import { useAuth } from "../../../Context/AuthContext";
 import { useRouter } from "next/router";
+import { EducatorObject } from "../../../utils/interfaces/educator";
 
-const AllStudents = () => {
+const AllEducators = () => {
   //Important states
 
   const [page, setPage] = React.useState(0);
   const { user }: any = useAuth();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [studentsData, setStudentsData] = useState<any>({
+  const [educatorsData, setEducatorsData] = useState<any>({
     year: "year_1",
     class: "",
     sortType: "az",
   });
 
-  const [students, setStudents] = useState([]);
-  const [_students, set_Students] = useState([]);
+  const [educators, setEducators] = useState<EducatorObject[]>([]);
+  const [_educators, set_Educators] = useState<EducatorObject[]>([]);
 
   interface State {
     year: String;
@@ -50,33 +51,33 @@ const AllStudents = () => {
   }
 
   useEffect(() => {
-    setStudents(AllStudentsDisplay.sort());
-    set_Students(AllStudentsDisplay.sort());
-    //console.log(AllStudentsDisplay.sort())
+    setEducators(AllEducatorsDisplay.sort());
+    set_Educators(AllEducatorsDisplay.sort());
+    //console.log(AllEducatorsDisplay.sort())
   }, []);
 
-  const handleSearchStudents = (e: any) => {
+  const handleSearchEducators = (e: any) => {
     const query = e.target.value;
-    if (query === "") return setStudents(_students);
+    if (query === "") return setEducators(_educators);
     //console.log(query)
-    const searchedStudents = _students.filter(
-      (student: any) =>
-        student["First Name"].toLowerCase().includes(query) ||
-        student["Last Name"].toLowerCase().includes(query)
+    const searchedEducators = _educators.filter(
+      (educator: any) =>
+        educator["First Name"].toLowerCase().includes(query) ||
+        educator["Last Name"].toLowerCase().includes(query)
     );
-    //console.log(searchedStudents)
-    setStudents(searchedStudents);
+    //console.log(searchedEducators)
+    setEducators(searchedEducators);
     return;
   };
 
-  const sortStudents = () => {
-    setStudentsData({
-      ...studentsData,
-      sortType: studentsData.sortType === "az" ? "za" : "az",
+  const sortEducators = () => {
+    setEducatorsData({
+      ...educatorsData,
+      sortType: educatorsData.sortType === "az" ? "za" : "az",
     });
-    studentsData.sortType === "az"
-      ? students.sort().reverse()
-      : students.sort();
+    educatorsData.sortType === "az"
+      ? educators.sort().reverse()
+      : educators.sort();
   };
 
   const handleChangePage = (
@@ -148,14 +149,14 @@ const AllStudents = () => {
   `;
 
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - educators.length) : 0;
 
-  const handleDeleteStudent = () => {};
+  const handleDeleteEducator = () => {};
 
   const router = useRouter();
 
   return (
-    <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
         position="bottom-center"
         autoClose={1000}
@@ -169,16 +170,16 @@ const AllStudents = () => {
         theme="colored"
       />
       <Head>
-        <title> Students | Teacher Dashboard | eKOSORA</title>
+        <title> Educators | Teacher Dashboard | eKOSORA</title>
       </Head>
       <Navbar
-        page="All students"
+        page="All Educators"
         sideBarActive={sideBarActive}
         setSideBarActive={setSideBarActive}
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="students" />
+          <Sidebar page="educator" user={user} active="educators" />
         ) : null}
         <div
           className={`${
@@ -192,14 +193,14 @@ const AllStudents = () => {
                 type="text"
                 maxLength={30}
                 placeholder="Search"
-                onChange={handleSearchStudents}
+                onChange={handleSearchEducators}
                 className="text-[#808080] outline-none w-[90%] border-none bg-inherit p-2.5 "
               />
             </div>
 
             <div
-              title="Add a student"
-              onClick={() => router.push("/educator/students/new")}
+              title="Add a educator"
+              onClick={() => router.push("/educator/educators/new")}
               className="p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism"
             >
               <HiPlusCircle size={25} color={"#808080"} />
@@ -214,18 +215,18 @@ const AllStudents = () => {
 
             <div
               title={`${
-                studentsData.sortType === "az"
+                educatorsData.sortType === "az"
                   ? "Sort from Z to A"
                   : "Sort from A to Z"
               }`}
-              onClick={sortStudents}
+              onClick={sortEducators}
               className="p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism"
             >
               <HiSortDescending
                 className={`${
-                  studentsData.sortType === "az"
+                  educatorsData.sortType === "az"
                     ? "rotate-180"
-                    : studentsData.sortType === "za"
+                    : educatorsData.sortType === "za"
                     ? "rotate-0"
                     : "rotate-0"
                 }`}
@@ -245,56 +246,56 @@ const AllStudents = () => {
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Code/ID</th>
-                    <th>Year/Grade</th>
-                    <th>Class</th>
-                    <th>Parent Tel(s)</th>
+                    <th>Lessons</th>
+                    <th>ID Number</th>
+                    <th>Telephone</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody className="font-questrial">
                   {(rowsPerPage > 0
-                    ? students.slice(
+                    ? educators.slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
                       )
-                    : students
+                    : educators
                   ).map((row: any) => (
-                    <tr className="even:bg-ek-blue-75/20" key={row["Code/ID"]}>
+                    <tr className="even:bg-ek-blue-75/20" key={row.code}>
                       <td style={{ width: 260 }} align="right">
-                        {row["First Name"]}
+                        {row.firstName}
                       </td>
                       <td style={{ width: 260 }} align="right">
-                        {row["Last Name"]}
+                        {row.lastName}
                       </td>
                       <td style={{ width: 260 }} align="right">
-                        {row["Code/ID"]}
+                        {row.code}
                       </td>
                       <td style={{ width: 260 }} align="right">
-                        {row["Year/Grade"]}
+                        {row.lessons.map((lesson:string)=>`${lesson},`)}
                       </td>
                       <td style={{ width: 260 }} align="right">
-                        {row["Class"]}
+                        {row.IdNumber}
                       </td>
                       <td style={{ width: 360 }} align="right">
-                        {row["Parent Tel(s)"]}
+                        {row.telephone}
                       </td>
                       <td
-                        className="flex items-center justify-center"
-                        style={{ width: 360 }}
+                        className="flex  items-center justify-center"
+                        style={{ width: 180 }}
                         align="right"
                       >
                         <Link
-                          href={`/educator/students/edit/${row["Code/ID"]}`}
+                          href={`/admin/educators/edit/${row.code}`}
                         >
                           <HiOutlinePencilAlt
                             size={26}
-                            className="text-lg mx-4 text-ek-blue font-bold cursor-pointer"
+                            className="hover:rotate-12 text-lg mx-4 text-ek-blue font-bold cursor-pointer"
                           />
                         </Link>
                         <FiTrash
                           size={26}
-                          onClick={handleDeleteStudent}
-                          className="text-lg mx-4 text-[#E63C3C] font-bold cursor-pointer"
+                          onClick={handleDeleteEducator}
+                          className="hover:rotate-12 text-lg mx-4 text-[#E63C3C] font-bold cursor-pointer"
                         />
                       </td>
                     </tr>
@@ -316,7 +317,7 @@ const AllStudents = () => {
                         { label: "All", value: -1 },
                       ]}
                       colSpan={7}
-                      count={students.length}
+                      count={educators.length}
                       rowsPerPage={rowsPerPage}
                       page={page}
                       componentsProps={{
@@ -342,4 +343,4 @@ const AllStudents = () => {
   );
 };
 
-export default AllStudents;
+export default AllEducators;
