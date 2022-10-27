@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { Navbar } from "../../../../components/Dashboard/Navbar";
-import Sidebar from "../../../../components/Dashboard/Sidebar";
-import { ToastContainer } from "react-toastify";
+import { Navbar } from "../../../components/Dashboard/Navbar";
+import Sidebar from "../../../components/Dashboard/Sidebar";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import {
@@ -11,17 +11,23 @@ import {
   LessonInTimeTableObject,
   LessonObject,
   TimeTableObject,
-} from "../../../../utils/interfaces/timetables";
+} from "../../../utils/interfaces/timetables";
 import { TextField } from "@mui/material";
 import { BiX } from "react-icons/bi";
-import { useDrag, useDrop } from "react-dnd";
-import { useAuth } from "../../../../Context/AuthContext";
+import { useDrop } from "react-dnd";
+import { useAuth } from "../../../Context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
-import LessonBox from "../../../../components/Dashboard/admin/LessonBox";
+import LessonBox from "../../../components/Dashboard/admin/LessonBox";
 import _ from "lodash";
-import { confirmCancellation } from "../../../../utils/Functions/alerts";
-import { generateTimetable } from "../../../../templates/timetable";
+import { confirmCancellation } from "../../../utils/Functions/alerts";
+import { generateTimetable } from "../../../templates/timetable";
+import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import Image from "next/image";
+import * as dateFns from "date-fns";
 
 const NewTimeTable = () => {
   //Important states
@@ -30,8 +36,10 @@ const NewTimeTable = () => {
   const [hours, setHours] = useState<Array<HourObject>>([]);
   const [hour, setHour] = useState<HourObject>({
     id: uuidv4(),
-    from: "00:00",
-    to: "00:00",
+    from: "",
+    to: "",
+    toPicker: "",
+    fromPicker: "",
   });
   const [lessons, setLessons] = useState<Array<LessonObject>>([
     {
@@ -149,10 +157,29 @@ const NewTimeTable = () => {
     );
   };
 
-  const getPDFTimetable = () => {
-    generateTimetable(hours, timetable.name);
+  const exportPDF = () => {
+    if (!timetable.name) {
+      toast.error("Timetable name cannot be empty!!!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+      return;
+    }
+    const input = document.getElementById("timetable") as HTMLElement;
+    html2canvas(input, { logging: true, useCORS: true }).then((canvas) => {
+      const imgWidth = 290;
+      const imgHeight = 210;
+      const imgData = canvas.toDataURL("img/png");
+      const pdf = new jsPDF("l", "mm", "a4");
+      pdf.addImage(imgData, "PNG", 5, 5, imgWidth, imgHeight);
+      pdf.save(`${timetable.name}`);
+    });
   };
-
 
   useEffect(() => {
     setTimeTable({
@@ -194,8 +221,10 @@ const NewTimeTable = () => {
     toElement.value = "";
     setHour({
       id: uuidv4(),
-      from: "",
+      from: hour.to,
       to: "",
+      fromPicker: hour.toPicker,
+      toPicker: "",
     });
   };
 
@@ -218,15 +247,17 @@ const NewTimeTable = () => {
   }, []);
 
   return (
-    <div id="target" className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div
+      id="target"
+      className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen"
+    >
       <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
+        position="top-center"
+        autoClose={3000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
         draggable
         pauseOnHover
         theme="colored"
@@ -254,25 +285,44 @@ const NewTimeTable = () => {
           <div className="w-full flex md:flex-row flex-col items-start justify-center">
             <div className="w-full lg:w-6/12 flex flex-col items-start sm:px-4 py-3 ">
               <div className="w-full mb-4 sm:w-2/3 md:w-full flex md:flex-row flex-col items-center justify-center md:justify-between">
-                <TextField
-                  id="from"
-                  defaultValue={"00:00"}
-                  placeholder=""
-                  focused={true}
-                  onChange={(e) => setHour({ ...hour, from: e.target.value })}
-                  className="ml-0 w-full my-6 md:w-5/12  mx-4"
-                  type={"time"}
-                  label="From"
-                />
-                <TextField
-                  id="to"
-                  defaultValue={"00:00"}
-                  focused={true}
-                  onChange={(e) => setHour({ ...hour, to: e.target.value })}
-                  className="w-full my-6 md:w-5/12 mx-4"
-                  type={"time"}
-                  label="To"
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimePicker
+                    value={hour.fromPicker}
+                    label="From"
+                    ampm={false}
+                    onChange={(newValue) => {
+                      setHour({
+                        ...hour,
+                        fromPicker: newValue as string,
+                        from: dayjs(newValue).format("h:mm"),
+                      });
+                    }}
+                    className="ml-0 w-full my-6 md:w-5/12  mx-4"
+                    renderInput={(params) => (
+                      <TextField id="from" focused={true} {...params} />
+                    )}
+                  />
+                </LocalizationProvider>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimePicker
+                    value={hour.toPicker}
+                    label="TO"
+                    ampm={false}
+                    onChange={(newValue) => {
+                      setHour({
+                        ...hour,
+                        toPicker: newValue as string,
+                        to: dayjs(newValue).format("h:mm"),
+                      });
+                    }} //
+                    className="ml-0 w-full my-6 md:w-5/12  mx-4"
+                    renderInput={(params) => (
+                      <TextField id="to" focused={true} {...params} />
+                    )}
+                  />
+                </LocalizationProvider>
+
                 <button
                   disabled={hour.from && hour.to ? false : true}
                   className={
@@ -332,24 +382,70 @@ const NewTimeTable = () => {
           </div>
 
           {hours.length ? (
-            <button
-              className="bg-ek-blue-75 text-white text-xl cursor-pointer px-4 py-3 rounded"
-              onClick={generateTable}
-            >
-              {viewTableMode ? "Hide Table" : "Generate Table"}
-            </button>
+            <div className="flex flex-col sm:flex-row mmsm:grid grid-cols-2 sm:flex w-4/5 md:w-3/5 my-8 items-center justify-around">
+              <button
+                className="w-11/12 my-2  sm:w-fit bg-ek-blue-75 text-white text-xl cursor-pointer px-4 py-3 rounded"
+                onClick={generateTable}
+              >
+                {viewTableMode ? "Hide Preview" : "Show Preview"}
+              </button>
+              <button
+                onClick={handleCancelCreateTimeTableSession}
+                className="w-11/12 my-2  sm:w-fit rounded bg-ek-blue-75 text-white font-questrial px-4 py-3 text-xl"
+              >
+                Cancel
+              </button>
+
+              <button
+                onClick={() => exportPDF()}
+                className="w-11/12 my-2  sm:w-fit rounded bg-ek-blue-75 text-white font-questrial px-4 py-3 text-xl"
+              >
+                Download
+              </button>
+            </div>
           ) : null}
           {viewTableMode && hours.length ? (
-            <div className="overflow-x-auto my-6 flex flex-col items-start justify-center w-full">
-              <div className="w-full text-center text-2xl heading-text py-2">
-                <span>{timetable.name}</span>
+            <div
+              id="timetable"
+              className="overflow-x-auto bg-white p-8 rounded my-6 h-fit flex flex-col items-start justify-center w-full"
+            >
+              <div className="w-full flex items-start justify-between">
+                <div className="w-1/2">
+                  <div className="flex items-start justify-start">
+                    <div className="relative">
+                      <Image
+                        src={"/img/index.jpeg"}
+                        alt={""}
+                        width={180}
+                        height={180}
+                      />
+                    </div>
+                    <div className="flex flex-col  mt-4 ml-3">
+                      <span className="heading-text text-black font-bold text-2xl">
+                        Rwanda Coding Academy
+                      </span>
+                      <span className="italic my-2 font-questrial">
+                        &quot; Born to Code &quot;
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-1/2 flex flex-col items-end h-full justify-end">
+                  <span>P.O Box 42324</span>
+                  <span>Nyabihu, Rwanda</span>
+                  <span>0782307144</span>
+                  <span>contact@rca.rw</span>
+                  <span>www.rca.ac.rw</span>
+                </div>
+              </div>
+              <div className="w-full text-center text-2xl heading-text py-4">
+                <span className="my-4 mb-8">{timetable.name}</span>
               </div>
               <table border={1} className="w-full">
                 <thead>
                   <tr className="text-white bg-ek-blue-75 px-4 py-4 text-start">
                     <td className="w-40 px-4 text-start">Days</td>
                     {hours.map((hour, index) => {
-                      console.log();
                       return (
                         <td className="" key={index}>
                           {hour.from}-{hour.to}
@@ -373,7 +469,7 @@ const NewTimeTable = () => {
                         <td className="w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4">
                           {day.toUpperCase()}
                         </td>
-                        {Object.values(timetable)[index + 1].map(
+                        {Object.values(timetable.days).map(
                           (subject: LessonInTimeTableObject, index: number) => (
                             // timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
                             <td
@@ -393,31 +489,30 @@ const NewTimeTable = () => {
                 </tbody>
                 <tfoot></tfoot>
               </table>
+              <div className="w-full flex items-center justify-center">
+                <div className="w-1/2 flex items-center justify-start">
+                  <span>
+                    <span className="font-bold">NB: </span>
+                    No student is allowed to be out of class during lesson times
+                    without an <strong>unspecified</strong> reason.
+                  </span>
+                </div>
+                <div className="my-12 w-1/2 px-6 flex flex-col items-end justify-end">
+                  <div className="flex flex-col items-end justify-end">
+                    Done by NSABYIMANA Egide
+                  </div>
+                  <div className="relative my-8 flex flex-col">
+                    <span className="absolute right-auto left-auto rotate-12">
+                      Signature
+                    </span>
+                    <span className="-rotate-12">Signature</span>
+                  </div>
+                  <div>{dateFns.format(Date.now(), "MMMM do yyyy")}</div>
+                </div>
+              </div>
             </div>
           ) : null}
         </div>
-      </div>
-      <div className="flex w-full my-8 items-center justify-around">
-        <button
-          onClick={handleCancelCreateTimeTableSession}
-          className="rounded bg-ek-blue-75 text-white font-questrial px-4 py-2"
-        >
-          CANCEL
-        </button>
-
-        <button
-          onClick={getPDFTimetable}
-          className="rounded bg-ek-blue-75 text-white font-questrial px-4 py-2"
-        >
-          SAVE
-        </button>
-
-        <button
-          // onClick={generateFile}
-          className="rounded bg-ek-blue-75 text-white font-questrial px-4 py-2"
-        >
-          DOWNLOAD
-        </button>
       </div>
     </div>
   );

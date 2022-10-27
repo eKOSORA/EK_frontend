@@ -2,6 +2,8 @@ export interface HourObject {
   id: string;
   from: string;
   to: string;
+  fromPicker:string
+  toPicker:string
 }
 
 export interface LessonObject {

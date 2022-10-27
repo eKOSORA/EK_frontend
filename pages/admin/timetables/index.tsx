@@ -1,22 +1,22 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { Navbar } from "../../../../components/Dashboard/Navbar";
-import Sidebar from "../../../../components/Dashboard/Sidebar";
+import { Navbar } from "../../../components/Dashboard/Navbar";
+import Sidebar from "../../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
-import { userTeacher } from "../../../../utils/faker";
-import { TimeTableViewObject } from "../../../../utils/interfaces/timetables";
-import { timetablesView } from "../../../../utils/timetables";
+import { userTeacher } from "../../../utils/faker";
+import { TimeTableViewObject } from "../../../utils/interfaces/timetables";
+import { timetablesView } from "../../../utils/timetables";
 import Image from "next/image";
 import { BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
-import TimetableView from "../../../../components/Dashboard/admin/TimetableView";
-import EditTimetableView from "../../../../components/Dashboard/admin/EditTimetableView";
+import TimetableView from "../../../components/Dashboard/admin/TimetableView";
+import EditTimetableView from "../../../components/Dashboard/admin/EditTimetableView";
 import swal from "sweetalert";
 import Link from "next/link";
 import { AiFillCalendar } from "react-icons/ai";
-import { useAuth } from "../../../../Context/AuthContext";
+import { useAuth } from "../../../Context/AuthContext";
 
 const Index = () => {
   //Important states

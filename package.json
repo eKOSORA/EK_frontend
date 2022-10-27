@@ -20,6 +20,7 @@
     "chart.js": "^3.9.1",
     "date-fns": "^2.29.3",
     "faker": "^6.6.6",
+    "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
@@ -41,6 +42,7 @@
     "recoil": "^0.7.5",
     "serve": "^14.0.1",
     "sweetalert": "^2.1.2",
+    "use-react-screenshot": "^3.0.0",
     "uuid": "^9.0.0",
     "workbox-precaching": "^6.5.4",
     "xlsx": "^0.18.5"
