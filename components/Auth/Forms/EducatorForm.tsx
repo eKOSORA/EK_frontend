@@ -13,6 +13,7 @@ import { NextComponentType } from "next";
 import React, { useState } from "react";
 import "animate.css";
 import { useAuth } from "../../../Context/AuthContext";
+import { useSchools } from "../../../Context/SchoolContext";
 
 const EducatorForm: NextComponentType = () => {
   const { login }: any = useAuth();
@@ -60,12 +61,7 @@ const EducatorForm: NextComponentType = () => {
     showPassword: false,
   });
 
-  const schools = [
-    "Rwanda Coding Academy",
-    "Kigali Christian School",
-    "Nyabihu TVET School",
-    "Kigali Parents School",
-  ];
+  const { schools }: any = useSchools();
 
   return (
     <div className=" duration-1000 h-4/5  w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4">
@@ -77,12 +73,15 @@ const EducatorForm: NextComponentType = () => {
         className="flex w-10/12 mt-12 items-center justify-start flex-col"
       >
         <Autocomplete
-          // isOptionEqualToValue
           disablePortal
           id="combo-box-demo"
-          options={schools}
-          onChange={(event, value) => {
-            setFormData({ ...formData, school: value as string });
+          options={schools.map((option: any) => option.name)}
+          onChange={(event, value: any) => {
+            setFormData({
+              ...formData,
+              school: schools.filter((school: any) => (school.name = value))[0]
+                ._id,
+            });
           }}
           sx={{ width: "100%" }}
           className="w-full my-4 bg-ek-blue/10"

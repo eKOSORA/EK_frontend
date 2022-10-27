@@ -13,7 +13,7 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch(`/${active}/`);
+    router.prefetch(`/${active}/`).then(r => {});
   }, [active, router]);
 
   return (

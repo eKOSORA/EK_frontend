@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "../utils/cookies";
@@ -12,6 +12,7 @@ export const useSchools = () => {
 
 export const SchoolProvider = ({ children }: any) => {
   const [school, setSchool] = useState({});
+  const [schools, setSchools] = useState([]);
   const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
   const router = useRouter();
   const { setUser }: any = useAuth();
@@ -45,9 +46,11 @@ export const SchoolProvider = ({ children }: any) => {
           setUser(loginData.data.user);
           router.push("/admin");
         }
-      }
-      else if(data.data?.message.includes == "E11000 duplicate key error collection: ekosora_db.schools index:"){
-return
+      } else if (
+        data.data?.message.includes ==
+        "E11000 duplicate key error collection: ekosora_db.schools index:"
+      ) {
+        return;
       }
       return data;
     } catch (error: AxiosResponse | any) {
@@ -56,8 +59,20 @@ return
     }
   };
 
+  const getSchools = async () => {
+    const data = await axios.get(`${baseURL}/auth/schoolcodes`);
+    if (data.data.code !== "#Success") return data;
+    setSchools(data.data.results);
+    return data;
+  };
+
+  useEffect(() => {
+    getSchools();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <SchoolContext.Provider value={{ registerSchool }}>
+    <SchoolContext.Provider value={{ registerSchool, schools }}>
       {children}
     </SchoolContext.Provider>
   );
