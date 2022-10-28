@@ -2,8 +2,8 @@ export interface HourObject {
   id: string;
   from: string;
   to: string;
-  fromPicker:string
-  toPicker:string
+  fromPicker: string;
+  toPicker: string;
 }
 
 export interface LessonObject {
@@ -15,6 +15,7 @@ export interface LessonObject {
 }
 export interface LessonInTimeTableObject {
   index?: number;
+  type?: string;
   name: string;
   from: string;
   to: string;

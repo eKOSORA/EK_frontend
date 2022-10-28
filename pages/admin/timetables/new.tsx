@@ -14,7 +14,7 @@ import {
 } from "../../../utils/interfaces/timetables";
 import { TextField } from "@mui/material";
 import { BiX } from "react-icons/bi";
-import { useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { useAuth } from "../../../Context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import LessonBox from "../../../components/Dashboard/admin/LessonBox";
@@ -121,6 +121,7 @@ const NewTimeTable = () => {
       isOver: !!monitor.isOver(),
     }),
   }));
+
   const [editHourMode, setEditHourMode] = useState<EditModeObject>({
     state: false,
     index: undefined,
