@@ -127,16 +127,85 @@ const NewTimeTable = () => {
     index: undefined,
   });
   const [viewTableMode, setViewTableMode] = useState(false);
+  // const [timetable, setTimeTable] = useState<TimeTableObject>({
+  //   name: "",
+  //   days: {
+  //     monday: [],
+  //     tuesday: [],
+  //     wednesday: [],
+  //     thursday: [],
+  //     friday: [],
+  //     saturday: [],
+  //     sunday: [],
+  //   },
+  // });
+
   const [timetable, setTimeTable] = useState<TimeTableObject>({
     name: "",
     days: {
-      monday: [],
-      tuesday: [],
-      wednesday: [],
-      thursday: [],
-      friday: [],
-      saturday: [],
-      sunday: [],
+      monday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
+      tuesday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
+      wednesday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
+      thursday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
+      friday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
+      saturday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
+      sunday: hours.map((hour: HourObject, index) => ({
+        educator: "",
+        from: hour.from,
+        name: "",
+        initial: "",
+        to: hour.to,
+        index,
+        type: "",
+      })),
     },
   });
 
@@ -183,32 +252,83 @@ const NewTimeTable = () => {
   };
 
   useEffect(() => {
-    setTimeTable({
-      ...timetable,
-      days: {
-        monday: timetable.days.monday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-        tuesday: timetable.days.tuesday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-        wednesday: timetable.days.wednesday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-        thursday: timetable.days.thursday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-        friday: timetable.days.friday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-        saturday: timetable.days.saturday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-        sunday: timetable.days.sunday.concat([
-          { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-        ]),
-      },
+    // setTimeTable({
+    //   ...timetable,
+    //   days: {
+    //     monday: timetable.days.monday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //     tuesday: timetable.days.tuesday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //     wednesday: timetable.days.wednesday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //     thursday: timetable.days.thursday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //     friday: timetable.days.friday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //     saturday: timetable.days.saturday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //     sunday: timetable.days.sunday.concat([
+    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
+    //     ]),
+    //   },
+    // });
+
+    timetable.days.monday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
     });
+    timetable.days.tuesday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
+    });
+    timetable.days.wednesday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
+    });
+    timetable.days.thursday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
+    });
+    timetable.days.friday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
+    });
+    timetable.days.saturday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
+    });
+    timetable.days.sunday.push({
+      educator: "",
+      from: hour.from,
+      to: hour.to,
+      initial: "",
+      name: "",
+    });
+
     console.log(hours);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hours]);
@@ -246,6 +366,7 @@ const NewTimeTable = () => {
       });
     });
   }, []);
+console.log(Object.values(timetable.days));
 
   return (
     <div
