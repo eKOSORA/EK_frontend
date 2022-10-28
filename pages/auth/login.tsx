@@ -17,7 +17,7 @@ const Login: NextPage = () => {
   }, [active, router]);
 
   return (
-    <div className="bg-[#f0f0f0]  w-screen h-screen flex flex-col items-center justify-start">
+    <div className="text-black bg-[#f0f0f0]  w-screen h-screen flex flex-col items-center justify-start">
       <Head>
         <title>Login | eKOSORA</title>
       </Head>

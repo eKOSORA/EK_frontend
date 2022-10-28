@@ -83,7 +83,20 @@ const Signup: NextPage = () => {
       setFormData({ ...formData, [prop]: event.target.value });
     };
 
-  const schoolTypes = ["Government Aided", "Private", "Fully Government"];
+  const schoolTypes = [
+    {
+      name: "Government Aided",
+      value: "government-aided",
+    },
+    {
+      name: "Private",
+      value: "private",
+    },
+    {
+      name: "Fully Government",
+      value: "government",
+    },
+  ];
 
   useEffect(() => {
     window.addEventListener("keydown", checkKeyPress);
@@ -252,14 +265,14 @@ const Signup: NextPage = () => {
 
                 <Autocomplete
                   id="combo-box-demo"
-                  options={schoolTypes}
+                  options={schoolTypes.map((type) => type.name)}
                   autoHighlight={true}
                   sx={{}}
                   onChange={(event, value) => {
                     console.log(value);
                     setFormData({
                       ...formData,
-                      type: value?.replace(" ", "-").toLowerCase() as string,
+                      type: schoolTypes.filter((type) => (type.name === value))[0].value as string,
                     });
                   }}
                   className="rounded border-ek-blue outlie outline-0 w-full my-4 "
@@ -547,10 +560,10 @@ const Signup: NextPage = () => {
                           <VscClose />
                         </button>
                       </div>
-                      <div className="w-full h-full flex items-center justify-center rounded">
+                      <div className="w-2/3 h-2/3 relative flex items-center justify-center rounded">
                         <Image
                           alt={"Logo image string"}
-                          objectFit="cover"
+                          objectFit="contain"
                           layout="fill"
                           className="w-full h-full"
                           src={formData.previewURL as string}
@@ -603,6 +616,7 @@ const Signup: NextPage = () => {
                     style: { color: "black" },
                   }}
                   value={formData.admin.names}
+                  placeholder={formData.head}
                   className=" my-4 w-full text-lg"
                   label="Names"
                   onChange={(e) => {
@@ -614,9 +628,9 @@ const Signup: NextPage = () => {
                   focused={true}
                   required={true}
                   autoComplete="off"
+                  id="admin"
                 />
 
-                <div></div>
                 <TextField
                   InputProps={{
                     style: { color: "black" },
@@ -624,6 +638,7 @@ const Signup: NextPage = () => {
                   value={formData.admin.code}
                   className=" my-4 w-full text-lg"
                   label="Code"
+                  placeholder={`${formData.initials}0001EDU`}
                   onChange={(e) => {
                     setFormData({
                       ...formData,
@@ -633,6 +648,7 @@ const Signup: NextPage = () => {
                   focused={true}
                   required={true}
                   autoComplete="off"
+                  id="adminCode"
                 />
 
                 <TextField
