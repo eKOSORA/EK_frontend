@@ -148,20 +148,22 @@ function StudentUploadTablePreview(props: any) {
         newName: "class",
       },
     ];
-    capitals = Array(capitals).map((obj) => {
-      names.map((name) => {
+    capitals = Array(capitals).map((obj:any) => {
+      names.map((name:any) => {
         obj[name.newName] = obj[name.oldName];
         delete obj[name.oldName];
       });
 
       return obj;
     });
-    console.log(capitals);
+    return capitals[0];
   };
 
   const addStudentsToDatabase = async (studentData: uploadedStudentObject) => {
     // const data = await registerStudent()
-    console.log(renameObject(studentData));
+    const dummyObj = {...studentData}
+    console.log(renameObject(dummyObj));
+    const newObj = renameObject(dummyObj)
   };
 
   const emptyRows =
