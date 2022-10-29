@@ -3,7 +3,7 @@ export type IUploadStudentsInterface = {
     students: Array<Array<uploadedStudentObject>>
 }
 
-interface uploadedStudentObject {
+export interface uploadedStudentObject {
     'First Name': String
     'Last Name': String
     'Code/ID': String

@@ -11,7 +11,7 @@ import Image from "next/image";
 import StudentUploadTablePreview from "../../../components/Dashboard/UploadingViews/StudentUploadTablePreview";
 import { FileData } from "../../../utils/interfaces/interfaces";
 import _ from "lodash";
-import { IUploadStudentsInterface } from "../../../utils/@types/students";
+import { IUploadStudentsInterface, uploadedStudentObject } from "../../../utils/@types/students";
 
 import Dropzone from "react-dropzone";
 import { useRecoilState } from "recoil";
@@ -293,21 +293,3 @@ const StudentsUpload = () => {
 };
 
 export default StudentsUpload;
-
-export const submitStudents = async ({
-  sheets,
-  students,
-}: IUploadStudentsInterface) => {
-  console.log(sheets)
-  console.log(students)
-
-  for (let i = 0; i < sheets; i++) {
-    for (let j = 0; j < students[i].length; j++) {
-      
-      console.log(students[i][j])
-      
-    }    
-  }
-
-};
-

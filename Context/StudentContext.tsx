@@ -1,11 +1,9 @@
 import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useContext, useState } from "react";
-import { getCookie } from "../utils/cookies";
+import React, { useContext,createContext } from "react";
 import { useAuth } from "./AuthContext";
 import { useSchools } from "./SchoolContext";
 
-const StudentContext = React.createContext({});
+const StudentContext = createContext({});
 
 export const useStudents = () => {
   return useContext(StudentContext);
