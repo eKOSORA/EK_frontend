@@ -298,6 +298,16 @@ export const submitStudents = async ({
   sheets,
   students,
 }: IUploadStudentsInterface) => {
-  //console.log(sheets)
-  //console.log(students)
+  console.log(sheets)
+  console.log(students)
+
+  for (let i = 0; i < sheets; i++) {
+    for (let j = 0; j < students[i].length; j++) {
+      
+      console.log(students[i][j])
+      
+    }    
+  }
+
 };
+

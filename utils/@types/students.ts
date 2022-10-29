@@ -1,6 +1,6 @@
 export type IUploadStudentsInterface = {
     sheets: Number,
-    students: Array<uploadedStudentObject>
+    students: Array<Array<uploadedStudentObject>>
 }
 
 interface uploadedStudentObject {

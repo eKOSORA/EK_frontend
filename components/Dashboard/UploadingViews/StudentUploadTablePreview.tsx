@@ -6,7 +6,7 @@ import TablePaginationUnstyled, {
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import MultiTablePreview from '../SubComponents/MultiTablePreview';
 import swal from 'sweetalert'
-import { submitStudents } from '../../../pages/educator/students/upload';
+import { submitStudents } from '../../../pages/admin/students/upload';
 import { useRecoilValue } from 'recoil';
 import { fileDataState } from '../../states/sheets';
 import 'animate.css';

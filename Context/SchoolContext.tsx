@@ -61,7 +61,9 @@ export const SchoolProvider = ({ children }: any) => {
 
   const getSchools = async () => {
     const data = await axios.get(`${baseURL}/auth/schoolcodes`);
-    if (data.data.code !== "#Success") return data;
+   
+    if(!data.data) return
+
     setSchools(data.data.results);
     return data;
   };

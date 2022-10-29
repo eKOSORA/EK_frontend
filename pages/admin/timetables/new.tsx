@@ -6,13 +6,14 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import {
+  DaysObject,
   EditModeObject,
   HourObject,
   LessonInTimeTableObject,
   LessonObject,
   TimeTableObject,
 } from "../../../utils/interfaces/timetables";
-import { TextField } from "@mui/material";
+import { shouldSkipGeneratingVar, TextField } from "@mui/material";
 import { BiX } from "react-icons/bi";
 import { useDrag, useDrop } from "react-dnd";
 import { useAuth } from "../../../Context/AuthContext";
@@ -113,7 +114,6 @@ const NewTimeTable = () => {
       numberofHours: 5,
     },
   ]);
-
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "lesson",
     drop: (item: LessonObject) => addLessonToTimetable(item.id),
@@ -229,6 +229,7 @@ const NewTimeTable = () => {
 
   const exportPDF = () => {
     if (!timetable.name) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
       toast.error("Timetable name cannot be empty!!!", {
         position: "top-center",
         autoClose: 3000,
@@ -252,85 +253,76 @@ const NewTimeTable = () => {
   };
 
   useEffect(() => {
-    // setTimeTable({
-    //   ...timetable,
-    //   days: {
-    //     monday: timetable.days.monday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //     tuesday: timetable.days.tuesday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //     wednesday: timetable.days.wednesday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //     thursday: timetable.days.thursday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //     friday: timetable.days.friday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //     saturday: timetable.days.saturday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //     sunday: timetable.days.sunday.concat([
-    //       { educator: "", from: hour.from, to: hour.to, initial: "", name: "" },
-    //     ]),
-    //   },
-    // });
-
-    timetable.days.monday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
-    });
-    timetable.days.tuesday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
-    });
-    timetable.days.wednesday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
-    });
-    timetable.days.thursday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
-    });
-    timetable.days.friday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
-    });
-    timetable.days.saturday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
-    });
-    timetable.days.sunday.push({
-      educator: "",
-      from: hour.from,
-      to: hour.to,
-      initial: "",
-      name: "",
+    setTimeTable({
+      ...timetable,
+      days: {
+        monday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+        tuesday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+        wednesday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+        thursday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+        friday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+        saturday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+        sunday: hours.map((hour: HourObject, index) => ({
+          educator: "",
+          from: hour.from,
+          name: "",
+          initial: "",
+          to: hour.to,
+          index,
+          type: "",
+        })),
+      },
     });
 
-    console.log(hours);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hours]);
 
   const addHour = () => {
@@ -366,7 +358,6 @@ const NewTimeTable = () => {
       });
     });
   }, []);
-console.log(Object.values(timetable.days));
 
   return (
     <div
@@ -483,13 +474,13 @@ console.log(Object.values(timetable.days));
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-3  my-12 sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 w-2/3">
+          <div className="grid lg:grid-cols-3  my-12 sm:grid-cols-2 grid-cols-1 xl:grid-cols-4 w-5/12">
             {hours.map((hour, index) => {
               return (
                 <div
                   onClick={() => populateEditables(hour, index)}
                   key={index}
-                  className="my-2 relative px-4 mx-2 cursor-pointer hover:animate-ring rounded font-xl heading-text py-3 login-options text-center bg-ek-blue-50/10 text-ek-blue-50 "
+                  className="my-2 relative px-1 mx-2 cursor-pointer hover:animate-ring rounded font-xl heading-text py-3 login-options text-center bg-ek-blue-50/10 text-ek-blue-50 "
                 >
                   <span>
                     {hour.from}-{hour.to}
@@ -529,7 +520,7 @@ console.log(Object.values(timetable.days));
           {viewTableMode && hours.length ? (
             <div
               id="timetable"
-              className="overflow-x-auto bg-white p-8 rounded my-6 h-fit flex flex-col items-start justify-center w-full"
+              className="relative overflow-x-auto bg-white p-8 rounded my-6 h-fit flex flex-col items-start justify-center w-full"
             >
               <div className="w-full flex items-start justify-between">
                 <div className="w-1/2">
@@ -566,51 +557,51 @@ console.log(Object.values(timetable.days));
               <table border={1} className="w-full">
                 <thead>
                   <tr className="text-white bg-ek-blue-75 px-4 py-4 text-start">
-                    <td className="w-40 px-4 text-start">Days</td>
+                    <th className="w-40 px-4 text-start">Days</th>
                     {hours.map((hour, index) => {
                       return (
-                        <td className="" key={index}>
+                        <th className="" key={index}>
                           {hour.from}-{hour.to}
-                        </td>
+                        </th>
                       );
                     })}
                   </tr>
                 </thead>
                 <tbody className="">
-                  {[
-                    "monday",
-                    "tuesday",
-                    "wednesday",
-                    "thursday",
-                    "friday",
-                    "saturday",
-                    "sunday",
-                  ].map((day: string, index: number) => {
-                    return (
-                      <tr className="" key={index}>
-                        <td className="w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4">
-                          {day.toUpperCase()}
-                        </td>
-                        {Object.values(timetable.days).map(
-                          (subject: LessonInTimeTableObject, index: number) => (
-                            // timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
-                            <td
-                              ref={drop}
-                              className={`${
-                                isOver ? "bg-ek-blue/20" : ""
-                              } text-[#161616] border-b-2 border-r-2`}
-                              key={index}
-                            >
-                              {subject.initial}
-                            </td>
-                          )
-                        )}
-                      </tr>
-                    );
-                  })}
+                  {Object.keys(timetable.days).map(
+                    (day: string, index: number) => {
+                      return (
+                        <tr className="" key={index}>
+                          <td className="w-40 text-white bg-ek-blue-75 border-t-2 border-white/20 px-4">
+                            {day.toUpperCase()}
+                          </td>
+                          {Object.values(timetable.days).map(
+                            (
+                              subject: LessonInTimeTableObject,
+                              index: number
+                            ) => (
+                              // timetable[day].map((subject: LessonInTimeTableObject, index: number) => (
+                              <td
+                                ref={drop}
+                                className={`${
+                                  isOver ? "bg-ek-blue/20" : "bg-inherit"
+                                }  text-[#161616] border-b-2 border-r-2`}
+                                key={index}
+                              >
+                                {subject.initial}
+                              </td>
+                            )
+                          )}
+                        </tr>
+                      );
+                    }
+                  )}
                 </tbody>
                 <tfoot></tfoot>
               </table>
+              <span className="absolute text-slate-400 bottom-4 left-0 right-0 w-full text-center font-bold">
+                Powered by eKOSORA
+              </span>
               <div className="w-full flex items-center justify-center">
                 <div className="w-1/2 flex items-center justify-start">
                   <span>
@@ -623,12 +614,16 @@ console.log(Object.values(timetable.days));
                   <div className="flex flex-col items-end justify-end">
                     Done by NSABYIMANA Egide
                   </div>
-                  <div className="relative my-8 flex flex-col">
-                    <span className="absolute right-auto left-auto rotate-12">
+
+                  <div className="relative my-8 px-6 flex items-center justify-center">
+                    <span className="absolute left-auto right-auto rotate-12">
                       Signature
                     </span>
-                    <span className="-rotate-12">Signature</span>
+                    <span className="absolute left-auto right-auto -rotate-12">
+                      Signature
+                    </span>
                   </div>
+
                   <div>{dateFns.format(Date.now(), "MMMM do yyyy")}</div>
                 </div>
               </div>
