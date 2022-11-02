@@ -69,7 +69,7 @@ export const SchoolProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
-    getSchools();
+    if(router.pathname.includes('/auth/signup/')) getSchools();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
