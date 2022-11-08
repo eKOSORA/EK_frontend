@@ -7,7 +7,7 @@ export interface CreateSchoolFormDataState {
     head: string;
     moto: string;
     admin:AdminObject
-    logoImage: File | null;
+imageUrl:string
     previewURL: string | null;
     name: string;
     activeButton: boolean;

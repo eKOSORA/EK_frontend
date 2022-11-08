@@ -1,3 +1,4 @@
+import * as cloudinary from "cloudinary";
 import {
   Autocomplete,
   CircularProgress,
@@ -22,6 +23,7 @@ import Dropzone from "react-dropzone";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import _ from "lodash";
 import { toast, ToastContainer } from "react-toastify";
+import { uploadImage } from "../../hooks";
 
 const Signup: NextPage = () => {
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -46,18 +48,38 @@ const Signup: NextPage = () => {
       password: "",
       showPassword: false,
     },
-    previewURL: null,
-    logoImage: null,
+    previewURL: "",
+    imageUrl: "",
     name: "",
     activeButton: false,
     previewImage: false,
   });
   const [cropMode, setCropMode] = useState<boolean>(false);
   const [step, setStep] = useState(1);
-
   const { registerSchool }: any = useSchools();
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (
+      !formData.name ||
+      !formData.initials ||
+      !formData.type ||
+      !formData.programme ||
+      !formData.head ||
+      !formData.moto
+    ) {
+      toast.error("All fields must be filled", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+    await uploadImage(formData.previewURL);
     const file = document.querySelector("#logoImage") as HTMLInputElement;
     setSubmitLoader(true);
     console.log(file);
@@ -272,7 +294,8 @@ const Signup: NextPage = () => {
                     console.log(value);
                     setFormData({
                       ...formData,
-                      type: schoolTypes.filter((type) => (type.name === value))[0].value as string,
+                      type: schoolTypes.filter((type) => type.name === value)[0]
+                        .value as string,
                     });
                   }}
                   className="rounded border-ek-blue outlie outline-0 w-full my-4 "

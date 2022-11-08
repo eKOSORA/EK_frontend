@@ -127,18 +127,7 @@ const NewTimeTable = () => {
     index: undefined,
   });
   const [viewTableMode, setViewTableMode] = useState(false);
-  // const [timetable, setTimeTable] = useState<TimeTableObject>({
-  //   name: "",
-  //   days: {
-  //     monday: [],
-  //     tuesday: [],
-  //     wednesday: [],
-  //     thursday: [],
-  //     friday: [],
-  //     saturday: [],
-  //     sunday: [],
-  //   },
-  // });
+
 
   const [timetable, setTimeTable] = useState<TimeTableObject>({
     name: "",
