@@ -106,7 +106,7 @@ const Index = () => {
             <span className="text-ek-blue text-4xl w-fit text-start heading-text mt-8 mb-0">
               Saved Timetables
             </span>
-            <Link href={"/admin/educators/timetables/new"}>
+            <Link href={"/admin/timetables/new"}>
               <button className="px-5 flex items-center justify-center py-2 bg-ek-blue-75 rounded hover:animate-ring text-white cursor-pointer">
                 <AiFillCalendar className="mr-2" size={25} color="white" />
                 <span>Create New</span>

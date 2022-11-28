@@ -6,22 +6,20 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import {
-  DaysObject,
   EditModeObject,
   HourObject,
   LessonInTimeTableObject,
   LessonObject,
   TimeTableObject,
 } from "../../../utils/interfaces/timetables";
-import { shouldSkipGeneratingVar, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { BiX } from "react-icons/bi";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { useAuth } from "../../../Context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import LessonBox from "../../../components/Dashboard/admin/LessonBox";
 import _ from "lodash";
 import { confirmCancellation } from "../../../utils/Functions/alerts";
-import { generateTimetable } from "../../../templates/timetable";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";

@@ -42,7 +42,6 @@ export const SchoolProvider = ({ children }: any) => {
           loginData.data?.code === "#Success" &&
           loginData.statusText === "Logged in successfully"
         ) {
-          setCookie("eKOSORA-USER-TOKEN", loginData.data.token, 14);
           setUser(loginData.data.user);
           router.push("/admin");
         }

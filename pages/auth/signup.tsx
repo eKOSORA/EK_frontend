@@ -59,6 +59,7 @@ const Signup: NextPage = () => {
   const { registerSchool }: any = useSchools();
 
   const handleSubmit = async (e: any) => {
+    setSubmitLoader(true);
     e.preventDefault();
     if (
       !formData.name ||
@@ -79,14 +80,27 @@ const Signup: NextPage = () => {
         theme: "colored",
       });
     }
-    await uploadImage(formData.previewURL);
-    const file = document.querySelector("#logoImage") as HTMLInputElement;
-    setSubmitLoader(true);
-    console.log(file);
+    if (formData.previewURL) {
 
-    setFormData({ ...formData, activeButton: false });
+      const imageUrl = await uploadImage(formData.previewURL);
+      if (!imageUrl) {
+        setSubmitLoader(false)
+        return toast.error("Image not uploaded try again", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+      setFormData({ ...formData, imageUrl })
+    }
     const data = await registerSchool({ formData });
-    toast.error(data.response.data.message[0], {
+   
+    toast.error(data.response.data.message, {
       position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: true,
@@ -97,13 +111,14 @@ const Signup: NextPage = () => {
       theme: "colored",
     });
     setSubmitLoader(false);
+    setFormData({ ...formData, activeButton: false });
   };
 
   const handleChange =
     (prop: keyof CreateSchoolFormDataState) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData({ ...formData, [prop]: event.target.value });
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [prop]: event.target.value });
+      };
 
   const schoolTypes = [
     {
@@ -205,24 +220,20 @@ const Signup: NextPage = () => {
       <div className="w-full h-full flex flex-col sm10:flex-row items-center justify-center">
         <div className="steps flex sm10:mr-8 sm10:flex-col items-center justify-center">
           <div
-            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${
-              step === 1 ? "bg-ek-blue" : "bg-ek-blue/20"
-            }`}
+            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 1 ? "bg-ek-blue" : "bg-ek-blue/20"
+              }`}
           ></div>
           <div
-            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${
-              step === 2 ? "bg-ek-blue" : "bg-ek-blue/20"
-            }`}
+            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 2 ? "bg-ek-blue" : "bg-ek-blue/20"
+              }`}
           ></div>
           <div
-            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${
-              step === 3 ? "bg-ek-blue" : "bg-ek-blue/20"
-            }`}
+            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 3 ? "bg-ek-blue" : "bg-ek-blue/20"
+              }`}
           ></div>
           <div
-            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${
-              step === 4 ? "bg-ek-blue" : "bg-ek-blue/20"
-            }`}
+            className={`h-16 w-1 my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 4 ? "bg-ek-blue" : "bg-ek-blue/20"
+              }`}
           ></div>
         </div>
         <div className="w-11/12 my-0 mmsm:w-4/5 smm20:w-[600px] h-fit p-2 mmsm:p-8 rounded mmsm:border-2 border-ek-blue flex flex-col items-start justify-start">
@@ -258,7 +269,7 @@ const Signup: NextPage = () => {
             onSubmit={handleSubmit}
           >
             {step === 1 ? (
-              <div className="w-full flex flex-col">
+              <div className="w-full h-fit flex flex-col">
                 <TextField
                   InputProps={{
                     style: { color: "black" },
@@ -274,9 +285,7 @@ const Signup: NextPage = () => {
 
                 <TextField
                   autoComplete="off"
-                  InputProps={{
-                    style: { color: "black" },
-                  }}
+
                   value={formData.initials}
                   className=" my-4 w-full text-lg"
                   label="Short Form"
@@ -326,16 +335,16 @@ const Signup: NextPage = () => {
                         onChange={(e) => {
                           formData.programme.includes(e.target.value)
                             ? _.remove(
-                                formData.programme,
-                                (n) => n === e.target.value
-                              )
+                              formData.programme,
+                              (n) => n === e.target.value
+                            )
                             : setFormData({
-                                ...formData,
-                                programme: [
-                                  ...formData.programme,
-                                  e.target.value,
-                                ],
-                              });
+                              ...formData,
+                              programme: [
+                                ...formData.programme,
+                                e.target.value,
+                              ],
+                            });
                         }}
                         value={"REB"}
                         id=""
@@ -352,16 +361,16 @@ const Signup: NextPage = () => {
                         onChange={(e) => {
                           formData.programme.includes(e.target.value)
                             ? _.remove(
-                                formData.programme,
-                                (n) => n === e.target.value
-                              )
+                              formData.programme,
+                              (n) => n === e.target.value
+                            )
                             : setFormData({
-                                ...formData,
-                                programme: [
-                                  ...formData.programme,
-                                  e.target.value,
-                                ],
-                              });
+                              ...formData,
+                              programme: [
+                                ...formData.programme,
+                                e.target.value,
+                              ],
+                            });
                         }}
                         value={"WDA"}
                         id=""
@@ -380,16 +389,16 @@ const Signup: NextPage = () => {
                         onChange={(e) => {
                           formData.programme.includes(e.target.value)
                             ? _.remove(
-                                formData.programme,
-                                (n) => n === e.target.value
-                              )
+                              formData.programme,
+                              (n) => n === e.target.value
+                            )
                             : setFormData({
-                                ...formData,
-                                programme: [
-                                  ...formData.programme,
-                                  e.target.value,
-                                ],
-                              });
+                              ...formData,
+                              programme: [
+                                ...formData.programme,
+                                e.target.value,
+                              ],
+                            });
                         }}
                         value={"Cambridge"}
                         id=""
@@ -406,16 +415,16 @@ const Signup: NextPage = () => {
                         onChange={(e) => {
                           formData.programme.includes(e.target.value)
                             ? _.remove(
-                                formData.programme,
-                                (n) => n === e.target.value
-                              )
+                              formData.programme,
+                              (n) => n === e.target.value
+                            )
                             : setFormData({
-                                ...formData,
-                                programme: [
-                                  ...formData.programme,
-                                  e.target.value,
-                                ],
-                              });
+                              ...formData,
+                              programme: [
+                                ...formData.programme,
+                                e.target.value,
+                              ],
+                            });
                         }}
                         value={"Other"}
                         id=""
@@ -740,9 +749,9 @@ const Signup: NextPage = () => {
                           className="text-[#4ca7ce]"
                         >
                           {formData.admin.showPassword ? (
-                            <VisibilityOff />
-                          ) : (
                             <Visibility />
+                          ) : (
+                            <VisibilityOff />
                           )}
                         </IconButton>
                       </InputAdornment>
@@ -754,11 +763,10 @@ const Signup: NextPage = () => {
             )}
             <div className="flex items-end justify-end mt-8">
               <button
-                className={` mx-2 ${
-                  step === 1
-                    ? "cursor-not-allowed text-ek-blue-75/50 "
-                    : " text-ek-blue-75  cursor-pointer"
-                } w-32 h-12 rounded text-lg`}
+                className={` mx-2 ${step === 1
+                  ? "cursor-not-allowed text-ek-blue-75/50 "
+                  : " text-ek-blue-75  cursor-pointer"
+                  } w-32 h-12 rounded text-lg`}
                 type="button"
                 onClick={() => {
                   setStep(step - 1);
