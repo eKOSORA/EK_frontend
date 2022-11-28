@@ -24,6 +24,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import _ from "lodash";
 import { toast, ToastContainer } from "react-toastify";
 import { uploadImage } from "../../hooks";
+import { useRouter } from "next/router";
 
 const Signup: NextPage = () => {
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -57,7 +58,7 @@ const Signup: NextPage = () => {
   const [cropMode, setCropMode] = useState<boolean>(false);
   const [step, setStep] = useState(1);
   const { registerSchool }: any = useSchools();
-
+  const router = useRouter()
   const handleSubmit = async (e: any) => {
     setSubmitLoader(true);
     e.preventDefault();
@@ -99,7 +100,7 @@ const Signup: NextPage = () => {
       setFormData({ ...formData, imageUrl })
     }
     const data = await registerSchool({ formData });
-   
+    if (data.data.code === "#Success") return router.push('/auth/login')
     toast.error(data.response.data.message, {
       position: "bottom-center",
       autoClose: 5000,
