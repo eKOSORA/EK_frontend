@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { NextComponentType } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "animate.css";
 import { useAuth } from "../../../Context/AuthContext";
 import { useSchools } from "../../../Context/SchoolContext";
@@ -61,7 +61,22 @@ const EducatorForm: NextComponentType = () => {
     showPassword: false,
   });
 
-  const { schools }: any = useSchools();
+  const getSchools = async()=>{
+    console.log("Started function");
+    
+    const res =await fetch(`http://192.168.0.156/auth/schoolcodes`,{
+      method:"GET",
+      headers:{"Content-Type":"appication/json"}
+    })
+    const data =await res.json()
+    setSchools(data.results)
+  }
+
+  const [schools, setSchools] = useState([])
+
+  useEffect(() => {
+    getSchools()
+  }, [])
 
   return (
     <div className=" duration-1000 h-4/5  w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4">
@@ -79,8 +94,7 @@ const EducatorForm: NextComponentType = () => {
           onChange={(event, value: any) => {
             setFormData({
               ...formData,
-              school: schools.filter((school: any) => (school.name = value))[0]
-                ._id,
+              school: schools.filter((school: any) => (school.name === value))[0]?._id,
             });
           }}
           sx={{ width: "100%" }}

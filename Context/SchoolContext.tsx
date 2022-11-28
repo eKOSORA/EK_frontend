@@ -26,31 +26,6 @@ export const SchoolProvider = ({ children }: any) => {
         headers: { "Content-Type": "application/json" },
       });
       console.log(data);
-      if (data.data?.code === "#Success" && data.statusText === "Created") {
-        const loginData = await axios.post(
-          `${baseURL}/auth/login`,
-          {
-            accountType: "educator",
-            emailOrCode: formData.admin.email,
-            password: formData.admin.password,
-            school: formData.name,
-          },
-          { headers: { "Content-Type": "application/json" } }
-        );
-
-        if (
-          loginData.data?.code === "#Success" &&
-          loginData.statusText === "Logged in successfully"
-        ) {
-          setUser(loginData.data.user);
-          router.push("/admin");
-        }
-      } else if (
-        data.data?.message.includes ==
-        "E11000 duplicate key error collection: ekosora_db.schools index:"
-      ) {
-        return;
-      }
       return data;
     } catch (error: AxiosResponse | any) {
       console.log(error.response);
@@ -60,20 +35,17 @@ export const SchoolProvider = ({ children }: any) => {
 
   const getSchools = async () => {
     const data = await axios.get(`${baseURL}/auth/schoolcodes`);
-   
-    if(!data.data) return
-
-    setSchools(data.data.results);
+    if (!data.data) return
     return data;
   };
 
   useEffect(() => {
-    if(router.pathname.includes('/auth/signup/')) getSchools();
+    getSchools();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <SchoolContext.Provider value={{ registerSchool, schools }}>
+    <SchoolContext.Provider value={{ registerSchool,getSchools, schools }}>
       {children}
     </SchoolContext.Provider>
   );
