@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import "animate.css";
 import { useAuth } from "../../../Context/AuthContext";
 import { useSchools } from "../../../Context/SchoolContext";
+import { LoginSchoolType } from "../../../types";
 
 const EducatorForm: NextComponentType = () => {
   const { login }: any = useAuth();
@@ -94,7 +95,7 @@ const EducatorForm: NextComponentType = () => {
           onChange={(event, value: any) => {
             setFormData({
               ...formData,
-              school: schools.filter((school: any) => (school.name === value))[0]?._id,
+              school: (schools as LoginSchoolType[]).filter((school: LoginSchoolType) => (school.name === value))[0]?._id,
             });
           }}
           sx={{ width: "100%" }}
