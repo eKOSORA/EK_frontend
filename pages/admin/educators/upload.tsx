@@ -9,23 +9,36 @@ import { BiCog, BiInfoCircle } from "react-icons/bi";
 import uploadExcel from "../../../public/img/uploadExcel.svg";
 import Image from "next/image";
 import StudentUploadTablePreview from "../../../components/Dashboard/UploadingViews/StudentUploadTablePreview";
-import { FileData } from "../../../utils/interfaces/interfaces";
 import _ from "lodash";
-import { previewUploadedFile } from "../../../utils/Functions/files";
+import { previewUploadedFile } from "../../../functions/files";
 import Dropzone from "react-dropzone";
 import { useRecoilState } from "recoil";
 import { fileDataState } from "../../../components/states/sheets";
 import { loaderState } from "../../../components/states/loader";
-import { useAuth } from "../../../Context/AuthContext";
+import { FileData } from "../../../types/interfaces";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const EducatorUpload = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [step, setStep] = useState(1);
+
   const [loadingPercentage, setLoadingPercentage] =
     useRecoilState<number>(loaderState);
   const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState);
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
+    getUser()
+
     window.addEventListener("keydown", checkKeyPress);
   }, []);
 

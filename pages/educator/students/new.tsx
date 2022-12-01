@@ -8,13 +8,13 @@ import "animate.css";
 import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../utils/comparer";
-import { AddStudentFormData } from "../../../utils/@types/students";
-import { useAuth } from "../../../Context/AuthContext";
+import { AddStudentFormData } from "../../../types";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const NewStudent = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
   const [formData, setFormData] = useState<AddStudentFormData>({
     name: "",
     code: "",
@@ -23,6 +23,16 @@ const NewStudent = () => {
     parentEmails: [],
     year: 1,
   });
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleAddParent = (e: any) => {
     if (e.keyCode !== 13) return;
@@ -91,9 +101,8 @@ const NewStudent = () => {
           <Sidebar user={user} page="educator" active="dashboard" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
         >
           <div className="m-auto border-2 w-[550px] border-ek-blue-75 rounded-xl p-10 mt-14 flex flex-col items-center justify-center">
             <span className="w-full text-center text-4xl heading-text text-ek-blue-50">

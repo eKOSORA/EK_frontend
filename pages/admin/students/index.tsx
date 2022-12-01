@@ -30,10 +30,7 @@ import TablePaginationUnstyled, {
 } from "@mui/base/TablePaginationUnstyled";
 import Link from "next/link";
 import { FiTrash } from "react-icons/fi";
-import { useRecoilState } from "recoil";
-import { sidebarState } from "../../../components/states/sidebar";
-import { useAuth } from "../../../Context/AuthContext";
-import { useRouter } from "next/router";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const StudentsPage = () => {
   //Important states
@@ -41,7 +38,6 @@ const StudentsPage = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [studentsData, setStudentsData] = useState<any>({
     year: "year_1",
     class: "",
@@ -50,7 +46,20 @@ const StudentsPage = () => {
 
   const [students, setStudents] = useState([]);
   const [_students, set_Students] = useState([]);
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   interface State {
     year: String;
     class: String;
@@ -179,7 +188,7 @@ const StudentsPage = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
   return (
-    <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div  className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
         position="bottom-center"
         autoClose={1000}
@@ -316,7 +325,7 @@ const StudentsPage = () => {
               </div>
             </div>
           </div>
-          <div className="w-full flex items-center justify-center">
+          <div className="text-black w-full flex items-center justify-center">
             <Root
               sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}
             >

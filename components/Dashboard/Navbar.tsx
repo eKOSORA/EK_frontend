@@ -8,11 +8,11 @@ import { FaRegUserCircle } from 'react-icons/fa'
 import { IoLogOutOutline } from 'react-icons/io5'
 import { GrFormClose } from 'react-icons/gr'
 import { IoMdClose } from 'react-icons/io'
-import { useAuth } from '../../Context/AuthContext'
+import { useLogout } from '../../hooks/auth'
 
 export const Navbar = (props: any) => {
   const HandleLogout = async () => {
-    const { logout }: any = useAuth()
+    const { logout }: any = useLogout()
     const data = await logout()
     //console.log(data)
   }

@@ -2,13 +2,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import 'animate.css';
-import { useAuth } from '../../Context/AuthContext';
-import { useRouter } from 'next/router';
+import { useGetUserDetails } from '../../hooks/auth';
 
 
 const Sidebar = (props: any) => {
 
-  const { user }: any = useAuth()
+  const { user }: any = useGetUserDetails()
 
   return (
     <div className={`animate__animated  ${props.sideBarActive ? 'animate__slideOutLeft' : 'animate__slideInLeft'} sidebar w-[300px] pt-[60px] h-screen absolute md:z-1 md:sticky top-0 bg-ek-blue-50 flex flex-col items-center justify-between`}>

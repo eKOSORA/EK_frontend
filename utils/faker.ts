@@ -1,5 +1,5 @@
-import { EducatorObject } from "./interfaces/educator";
-import { AnnouncementObject } from "./interfaces/interfaces";
+import { EducatorObject } from "../types/educator";
+import { AnnouncementObject } from "../interfaces/interfaces";
 
 export const userStudent = {
   type: "student",

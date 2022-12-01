@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Navbar } from "../../../../components/Dashboard/Navbar";
 import Sidebar from "../../../../components/Dashboard/Sidebar";
 import { toast, ToastContainer } from "react-toastify";
@@ -9,15 +9,27 @@ import { useRouter } from "next/router";
 import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../../utils/comparer";
-import { useAuth } from "../../../../Context/AuthContext";
+import { useGetUserDetails } from "../../../../hooks/auth";
 
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const router = useRouter();
   const { studentID } = router.query;
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   const [formData, setFormData] = useState({
     name: "",
     code: "",
@@ -94,9 +106,8 @@ const Index = () => {
           <Sidebar user={user} page="educator" active="students" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
         >
           <div className="m-auto border-2 w-[550px] border-ek-blue-75 rounded-xl p-10 mt-14 flex flex-col items-center justify-center">
             <span className="w-full text-center text-4xl heading-text text-ek-blue-50">

@@ -3,7 +3,6 @@ import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { useRecoilValue } from 'recoil';
 import 'animate.css';
 import { fileDataState } from '../../states/sheets';

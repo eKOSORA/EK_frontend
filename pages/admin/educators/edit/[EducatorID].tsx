@@ -8,14 +8,13 @@ import "animate.css";
 import { useRouter } from "next/router";
 import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
-import { useAuth } from "../../../../Context/AuthContext";
-import { EducatorObject } from "../../../../utils/interfaces/educator";
+import { EducatorObject } from "../../../../types/educator";
 import { AllEducatorsDisplay } from "../../../../utils/faker";
+import { useGetUserDetails } from "../../../../hooks/auth";
 
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const router = useRouter();
   const { EducatorID } = router.query;
 
@@ -28,6 +27,20 @@ const Index = () => {
     lessons: [],
     telephone: "",
   });
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
 
   useEffect(() => {
     const educator = AllEducatorsDisplay.filter(

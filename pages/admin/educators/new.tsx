@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
 import Sidebar from "../../../components/Dashboard/Sidebar";
 import { toast, ToastContainer } from "react-toastify";
@@ -8,14 +8,12 @@ import "animate.css";
 import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../utils/comparer";
-import { AddStudentFormData } from "../../../utils/@types/students";
-import { useAuth } from "../../../Context/AuthContext";
-import { AddEducatorInterface } from "../../../utils/interfaces/educator";
+import { AddEducatorInterface } from "../../../types/educator";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const NewStudent = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [formData, setFormData] = useState<AddEducatorInterface>({
     names: "",
     code: "",
@@ -24,6 +22,20 @@ const NewStudent = () => {
     title: [],
     subjects: [],
   });
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
 
   const handleAddSubject = (e: any) => {
     if (e.keyCode !== 13) return;

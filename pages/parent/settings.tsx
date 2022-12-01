@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { toast, ToastContainer } from 'react-toastify'
@@ -9,17 +9,28 @@ import Image from 'next/image'
 import { TextField } from '@mui/material'
 import visibilityOff from './../../public/img/visibility_off.svg'
 import visibility from './../../public/img/visibility.svg'
-import { checkFileType } from '../../utils/cookies'
-import { useAuth } from '../../Context/AuthContext'
 import { useRouter } from 'next/router'
+import { useGetUserDetails } from '../../hooks/auth'
 
 
 const StudentsSettings = () => {
   //Important states
-  const [sideBarActive, setSideBarActive]  = useState(false)
-  const { user }: any = useAuth()
+  const [sideBarActive, setSideBarActive] = useState(false)
+  const [user, setUser] = useState()
 
-  const router = useRouter()
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
+
 
 
 
@@ -38,7 +49,6 @@ const StudentsSettings = () => {
   const previewFile = () => {
 
     const isImage = checkFileType('profile-image-update')
-    ////console.log(checkFileType('profile-image-update'))
     if (isImage === false) {
       toast.success("Only images can be uploaded", {
         position: "bottom-center",
@@ -56,7 +66,7 @@ const StudentsSettings = () => {
     const reader = new FileReader()
     const file = document.querySelector('#profileImageUpload') as HTMLInputElement
     reader.addEventListener('loadend', () => {
-      setFormData({ ...formData, profileImageStr: reader.result as string})
+      setFormData({ ...formData, profileImageStr: reader.result as string })
     })
     if (file.files) {
       reader.readAsDataURL(file.files[0])
@@ -110,7 +120,7 @@ const StudentsSettings = () => {
         <div className={`${sideBarActive ? 'w-full md:w-10/12' : 'w-full'} flex flex-col items-center justify-start pt-[60px] h-fit p-10`}>
           <div className='neumorphism p-5 rounded max-w-[900px]  mt-8  min-h-[300px] flex md:flex-row flex-col  items-center w-11/12'>
             <div className={`relative w-[250px] h-[250px] profileImage mr-10   flex items-center justify-center`}>
-              <Image alt=""  onMouseEnter={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('hidden', 'flex') }} onMouseLeave={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('flex', 'hidden') }} width={250} height={250} src={formData.profileImageStr} style={{zIndex:-1}} className={`-z-1 w-full object-cover rounded-full`}></Image>
+              <Image alt="" onMouseEnter={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('hidden', 'flex') }} onMouseLeave={() => { document.querySelector('#profileImageUploadLabel')?.classList.replace('flex', 'hidden') }} width={250} height={250} src={formData.profileImageStr} style={{ zIndex: -1 }} className={`-z-1 w-full object-cover rounded-full`}></Image>
               <label htmlFor="profileImageUpload" id='profileImageUploadLabel' title='Change you profile image' className='cursor-pointer absolute top-0 left-0 w-full h-full rounded-full hidden items-center justify-center text-white bg-black/50'> <span>Change Profile</span> </label>
             </div>
             <div className='w-11/12 md:w-8/12 flex flex-col flex-grow'>
@@ -162,7 +172,7 @@ const StudentsSettings = () => {
                       <input type={formData.showPassword ? 'text' : "password"} value={formData.password} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                   }
                   <div onClick={() => { setFormData({ ...formData, showPassword: !formData.showPassword }) }} className='mx-4 hover:rotate-12 hover:grayscale-[50%] w-12 flex items-center justify-center h-12 cursor-pointer rounded-full neumorphism' >
-                    <Image alt=""  src={formData.showPassword ? visibility : visibilityOff}></Image>
+                    <Image alt="" src={formData.showPassword ? visibility : visibilityOff}></Image>
                   </div>
                 </div>
                 <div className='flex items-center justify-center'>

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
@@ -8,11 +8,11 @@ import Image from "next/image";
 import { TextField } from "@mui/material";
 import visibilityOff from "./../../public/img/visibility_off.svg";
 import visibility from "./../../public/img/visibility.svg";
-import { useAuth } from "../../Context/AuthContext";
+import { useGetUserDetails } from "../../hooks/auth";
 
 const Settings = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
   const [formData, setFormData] = useState({
     editMode: false,
     password: "password@gmail.com",
@@ -33,6 +33,16 @@ const Settings = () => {
     telephone: string;
     password: boolean;
   }
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleChange = (prop: keyof State) => (event: any) => {
     setFormData({ ...formData, [prop]: event.target.value });
   };
@@ -52,9 +62,11 @@ const Settings = () => {
 
   const handleChangeSettings = (e: any) => {
     e.preventDefault();
-    //console.log(formData)
     setFormData({ ...formData, editMode: !formData.editMode });
   };
+  useEffect(() => {
+    getUser()
+  }, [])
 
   return (
     <div className="bg-[#f0f0f0] min-h-screen">
@@ -83,9 +95,8 @@ const Settings = () => {
           <Sidebar user={user} page="educator" active="settings" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-center pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-center pt-[60px] h-fit p-10`}
         >
           <div className="neumorphism p-5 rounded max-w-[900px]  mt-8  min-h-[300px] flex items-center w-11/12">
             <div className="relative profileImage mr-10 w-[250px] h-[250px] flex items-center justify-center">
@@ -274,9 +285,8 @@ const Settings = () => {
                 </div>
                 <div className="flex items-center justify-center">
                   <button
-                    className={`hover:grayscale-[50%] w-[150px] ${
-                      formData.editMode ? "bg-[#ac3f3f]" : "bg-ek-blue-75"
-                    } mr-2.5 text-white font-questrial mt-2.5 px-10 py-[15px]`}
+                    className={`hover:grayscale-[50%] w-[150px] ${formData.editMode ? "bg-[#ac3f3f]" : "bg-ek-blue-75"
+                      } mr-2.5 text-white font-questrial mt-2.5 px-10 py-[15px]`}
                     onClick={() => {
                       setFormData({
                         ...formData,
@@ -288,11 +298,10 @@ const Settings = () => {
                     {formData.editMode ? "CANCEL" : "EDIT"}
                   </button>
                   <button
-                    className={`hover:grayscale-[50%] ${
-                      formData.editMode
-                        ? "flex items-center justify-center"
-                        : "hidden"
-                    } w-[150px] bg-ek-blue-75 text-white font-questrial mt-2.5 px-10 py-[15px]`}
+                    className={`hover:grayscale-[50%] ${formData.editMode
+                      ? "flex items-center justify-center"
+                      : "hidden"
+                      } w-[150px] bg-ek-blue-75 text-white font-questrial mt-2.5 px-10 py-[15px]`}
                     type="submit"
                   >
                     SAVE

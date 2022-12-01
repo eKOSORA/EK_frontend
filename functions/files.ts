@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
-import { FileData } from "../interfaces/interfaces";
 import * as XLSX from "xlsx";
 import _ from "lodash";
+import { FileData } from './../types/interfaces'
 
 export const previewUploadedFile = async (
   needed: string[],
@@ -60,8 +60,7 @@ export const previewUploadedFile = async (
             errorMessage: "The excel file has columns in wrong format",
           });
           toast.error(
-            `Columns are not in the right order. Check on how ${
-              _.difference(columns, needed)[0]
+            `Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]
             } should be`,
             {
               position: "bottom-center",
@@ -145,3 +144,17 @@ export const previewUploadedFile = async (
   });
   reader.readAsBinaryString(file);
 };
+
+export const checkFileType = (inputID: string) => {
+  const fileInput = document.querySelector(`#${inputID}`) as HTMLInputElement
+  const filePath = fileInput.value
+  const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.avif|\.gif)$/i;
+
+  if (!allowedExtensions.exec(filePath)) {
+    fileInput.value = '';
+    return false;
+  }
+  else {
+    return true
+  }
+}

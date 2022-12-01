@@ -5,21 +5,14 @@ import Sidebar from "../../../components/Dashboard/Sidebar";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
-import {
-  EditModeObject,
-  HourObject,
-  LessonInTimeTableObject,
-  LessonObject,
-  TimeTableObject,
-} from "../../../utils/interfaces/timetables";
+
 import { TextField } from "@mui/material";
 import { BiX } from "react-icons/bi";
 import { useDrop } from "react-dnd";
-import { useAuth } from "../../../Context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import LessonBox from "../../../components/Dashboard/admin/LessonBox";
 import _ from "lodash";
-import { confirmCancellation } from "../../../utils/Functions/alerts";
+import { confirmCancellation } from "../../../functions/alerts";
 import { LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
@@ -27,11 +20,12 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import Image from "next/image";
 import * as dateFns from "date-fns";
+import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from "../../../types/timetables";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const NewTimeTable = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [hours, setHours] = useState<Array<HourObject>>([]);
   const [hour, setHour] = useState<HourObject>({
     id: uuidv4(),
@@ -195,7 +189,20 @@ const NewTimeTable = () => {
       })),
     },
   });
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   const addLessonToTimetable = (id: string) => {
     setTimeTable({
       ...timetable,

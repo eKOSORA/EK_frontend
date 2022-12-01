@@ -9,12 +9,22 @@ import { useRouter } from "next/router";
 import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../../utils/comparer";
-import { useAuth } from "../../../../Context/AuthContext";
+import { useGetUserDetails } from "../../../../hooks/auth";
 
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }  
   const router = useRouter();
   const { studentID } = router.query;
 

@@ -1,21 +1,30 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { useAuth } from '../../Context/AuthContext'
 import { useRouter } from 'next/router'
+import { useGetUserDetails } from '../../hooks/auth'
 
 const StudentsMarks = () => {
   //Important states
   const [sideBarActive, setSideBarActive]  = useState(false)
-  const { user }: any = useAuth()
+  const [user, setUser] = useState()
 
-  const router = useRouter()
-
-
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
 
   const studentMarks = [
     { name: 'Maths Quiz', subject: 'Maths', initial: 'MTC', marks: 90, max: 100, date: 'Tue May 24 2022' },

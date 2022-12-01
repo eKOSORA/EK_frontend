@@ -24,15 +24,14 @@ import TablePaginationUnstyled, {
 import Link from "next/link";
 import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
-import { useAuth } from "../../../Context/AuthContext";
 import { useRouter } from "next/router";
-import { EducatorObject } from "../../../utils/interfaces/educator";
+import { EducatorObject } from "../../../types/educator";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const AllEducators = () => {
   //Important states
 
   const [page, setPage] = React.useState(0);
-  const { user }: any = useAuth();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
   const [educatorsData, setEducatorsData] = useState<any>({
@@ -40,9 +39,23 @@ const AllEducators = () => {
     class: "",
     sortType: "az",
   });
-
+  
   const [educators, setEducators] = useState<EducatorObject[]>([]);
   const [_educators, set_Educators] = useState<EducatorObject[]>([]);
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
 
   interface State {
     year: String;
@@ -236,7 +249,7 @@ const AllEducators = () => {
             </div>
           </div>
 
-          <div className="w-full flex items-center justify-center">
+          <div className="text-black w-full flex items-center justify-center">
             <Root
               sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}
             >

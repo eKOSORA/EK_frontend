@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
 import Sidebar from "../../../components/Dashboard/Sidebar";
 import { toast, ToastContainer } from "react-toastify";
@@ -8,23 +8,35 @@ import "animate.css";
 import { Checkbox, TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../utils/comparer";
-import { useAuth } from "../../../Context/AuthContext";
-import { AddAnnouncementFormData } from "../../../utils/@types/announcements";
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { MeantForInterface } from "../../../utils/interfaces/interfaces";
+import { AddAnnouncementFormData } from "../../../types";
+import { useGetUserDetails } from "../../../hooks/auth";
+import { MeantForInterface } from "../../../types/interfaces";
 
 const NewStudent = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [formData, setFormData] = useState<AddAnnouncementFormData>({
     heading: "",
     content: "",
     createdFor: [],
   });
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   const handleCreateAnnouncement = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import { BiEdit } from 'react-icons/bi'
 import { MdOutlineDelete } from 'react-icons/md'
-import { TimeTableViewObject } from '../../../utils/interfaces/timetables'
+import { TimeTableViewObject } from '../../../types/timetables'
 
 interface Props {
   activeTimetable: TimeTableViewObject

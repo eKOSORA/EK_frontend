@@ -12,20 +12,18 @@ import {
 import { NextComponentType } from "next";
 import React, { useEffect, useState } from "react";
 import "animate.css";
-import { useAuth } from "../../../Context/AuthContext";
 import { LoginSchoolType } from "../../../types";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSchools } from "../../../Context/SchoolContext";
+import { useSchools } from "../../../hooks/school";
+import { useLogin } from "../../../hooks/auth";
 
 const EducatorForm: NextComponentType = () => {
-  const { login }: any = useAuth();
   const router = useRouter();
   const handleSubmit = async (e: any) => {
     // setSubmitLoader(true);
     e.preventDefault();
-    //console.log(formData)
-    const data = await login({ formData });
+    const data = await useLogin({ formData });
     console.log(data)
     if (!data.status) {
       toast.error(data.message, {
@@ -78,10 +76,15 @@ const EducatorForm: NextComponentType = () => {
     password: "",
     showPassword: false,
   });
+  interface ISchoolFetchObject {
+    status: boolean
+    message?: string
+    schools?: LoginSchoolType[]
 
-  const { getSchools }: any = useSchools();
+  }
+
   const mapSchools = async () => {
-    const schools = await getSchools();
+    const schools = await useSchools() as ISchoolFetchObject
     if (!schools.status) return toast.error(schools.message, {
       position: "bottom-center",
       autoClose: 5000,
@@ -93,10 +96,10 @@ const EducatorForm: NextComponentType = () => {
       theme: "colored",
     })
 
-    setSchools(schools)
+    setSchools(schools?.schools as LoginSchoolType[])
   }
 
-  const [schools, setSchools] = useState([])
+  const [schools, setSchools] = useState<LoginSchoolType[]>([])
 
   useEffect(() => {
     mapSchools()

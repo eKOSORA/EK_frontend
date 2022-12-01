@@ -3,7 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
-import { useAuth } from '../../../Context/AuthContext';
+import { useRegisterParent } from '../../../hooks/parent';
 
 const ParentForm: NextComponentType = () => {
 
@@ -14,12 +14,8 @@ const ParentForm: NextComponentType = () => {
     setSubmitLoader(true)
     setFormData({ ...formData, activeButton: false })
     //console.log(formData)
-
-    const { login }: any = useAuth()
-
-    const data = login({ formData })
+    const data = useRegisterParent({ formData })
     //console.log(data)
-
 
   }
 

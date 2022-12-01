@@ -31,16 +31,13 @@ import TablePaginationUnstyled, {
 import Link from "next/link";
 import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
-import { useRecoilState } from "recoil";
-import { sidebarState } from "../../../components/states/sidebar";
-import { useAuth } from "../../../Context/AuthContext";
 import { useRouter } from "next/router";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const AllStudents = () => {
   //Important states
 
   const [page, setPage] = React.useState(0);
-  const { user }: any = useAuth();
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
   const [studentsData, setStudentsData] = useState<any>({
@@ -51,7 +48,20 @@ const AllStudents = () => {
 
   const [students, setStudents] = useState([]);
   const [_students, set_Students] = useState([]);
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   interface State {
     year: String;
     class: String;
@@ -164,7 +174,7 @@ const AllStudents = () => {
   const router = useRouter();
 
   return (
-    <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
         position="bottom-center"
         autoClose={1000}
@@ -244,7 +254,7 @@ const AllStudents = () => {
             </div>
           </div>
 
-          <div className="w-full flex items-center justify-center">
+          <div className="text-black w-full flex items-center justify-center">
             <Root
             className="overflow-x-scroll"
               sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}

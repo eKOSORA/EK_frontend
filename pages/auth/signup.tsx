@@ -16,15 +16,16 @@ import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Auth/Navbar";
 import { VscClose } from "react-icons/vsc";
 import { AiFillEdit } from "react-icons/ai";
-import { useSchools } from "../../Context/SchoolContext";
 import CropModal from "../../components/Dashboard/Images/CropModal";
-import { CreateSchoolFormDataState } from "../../utils/interfaces/school";
 import Dropzone from "react-dropzone";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import _ from "lodash";
 import { toast, ToastContainer } from "react-toastify";
 import { uploadImage } from "../../hooks";
 import { useRouter } from "next/router";
+import { useCreateSchool } from "../../hooks/school";
+import { AxiosResponse } from "axios";
+import { CreateSchoolFormDataState } from "../../types/school";
 
 const Signup: NextPage = () => {
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -57,7 +58,6 @@ const Signup: NextPage = () => {
   });
   const [cropMode, setCropMode] = useState<boolean>(false);
   const [step, setStep] = useState(1);
-  const { registerSchool }: any = useSchools();
   const router = useRouter()
   const handleSubmit = async (e: any) => {
     setSubmitLoader(true);
@@ -99,9 +99,9 @@ const Signup: NextPage = () => {
       }
       setFormData({ ...formData, imageUrl })
     }
-    const data = await registerSchool({ formData });
-    if (data.data.code === "#Success") return router.push('/auth/login')
-    toast.error(data.response.data.message, {
+    const data = await useCreateSchool({ formData });
+    if (data.status) return router.push('/auth/login')
+    toast.error((data.data as AxiosResponse)?.data.message, {
       position: "bottom-center",
       autoClose: 5000,
       hideProgressBar: true,
@@ -194,7 +194,7 @@ const Signup: NextPage = () => {
   };
   return (
     <div className="z-1 w-screen h-screen bg-[#f0f0f0]  flex flex-col items-center justify-start">
-<ToastContainer
+      <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={true}

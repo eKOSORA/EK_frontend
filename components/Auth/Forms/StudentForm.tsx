@@ -2,7 +2,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Autocomplete, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material'
 import { NextComponentType } from 'next'
 import React, { useState } from 'react'
-import { useAuth } from '../../../Context/AuthContext';
+import { useLogin } from '../../../hooks/auth';
 
 const StudentForm: NextComponentType = () => {
 
@@ -13,9 +13,7 @@ const StudentForm: NextComponentType = () => {
     setFormData({ ...formData, activeButton: false })
     e.preventDefault()
     //console.log(formData)
-    const { login }: any = useAuth()
-
-    const data = login({ formData })
+    const data = useLogin({ formData })
     //console.log(data)
 
   }

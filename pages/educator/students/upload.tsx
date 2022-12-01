@@ -9,27 +9,39 @@ import { BiCog, BiInfoCircle } from "react-icons/bi";
 import uploadExcel from "../../../public/img/uploadExcel.svg";
 import Image from "next/image";
 import StudentUploadTablePreview from "../../../components/Dashboard/UploadingViews/StudentUploadTablePreview";
-import { FileData } from "../../../utils/interfaces/interfaces";
 import _ from "lodash";
-import { IUploadStudentsInterface } from "../../../utils/@types/students";
-
 import Dropzone from "react-dropzone";
 import { useRecoilState } from "recoil";
 import { fileDataState } from "../../../components/states/sheets";
 import { loaderState } from "../../../components/states/loader";
-import { useAuth } from "../../../Context/AuthContext";
-import { previewUploadedFile } from "../../../utils/Functions/files";
+import { previewUploadedFile } from "../../../functions/files";
+import { useGetUserDetails } from "../../../hooks/auth";
+import { FileData } from "../../../types/interfaces";
+import { IUploadStudentsInterface } from "../../../types";
 
 const StudentsUpload = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
   const [step, setStep] = useState(1);
   const [loadingPercentage, setLoadingPercentage] =
     useRecoilState<number>(loaderState);
   const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState);
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
   useEffect(() => {
     window.addEventListener("keydown", checkKeyPress);
+    getUser()
   }, []);
+
 
   function checkKeyPress(key: any) {
     if (key.keyCode === 39) {
@@ -38,7 +50,7 @@ const StudentsUpload = () => {
       setStep(1);
     }
   }
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const needed = [
     "First Name",
@@ -119,14 +131,12 @@ const StudentsUpload = () => {
           <Sidebar user={user} page="educator" active="students" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-center pt-[60px] h-screen p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-center pt-[60px] h-screen p-10`}
         >
           <div
-            className={`my-auto h-3/5 ${
-              fileData.isFileUploaded ? " w-full " : " w-8/12 "
-            } flex flex-col sm:flex-row items-center justify-center`}
+            className={`my-auto h-3/5 ${fileData.isFileUploaded ? " w-full " : " w-8/12 "
+              } flex flex-col sm:flex-row items-center justify-center`}
           >
             {fileData.isFileUploaded ? null : (
               <div className="steps flex sm10:mr-8 sm10:flex-col items-center justify-center">
@@ -134,25 +144,22 @@ const StudentsUpload = () => {
                   onClick={() => {
                     setStep(1);
                   }}
-                  className={`h-16 w-1 cursor-pointer  my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${
-                    step === 1 ? "bg-ek-blue" : "bg-ek-blue/20"
-                  }`}
+                  className={`h-16 w-1 cursor-pointer  my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step === 1 ? "bg-ek-blue" : "bg-ek-blue/20"
+                    }`}
                 ></div>
                 <div
                   onClick={() => {
                     setStep(2);
                   }}
-                  className={`h-16 w-1 cursor-pointer  my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${
-                    step !== 1 ? "bg-ek-blue" : "bg-ek-blue/20"
-                  }`}
+                  className={`h-16 w-1 cursor-pointer  my-1 mx-10 sm10:mx-0 -rotate-90 sm10:rotate-0 rounded-[3px] ${step !== 1 ? "bg-ek-blue" : "bg-ek-blue/20"
+                    }`}
                 ></div>
               </div>
             )}
             {step === 1 ? (
               <div
-                className={`relative ${
-                  sideBarActive ? "w-full" : "w-11/12"
-                } rounded h-fit mxl:h-full flex flex-col bg-ek-blue/10  items-start justify-center`}
+                className={`relative ${sideBarActive ? "w-full" : "w-11/12"
+                  } rounded h-fit mxl:h-full flex flex-col bg-ek-blue/10  items-start justify-center`}
               >
                 <div className="flex items-center justify-start my-4 w-full">
                   <BiInfoCircle size={45} color="#4CA7CE" className="mx-8" />
@@ -167,7 +174,7 @@ const StudentsUpload = () => {
                   </span>
                   <span className="flex items-start my-4 justify-start">
                     <input
-                      onChange={() => {}}
+                      onChange={() => { }}
                       className="mr-4 "
                       type="checkbox"
                       name=""
@@ -223,9 +230,8 @@ const StudentsUpload = () => {
               </div>
             ) : fileData.loading ? (
               <div
-                className={`${
-                  sideBarActive ? "w-full" : "w-11/12"
-                } rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center`}
+                className={`${sideBarActive ? "w-full" : "w-11/12"
+                  } rounded h-full flex flex-col bg-ek-blue/10  items-center justify-center`}
               >
                 <div className="flex flex-col items-center justify-center">
                   <BiCog
@@ -298,6 +304,6 @@ export const submitStudents = async ({
   sheets,
   students,
 }: IUploadStudentsInterface) => {
-  //console.log(sheets)
-  //console.log(students)
+  console.log(sheets)
+  console.log(students)
 };

@@ -2,9 +2,9 @@ import Image from "next/image";
 import React from "react";
 import { BiDownload, BiEdit } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
-import { TimeTableViewObject } from "../../../utils/interfaces/timetables";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { TimeTableViewObject } from "../../../types/timetables";
 
 interface Props {
   activeTimetable: TimeTableViewObject;

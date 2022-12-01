@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDrag } from 'react-dnd';
-import { LessonObject } from '../../../utils/interfaces/timetables';
+import { LessonObject } from '../../../types/timetables';
 
 interface Props {
     lesson: LessonObject

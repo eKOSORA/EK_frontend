@@ -12,15 +12,11 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { courses } from "../../../utils/marks";
-import { userTeacher } from "../../../utils/faker";
-import { useRecoilState } from "recoil";
-import { sidebarState } from "../../../components/states/sidebar";
-import { useAuth } from "../../../Context/AuthContext";
-import { useRouter } from "next/router";
+import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const NewRecord = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [formData, setFormData] = useState({
     class: "",
     recordName: "",
@@ -29,6 +25,20 @@ const NewRecord = () => {
     isReversed: false,
     date: "",
   });
+  const [user, setUser] = useState()
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   const handeSubmit = (e: any) => {
     e.preventDefault();
     //console.log(formData)
@@ -157,7 +167,7 @@ const NewRecord = () => {
                 label="Maximum marks"
                 variant="outlined"
               />
-              <div className="w-full flex items-center justify-center">
+              <div className="text-black w-full flex items-center justify-center">
                 <input
                   type="checkbox"
                   className="mr-4"

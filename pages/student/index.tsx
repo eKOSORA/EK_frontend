@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Dashboard/Navbar'
 import Sidebar from '../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
@@ -20,18 +20,25 @@ import {
 import { faker } from '@faker-js/faker'
 import announcement from '../../public/img/notification.png'
 import marks from '../../public/img/marks.png'
-import { useRouter } from 'next/router'
-import { useAuth } from '../../Context/AuthContext'
+import { useGetUserDetails } from '../../hooks/auth'
 
 const StudentsDashboard = () => {
   //Important states
   const [sideBarActive, setSideBarActive]  = useState(false)
-  const { user }: any = useAuth()
+  const [user, setUser] = useState()
 
-  const router = useRouter()
-
-
-
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   ChartJS.register(
     CategoryScale,
     LinearScale,

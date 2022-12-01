@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import Sidebar from "../../components/Dashboard/Sidebar";
 import timetable from "../../public/img/timetable.png";
@@ -19,7 +19,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import "animate.css";
-import { useAuth } from "../../Context/AuthContext";
+import { useGetUserDetails } from "../../hooks/auth";
 
 ChartJS.register(
   CategoryScale,
@@ -63,8 +63,21 @@ export const data = {
 
 const Dashboard = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+  getUser()
+  }, [])
+  
   return (
     <div className="text-black bg-[#f0f0f0] ">
       <Head>
@@ -86,7 +99,7 @@ const Dashboard = () => {
         >
           <div className="w-full flex flex-col items-start  animate__animated animate__fadeInLeft my-8 justify-start">
             <span className="text-4xl heading-text mb-4">Quick Access</span>
-            <div className="w-full flex items-center justify-center">
+            <div className="text-black w-full flex items-center justify-center">
               <a
                 href={"/educator/marks"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"

@@ -1,23 +1,16 @@
 import Head from "next/head";
 import React, {
-  ReactElement,
-  ReactEventHandler,
   useEffect,
   useState,
 } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
-import Sidebar from "../../../components/Dashboard/Sidebar";
+const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import {
   AllStudentsDisplay,
-  classes,
-  studentsDisplay,
-  userTeacher,
-  years,
 } from "../../../utils/faker";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { GoSearch } from "react-icons/go";
 import {
   HiOutlinePencilAlt,
@@ -31,16 +24,15 @@ import TablePaginationUnstyled, {
 import Link from "next/link";
 import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
-import { useRecoilState } from "recoil";
-import { sidebarState } from "../../../components/states/sidebar";
-import { useAuth } from "../../../Context/AuthContext";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const AllStudents = () => {
   //Important states
 
   const [page, setPage] = React.useState(0);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
   const [studentsData, setStudentsData] = useState<any>({
@@ -58,7 +50,18 @@ const AllStudents = () => {
     sortType: String;
   }
 
+
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   useEffect(() => {
+    getUser
     setStudents(AllStudentsDisplay.sort());
     set_Students(AllStudentsDisplay.sort());
     //console.log(AllStudentsDisplay.sort())
@@ -159,7 +162,7 @@ const AllStudents = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
-  const handleDeleteStudent = () => {};
+  const handleDeleteStudent = () => { };
 
   const router = useRouter();
 
@@ -190,9 +193,8 @@ const AllStudents = () => {
           <Sidebar page="educator" user={user} active="students" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
         >
           <div className="w-1/2 my-auto flex flex-row items-center justify-around">
             <div className="my-4 float-right px-2 rounded-3xl w-8/12 font-questrial items-center justify-center flex text-lg neumorphism">
@@ -222,29 +224,27 @@ const AllStudents = () => {
             </div>
 
             <div
-              title={`${
-                studentsData.sortType === "az"
+              title={`${studentsData.sortType === "az"
                   ? "Sort from Z to A"
                   : "Sort from A to Z"
-              }`}
+                }`}
               onClick={sortStudents}
               className="p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism"
             >
               <HiSortDescending
-                className={`${
-                  studentsData.sortType === "az"
+                className={`${studentsData.sortType === "az"
                     ? "rotate-180"
                     : studentsData.sortType === "za"
-                    ? "rotate-0"
-                    : "rotate-0"
-                }`}
+                      ? "rotate-0"
+                      : "rotate-0"
+                  }`}
                 size={25}
                 color={"#808080"}
               />
             </div>
           </div>
 
-          <div className="w-full flex items-center justify-center">
+          <div className="text-black w-full flex items-center justify-center">
             <Root
               sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}
             >
@@ -263,9 +263,9 @@ const AllStudents = () => {
                 <tbody className="font-questrial">
                   {(rowsPerPage > 0
                     ? students.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
                     : students
                   ).map((row: any) => (
                     <tr className="even:bg-ek-blue-75/20" key={row["Code/ID"]}>

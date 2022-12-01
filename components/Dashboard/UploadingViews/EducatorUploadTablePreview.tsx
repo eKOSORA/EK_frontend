@@ -10,7 +10,7 @@ import { submitStudents } from '../../../pages/educator/students/upload';
 import { useRecoilValue } from 'recoil';
 import { fileDataState } from '../../states/sheets';
 import 'animate.css';
-import { confirmCancellation } from '../../../utils/Functions/alerts';
+import { confirmCancellation } from '../../../functions/alerts';
 
 const Root = styled('div')`
   table {

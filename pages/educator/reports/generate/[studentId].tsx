@@ -1,21 +1,26 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Navbar } from '../../../../components/Dashboard/Navbar'
 import Sidebar from '../../../../components/Dashboard/Sidebar'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
-import { userTeacher } from '../../../../utils/faker'
-import { useRecoilState } from 'recoil'
-import { sidebarState } from '../../../../components/states/sidebar'
-import { useAuth } from '../../../../Context/AuthContext'
-import { useRouter } from 'next/router'
+import { useGetUserDetails } from '../../../../hooks/auth'
 
 const GenerateReport = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
-  const { user }: any = useAuth()
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
       <ToastContainer

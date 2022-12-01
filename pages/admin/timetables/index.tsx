@@ -6,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import { userTeacher } from "../../../utils/faker";
-import { TimeTableViewObject } from "../../../utils/interfaces/timetables";
 import { timetablesView } from "../../../utils/timetables";
 import Image from "next/image";
 import { BiEdit } from "react-icons/bi";
@@ -16,12 +15,12 @@ import EditTimetableView from "../../../components/Dashboard/admin/EditTimetable
 import swal from "sweetalert";
 import Link from "next/link";
 import { AiFillCalendar } from "react-icons/ai";
-import { useAuth } from "../../../Context/AuthContext";
+import { TimeTableViewObject } from "../../../types/timetables";
+import { useGetUserDetails } from "../../../hooks/auth";
 
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [timetables, setTimetables] =
     useState<Array<TimeTableViewObject>>(timetablesView);
   const [viewTimetable, setViewTimetable] = useState<boolean>(false);
@@ -31,7 +30,20 @@ const Index = () => {
     lastEdited: "",
     name: "",
   });
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   const handleViewTimetable = (index: number) => {
     setActiveTimetable(timetables[index]);
     setViewTimetable(true);

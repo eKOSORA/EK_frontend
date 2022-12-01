@@ -9,11 +9,9 @@ import swal from "sweetalert";
 import { useRecoilValue } from "recoil";
 import { fileDataState } from "../../states/sheets";
 import "animate.css";
-import {
-  IUploadStudentsInterface,
-  uploadedStudentObject,
-} from "../../../utils/@types/students";
-import { useStudents } from "../../../Context/StudentContext";
+import { useStudents } from "../../../hooks/student";
+import { IUploadStudentsInterface, uploadedStudentObject } from "../../../types";
+
 
 const Root = styled("div")`
   table {
@@ -98,7 +96,6 @@ function StudentUploadTablePreview(props: any) {
     });
   };
 
-  const { registerStudent }: any = useStudents();
 
   const submitStudents = async ({
     sheets,

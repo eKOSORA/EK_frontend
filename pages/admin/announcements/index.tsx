@@ -1,21 +1,33 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
 import Sidebar from "../../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
-import { useAuth } from "../../../Context/AuthContext";
 import * as dateFns from "date-fns";
-import { AnnouncementObject } from "../../../utils/interfaces/interfaces";
 import { announcementsFaker } from "../../../utils/faker";
+import { useGetUserDetails } from "../../../hooks/auth";
+import { AnnouncementObject } from "../../../types/interfaces";
 
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
   const [announcements, setAnnouncemnents] = useState(announcementsFaker);
+  const [user, setUser] = useState()
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   return (
     <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer

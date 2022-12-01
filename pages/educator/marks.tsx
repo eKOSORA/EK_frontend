@@ -17,12 +17,12 @@ import { IoIosAdd } from "react-icons/io";
 import Link from "next/link";
 import { GoAlert, GoSearch } from "react-icons/go";
 import { useRouter } from "next/router";
-import { useAuth } from "../../Context/AuthContext";
+import { useGetUserDetails } from "../../hooks/auth";
 
 const Marks = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const { user }: any = useAuth();
+  const [user, setUser] = useState()
   const [editMode, setEditMode] = useState(false);
   const [studentMarks, setStudentMarks] = useState(registeredMarks);
   const [_studentMarks, set_StudentMarks] = useState(registeredMarks);
@@ -36,7 +36,6 @@ const Marks = () => {
     class: "",
     course: "",
   });
-
   const [selectedMarks, setSelectedMarks]: any = useState([]);
   const [stats, setStats] = useState({
     total: 0,
@@ -45,6 +44,15 @@ const Marks = () => {
     maxAverage: 0,
   });
 
+  const getUser = async () => {
+    try {
+      const user = await useGetUserDetails()
+      if (!user.status) return
+      setUser(user.data?.data.user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const handleChange = (prop: keyof State) => (event: any) => {
     setMarksData({ ...marksData, [prop]: event.target.value });
   };
@@ -71,11 +79,11 @@ const Marks = () => {
     }
     document.querySelector(".editModeSelector")?.classList.contains("hidden")
       ? document
-          .querySelector(".editModeSelector")
-          ?.classList.replace("hidden", "flex")
+        .querySelector(".editModeSelector")
+        ?.classList.replace("hidden", "flex")
       : document
-          .querySelector(".editModeSelector")
-          ?.classList.replace("flex", "hidden");
+        .querySelector(".editModeSelector")
+        ?.classList.replace("flex", "hidden");
   };
   interface State {
     class: string;
@@ -146,10 +154,11 @@ const Marks = () => {
     calculateAverage(studentMarks);
   }, [studentMarks]);
 
-  const router = useRouter();
-
+  useEffect(() => {
+    getUser()
+  }, [])
   return (
-    <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       {editAsMode === "group" ? (
         <div className="absolute w-full flex items-center justify-center h-screen z-[2] top-0 bg-black/70 left-0">
           <div
@@ -280,9 +289,8 @@ const Marks = () => {
           <Sidebar page="educator" user={user} active="marks" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
         >
           <div className="w-full flex items-start  justify-around mt-6 h-fit">
             <div className=" w-[40%] ">
@@ -377,9 +385,8 @@ const Marks = () => {
             </div>
             <div className="neumorphism relative w-[55%] px-2  h-[inherit] rounded-lg flex flex-col items-start ">
               <span
-                className={`${
-                  editMode ? "flex" : "hidden"
-                } w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}
+                className={`${editMode ? "flex" : "hidden"
+                  } w-full items-end justify-end mt-14 px-6 cursor-pointer text-red-600 hover:underline`}
               >
                 <GoAlert size={30} color="#dc2626" className="mr-2" />
                 <span
@@ -456,8 +463,8 @@ const Marks = () => {
                                   type={"number"}
                                   maxLength={studentMark.records[0].max}
                                   onChange={(e) =>
-                                    (studentMarks[index].records.mark =
-                                      e.target.value)
+                                  (studentMarks[index].records.mark =
+                                    e.target.value)
                                   }
                                   defaultValue={studentMark.records[0].mark}
                                   className={`px-4 text-center py-1 bg-inherit`}
