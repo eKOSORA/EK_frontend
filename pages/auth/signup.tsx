@@ -194,7 +194,7 @@ const Signup: NextPage = () => {
   };
   return (
     <div className="z-1 w-screen h-screen bg-[#f0f0f0]  flex flex-col items-center justify-start">
-      <ToastContainer
+<ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={true}

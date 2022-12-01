@@ -13,17 +13,34 @@ import { NextComponentType } from "next";
 import React, { useEffect, useState } from "react";
 import "animate.css";
 import { useAuth } from "../../../Context/AuthContext";
-import { useSchools } from "../../../Context/SchoolContext";
 import { LoginSchoolType } from "../../../types";
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
+import { useSchools } from "../../../Context/SchoolContext";
 
 const EducatorForm: NextComponentType = () => {
   const { login }: any = useAuth();
-
+  const router = useRouter();
   const handleSubmit = async (e: any) => {
-    setSubmitLoader(true);
+    // setSubmitLoader(true);
     e.preventDefault();
     //console.log(formData)
-    const data = login({ formData });
+    const data = await login({ formData });
+    console.log(data)
+    if (!data.status) {
+      toast.error(data.message, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      })
+    } else {
+      data.isAdmin ? router.push("/admin") : router.push("/educator")
+    }
   };
 
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -62,25 +79,43 @@ const EducatorForm: NextComponentType = () => {
     showPassword: false,
   });
 
-  const getSchools = async()=>{
-    console.log("Started function");
-    
-    const res =await fetch(`http://192.168.0.156/auth/schoolcodes`,{
-      method:"GET",
-      headers:{"Content-Type":"appication/json"}
+  const { getSchools }: any = useSchools();
+  const mapSchools = async () => {
+    const schools = await getSchools();
+    if (!schools.status) return toast.error(schools.message, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
     })
-    const data =await res.json()
-    setSchools(data.results)
+
+    setSchools(schools)
   }
 
   const [schools, setSchools] = useState([])
 
   useEffect(() => {
-    getSchools()
+    mapSchools()
   }, [])
 
   return (
     <div className=" duration-1000 h-4/5  w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <h1 className="heading-text text-4xl w-full text-center text-ek-blue my-4 ">
         LOGIN
       </h1>

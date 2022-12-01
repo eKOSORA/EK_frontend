@@ -11,11 +11,8 @@ export const useSchools = () => {
 };
 
 export const SchoolProvider = ({ children }: any) => {
-  const [school, setSchool] = useState({});
   const [schools, setSchools] = useState([]);
   const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
-  const router = useRouter();
-  const { setUser }: any = useAuth();
 
   const registerSchool = async ({ formData }: any) => {
     try {
@@ -34,18 +31,19 @@ export const SchoolProvider = ({ children }: any) => {
   };
 
   const getSchools = async () => {
-    const data = await axios.get(`${baseURL}/auth/schoolcodes`);
-    if (!data.data) return
-    return data;
+    try {
+      const data = await axios.get(`${baseURL}/auth/schoolcodes`);
+      if (!data.data) return
+      console.log(data.data);
+      return { status: true, schools: data.data.results };
+    } catch (error:any) {
+      console.log(error)
+      return { status: false, message: error.message }
+    }
   };
 
-  useEffect(() => {
-    getSchools();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <SchoolContext.Provider value={{ registerSchool,getSchools, schools }}>
+    <SchoolContext.Provider value={{ registerSchool, getSchools }}>
       {children}
     </SchoolContext.Provider>
   );

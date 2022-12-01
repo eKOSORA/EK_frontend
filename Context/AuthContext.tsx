@@ -13,24 +13,7 @@ export const useAuth = () => {
 
 export default function AuthProvider({ children }: any) {
   const router = useRouter();
-
-  let [user, setUser] = useState<UserObject | undefined>(undefined);
   const baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
-
-  const decodeToken = async () => {
-    const token = getCookie("token");
-    if (token) {
-      try {
-        const userDetails: any = await jwtdecode(token);
-        //console.log(userDetails);
-        const userd: any = await getUserById(userDetails.userid);
-        return setUser(userd);
-      } catch (err) {
-        return setUser(undefined);
-      }
-    }
-    return setUser(undefined);
-  };
 
   const getUserById = async (id: string) => {
     try {
@@ -46,29 +29,20 @@ export default function AuthProvider({ children }: any) {
     return data;
   };
 
-  const login = async ({ formData }: any) => {7
-    console.log(formData)
-    const data = await axios.post(`${baseURL}/auth/login`, formData);
-    return data;
+  const login = async ({ formData }: any) => {
+    try {
+
+      console.log(formData)
+      const data = await axios.post(`${baseURL}/auth/login`, formData);
+      if (data.data.code !== "#Success") return { status: false, data, message: data.data.message }
+      return { status: true, data };
+    } catch (error: any) {
+      console.log(error)
+      return { status: false, message: error.response.data.message };
+    }
   };
 
-  useEffect(() => {
-    if (
-      router.pathname === "/auth/login" ||
-      router.pathname === "/auth/signup" ||
-      router.pathname === "/"
-    )
-      return;
-    // if (!user) router.push('/auth/login')
-  }, [router, user]);
-
-  useEffect(() => {
-    // decodeToken()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  let value = { user, logout, setUser, getUserById, login };
-
+  let value = {  logout,  getUserById, login };
   return (
     <>{<AuthContext.Provider value={value}>{children}</AuthContext.Provider>}</>
   );
