@@ -55,7 +55,7 @@ To use eKOSORA head to ekosora.rw then you can explore every single eKOSORA deli
 - [@IVainqueur](https://github.com/IVainqueur) - Idea & Initial work
 - [@mugishap](https://github.com/mugishap) - Design Implementation and API integration.
 
-See also the list of [contributors](https://github.com/IVainqueur/EK_frontend/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/eKOSORA/EK_frontend/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a href = "#acknowledgement"></a>
 
