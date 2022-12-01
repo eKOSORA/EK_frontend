@@ -11,6 +11,7 @@ import visibilityOff from './../../public/img/visibility_off.svg'
 import visibility from './../../public/img/visibility.svg'
 import { useRouter } from 'next/router'
 import { useGetUserDetails } from '../../hooks/auth'
+import { checkFileType } from '../../functions/files'
 
 
 const StudentsSettings = () => {
