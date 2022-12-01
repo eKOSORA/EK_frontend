@@ -1,6 +1,6 @@
 <p style="text-align: center;">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=200px height=200px src="https://res.cloudinary.com/precieux/image/upload/v1665134293/h2tjxuh4t7c739ks6ife_ltk688.png" alt="Project logo"></a>
 </p>
 
 <h3 style="text-align: center;">eKOSORA</h3>
