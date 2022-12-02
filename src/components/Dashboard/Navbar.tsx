@@ -1,12 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import logoBig from './../../public/img/bigLogo.svg'
-import logoSmall from './../../public/img/logo.svg'
 import { BiMenu } from 'react-icons/bi'
-import { FaRegUserCircle } from 'react-icons/fa'
 import { IoLogOutOutline } from 'react-icons/io5'
-import { GrFormClose } from 'react-icons/gr'
 import { IoMdClose } from 'react-icons/io'
 import { useLogout } from '../../hooks/auth'
 
@@ -25,8 +21,8 @@ export const Navbar = (props: any) => {
             :
             <BiMenu className=' text-white cursor-pointer sm:mr-6 md:mr-8' color='white' size={40} onClick={() => { props.setSideBarActive(!props.sideBarActive) }} />
         }
-        <a href={'/'} className='cursor-pointer hidden sm:flex'><Image src={logoBig} height={'40px'} alt='' width={'165px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
-        <a href={'/'} className='flex sm:hidden'><Image src={logoSmall} height={'40px'} alt='' width={'60px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
+        <a href={'/'} className='cursor-pointer hidden sm:flex'><Image src={'/img/bigLogo.svg'} height={'40px'} alt='' width={'165px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
+        <a href={'/'} className='flex sm:hidden'><Image src={'/img/logo.svg'} height={'40px'} alt='' width={'60px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
       </div>
       <span className='hidden mmsm:flex heading-text text-white text-3xl'>{props.page}</span>
       <div className='flex items-center justify-center'>

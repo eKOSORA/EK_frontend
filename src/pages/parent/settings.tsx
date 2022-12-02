@@ -7,9 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import Image from 'next/image'
 import { TextField } from '@mui/material'
-import visibilityOff from './../../public/img/visibility_off.svg'
-import visibility from './../../public/img/visibility.svg'
-import { useRouter } from 'next/router'
 import { useGetUserDetails } from '../../hooks/auth'
 import { checkFileType } from '../../functions/files'
 
@@ -173,7 +170,7 @@ const StudentsSettings = () => {
                       <input type={formData.showPassword ? 'text' : "password"} value={formData.password} className='bg-inherit ml-2.5 py-[7px] px-[15px] outline-none border-none text-base flex-grow' readOnly={true} />
                   }
                   <div onClick={() => { setFormData({ ...formData, showPassword: !formData.showPassword }) }} className='mx-4 hover:rotate-12 hover:grayscale-[50%] w-12 flex items-center justify-center h-12 cursor-pointer rounded-full neumorphism' >
-                    <Image alt="" src={formData.showPassword ? visibility : visibilityOff}></Image>
+                    <Image alt="" src={formData.showPassword ? '/img/visibility.svg' : '/img/visibility_off.svg'}></Image>
                   </div>
                 </div>
                 <div className='flex items-center justify-center'>

@@ -6,8 +6,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import { TextField } from "@mui/material";
-import visibilityOff from "./../../public/img/visibility_off.svg";
-import visibility from "./../../public/img/visibility.svg";
 import { useGetUserDetails } from "../../hooks/auth";
 
 const Settings = () => {
@@ -279,7 +277,7 @@ const Settings = () => {
                   >
                     <Image
                       alt=""
-                      src={formData.showPassword ? visibility : visibilityOff}
+                      src={formData.showPassword ? '/img/visibility.svg' : '/img/visibility_off.svg'}
                     ></Image>
                   </div>
                 </div>

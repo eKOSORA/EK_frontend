@@ -37,7 +37,7 @@ const EducatorForm: NextComponentType = () => {
         theme: "colored",
       })
     } else {
-      data.isAdmin ? router.push("/admin") : router.push("/educator")
+      // data.isAdmin ? router.push("/admin") : router.push("/educator")
     }
   };
 

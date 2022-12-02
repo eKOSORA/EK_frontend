@@ -6,7 +6,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import { BiCog, BiInfoCircle } from "react-icons/bi";
-import uploadExcel from "../../../public/img/uploadExcel.svg";
 import Image from "next/image";
 import StudentUploadTablePreview from "../../../components/Dashboard/UploadingViews/StudentUploadTablePreview";
 import _ from "lodash";
@@ -285,7 +284,7 @@ const StudentsUpload = () => {
                             alt=""
                             width={200}
                             height={100}
-                            src={uploadExcel}
+                            src={'/img/uploadExcel.svg'}
                           ></Image>
                           <p>Drop file here</p>
                         </label>

@@ -1,12 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { Navbar } from "../components/Index/Navbar";
-import remote from "./../public/img/remoteWork.png";
-import migrate from "./../public/img/migrate.png";
-import time from "./../public/img/timeManagement.png";
-import speed from "./../public/img/speed.png";
 import Footer from "../components/Index/Footer";
 
 const Home: NextPage = () => {
@@ -49,7 +44,7 @@ const Home: NextPage = () => {
               className=""
               width={"575px"}
               height={"500px"}
-              src={remote}
+              src={'/img/remoteWork.png'}
             />
           </div>
         </div>
@@ -57,7 +52,7 @@ const Home: NextPage = () => {
       <div className="w-full flex items-center justify-start flex-col ">
         <div className="Feature py-[20px] px-[40px] mb-[20px] flex items-center justify-center relative w-11/12">
           <div className="smm20:flex hidden">
-            <Image alt="" height={"300px"} width={485} src={migrate} />
+            <Image alt="" height={"300px"} width={485} src={'/img/migrate.png'} />
           </div>
           <div className="flex flex-col items-start justify-center w-full smm20:max-w-[600px]">
             <h1 className="text-ek-blue text-[32px] heading-text">
@@ -81,13 +76,13 @@ const Home: NextPage = () => {
             </p>
           </div>
           <div className="smm20:flex hidden">
-            <Image alt="" height={"300px"} width={367} src={time} />
+            <Image alt="" height={"300px"} width={367} src={'/img/timeManagement.png'} />
           </div>
         </div>
 
         <div className="Feature py-[20px] px-[40px] mb-[20px] flex items-center justify-center relative w-11/12">
           <div className="smm20:flex hidden">
-            <Image alt="" height={"300px"} width={320} src={speed} />
+            <Image alt="" height={"300px"} width={320} src={'/img/speed.png'} />
           </div>
           <div className="flex flex-col items-start justify-center w-full smm20:max-w-[600px]">
             <h1 className="text-ek-blue text-[32px] heading-text">

@@ -11,12 +11,6 @@ import { Navbar } from "../../components/Auth/Navbar";
 const Login: NextPage = () => {
   const [active, setActive] = useState("parent");
 
-  const router = useRouter();
-
-  useEffect(() => {
-    router.prefetch(`/${active}/`).then(r => { });
-  }, [active, router]);
-
   return (
     <div className="text-black bg-[#f0f0f0]  w-screen h-screen flex flex-col items-center justify-start">
       <Head>

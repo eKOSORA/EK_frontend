@@ -3,10 +3,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Dashboard/Navbar";
 import Sidebar from "../../components/Dashboard/Sidebar";
-import timetable from "../../public/img/timetable.png";
-import announcement from "../../public/img/notification.png";
-import marks from "../../public/img/marks.png";
-import setting from "../../public/img/setting.svg";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -104,7 +100,7 @@ const Dashboard = () => {
                 href={"/educator/marks"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
-                <Image alt="" src={marks} width={150} height={150}></Image>
+                <Image alt="" src={'/img/marks.png'} width={150} height={150}></Image>
                 <span className="text-lg questrialtext">Marks</span>
               </a>
 
@@ -112,7 +108,7 @@ const Dashboard = () => {
                 href={"/educator/settings"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
-                <Image alt="" src={setting} width={150} height={150}></Image>
+                <Image alt="" src={'/img/setting.svg'} width={150} height={150}></Image>
                 <span className="text-lg questrialtext">Settings</span>
               </a>
 
@@ -120,7 +116,7 @@ const Dashboard = () => {
                 href={"/educator/timetables"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
-                <Image alt="" src={timetable} width={150} height={150}></Image>
+                <Image alt="" src={'/img/timetable.png'} width={150} height={150}></Image>
                 <span className="text-lg questrialtext">Timetable(s)</span>
               </a>
 
@@ -130,7 +126,7 @@ const Dashboard = () => {
               >
                 <Image
                   alt=""
-                  src={announcement}
+                  src={'/img/notification.png'}
                   width={150}
                   height={150}
                 ></Image>
