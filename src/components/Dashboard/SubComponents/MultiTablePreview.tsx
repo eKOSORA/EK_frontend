@@ -66,7 +66,7 @@ function MultiTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const fileData = useRecoilValue(fileDataState)
-    const rows = fileData.students[props.sheetNo] as Array<any>
+    const rows = fileData.items[props.sheetNo] as Array<any>
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;

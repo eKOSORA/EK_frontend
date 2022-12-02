@@ -9,14 +9,13 @@ import { BiCog, BiInfoCircle } from "react-icons/bi";
 import Image from "next/image";
 import StudentUploadTablePreview from "../../../components/Dashboard/UploadingViews/StudentUploadTablePreview";
 import _ from "lodash";
-
-import Dropzone from "react-dropzone";
 import { useRecoilState } from "recoil";
 import { fileDataState } from "../../../components/states/sheets";
 import { loaderState } from "../../../components/states/loader";
 import { previewUploadedFile } from "../../../functions/files";
 import { FileData } from "../../../types/interfaces";
 import { useGetUserDetails } from "../../../hooks/auth";
+import Dropzone from "react-dropzone";
 
 const StudentsUpload = () => {
   const [sideBarActive, setSideBarActive] = useState(false);

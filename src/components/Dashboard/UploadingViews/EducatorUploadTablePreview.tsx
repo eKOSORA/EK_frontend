@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import TablePaginationUnstyled, {
     tablePaginationUnstyledClasses as classes,
 } from '@mui/base/TablePaginationUnstyled';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import MultiTablePreview from '../SubComponents/MultiTablePreview';
-import swal from 'sweetalert'
-import { submitStudents } from '../../../pages/educator/students/upload';
 import { useRecoilValue } from 'recoil';
 import { fileDataState } from '../../states/sheets';
 import 'animate.css';
 import { confirmCancellation } from '../../../functions/alerts';
+import { useAddEducator } from '../../../hooks/educator';
 
 const Root = styled('div')`
   table {
@@ -70,14 +69,77 @@ function EducatorUploadTablePreview(props: any) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const fileData = useRecoilValue(fileDataState)
-    const rows = fileData.students[0] as Array<any>
-    console.log(rows)
-    const [sheetNo, setSheetNo] = useState(0)
-
+    const rows = fileData.items as Array<any>
     console.log(fileData)
+    const [sheetNo, setSheetNo] = useState(1)
 
-    console.log(fileData.sheets)
+    const submitEducators = async ({
+        educators,
+    }: any) => {
+        console.log(educators);
 
+        for (let i = 0; i < 1; i++) {
+            for (let j = 0; j < educators[i].length; j++) {
+                const dummyObj = { ...educators[i][j] }
+                const newObj = renameObject(dummyObj)
+                console.log(newObj);
+                addEducatorsToDatabase(newObj);
+            }
+        }
+    };
+
+    const renameObject = (capitals: any) => {
+        const names = [
+            {
+                oldName: "First Name",
+                newName: "firstName",
+            },
+
+            {
+                oldName: "Last Name",
+                newName: "lastName",
+            },
+            {
+                oldName: "Code/ID",
+                newName: "code",
+            },
+            {
+                oldName: "Type",
+                newName: "title",
+            },
+            {
+                oldName: "Email",
+                newName: "email",
+            },
+
+            {
+                oldName: "Telephone",
+                newName: "telephone",
+            },
+            {
+                oldName: "NID Number",
+                newName: "nidNumber",
+            },
+            {
+                oldName: "Lessons",
+                newName: "lessons",
+            },
+        ];
+        capitals = Array(capitals).map((obj: any) => {
+            names.map((name: any) => {
+                obj[name.newName] = obj[name.oldName];
+                delete obj[name.oldName];
+            });
+
+            return obj;
+        });
+        return capitals[0];
+    };
+
+    const addEducatorsToDatabase = async (educatorData: any) => {
+        const response = useAddEducator({ educatorData })
+        console.log(response)
+    };
 
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -97,9 +159,9 @@ function EducatorUploadTablePreview(props: any) {
     };
 
     const handleSubmit = async () => {
-        await submitStudents({ sheets: fileData.sheets, students: fileData.students })
-    }
+        await submitEducators({ sheets: fileData.sheets, educators: fileData.items })
 
+    }
 
     return (
         <div className='w-full flex flex-col items-center justify-center'>
@@ -126,10 +188,11 @@ function EducatorUploadTablePreview(props: any) {
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Code/ID</th>
-                                    <th>Year/Grade</th>
-                                    <th>Class</th>
-                                    <th>Parent Email(s)</th>
-                                    <th>Parent Tel(s)</th>
+                                    <th>Lessons</th>
+                                    <th>Title</th>
+                                    <th>ID Number</th>
+                                    <th>Email</th>
+                                    <th>Telephone</th>
                                 </tr>
                             </thead>
                             <tbody className='font-questrial'>
@@ -148,16 +211,19 @@ function EducatorUploadTablePreview(props: any) {
                                             {row['Code/ID']}
                                         </td>
                                         <td style={{ width: 260 }} align="right">
-                                            {row['Year/Grade']}
+                                            {row['Lessons']}
                                         </td>
                                         <td style={{ width: 260 }} align="right">
-                                            {row['Class']}
+                                            {row['Type']}
                                         </td>
                                         <td style={{ width: 360 }} align="right">
-                                            {row['Parent Email(s)']}
+                                            {row['NID Number']}
                                         </td>
                                         <td style={{ width: 360 }} align="right">
-                                            {row['Parent Tel(s)']}
+                                            {row['Email']}
+                                        </td>
+                                        <td style={{ width: 360 }} align="right">
+                                            {row['Telephone']}
                                         </td>
                                     </tr>
                                 ))}
@@ -172,7 +238,7 @@ function EducatorUploadTablePreview(props: any) {
                                     <CustomTablePagination
                                         className='w-full'
                                         rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                                        colSpan={7}
+                                        colSpan={8}
                                         count={rows.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
@@ -194,7 +260,7 @@ function EducatorUploadTablePreview(props: any) {
                     </Root>
             }
             <div className='w-full flex justify-around my-8 text-white items-center'>
-                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={()=>confirmCancellation("Your upload session has been cancelled","/educator")}>CANCEL</button>
+                <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={() => confirmCancellation("Your upload session has been cancelled", "/educator")}>CANCEL</button>
                 <button className='bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3' onClick={handleSubmit}>FINISH</button>
             </div>
         </div >

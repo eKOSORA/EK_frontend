@@ -8,8 +8,7 @@ import { useLogout } from '../../hooks/auth'
 
 export const Navbar = (props: any) => {
   const HandleLogout = async () => {
-    const { logout }: any = useLogout()
-    const data = await logout()
+    const data = await useLogout()
     //console.log(data)
   }
   return (

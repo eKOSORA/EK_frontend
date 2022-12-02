@@ -298,11 +298,3 @@ const StudentsUpload = () => {
 };
 
 export default StudentsUpload;
-
-export const submitStudents = async ({
-  sheets,
-  students,
-}: IUploadStudentsInterface) => {
-  console.log(sheets)
-  console.log(students)
-};

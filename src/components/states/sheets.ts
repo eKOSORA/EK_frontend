@@ -3,7 +3,7 @@ import { atom, GetRecoilValue, selector } from "recoil";
 const fileDataState = atom({
     key: 'fileDataState',
     default: {
-        students: [],
+        items: [],
         fileName: '',
         timeUploaded: '',
         isFileUploaded: false,
@@ -13,7 +13,6 @@ const fileDataState = atom({
         sheets: 0,
     }
 })
-
 
 const fileDataStateSelector = selector({
     key: 'fileDataStateSelector',
@@ -25,5 +24,6 @@ const fileDataStateSelector = selector({
         set(fileDataState, newValue)
     },
 })
+
 
 export { fileDataStateSelector, fileDataState }

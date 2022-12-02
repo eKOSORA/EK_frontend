@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import Image from 'next/image'
 import { TextField } from '@mui/material'
-import { useRouter } from 'next/router'
 import { useGetUserDetails } from '../../hooks/auth'
 
 

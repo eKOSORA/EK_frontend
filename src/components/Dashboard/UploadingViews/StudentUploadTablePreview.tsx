@@ -9,8 +9,9 @@ import swal from "sweetalert";
 import { useRecoilValue } from "recoil";
 import { fileDataState } from "../../states/sheets";
 import "animate.css";
-import { useStudents } from "../../../hooks/student";
+import { useNewStudent, useStudents } from "../../../hooks/student";
 import { IUploadStudentsInterface, uploadedStudentObject } from "../../../types";
+import { toast } from "react-toastify";
 
 
 const Root = styled("div")`
@@ -71,8 +72,8 @@ function StudentUploadTablePreview(props: any) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const fileData = useRecoilValue(fileDataState);
-  const rows = fileData.students[0] as Array<any>;
-  console.log(rows);
+  const rows = fileData.items[0] as Array<any>;
+  console.log(fileData);
   const [sheetNo, setSheetNo] = useState(0);
 
   const confirmCancellation = () => {
@@ -106,8 +107,10 @@ function StudentUploadTablePreview(props: any) {
 
     for (let i = 0; i < sheets; i++) {
       for (let j = 0; j < students[i].length; j++) {
-        // console.log(students[i][j]);
-        addStudentsToDatabase(students[i][j]);
+        const dummyObj = { ...students[i][j] }
+        const newObj = renameObject(dummyObj)
+        console.log(newObj);
+        addStudentsToDatabase(newObj);
       }
     }
   };
@@ -145,8 +148,8 @@ function StudentUploadTablePreview(props: any) {
         newName: "class",
       },
     ];
-    capitals = Array(capitals).map((obj:any) => {
-      names.map((name:any) => {
+    capitals = Array(capitals).map((obj: any) => {
+      names.map((name: any) => {
         obj[name.newName] = obj[name.oldName];
         delete obj[name.oldName];
       });
@@ -156,11 +159,9 @@ function StudentUploadTablePreview(props: any) {
     return capitals[0];
   };
 
-  const addStudentsToDatabase = async (studentData: uploadedStudentObject) => {
-    // const data = await registerStudent()
-    const dummyObj = {...studentData}
-    console.log(renameObject(dummyObj));
-    const newObj = renameObject(dummyObj)
+  const addStudentsToDatabase = async (studentData: any) => {
+    const response = useNewStudent({ studentData })
+    console.log(response)
   };
 
   const emptyRows =
@@ -183,7 +184,7 @@ function StudentUploadTablePreview(props: any) {
   const handleSubmit = async () => {
     await submitStudents({
       sheets: fileData.sheets,
-      students: fileData.students,
+      students: fileData.items,
     });
   };
 
@@ -203,18 +204,16 @@ function StudentUploadTablePreview(props: any) {
         <div className="w-full flex items-center justify-between">
           <div
             onClick={() => setSheetNo(sheetNo - 1)}
-            className={`${
-              sheetNo === 0 ? "hidden" : "flex"
-            } p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}
+            className={`${sheetNo === 0 ? "hidden" : "flex"
+              } p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}
           >
             <BiChevronLeft color="white" size={20} />
           </div>
           <MultiTablePreview sheetNo={sheetNo} />
           <div
             onClick={() => setSheetNo(sheetNo + 1)}
-            className={` ${
-              sheetNo === fileData.sheets - 1 ? "hidden" : "flex"
-            } p-2  rounded-full items-center justify-center bg-ek-blue-75`}
+            className={` ${sheetNo === fileData.sheets - 1 ? "hidden" : "flex"
+              } p-2  rounded-full items-center justify-center bg-ek-blue-75`}
           >
             <BiChevronRight color="white" size={20} />
           </div>
@@ -236,9 +235,9 @@ function StudentUploadTablePreview(props: any) {
             <tbody className="font-questrial">
               {(rowsPerPage > 0
                 ? rows.slice(
-                    page * rowsPerPage,
-                    page * rowsPerPage + rowsPerPage
-                  )
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
                 : rows
               ).map((row: any) => (
                 <tr className="even:bg-ek-blue-75/20" key={row["Code/ID"]}>

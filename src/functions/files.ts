@@ -25,7 +25,7 @@ export const previewUploadedFile = async (
     const sheetCount = wb.SheetNames.length;
     setFileData({ ...fileData, sheets: sheetCount });
     if (sheetCount > 1) {
-      const studentArray = [];
+      const itemArray = [];
       for (let i = 0; i < sheetCount; i++) {
         const wsname = wb.SheetNames[i];
         const ws = wb.Sheets[wsname];
@@ -52,6 +52,7 @@ export const previewUploadedFile = async (
           return;
         }
         const columns = Object.keys(data[0]);
+        
 
         if (_.difference(columns, needed).length !== 0) {
           setFileData({
@@ -59,6 +60,7 @@ export const previewUploadedFile = async (
             errorState: true,
             errorMessage: "The excel file has columns in wrong format",
           });
+          
           toast.error(
             `Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]
             } should be`,
@@ -79,13 +81,11 @@ export const previewUploadedFile = async (
         console.log(Math.round(percentage));
         loadingPercentage = Math.round(percentage);
         console.log(data);
-
-        studentArray.push(data);
+        itemArray.push(data);
       }
       setFileData({
         ...fileData,
-        students: studentArray,
-        sheets: sheetCount,
+        items: itemArray,
         isFileUploaded: true,
       });
     } else {
@@ -128,13 +128,14 @@ export const previewUploadedFile = async (
           draggable: true,
           theme: "colored",
         });
+        console.log(columns, needed);
         console.log("Columns are not in the right order");
         return;
       }
       setFileData({
         ...fileData,
         loading: false,
-        students: data,
+        items: data,
         fileName: name,
         timeUploaded: new Date().toLocaleString(),
         isFileUploaded: true,
