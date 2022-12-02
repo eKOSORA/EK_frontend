@@ -1,6 +1,6 @@
 <p style="text-align: center;">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+ <img width=200px height=200px src="https://res.cloudinary.com/precieux/image/upload/v1665134293/h2tjxuh4t7c739ks6ife_ltk688.png" alt="Project logo"></a>
 </p>
 
 <h3 style="text-align: center;">eKOSORA</h3>
@@ -55,7 +55,7 @@ To use eKOSORA head to ekosora.rw then you can explore every single eKOSORA deli
 - [@IVainqueur](https://github.com/IVainqueur) - Idea & Initial work
 - [@mugishap](https://github.com/mugishap) - Design Implementation and API integration.
 
-See also the list of [contributors](https://github.com/IVainqueur/EK_frontend/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/eKOSORA/EK_frontend/contributors) who participated in this project.
 
 ## 🎉 Acknowledgements <a href = "#acknowledgement"></a>
 
