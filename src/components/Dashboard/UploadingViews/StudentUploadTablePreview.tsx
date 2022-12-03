@@ -11,7 +11,6 @@ import { fileDataState } from "../../states/sheets";
 import "animate.css";
 import { useNewStudent, useStudents } from "../../../hooks/student";
 import { IUploadStudentsInterface, uploadedStudentObject } from "../../../types";
-import { toast } from "react-toastify";
 
 
 const Root = styled("div")`
@@ -105,7 +104,7 @@ function StudentUploadTablePreview(props: any) {
     console.log(sheets);
     console.log(students);
 
-    for (let i = 0; i < sheets; i++) {
+    for (let i = 0; i < 3; i++) {
       for (let j = 0; j < students[i].length; j++) {
         const dummyObj = { ...students[i][j] }
         const newObj = renameObject(dummyObj)

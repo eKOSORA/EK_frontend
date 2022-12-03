@@ -2,8 +2,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { BsFillQuestionSquareFill } from 'react-icons/bs'
-
+import { AiFillWindows } from 'react-icons/ai'
+import { BsApple, BsFillQuestionSquareFill } from 'react-icons/bs'
+import { DiLinux } from 'react-icons/di'
+import { HiOutlineDownload } from 'react-icons/hi'
 const index = () => {
   return (
     <div className='w-screen h-screen flex flex-col bg-white'>
@@ -35,19 +37,58 @@ const index = () => {
         </div>
       </div>
 
-      <div className='grid mt-36 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full px-12 gap-4'>
+      <div className='text-white grid mt-36 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full px-12 gap-4'>
         <div className='w-full flex h-[60vh] items-center justify-center'>
-        <div className='w-10/12 h-full rounded bg-ek-blue-75 flex flex-col'></div>
+          <div className='relative px-8 w-10/12 items-center pt-4 h-full rounded bg-ek-blue-75 flex flex-col'>
+            <DiLinux size={100} />
+            <div className='w-full text-center mt-10'>
+              <span className='heading-text text-2xl'>Linux based OS</span>
+              <ul className='ml-8 mt-10 list-disc flex flex-col justify-start text-start items-start'>
+                <li className='my-2'>Click the download button to get the deb file</li>
+                <li className='my-2'>Navigate to the path of the download <br></br> <code>cd /home/username/Downloads/</code> </li>
+                <li className='my-2'>Run the following command  to install eKOSORA on your computer: <br></br>
+                  <code>sudo dpkg -i ./eKOSORA-v1.0.0.deb</code>
+                </li>
+                <li className='my-2'>Start using eKOSORA on your computer!!!</li>
+              </ul>
+              <button className='hover:animate-ring flex right-0 left-0 px-3 ml-auto mr-auto rounded cursor-pointer py-3 items-center justify-center absolute bottom-4 bg-white text-ek-blue-75'>
+                <HiOutlineDownload className="text-lg mr-2 text-ek-blue-75" />
+                <span>
+                  DOWNLOAD
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
         <div className='w-full flex h-[60vh] items-center justify-center'>
-        <div className='w-10/12 h-full rounded bg-ek-blue-75 flex flex-col'></div>
+          <div className='relative w-10/12 items-center pt-4 h-full rounded bg-ek-blue-75 flex flex-col'>
+            <AiFillWindows size={100} />
+            <div className='w-full text-center mt-10'>
+              <span className='heading-text text-2xl'>Windows</span>
+              <button className='hover:animate-ring flex right-0 left-0 px-3 ml-auto mr-auto rounded cursor-pointer py-3 items-center justify-center absolute bottom-4 bg-white text-ek-blue-75'>
+                <HiOutlineDownload className="text-lg mr-2 text-ek-blue-75" />
+                <span>
+                  DOWNLOAD
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
         <div className='w-full flex h-[60vh] items-center justify-center'>
-        <div className='w-10/12 h-full rounded bg-ek-blue-75 flex flex-col'></div>
+          <div className='relative w-10/12 items-center pt-4 h-full rounded bg-ek-blue-75 flex flex-col'>
+            <BsApple size={100} />
+            <div className='w-full text-center mt-10'>
+              <span className='heading-text text-2xl'>Mac OS</span>
+              <button className='hover:animate-ring flex right-0 left-0 px-3 ml-auto mr-auto rounded cursor-pointer py-3 items-center justify-center absolute bottom-4 bg-white text-ek-blue-75'>
+                <HiOutlineDownload className="text-lg mr-2 text-ek-blue-75" />
+                <span>
+                  DOWNLOAD
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
-        
       </div>
-
     </div>
   )
 }
