@@ -3,6 +3,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { Navbar } from "../components/Index/Navbar";
 import Footer from "../components/Index/Footer";
+import Link from "next/link";
+import { HiOutlineDownload } from "react-icons/hi";
 
 const Home: NextPage = () => {
   return (
@@ -25,14 +27,18 @@ const Home: NextPage = () => {
           <p className="mt-[10px] text-[22px] text-white">
             Work from anywhere you are, at any time of the day
           </p>
-          <a className="login-button" href={"/auth/login"}>
-            <button
-              className="hover:animate-ring login-button hover:grayscale-[50%] mt-[15px] button-text bg-[#4ca7ce] text-white py-[12px] px-[38px] ml-[10px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200"
-              style={{ boxShadow: "0px 0px 10px 10px rgb(0 0 0 / 10%)" }}
-            >
-              LOG IN
-            </button>
-          </a>
+          <div className="flex md:flex-row flex-col w-fit items-center justify-center">
+            <Link  className="login-button" href={"/downloads"}>
+              <button title="eKOSORA is better on the app"
+                className="hover:animate-ring mx-2 login-button flex items-center hover:grayscale-[50%] mt-[15px] button-text bg-[#4ca7ce] text-white py-[12px] px-[38px] ml-[10px] w-fit rounded-[2px] text-sm hover:bg-ek-blue-200"
+              >
+                <HiOutlineDownload className="text-lg mr-2 text-white" />
+                <span>
+                  DOWNLOAD APP
+                </span>
+              </button>
+            </Link>
+          </div>
         </div>
         <div className="relative h-full hidden sm:block w-1/2">
           <div

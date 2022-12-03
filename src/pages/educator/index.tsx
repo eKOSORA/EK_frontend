@@ -16,6 +16,7 @@ import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
 import "animate.css";
 import { useGetUserDetails } from "../../hooks/auth";
+import Link from "next/link";
 
 ChartJS.register(
   CategoryScale,
@@ -96,31 +97,31 @@ const Dashboard = () => {
           <div className="w-full flex flex-col items-start  animate__animated animate__fadeInLeft my-8 justify-start">
             <span className="text-4xl heading-text mb-4">Quick Access</span>
             <div className="text-black w-full flex items-center justify-center">
-              <a
+             <Link
                 href={"/educator/marks"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
                 <Image alt="" src={'/img/marks.png'} width={150} height={150}></Image>
                 <span className="text-lg questrialtext">Marks</span>
-              </a>
+              </Link>
 
-              <a
+             <Link
                 href={"/educator/settings"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
                 <Image alt="" src={'/img/setting.svg'} width={150} height={150}></Image>
                 <span className="text-lg questrialtext">Settings</span>
-              </a>
+              </Link>
 
-              <a
+             <Link
                 href={"/educator/timetables"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
                 <Image alt="" src={'/img/timetable.png'} width={150} height={150}></Image>
                 <span className="text-lg questrialtext">Timetable(s)</span>
-              </a>
+              </Link>
 
-              <a
+             <Link
                 href={"/educator/announcements"}
                 className="neumorphism bg-[#f0f0f0]  w-1/4 rounded-[12px] QuickFeature flex-grow  cursor-pointer mr-[20px] mb-[20px] p-[20px] items-center flex-col flex h-full"
               >
@@ -131,7 +132,7 @@ const Dashboard = () => {
                   height={150}
                 ></Image>
                 <span className="text-lg questrialtext">Announcements</span>
-              </a>
+              </Link>
             </div>
           </div>
 

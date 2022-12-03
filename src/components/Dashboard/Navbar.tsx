@@ -20,8 +20,8 @@ export const Navbar = (props: any) => {
             :
             <BiMenu className=' text-white cursor-pointer sm:mr-6 md:mr-8' color='white' size={40} onClick={() => { props.setSideBarActive(!props.sideBarActive) }} />
         }
-        <a href={'/'} className='cursor-pointer hidden sm:flex'><Image src={'/img/bigLogo.svg'} height={'40px'} alt='' width={'165px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
-        <a href={'/'} className='flex sm:hidden'><Image src={'/img/logo.svg'} height={'40px'} alt='' width={'60px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
+        <Link href={'/'} className='cursor-pointer hidden sm:flex'><Image src={'/img/bigLogo.svg'} height={'40px'} alt='' width={'165px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></Link>
+        <Link href={'/'} className='flex sm:hidden'><Image src={'/img/logo.svg'} height={'40px'} alt='' width={'60px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></Link>
       </div>
       <span className='hidden mmsm:flex heading-text text-white text-3xl'>{props.page}</span>
       <div className='flex items-center justify-center'>

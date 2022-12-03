@@ -9,8 +9,16 @@ export const Navbar = (props: any) => {
             <Head>
 
             </Head>
-            <a href={'/'} className='cursor-pointer hidden sm:flex'><Image src={'/img/bigLogo.svg'} height={'40px'} alt='' width={'165px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
-            <a href={'/'} className='flex sm:hidden'><Image src={'/img/logo.svg'} height={'40px'} alt='' width={'60px'} className='rounded py-[1px] px-[2px] bg-[#0003]' /></a>
+            <Link href={'/'}>
+                <div className='cursor-pointer hidden sm:flex'>
+                    <Image src={'/img/bigLogo.svg'} height={'40px'} alt='' width={'165px'} className='rounded py-[1px] px-[2px] bg-[#0003]' />
+                </div>
+            </Link>
+            <Link href={'/'}>
+                <div className='flex sm:hidden'>
+                    <Image src={'/img/logo.svg'} height={'40px'} alt='' width={'60px'} className='rounded py-[1px] px-[2px] bg-[#0003]' />
+                </div>
+            </Link>
             {
                 props.page === 'signup' ?
                     <span className='hidden mmsm:flex heading-text text-white text-3xl'>SIGNUP</span>
