@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/system";
 import TablePaginationUnstyled, {
   tablePaginationUnstyledClasses as classes,
 } from "@mui/base/TablePaginationUnstyled";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import MultiTablePreview from "../SubComponents/MultiTablePreview";
-import swal from "sweetalert";
 import { useRecoilValue } from "recoil";
 import { fileDataState } from "../../states/sheets";
 import "animate.css";
-import { useNewStudent, useStudents } from "../../../hooks/student";
-import { IUploadStudentsInterface, uploadedStudentObject } from "../../../types";
+import { useNewStudents } from "../../../hooks/student";
+import { IUploadStudentsInterface } from "../../../types";
+import { confirmCancellation } from "../../../functions/alerts";
 
 
 const Root = styled("div")`
@@ -71,31 +69,8 @@ function StudentUploadTablePreview(props: any) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const fileData = useRecoilValue(fileDataState);
-  const rows = fileData.items[0] as Array<any>;
+  const rows = fileData.items as Array<any>;
   console.log(fileData);
-  const [sheetNo, setSheetNo] = useState(0);
-
-  const confirmCancellation = () => {
-    const alertUser: any = swal({
-      title: "Are you sure?",
-      text: "Once cancelled you'll start from zero",
-      icon: "warning",
-      dangerMode: true,
-    });
-
-    alertUser.then((willDelete: any) => {
-      if (willDelete) {
-        swal({
-          title: "",
-          text: "Your upload session has been cancelled",
-          icon: "success",
-          dangerMode: false,
-        });
-        window.location.replace("/educator/");
-      }
-    });
-  };
-
 
   const submitStudents = async ({
     sheets,
@@ -103,15 +78,16 @@ function StudentUploadTablePreview(props: any) {
   }: IUploadStudentsInterface) => {
     console.log(sheets);
     console.log(students);
-
+    const newArray = [];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < students[i].length; j++) {
         const dummyObj = { ...students[i][j] }
         const newObj = renameObject(dummyObj)
         console.log(newObj);
-        addStudentsToDatabase(newObj);
+        newArray.push(newObj);
       }
     }
+    addStudentsToDatabase(newArray)
   };
 
   const renameObject = (capitals: any) => {
@@ -159,8 +135,7 @@ function StudentUploadTablePreview(props: any) {
   };
 
   const addStudentsToDatabase = async (studentData: any) => {
-    const response = useNewStudent({ studentData })
-    console.log(response)
+    const response = useNewStudents({ studentData })
   };
 
   const emptyRows =
@@ -189,116 +164,89 @@ function StudentUploadTablePreview(props: any) {
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      {fileData.sheets > 1 ? (
-        <h1 className="w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue">
-          Sheet {sheetNo + 1} of {fileData.sheets}
-        </h1>
-      ) : (
-        <h1 className="w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue">
-          Table Preview
-        </h1>
-      )}
-
-      {fileData.sheets > 1 ? (
-        <div className="w-full flex items-center justify-between">
-          <div
-            onClick={() => setSheetNo(sheetNo - 1)}
-            className={`${sheetNo === 0 ? "hidden" : "flex"
-              } p-2 cursor-pointer rounded-full  items-center justify-center bg-ek-blue-75`}
-          >
-            <BiChevronLeft color="white" size={20} />
-          </div>
-          <MultiTablePreview sheetNo={sheetNo} />
-          <div
-            onClick={() => setSheetNo(sheetNo + 1)}
-            className={` ${sheetNo === fileData.sheets - 1 ? "hidden" : "flex"
-              } p-2  rounded-full items-center justify-center bg-ek-blue-75`}
-          >
-            <BiChevronRight color="white" size={20} />
-          </div>
-        </div>
-      ) : (
-        <Root sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}>
-          <table className="rounded" aria-label="custom pagination table">
-            <thead className="text-white">
-              <tr className="font-questrial bg-ek-blue">
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Code/ID</th>
-                <th>Year/Grade</th>
-                <th>Class</th>
-                <th>Parent Email(s)</th>
-                <th>Parent Tel(s)</th>
+      <h1 className="w-full text-center font-semibold heading-text text-3xl mb-6 text-ek-blue">
+        Table Preview
+      </h1>
+      <Root sx={{ maxWidth: "100%", borderRadius: "10px", width: "100%" }}>
+        <table className="rounded" aria-label="custom pagination table">
+          <thead className="text-white">
+            <tr className="font-questrial bg-ek-blue">
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Code/ID</th>
+              <th>Year/Grade</th>
+              <th>Class</th>
+              <th>Parent Email(s)</th>
+              <th>Parent Tel(s)</th>
+            </tr>
+          </thead>
+          <tbody className="font-questrial">
+            {(rowsPerPage > 0
+              ? rows.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )
+              : rows
+            ).map((row: any) => (
+              <tr className="even:bg-ek-blue-75/20" key={row["Code/ID"]}>
+                <td style={{ width: 260 }} align="right">
+                  {row["First Name"]}
+                </td>
+                <td style={{ width: 260 }} align="right">
+                  {row["Last Name"]}
+                </td>
+                <td style={{ width: 260 }} align="right">
+                  {row["Code/ID"]}
+                </td>
+                <td style={{ width: 260 }} align="right">
+                  {row["Year/Grade"]}
+                </td>
+                <td style={{ width: 260 }} align="right">
+                  {row["Class"]}
+                </td>
+                <td style={{ width: 360 }} align="right">
+                  {row["Parent Email(s)"]}
+                </td>
+                <td style={{ width: 360 }} align="right">
+                  {row["Parent Tel(s)"]}
+                </td>
               </tr>
-            </thead>
-            <tbody className="font-questrial">
-              {(rowsPerPage > 0
-                ? rows.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-                : rows
-              ).map((row: any) => (
-                <tr className="even:bg-ek-blue-75/20" key={row["Code/ID"]}>
-                  <td style={{ width: 260 }} align="right">
-                    {row["First Name"]}
-                  </td>
-                  <td style={{ width: 260 }} align="right">
-                    {row["Last Name"]}
-                  </td>
-                  <td style={{ width: 260 }} align="right">
-                    {row["Code/ID"]}
-                  </td>
-                  <td style={{ width: 260 }} align="right">
-                    {row["Year/Grade"]}
-                  </td>
-                  <td style={{ width: 260 }} align="right">
-                    {row["Class"]}
-                  </td>
-                  <td style={{ width: 360 }} align="right">
-                    {row["Parent Email(s)"]}
-                  </td>
-                  <td style={{ width: 360 }} align="right">
-                    {row["Parent Tel(s)"]}
-                  </td>
-                </tr>
-              ))}
-              {emptyRows > 0 && (
-                <tr style={{ height: 41 * emptyRows }}>
-                  <td colSpan={3} />
-                </tr>
-              )}
-            </tbody>
-            <tfoot className="w-full">
-              <tr className="w-full">
-                <CustomTablePagination
-                  className="w-full"
-                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                  colSpan={7}
-                  count={rows.length}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  componentsProps={{
-                    select: {
-                      "aria-label": "rows per page",
-                    },
-                    actions: {
-                      showFirstButton: true,
-                      showLastButton: true,
-                    } as any,
-                  }}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+            ))}
+            {emptyRows > 0 && (
+              <tr style={{ height: 41 * emptyRows }}>
+                <td colSpan={3} />
               </tr>
-            </tfoot>
-          </table>
-        </Root>
-      )}
+            )}
+          </tbody>
+          <tfoot className="w-full">
+            <tr className="w-full">
+              <CustomTablePagination
+                className="w-full"
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={7}
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                componentsProps={{
+                  select: {
+                    "aria-label": "rows per page",
+                  },
+                  actions: {
+                    showFirstButton: true,
+                    showLastButton: true,
+                  } as any,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </tr>
+          </tfoot>
+        </table>
+      </Root>
       <div className="w-full flex justify-around my-8 text-white items-center">
         <button
           className="bg-ek-blue-75 font-questrial rounded-lg w-32 cursor-pointer py-3"
-          onClick={confirmCancellation}
+          onClick={() => confirmCancellation('Student upload session has been cancelled successfully', '/admin/students/upload')}
         >
           CANCEL
         </button>

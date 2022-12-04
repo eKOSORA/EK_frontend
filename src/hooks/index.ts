@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const uploadImage = async (image: any) => {
   const data = new FormData();
   data.append("file", image);
@@ -18,3 +20,7 @@ export const uploadImage = async (image: any) => {
   }
 };
 
+export const api = axios.create({
+  withCredentials: true,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URL
+})

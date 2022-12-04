@@ -1,11 +1,9 @@
-import axios, { AxiosResponse } from "axios";
-
-const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
+import { api } from ".";
 
 export const useStudents = async ({ year, className, schoolId }: any) => {
     try {
-        const data = await axios.get(
-            `${baseURL}/student/getAll?year=${year}&class=${className}`
+        const data = await api.get(
+            `/student/getAll?year=${year}&class=${className}`
         );
         return { status: true, data };
     } catch (error) {
@@ -14,10 +12,10 @@ export const useStudents = async ({ year, className, schoolId }: any) => {
     }
 }
 
-export const useNewStudent = async ({ studentData }: any) => {
+export const useNewStudents = async ({ studentData }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/student/add`, studentData);
-        console.log(data)
+        const data = await api.post(`/student/add`, {students:[...studentData]}, { withCredentials: true });
+        console.log(studentData)
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -28,7 +26,7 @@ export const useNewStudent = async ({ studentData }: any) => {
 
 export const useUpdateStudent = async ({ studentData }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/student/edit`, studentData);
+        const data = await api.post(`/student/edit`, studentData);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -38,7 +36,7 @@ export const useUpdateStudent = async ({ studentData }: any) => {
 
 export const useNewRecord = async ({ recordData }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/student/addRecord`, recordData);
+        const data = await api.post(`/student/addRecord`, recordData);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -48,7 +46,7 @@ export const useNewRecord = async ({ recordData }: any) => {
 
 export const useUpdateRecord = async ({ newMark }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/student/updateMark`, newMark);
+        const data = await api.post(`/student/updateMark`, newMark);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -59,8 +57,7 @@ export const useUpdateRecord = async ({ newMark }: any) => {
 
 export const useRecords = async ({ _class, _year }: any) => {
     try {
-        const data = await axios.post(
-            `${baseURL}/student/getRecords?_class=${_class}&_year=${_year}`
+        const data = await api.post(`/student/getRecords?_class=${_class}&_year=${_year}`
         );
         return { status: true, data };
     } catch (error) {
@@ -71,7 +68,7 @@ export const useRecords = async ({ _class, _year }: any) => {
 
 export const useDeleteRecord = async (_id: any) => {
     try {
-        const data = await axios.delete(`${baseURL}/student/deleteRecord`, {
+        const data = await api.delete(`/student/deleteRecord`, {
             headers: {},
             data: { _id },
         });
@@ -84,7 +81,7 @@ export const useDeleteRecord = async (_id: any) => {
 
 export const useAddParent = async ({ parent_email, studentId }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/student/addParent`, {
+        const data = await api.post(`/student/addParent`, {
             parent_email,
             studentId,
         });
@@ -97,7 +94,7 @@ export const useAddParent = async ({ parent_email, studentId }: any) => {
 
 export const useGetSummary = async () => {
     try {
-        const data = await axios.post(`${baseURL}/student/getSummary`);
+        const data = await api.post(`/student/getSummary`);
         return { status: true, data };
     } catch (error) {
         console.log(error);

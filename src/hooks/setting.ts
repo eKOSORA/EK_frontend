@@ -1,10 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import { api } from ".";
 
-const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
 
 export const useSetUpdateSettings = async ({ newSettings }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/settings/newTerm`, newSettings);
+        const data = await api.post(`/settings/newTerm`, newSettings);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -14,7 +13,7 @@ export const useSetUpdateSettings = async ({ newSettings }: any) => {
 };
 export const useSetNewTerm = async ({ newTermData }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/settings/newTerm`, newTermData);
+        const data = await api.post(`/settings/newTerm`, newTermData);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -24,7 +23,7 @@ export const useSetNewTerm = async ({ newTermData }: any) => {
 };
 export const useSetGetTerms = async () => {
     try {
-        const data = await axios.get(`${baseURL}/settings/newTerm`);
+        const data = await api.get(`/settings/newTerm`);
         return data;
     } catch (error) {
         console.log("Fetch error");
@@ -35,8 +34,8 @@ export const useSetGetTerms = async () => {
 
 export const useSetUpdateProfile = async ({ newProfileData }: any) => {
     try {
-        const data = await axios.post(
-            `${baseURL}/settings/updateProfile`,
+        const data = await api.post(
+            `/settings/updateProfile`,
             newProfileData
         );
         return { status: true, data };

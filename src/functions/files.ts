@@ -60,7 +60,6 @@ export const previewUploadedFile = async (
             errorState: true,
             errorMessage: "The excel file has columns in wrong format",
           });
-          
           toast.error(
             `Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]
             } should be`,
@@ -81,7 +80,7 @@ export const previewUploadedFile = async (
         console.log(Math.round(percentage));
         loadingPercentage = Math.round(percentage);
         console.log(data);
-        itemArray.push(data);
+        itemArray.push(...data);
       }
       setFileData({
         ...fileData,

@@ -1,10 +1,9 @@
-import axios, { AxiosResponse } from "axios";
+import { api } from ".";
 
-const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
 
 export const useGetAllAnnouncements = async () => {
     try {
-        const data = await axios.get(`${baseURL}/announcement/getAll`);
+        const data = await api.get(`/announcement/getAll`);
         return { status: true, data }
     } catch (error) {
         console.log(error);
@@ -13,8 +12,8 @@ export const useGetAllAnnouncements = async () => {
 };
 export const useNewAnnouncement = async ({ announcementData }: any) => {
     try {
-        const data = await axios.post(
-            `${baseURL}/announcement/new`,
+        const data = await api.post(
+            `/announcement/new`,
             announcementData
         );
         return { status: true, data }

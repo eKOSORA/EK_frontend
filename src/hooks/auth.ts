@@ -1,6 +1,5 @@
-import axios from "axios";
+import { api } from ".";
 
-const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
 
 export const uploadImage = async (image: any) => {
   const data = new FormData();
@@ -26,7 +25,7 @@ export const uploadImage = async (image: any) => {
 export const useLogin = async ({ formData }: any) => {
   try {
     console.log(formData)
-    const data = await axios.post(`${baseURL}/auth/login`, formData);
+    const data = await api.post(`/auth/login`, formData);
     if (data.data.code !== "#Success") return { status: false, data, message: data.data.message }
     return { status: true,isAdmin:data.data.isAdmin, data };
   } catch (error: any) {
@@ -37,7 +36,7 @@ export const useLogin = async ({ formData }: any) => {
 
 export const useGetUserDetails = async()=>{
   try {
-    const data = await axios.post(`${baseURL}/auth/login`);
+    const data = await api.post(`/auth/login`);
     return { status: true,isAdmin:data.data.isAdmin, data }
   } catch (error:any) {
     console.log(error)
@@ -47,7 +46,7 @@ export const useGetUserDetails = async()=>{
 
 export const useLogout = async()=>{
   try {
-    const data = await axios.get(`${baseURL}/auth/logout`);
+    const data = await api.get(`/auth/logout`);
     return data;
   } catch (error:any) {
     console.log(error)

@@ -1,10 +1,8 @@
-import axios, { AxiosResponse } from "axios";
-
-const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
+import { api } from ".";
 
 export const useAddEducator = async ({ educatorData }: any) => {
     try {
-        const data = await axios.post(`${baseURL}/educator/add`, educatorData);
+        const data = await api.post(`/educator/add`, educatorData);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -14,7 +12,7 @@ export const useAddEducator = async ({ educatorData }: any) => {
 };
 export const useGetAllEducators = async () => {
     try {
-        const data = await axios.get(`${baseURL}/educator/getAll`);
+        const data = await api.get(`/educator/getAll`);
         return { status: true, data };
     } catch (error) {
         console.log(error);
@@ -24,7 +22,7 @@ export const useGetAllEducators = async () => {
 };
 export const useEditEducator = async ({ educatorData }: any) => {
     try {
-        const data = await axios.get(`${baseURL}/educator/getAll`, educatorData);
+        const data = await api.get(`/educator/getAll`, educatorData);
         return { status: true, data };
     } catch (error) {
         console.log(error);

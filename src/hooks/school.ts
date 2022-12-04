@@ -1,18 +1,15 @@
-import axios, { AxiosResponse } from "axios";
-
-const baseURL = process.env.NEXT_PUBLIC_SERVER_URL
+import { api } from ".";
 
 export const useCreateSchool = async ({ formData }: any) => {
     try {
-        console.log(baseURL);
         delete formData.logoImagePreviewStr;
         console.log(formData);
-        const data = await axios.post(`${baseURL}/auth/signup`, formData, {
+        const data = await api.post(`/auth/signup`, formData, {
             headers: { "Content-Type": "application/json" },
         });
         console.log(data);
         return { status: true, data };
-    } catch (error: AxiosResponse | any) {
+    } catch (error: any) {
         console.log(error.response);
         return { status: false, error };
     }
@@ -20,7 +17,7 @@ export const useCreateSchool = async ({ formData }: any) => {
 
 export const useSchools = async () => {
     try {
-        const data = await axios.get(`${baseURL}/auth/schoolcodes`);
+        const data = await api.get(`/auth/schoolcodes`);
         if (!data.data) return
         console.log(data.data);
         return { status: true, schools: data.data.results };
