@@ -18,9 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return <RecoilRoot>
     {/* <Provider store={store}> */}
     <DndProvider backend={HTML5Backend}>
-      <SnackbarProvider>
         <Component {...pageProps} />
-      </SnackbarProvider>
     </DndProvider>
     {/* </Provider> */}
   </RecoilRoot>
