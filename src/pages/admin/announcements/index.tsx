@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
-import Sidebar from "../../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
@@ -9,25 +8,17 @@ import * as dateFns from "date-fns";
 import { announcementsFaker } from "../../../utils/faker";
 import { useGetUserDetails } from "../../../hooks/auth";
 import { AnnouncementObject } from "../../../types/interfaces";
+import dynamic from "next/dynamic";
+
+//Dynamic imports
+const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));
+
 
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
   const [announcements, setAnnouncemnents] = useState(announcementsFaker);
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   return (
     <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
@@ -52,12 +43,11 @@ const Index = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="dashboard" />
+          <Sidebar page="educator" active="dashboard" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
         >
           <div className="w-full flex flex-col items-start my-8 justify-start  animate__animated animate__fadeInLeft">
             <span className="text-4xl heading-text mb-4 flex items-center justify-center">

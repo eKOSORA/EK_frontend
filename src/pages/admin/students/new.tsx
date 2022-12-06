@@ -9,8 +9,7 @@ import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../utils/comparer";
 import { AddStudentFormData } from "../../../types";
-import { useGetUserDetails } from "../../../hooks/auth";
-import { useNewStudent } from "../../../hooks/student";
+import { useNewStudents } from "../../../hooks/student";
 
 const NewStudent = () => {
   //Important states
@@ -23,20 +22,7 @@ const NewStudent = () => {
     parentEmails: [],
     year: 1,
   });
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   const handleAddParent = (e: any) => {
     if (e.keyCode !== 13) return;
     if (formData.parentEmails.length === 3)
@@ -74,7 +60,7 @@ const NewStudent = () => {
 
   const handleAddStudent = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    useNewStudent({formData});
+    useNewStudents({formData});
   };
 
   return (
@@ -101,7 +87,7 @@ const NewStudent = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="dashboard" />
+          <Sidebar page="educator" active="dashboard" />
         ) : null}
         <div
           className={`${

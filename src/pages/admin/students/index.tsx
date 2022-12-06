@@ -1,7 +1,5 @@
 import Head from "next/head";
 import React, {
-  ReactElement,
-  ReactEventHandler,
   useEffect,
   useState,
 } from "react";
@@ -12,8 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import {
   classes,
-  studentsDisplay,
-  userTeacher,
   years,
 } from "../../../utils/faker";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
@@ -30,7 +26,8 @@ import TablePaginationUnstyled, {
 } from "@mui/base/TablePaginationUnstyled";
 import Link from "next/link";
 import { FiTrash } from "react-icons/fi";
-import { useGetUserDetails } from "../../../hooks/auth";
+import { useStudents } from "../../../hooks/student";
+import { useDispatch, useSelector } from "react-redux";
 
 const StudentsPage = () => {
   //Important states
@@ -40,37 +37,18 @@ const StudentsPage = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
   const [studentsData, setStudentsData] = useState<any>({
     year: "year_1",
-    class: "",
+    class: "A",
     sortType: "az",
   });
 
   const [students, setStudents] = useState([]);
   const [_students, set_Students] = useState([]);
-  const [user, setUser] = useState()
-
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
-  interface State {
-    year: String;
-    class: String;
-    sortType: String;
-  }
-
-  useEffect(() => {
-    setStudents(studentsDisplay[`${studentsData.year}`]);
-    set_Students(studentsDisplay[`${studentsData.year}`]);
-    //console.log((studentsDisplay[`${studentsData.year}`]))
-  }, [studentsData.year]);
+  
+  const studentSlice = useSelector((state: any) => state.studentSlice)
+  useEffect(()=>{
+    const studentsDisplay = studentSlice.students
+    setStudents(studentsDisplay)
+  },[])
 
   const handleSearchStudents = (e: any) => {
     const query = e.target.value;
@@ -96,25 +74,16 @@ const StudentsPage = () => {
       : students.sort();
   };
 
-  const handleChangeYear = (e: any) => {
+  const handleChangeYear = async (e: any) => {
     setStudentsData({ ...studentsData, class: "", year: e.target.value });
-    setStudents(studentsDisplay[e.target.value]);
     //console.log(studentsDisplay[e.target.value])
   };
 
-  const handleChangeClass = (e: any) => {
+  const handleChangeClass = async (e: any) => {
     setStudentsData({ ...studentsData, class: e.target.value });
-    const className = e.target.value;
-    //console.log("Class Name: " + className)
-    //console.log(studentsData.year)
-    const neededStudents = studentsDisplay[studentsData.year].filter(
-      (student: { [x: string]: any }) => student["Class"] === className
-    );
-    setStudents(neededStudents);
-    //console.log(neededStudents)
   };
 
-  const handleDeleteStudent = () => {};
+  const handleDeleteStudent = () => { };
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -188,7 +157,7 @@ const StudentsPage = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - students.length) : 0;
 
   return (
-    <div  className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
+    <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
         position="bottom-center"
         autoClose={1000}
@@ -211,12 +180,11 @@ const StudentsPage = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
-          className={`${
-            sideBarActive ? "w-10/12" : "w-full"
-          } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
+          className={`${sideBarActive ? "w-10/12" : "w-full"
+            } flex flex-col items-center justify-start pt-[60px] h-fit p-10`}
         >
           <div className="w-full flex flex-row items-center justify-between">
             <div className="flex flex-col items-start justify-start w-1/2">
@@ -303,22 +271,20 @@ const StudentsPage = () => {
               </Link>
 
               <div
-                title={`${
-                  studentsData.sortType === "az"
-                    ? "Sort from Z to A"
-                    : "Sort from A to Z"
-                }`}
+                title={`${studentsData.sortType === "az"
+                  ? "Sort from Z to A"
+                  : "Sort from A to Z"
+                  }`}
                 onClick={sortStudents}
                 className="p-3 cursor-pointer rounded-full flex items-center justify-center text-[#808080] neumorphism"
               >
                 <HiSortDescending
-                  className={`${
-                    studentsData.sortType === "az"
-                      ? "rotate-180"
-                      : studentsData.sortType === "za"
+                  className={`${studentsData.sortType === "az"
+                    ? "rotate-180"
+                    : studentsData.sortType === "za"
                       ? "rotate-0"
                       : "rotate-0"
-                  }`}
+                    }`}
                   size={25}
                   color={"#808080"}
                 />
@@ -344,9 +310,9 @@ const StudentsPage = () => {
                 <tbody className="font-questrial">
                   {(rowsPerPage > 0
                     ? students.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
                     : students
                   ).map((row: any) => (
                     <tr className="even:bg-ek-blue-75/20" key={row["Code/ID"]}>

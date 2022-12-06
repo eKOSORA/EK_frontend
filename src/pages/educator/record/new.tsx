@@ -25,20 +25,7 @@ const NewRecord = () => {
     isReversed: false,
     date: "",
   });
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   const handeSubmit = (e: any) => {
     e.preventDefault();
     //console.log(formData)
@@ -78,7 +65,7 @@ const NewRecord = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="dashboard" />
+          <Sidebar page="educator" active="dashboard" />
         ) : null}
         <div
           className={`${

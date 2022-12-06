@@ -7,25 +7,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useGetUserDetails } from '../../hooks/auth'
+
 
 const StudentsMarks: NextPage = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
 
 
   const studentMarks = [
@@ -60,7 +47,7 @@ const StudentsMarks: NextPage = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={user} page='parent' active='marks' />
+            <Sidebar page='parent' active='marks' />
             :
             null
         }

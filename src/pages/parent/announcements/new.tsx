@@ -8,7 +8,7 @@ import 'animate.css'
 import { Autocomplete, Checkbox, TextField } from '@mui/material'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { useGetUserDetails } from '../../../hooks/auth'
+
 import { AddAnnouncementFormData } from '../../../types'
 import { MeantForInterface } from '../../../types/interfaces'
 
@@ -28,19 +28,6 @@ const NewStudent = () => {
         console.log(formData)
     }
 
-    const getUser = async () => {
-        try {
-            const user = await useGetUserDetails()
-            if (!user.status) return
-            setUser(user.data?.data.user)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        getUser()
-    }, [])
     return (
         <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
             <ToastContainer
@@ -64,7 +51,7 @@ const NewStudent = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={user} page='educator' active='dashboard' />
+                        <Sidebar page='educator' active='dashboard' />
                         :
                         null
                 }

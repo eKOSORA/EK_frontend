@@ -1,19 +1,19 @@
 import Head from "next/head";
 import React, { FormEvent, useEffect, useState } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
-import Sidebar from "../../../components/Dashboard/Sidebar";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import { Checkbox, TextField } from "@mui/material";
-import { IoMdClose } from "react-icons/io";
-import { ValidateEmail } from "../../../utils/comparer";
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { AddAnnouncementFormData } from "../../../types";
 import { useGetUserDetails } from "../../../hooks/auth";
 import { MeantForInterface } from "../../../types/interfaces";
+import dynamic from "next/dynamic";
+
+const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));
 
 const NewStudent = () => {
   //Important states
@@ -23,20 +23,7 @@ const NewStudent = () => {
     content: "",
     createdFor: [],
   });
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   const handleCreateAnnouncement = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formData);
@@ -66,7 +53,7 @@ const NewStudent = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="dashboard" />
+          <Sidebar page="educator" active="dashboard" />
         ) : null}
         <div
           className={`${

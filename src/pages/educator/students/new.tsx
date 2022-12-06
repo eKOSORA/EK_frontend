@@ -14,7 +14,6 @@ import { useGetUserDetails } from "../../../hooks/auth";
 const NewStudent = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [user, setUser] = useState()
   const [formData, setFormData] = useState<AddStudentFormData>({
     name: "",
     code: "",
@@ -23,16 +22,6 @@ const NewStudent = () => {
     parentEmails: [],
     year: 1,
   });
-
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleAddParent = (e: any) => {
     if (e.keyCode !== 13) return;
@@ -98,7 +87,7 @@ const NewStudent = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="dashboard" />
+          <Sidebar page="educator" active="dashboard" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

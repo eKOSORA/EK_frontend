@@ -12,33 +12,17 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { AddAnnouncementFormData } from '../../../types'
-import { useGetUserDetails } from '../../../hooks/auth'
+
 import { MeantForInterface } from '../../../types/interfaces'
 
 const NewStudent = () => {
     //Important states
     const [sideBarActive, setSideBarActive] = useState(false)
-    const [user, setUser] = useState()
     const [formData, setFormData] = useState<AddAnnouncementFormData>({
         heading: '',
         content: '',
         createdFor: []
     })
-
-    const getUser = async () => {
-        try {
-            const user = await useGetUserDetails()
-            if (!user.status) return
-            setUser(user.data?.data.user)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        getUser()
-    }, [])
-
 
     const handleCreateAnnouncement = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -68,7 +52,7 @@ const NewStudent = () => {
                 {
                     sideBarActive
                         ?
-                        <Sidebar user={user} page='educator' active='dashboard' />
+                        <Sidebar page='educator' active='dashboard' />
                         :
                         null
                 }

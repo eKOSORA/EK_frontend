@@ -10,7 +10,6 @@ import { useGetUserDetails } from "../../hooks/auth";
 
 const Settings = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [user, setUser] = useState()
   const [formData, setFormData] = useState({
     editMode: false,
     password: "password@gmail.com",
@@ -32,15 +31,6 @@ const Settings = () => {
     password: boolean;
   }
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   const handleChange = (prop: keyof State) => (event: any) => {
     setFormData({ ...formData, [prop]: event.target.value });
   };
@@ -62,9 +52,6 @@ const Settings = () => {
     e.preventDefault();
     setFormData({ ...formData, editMode: !formData.editMode });
   };
-  useEffect(() => {
-    getUser()
-  }, [])
 
   return (
     <div className="bg-[#f0f0f0] min-h-screen">
@@ -90,7 +77,7 @@ const Settings = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="settings" />
+          <Sidebar page="educator" active="settings" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

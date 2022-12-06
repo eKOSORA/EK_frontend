@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { FormEvent, useEffect, useState } from "react";
 import { Navbar } from "../../../../components/Dashboard/Navbar";
-import Sidebar from "../../../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
@@ -11,6 +10,9 @@ import { IoMdClose } from "react-icons/io";
 import { EducatorObject } from "../../../../types/educator";
 import { AllEducatorsDisplay } from "../../../../utils/faker";
 import { useGetUserDetails } from "../../../../hooks/auth";
+import dynamic from "next/dynamic";
+
+const Sidebar = dynamic(() => import("../../../../components/Dashboard/Sidebar"));
 
 const Index = () => {
   //Important states
@@ -27,20 +29,7 @@ const Index = () => {
     lessons: [],
     telephone: "",
   });
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
 
   useEffect(() => {
     const educator = AllEducatorsDisplay.filter(
@@ -92,7 +81,7 @@ const Index = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="educators" />
+          <Sidebar page="educator" active="educators" />
         ) : null}
         <div
           className={`${

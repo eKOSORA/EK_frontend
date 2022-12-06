@@ -17,6 +17,7 @@ import { faker } from "@faker-js/faker";
 import "animate.css";
 import { useGetUserDetails } from "../../hooks/auth";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 ChartJS.register(
   CategoryScale,
@@ -61,12 +62,10 @@ export const data = {
 const Dashboard = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
   const [user, setUser] = useState()
-
+  const userSlice = useSelector((state: any) => state.userSlice);
   const getUser = async () => {
     try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
+      setUser(userSlice.user)
     } catch (error) {
       console.log(error)
     }
@@ -87,7 +86,7 @@ const Dashboard = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="dashboard" />
+          <Sidebar page="educator" active="dashboard" />
         ) : null}
         <div
           className={`${

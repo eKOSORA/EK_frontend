@@ -20,26 +20,10 @@ import { IUploadStudentsInterface } from "../../../types";
 
 const StudentsUpload = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [user, setUser] = useState()
   const [step, setStep] = useState(1);
   const [loadingPercentage, setLoadingPercentage] =
     useRecoilState<number>(loaderState);
   const [fileData, setFileData] = useRecoilState<FileData | any>(fileDataState);
-
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
-  useEffect(() => {
-    window.addEventListener("keydown", checkKeyPress);
-    getUser()
-  }, []);
 
 
   function checkKeyPress(key: any) {
@@ -127,7 +111,7 @@ const StudentsUpload = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

@@ -218,3 +218,32 @@ th {
   padding: 2px 0;
   cursor: pointer;
 }
+
+@keyframes loading {
+0%{
+  background-color: rgba(128, 128, 128, 0.100);
+}
+20%{
+  background-color: rgba(128, 128, 128, 0.150);
+}
+
+40%{
+  background-color: rgba(128, 128, 128, 0.200);
+}
+
+60%{
+  background-color: rgba(128, 128, 128, 0.250);
+}
+
+80%{
+  background-color: rgba(128, 128, 128, 0.300);
+}
+
+100%{
+  background-color: rgba(128, 128, 128, 0.350);
+}
+ 
+}
+
+.loaders{
+  animation: loading .8s linear 1s infinite alternate;}

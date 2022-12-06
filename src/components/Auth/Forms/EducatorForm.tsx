@@ -17,9 +17,13 @@ import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSchools } from "../../../hooks/school";
 import { useLogin } from "../../../hooks/auth";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/slices/userSlice";
 
 const EducatorForm: NextComponentType = () => {
+
   const router = useRouter();
+  const dispatch = useDispatch()
   const handleSubmit = async (e: any) => {
     // setSubmitLoader(true);
     e.preventDefault();
@@ -37,7 +41,8 @@ const EducatorForm: NextComponentType = () => {
         theme: "colored",
       })
     } else {
-      // data.isAdmin ? router.push("/admin") : router.push("/educator")
+      dispatch(login(data.user))
+      data.isAdmin ? router.push("/admin") : router.push("/educator")
     }
   };
 

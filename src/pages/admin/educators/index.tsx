@@ -4,7 +4,6 @@ import React, {
   useState,
 } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
-import Sidebar from "../../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
@@ -27,6 +26,9 @@ import { FiTrash } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { EducatorObject } from "../../../types/educator";
 import { useGetUserDetails } from "../../../hooks/auth";
+import dynamic from "next/dynamic";
+
+const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));
 
 const AllEducators = () => {
   //Important states
@@ -42,20 +44,7 @@ const AllEducators = () => {
   
   const [educators, setEducators] = useState<EducatorObject[]>([]);
   const [_educators, set_Educators] = useState<EducatorObject[]>([]);
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
 
   interface State {
     year: String;
@@ -192,7 +181,7 @@ const AllEducators = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="educators" />
+          <Sidebar page="educator" active="educators" />
         ) : null}
         <div
           className={`${

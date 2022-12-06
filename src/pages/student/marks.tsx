@@ -6,25 +6,12 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import { useRouter } from 'next/router'
-import { useGetUserDetails } from '../../hooks/auth'
+
 
 const StudentsMarks = () => {
   //Important states
   const [sideBarActive, setSideBarActive]  = useState(false)
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
 
   const studentMarks = [
     { name: 'Maths Quiz', subject: 'Maths', initial: 'MTC', marks: 90, max: 100, date: 'Tue May 24 2022' },
@@ -58,7 +45,7 @@ const StudentsMarks = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={user} page='student' active='marks' />
+            <Sidebar page='student' active='marks' />
             :
             null
         }

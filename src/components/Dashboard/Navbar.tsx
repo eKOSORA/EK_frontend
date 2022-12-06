@@ -4,12 +4,16 @@ import React from 'react'
 import { BiMenu } from 'react-icons/bi'
 import { IoLogOutOutline } from 'react-icons/io5'
 import { IoMdClose } from 'react-icons/io'
-import { useLogout } from '../../hooks/auth'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../redux/slices/userSlice'
+import { useRouter } from 'next/router'
 
 export const Navbar = (props: any) => {
-  const HandleLogout = async () => {
-    const data = await useLogout()
-    //console.log(data)
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const logoutUser = () => {
+    router.push('/auth/login')
+    dispatch(logout())
   }
   return (
     <div className='fixed z-10 w-screen h-[60px] py-[20px] px-[10px] sm:px-[40px] bg-ek-blue-50 flex items-center justify-between'>
@@ -33,10 +37,10 @@ export const Navbar = (props: any) => {
       </div>
       <span className='hidden mmsm:flex heading-text text-white text-3xl'>{props.page}</span>
       <div className='flex items-center justify-center'>
-        <Link className='login-button ' href={'/auth/login'}><button onClick={HandleLogout} className='btn hidden md:flex login-button hover:grayscale-[50%] text-center items-center justify-center button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG OUT</button></Link>
-        <Link className='login-button' href={'/auth/login'}><IoLogOutOutline onClick={HandleLogout} className='btn flex md:hidden text-white' size={38} /></Link>
+        <Link className='login-button ' href={'/auth/login'}><button onClick={logoutUser} className='btn hidden md:flex login-button hover:grayscale-[50%] text-center items-center justify-center button-text bg-[#4CA7CE] text-white py-[12px] px-[38px] w-[150px] rounded-[2px] text-sm hover:bg-ek-blue-200' style={{ boxShadow: '0px 0px 10px 10px rgb(0 0 0 / 10%)' }}>LOG OUT</button></Link>
+        <Link className='login-button' href={'/auth/login'}><IoLogOutOutline onClick={logoutUser} className='btn flex md:hidden text-white' size={38} /></Link>
       </div>
-    </div>
+    </div >
   )
 }
 

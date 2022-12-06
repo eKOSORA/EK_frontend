@@ -1,9 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { SnackbarProvider } from 'notistack'
 import { RecoilRoot } from 'recoil'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useEffect } from 'react'
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from 'react-redux'
@@ -16,11 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   return <RecoilRoot>
-    {/* <Provider store={store}> */}
-    <DndProvider backend={HTML5Backend}>
-        <Component {...pageProps} />
-    </DndProvider>
-    {/* </Provider> */}
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
   </RecoilRoot>
 }
 

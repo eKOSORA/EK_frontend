@@ -27,28 +27,28 @@ export const useLogin = async ({ formData }: any) => {
     console.log(formData)
     const data = await api.post(`/auth/login`, formData);
     if (data.data.code !== "#Success") return { status: false, data, message: data.data.message }
-    return { status: true,isAdmin:data.data.isAdmin, data };
+    return { status: true, isAdmin: data.data.isAdmin, user:data.data.user };
   } catch (error: any) {
     console.log(error)
     return { status: false, message: error.response.data.message };
   }
 }
 
-export const useGetUserDetails = async()=>{
+export const useGetUserDetails = async () => {
   try {
-    const data = await api.post(`/auth/login`);
-    return { status: true,isAdmin:data.data.isAdmin, data }
-  } catch (error:any) {
+    const data = await api.post(`/`);
+    return { status: true, isAdmin: data.data.isAdmin, data }
+  } catch (error: any) {
     console.log(error)
     return { status: false, message: error.response.data.message };
   }
 }
 
-export const useLogout = async()=>{
+export const useLogout = async () => {
   try {
     const data = await api.get(`/auth/logout`);
     return data;
-  } catch (error:any) {
+  } catch (error: any) {
     console.log(error)
     return { status: false, message: error.response.data.message };
   }

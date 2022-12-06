@@ -14,17 +14,7 @@ import { useGetUserDetails } from "../../../../hooks/auth";
 const Index = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }  
   const router = useRouter();
   const { studentID } = router.query;
 
@@ -101,7 +91,7 @@ const Index = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${

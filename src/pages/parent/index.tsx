@@ -17,27 +17,12 @@ import {
   Legend,
 } from 'chart.js';
 import { faker } from '@faker-js/faker'
-import { useGetUserDetails } from '../../hooks/auth'
+
 import Link from 'next/link'
 
 const ParentDashboard = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
-  const [user, setUser] = useState()
-
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getUser()
-  }, [])
 
   ChartJS.register(
     CategoryScale,
@@ -103,7 +88,7 @@ const ParentDashboard = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={user} page='parent' active='dashboard' />
+            <Sidebar page='parent' active='dashboard' />
             :
             null
         }

@@ -1,11 +1,12 @@
 import { api } from ".";
 
-export const useStudents = async ({ year, className, schoolId }: any) => {
+export const useStudents = async () => {
     try {
         const data = await api.get(
-            `/student/getAll?year=${year}&class=${className}`
+            `/student/getAll`
         );
-        return { status: true, data };
+        console.log(data)
+        return { status: true, students:data.data.students };
     } catch (error) {
         console.log(error);
         return { status: false, error }
@@ -14,7 +15,7 @@ export const useStudents = async ({ year, className, schoolId }: any) => {
 
 export const useNewStudents = async ({ studentData }: any) => {
     try {
-        const data = await api.post(`/student/add`, {students:[...studentData]}, { withCredentials: true });
+        const data = await api.post(`/student/add`, {students:[...studentData]});
         console.log(studentData)
         return { status: true, data };
     } catch (error) {

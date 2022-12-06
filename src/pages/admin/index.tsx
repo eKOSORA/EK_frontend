@@ -5,23 +5,26 @@ import Sidebar from "../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "animate.css";
 import { useGetUserDetails } from "../../hooks/auth";
+import { useStudents } from "../../hooks/student";
 const Index = () => {
-  //Important states
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
+  const getStudents = async () => {
     try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
+      const fetchedStudents = await useStudents()
+      console.log(fetchedStudents)
+     
+
     } catch (error) {
       console.log(error)
+      return error
     }
   }
+
   useEffect(() => {
-    getUser()
-  }, [])
+    getStudents()
+  }, []);
+
   return (
     <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       <ToastContainer
@@ -46,7 +49,7 @@ const Index = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="admin" active="dashboard" />
+          <Sidebar page="admin" active="dashboard" />
         ) : null}
         <div
           className={`${

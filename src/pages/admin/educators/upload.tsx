@@ -1,22 +1,24 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "../../../components/Dashboard/Navbar";
-import Sidebar from "../../../components/Dashboard/Sidebar";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import { BiCog, BiInfoCircle } from "react-icons/bi";
 import Image from "next/image";
-import StudentUploadTablePreview from "../../../components/Dashboard/UploadingViews/StudentUploadTablePreview";
 import _ from "lodash";
 import { previewUploadedFile } from "../../../functions/files";
 import Dropzone from "react-dropzone";
 import { useRecoilState } from "recoil";
 import { loaderState } from "../../../components/states/loader";
-import { EducatorFileData, FileData } from "../../../types/interfaces";
-import { useGetUserDetails } from "../../../hooks/auth";
+import { EducatorFileData } from "../../../types/interfaces";
 import EducatorUploadTablePreview from "../../../components/Dashboard/UploadingViews/EducatorUploadTablePreview";
 import { fileDataState } from "../../../components/states/sheets";
+import dynamic from "next/dynamic";
+import { useSelector } from "react-redux";
+
+const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));
+
 
 const EducatorUpload = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -27,11 +29,10 @@ const EducatorUpload = () => {
   const [fileData, setFileData] = useRecoilState<EducatorFileData | any>(fileDataState);
   const [user, setUser] = useState()
 
+  const userSlice = useSelector((state: any) => state.userSlice);
   const getUser = async () => {
     try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
+      setUser(userSlice.user)
     } catch (error) {
       console.log(error)
     }
@@ -119,7 +120,7 @@ const EducatorUpload = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

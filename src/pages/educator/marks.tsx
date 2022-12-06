@@ -18,6 +18,7 @@ import Link from "next/link";
 import { GoAlert, GoSearch } from "react-icons/go";
 import { useRouter } from "next/router";
 import { useGetUserDetails } from "../../hooks/auth";
+import { useSelector } from "react-redux";
 
 const Marks = () => {
   //Important states
@@ -43,12 +44,10 @@ const Marks = () => {
     average: 0,
     maxAverage: 0,
   });
-
+  const userSlice = useSelector((state: any) => state.userSlice);
   const getUser = async () => {
     try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
+      setUser(userSlice.user)
     } catch (error) {
       console.log(error)
     }
@@ -286,7 +285,7 @@ const Marks = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="marks" />
+          <Sidebar page="educator" active="marks" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

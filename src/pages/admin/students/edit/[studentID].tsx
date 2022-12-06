@@ -16,20 +16,7 @@ const Index = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
   const router = useRouter();
   const { studentID } = router.query;
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   const [formData, setFormData] = useState({
     name: "",
     code: "",
@@ -103,7 +90,7 @@ const Index = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

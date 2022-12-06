@@ -79,13 +79,24 @@ function StudentUploadTablePreview(props: any) {
     console.log(sheets);
     console.log(students);
     const newArray = [];
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < students[i].length; j++) {
-        const dummyObj = { ...students[i][j] }
+    for (let i = 0; i < students.length; i++) {
+        const dummyObj = { ...students[i] }
         const newObj = renameObject(dummyObj)
         console.log(newObj);
+        newObj.names = newObj.firstName+" " + newObj.lastName
+        newObj.names = newObj.firstName+" " + newObj.lastName
+        const className = {
+          _year:newObj.year,
+          _class:newObj.class,
+        }
+
+        delete newObj.firstName
+        delete newObj.lastName
+        delete newObj.year
+        delete newObj.class
+        newObj.class = className
+        
         newArray.push(newObj);
-      }
     }
     addStudentsToDatabase(newArray)
   };

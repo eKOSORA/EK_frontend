@@ -32,7 +32,6 @@ const AllStudents = () => {
   //Important states
 
   const [page, setPage] = React.useState(0);
-  const [user, setUser] = useState()
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
   const [studentsData, setStudentsData] = useState<any>({
@@ -44,24 +43,7 @@ const AllStudents = () => {
   const [students, setStudents] = useState([]);
   const [_students, set_Students] = useState([]);
 
-  interface State {
-    year: String;
-    class: String;
-    sortType: String;
-  }
-
-
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   useEffect(() => {
-    getUser
     setStudents(AllStudentsDisplay.sort());
     set_Students(AllStudentsDisplay.sort());
     //console.log(AllStudentsDisplay.sort())
@@ -190,7 +172,7 @@ const AllStudents = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

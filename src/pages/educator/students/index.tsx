@@ -35,7 +35,6 @@ const StudentsPage = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sideBarActive, setSideBarActive] = useState(false);
-  const [user, setUser] = useState()
   const [studentsData, setStudentsData] = useState<any>({
     year: "year_1",
     class: "",
@@ -45,24 +44,6 @@ const StudentsPage = () => {
   const [students, setStudents] = useState([]);
   const [_students, set_Students] = useState([]);
 
-  interface State {
-    year: String;
-    class: String;
-    sortType: String;
-  }
-
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   useEffect(() => {
     setStudents(studentsDisplay[`${studentsData.year}`]);
     set_Students(studentsDisplay[`${studentsData.year}`]);
@@ -208,7 +189,7 @@ const StudentsPage = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar user={user} page="educator" active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${sideBarActive ? "w-10/12" : "w-full"

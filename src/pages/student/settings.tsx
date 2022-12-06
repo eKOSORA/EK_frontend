@@ -7,26 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'
 import Image from 'next/image'
 import { TextField } from '@mui/material'
-import { useGetUserDetails } from '../../hooks/auth'
+
 
 
 const StudentsSettings = () => {
   //Important states
   const [sideBarActive, setSideBarActive] = useState(false)
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
 
   const [formData, setFormData] = useState({
     editMode: false,
@@ -92,7 +79,7 @@ const StudentsSettings = () => {
         {
           sideBarActive
             ?
-            <Sidebar user={user} page='student' active='settings' />
+            <Sidebar page='student' active='settings' />
             :
             null
         }

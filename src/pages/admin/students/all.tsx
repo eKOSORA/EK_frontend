@@ -48,31 +48,12 @@ const AllStudents = () => {
 
   const [students, setStudents] = useState([]);
   const [_students, set_Students] = useState([]);
-  const [user, setUser] = useState()
 
-  const getUser = async () => {
-    try {
-      const user = await useGetUserDetails()
-      if (!user.status) return
-      setUser(user.data?.data.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
   interface State {
     year: String;
     class: String;
     sortType: String;
   }
-
-  useEffect(() => {
-    setStudents(AllStudentsDisplay.sort());
-    set_Students(AllStudentsDisplay.sort());
-    //console.log(AllStudentsDisplay.sort())
-  }, []);
 
   const handleSearchStudents = (e: any) => {
     const query = e.target.value;
@@ -197,7 +178,7 @@ const AllStudents = () => {
       />
       <div className="w-full flex h-full items-start justify-start">
         {sideBarActive ? (
-          <Sidebar page="educator" user={user} active="students" />
+          <Sidebar page="educator" active="students" />
         ) : null}
         <div
           className={`${
