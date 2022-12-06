@@ -11,7 +11,7 @@ export const useCreateSchool = async ({ formData }: any) => {
         return { status: true, data };
     } catch (error: any) {
         console.log(error.response);
-        return { status: false, error };
+        return { status: false, error,message:error.message };
     }
 }
 

@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { useCreateSchool } from "../../hooks/school";
 import { AxiosResponse } from "axios";
 import { CreateSchoolFormDataState } from "../../types/school";
+import { BiCrop } from "react-icons/bi";
 
 const Signup: NextPage = () => {
   const [submitLoader, setSubmitLoader] = useState(false);
@@ -100,6 +101,7 @@ const Signup: NextPage = () => {
       setFormData({ ...formData, imageUrl })
     }
     const data = await useCreateSchool({ formData });
+    console.log(data)
     if (data.status) return router.push('/auth/login')
     toast.error((data.data as AxiosResponse)?.data.message, {
       position: "bottom-center",
@@ -570,7 +572,7 @@ const Signup: NextPage = () => {
                   {formData.previewImage ? (
                     <div className="relative w-full flex items-center justify-around h-full">
                       <div className="absolute top-2 right-2 flex items-center justify-center flex-row z-[1]">
-                        {/* <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(true)} type="button" title={"Crop Image"}><BiCrop /></button> */}
+                        <button className={`p-2 bg-ek-blue-75 flex text-white mx-2 cursor-pointer items-center justify-center  rounded my-2 text-lg submitButton`} onClick={() => setCropMode(true)} type="button" title={"Crop Image"}><BiCrop /></button>
                         <label
                           htmlFor="logoImage"
                           className={`text-center flex items-center justify-center p-2 bg-ek-blue-75 text-white mx-2 cursor-pointer  rounded my-2 text-lg submitButton`}

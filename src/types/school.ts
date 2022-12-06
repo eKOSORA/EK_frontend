@@ -6,28 +6,28 @@ export interface CreateSchoolFormDataState {
     address: AddressObject;
     head: string;
     moto: string;
-    admin:AdminObject
-imageUrl:string
+    admin: AdminObject
+    imageUrl: string
     previewURL: string | null;
     name: string;
     activeButton: boolean;
-    previewImage:boolean
+    previewImage: boolean
 }
 
-export interface AdminObject{
-    names:string,
-    code:string,
-    email:string,
-    tel:string,
-    password:string
-    showPassword:boolean
+export interface AdminObject {
+    names: string,
+    code: string,
+    email: string,
+    tel: string,
+    password: string
+    showPassword: boolean
 
 }
 
-export interface AddressObject{
-    province:string,
-    district:string,
-    sector:string,
-    cell:string,
-    village:string,
+export interface AddressObject {
+    province: string,
+    district: string,
+    sector: string,
+    cell: string,
+    village: string,
 }
