@@ -32,7 +32,7 @@ import Link from "next/link";
 import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
 import { useRouter } from "next/router";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const AllStudents = () => {
   //Important states

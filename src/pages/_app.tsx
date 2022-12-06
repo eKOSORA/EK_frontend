@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     console.log('%c Welcome to eKOSORA console!!', 'color:#3f7cac;font-weight:bold; font-size:25px;');
+    
   }, [])
 
   return <RecoilRoot>

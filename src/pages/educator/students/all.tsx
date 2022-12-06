@@ -26,7 +26,7 @@ import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const AllStudents = () => {
   //Important states

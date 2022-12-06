@@ -14,7 +14,7 @@ import { fileDataState } from "../../../components/states/sheets";
 import { loaderState } from "../../../components/states/loader";
 import { previewUploadedFile } from "../../../functions/files";
 import { FileData } from "../../../types/interfaces";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 import Dropzone from "react-dropzone";
 import userSlice from "../../../redux/slices/userSlice";
 import { useSelector } from "react-redux";

@@ -16,7 +16,7 @@ import swal from "sweetalert";
 import Link from "next/link";
 import { AiFillCalendar } from "react-icons/ai";
 import { TimeTableViewObject } from "../../../types/timetables";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const Index = () => {
   //Important states

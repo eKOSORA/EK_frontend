@@ -18,7 +18,7 @@ const Index = () => {
   const { studentID } = router.query;
 
   const [formData, setFormData] = useState({
-    name: "",
+    names: "",
     code: "",
     class: "",
     email: "",
@@ -106,7 +106,7 @@ const Index = () => {
             >
               <TextField
                 onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
+                  setFormData({ ...formData, names: e.target.value })
                 }
                 focused={true}
                 className="my-2 w-full bg-ek-blue-50/10 font-questrial"

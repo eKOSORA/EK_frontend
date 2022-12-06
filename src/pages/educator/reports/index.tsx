@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Minimal from "../../../components/templates/reports/Minimal";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 import { UserObject } from "../../../types/user";
 
 const Reports = () => {

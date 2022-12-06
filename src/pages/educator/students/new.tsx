@@ -9,7 +9,7 @@ import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../utils/comparer";
 import { AddStudentFormData } from "../../../types";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const NewStudent = () => {
   //Important states

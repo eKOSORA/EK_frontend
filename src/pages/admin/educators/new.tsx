@@ -8,7 +8,7 @@ import { TextField } from "@mui/material";
 import { IoMdClose } from "react-icons/io";
 import { ValidateEmail } from "../../../utils/comparer";
 import { AddEducatorInterface } from "../../../types/educator";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 import dynamic from "next/dynamic";
 
 const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));

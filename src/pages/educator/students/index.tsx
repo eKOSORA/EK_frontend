@@ -27,7 +27,7 @@ import TablePaginationUnstyled, {
 } from "@mui/base/TablePaginationUnstyled";
 import Link from "next/link";
 import { FiTrash } from "react-icons/fi";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const StudentsPage = () => {
   //Important states

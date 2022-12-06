@@ -25,7 +25,6 @@ import { TiMediaPlayReverse } from "react-icons/ti";
 import { FiTrash } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { EducatorObject } from "../../../types/educator";
-import { useGetUserDetails } from "../../../hooks/auth";
 import dynamic from "next/dynamic";
 
 const Sidebar = dynamic(() => import("../../../components/Dashboard/Sidebar"));

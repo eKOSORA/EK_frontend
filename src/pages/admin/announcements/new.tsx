@@ -9,7 +9,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { AddAnnouncementFormData } from "../../../types";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 import { MeantForInterface } from "../../../types/interfaces";
 import dynamic from "next/dynamic";
 

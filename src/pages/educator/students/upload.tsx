@@ -14,7 +14,7 @@ import { useRecoilState } from "recoil";
 import { fileDataState } from "../../../components/states/sheets";
 import { loaderState } from "../../../components/states/loader";
 import { previewUploadedFile } from "../../../functions/files";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 import { FileData } from "../../../types/interfaces";
 import { IUploadStudentsInterface } from "../../../types";
 

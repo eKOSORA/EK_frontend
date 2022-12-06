@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import * as dateFns from "date-fns";
 import { announcementsFaker } from "../../../utils/faker";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 import { AnnouncementObject } from "../../../types/interfaces";
 import dynamic from "next/dynamic";
 

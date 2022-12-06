@@ -5,7 +5,7 @@ import Sidebar from "../../../components/Dashboard/Sidebar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const Index = () => {
   //Important states

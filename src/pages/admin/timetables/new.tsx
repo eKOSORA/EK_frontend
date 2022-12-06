@@ -21,7 +21,7 @@ import jsPDF from "jspdf";
 import Image from "next/image";
 import * as dateFns from "date-fns";
 import { EditModeObject, HourObject, LessonInTimeTableObject, LessonObject, TimeTableObject } from "../../../types/timetables";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 const NewTimeTable = () => {
   //Important states

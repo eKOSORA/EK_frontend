@@ -12,7 +12,7 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { courses } from "../../../utils/marks";
-import { useGetUserDetails } from "../../../hooks/auth";
+
 
 
 const NewRecord = () => {
