@@ -1,0 +1,40 @@
+
+> ekosora@0.1.0 build
+> next build
+
+info  - Loaded env from /home/mprecieux/Documents/Precieux/myprojects/EKOSORA/EK_frontend/.env.local
+info  - SWC minify release candidate enabled. https://nextjs.link/swcmin
+info  - Linting and checking validity of types...
+
+Failed to compile.
+
+./src/components/Auth/Forms/EducatorForm.tsx
+30:24  Error: React Hook "useLogin" is called in function "handleSubmit" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+92:27  Error: React Hook "useSchools" is called in function "mapSchools" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+111:6  Warning: React Hook useEffect has a missing dependency: 'mapSchools'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/components/Dashboard/UploadingViews/EducatorUploadTablePreview.tsx
+140:26  Error: React Hook "useAddEducator" is called in function "addEducatorsToDatabase" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+
+./src/components/Dashboard/UploadingViews/StudentUploadTablePreview.tsx
+149:22  Error: React Hook "useNewStudents" is called in function "addStudentsToDatabase" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+
+./src/pages/admin/educators/upload.tsx
+44:6  Warning: React Hook useEffect has a missing dependency: 'getUser'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/pages/admin/index.tsx
+14:37  Error: React Hook "useStudents" is called in function "getStudents" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+
+./src/pages/admin/settings.tsx
+47:8  Warning: React Hook useEffect has a missing dependency: 'getUser'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/pages/admin/students/index.tsx
+51:5  Warning: React Hook useEffect has a missing dependency: 'studentSlice.students'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+
+./src/pages/admin/students/new.tsx
+63:5  Error: React Hook "useNewStudents" is called in function "handleAddStudent" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+
+./src/pages/auth/signup.tsx
+103:24  Error: React Hook "useCreateSchool" is called in function "handleSubmit" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".  react-hooks/rules-of-hooks
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
