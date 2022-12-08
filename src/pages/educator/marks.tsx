@@ -44,14 +44,6 @@ const Marks = () => {
     average: 0,
     maxAverage: 0,
   });
-  const userSlice = useSelector((state: any) => state.userSlice);
-  const getUser = async () => {
-    try {
-      setUser(userSlice.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   const handleChange = (prop: keyof State) => (event: any) => {
     setMarksData({ ...marksData, [prop]: event.target.value });
   };
@@ -153,9 +145,10 @@ const Marks = () => {
     calculateAverage(studentMarks);
   }, [studentMarks]);
 
+  const userSlice = useSelector((state: any) => state.userSlice);
   useEffect(() => {
-    getUser()
-  }, [])
+    setUser(userSlice.user)
+  }, [userSlice.user])
   return (
     <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
       {editAsMode === "group" ? (

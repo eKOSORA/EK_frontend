@@ -63,16 +63,9 @@ const Dashboard = () => {
   const [sideBarActive, setSideBarActive] = useState(false);
   const [user, setUser] = useState()
   const userSlice = useSelector((state: any) => state.userSlice);
-  const getUser = async () => {
-    try {
-      setUser(userSlice.user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   useEffect(() => {
-  getUser()
-  }, [])
+    setUser(userSlice.user)
+  }, [userSlice.user])
   
   return (
     <div className="text-black bg-[#f0f0f0] ">
