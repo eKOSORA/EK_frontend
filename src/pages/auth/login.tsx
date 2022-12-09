@@ -1,18 +1,25 @@
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 const EducatorForm = dynamic(() => import("../../components/Auth/Forms/EducatorForm"));
 const ParentForm = dynamic(() => import("../../components/Auth/Forms/ParentForm"));
-const StudentForm = dynamic(()=> import("../../components/Auth/Forms/StudentForm"));
+const StudentForm = dynamic(() => import("../../components/Auth/Forms/StudentForm"));
 import { Navbar } from "../../components/Auth/Navbar";
+import Loader from "../../components/loaders/Loader";
 
 const Login: NextPage = () => {
   const [active, setActive] = useState("parent");
-
+  const [loading, setLoading] = useState(false);
+  const [text, setText] = useState("")
   return (
-    <div className="text-black bg-[#f0f0f0]  w-screen h-screen flex flex-col items-center justify-start">
+    <div className="text-black bg-[#f0f0f0] relative w-screen h-screen flex flex-col items-center justify-start">
+      {
+        loading ?
+          <Loader text={text} />
+          :
+          null
+      }
       <Head>
         <title>Login | eKOSORA</title>
       </Head>
@@ -27,8 +34,8 @@ const Login: NextPage = () => {
                   setActive("parent");
                 }}
                 className={` duration-100 login-options cursor-pointer px-1 msm:w-32 sm:w-48 md:w-72 h-12 msm:h-16 m-2 ${active === "parent"
-                    ? "border-2 border-ek-blue"
-                    : "hover:scale-105"
+                  ? "border-2 border-ek-blue"
+                  : "hover:scale-105"
                   }  text-ek-blue font-medium bg-ek-blue/10 heading-text rounded text-xl text-center flex items-center justify-center`}
               >
                 <span>Parent</span>
@@ -38,8 +45,8 @@ const Login: NextPage = () => {
                   setActive("educator");
                 }}
                 className={` duration-100 login-options cursor-pointer px-1 msm:w-32 sm:w-48 md:w-72 h-12 msm:h-16 m-2 ${active === "educator"
-                    ? "border-2 border-ek-blue"
-                    : "hover:scale-105"
+                  ? "border-2 border-ek-blue"
+                  : "hover:scale-105"
                   }  text-ek-blue font-medium bg-ek-blue/10 heading-text rounded text-xl text-center flex items-center justify-center`}
               >
                 <span>Educator</span>
@@ -49,8 +56,8 @@ const Login: NextPage = () => {
                   setActive("student");
                 }}
                 className={`duration-100 login-options cursor-pointer px-1 msm:w-32 sm:w-48 md:w-72 h-12 msm:h-16 m-2 ${active === "student"
-                    ? "border-2 border-ek-blue"
-                    : "hover:scale-105"
+                  ? "border-2 border-ek-blue"
+                  : "hover:scale-105"
                   }  text-ek-blue font-medium bg-ek-blue/10 heading-text rounded text-xl text-center flex items-center justify-center`}
               >
                 <span>Student</span>
@@ -58,13 +65,13 @@ const Login: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="animate__animated animate__fadeInRightBig flex w-full sm:w-8/12 md:w-7/12 xl:w-5/12 items-center justify-center h-full">
+        <div className="animate__animated animate__fadeInRightBig flex  w-full sm:w-8/12 md:w-7/12 xl:w-5/12 items-center justify-center h-full">
           {active === "parent" ? (
             <ParentForm />
           ) : active === "student" ? (
             <StudentForm />
           ) : (
-            <EducatorForm />
+            <EducatorForm loading={loading} setLoading={setLoading} text={text} setText={setText} />
           )}
         </div>
       </div>

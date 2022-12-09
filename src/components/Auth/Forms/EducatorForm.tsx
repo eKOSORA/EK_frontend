@@ -1,7 +1,6 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Autocomplete,
-  CircularProgress,
   FormControl,
   IconButton,
   InputAdornment,
@@ -9,7 +8,6 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import { NextComponentType } from "next";
 import React, { useEffect, useState } from "react";
 import "animate.css";
 import { LoginSchoolType } from "../../../types";
@@ -20,12 +18,28 @@ import { useLogin } from "../../../hooks/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../../../redux/slices/userSlice";
 
-const EducatorForm: NextComponentType = () => {
+interface Props {
+  loading: boolean
+  setLoading: Function
+  text: string,
+  setText: Function
+}
 
+const EducatorForm: React.FC<Props> = ({ loading, setLoading, text, setText }) => {
+
+  const [formData, setFormData] = useState({
+    accountType: "educator",
+    emailorcode: "",
+    school: "",
+    password: "",
+    showPassword: false,
+  });
+  const [schools, setSchools] = useState<LoginSchoolType[]>([])
   const router = useRouter();
   const dispatch = useDispatch()
   const handleSubmit = async (e: any) => {
-    // setSubmitLoader(true);
+    setText("Wait while we log you in...")
+    setLoading(true)
     e.preventDefault();
     const data = await useLogin({ formData });
     console.log(data)
@@ -44,9 +58,9 @@ const EducatorForm: NextComponentType = () => {
       dispatch(login(data.user))
       data.isAdmin ? router.push("/admin") : router.push("/educator")
     }
+    setLoading(false)
   };
 
-  const [submitLoader, setSubmitLoader] = useState(false);
 
   interface State {
     type: string;
@@ -74,13 +88,6 @@ const EducatorForm: NextComponentType = () => {
     event.preventDefault();
   };
 
-  const [formData, setFormData] = useState({
-    accountType: "educator",
-    emailorcode: "",
-    school: "",
-    password: "",
-    showPassword: false,
-  });
   interface ISchoolFetchObject {
     status: boolean
     message?: string
@@ -89,7 +96,10 @@ const EducatorForm: NextComponentType = () => {
   }
 
   const mapSchools = async () => {
+    setText("Fetching schools...")
+    setLoading(true)
     const schools = await useSchools() as ISchoolFetchObject
+    setLoading(false)
     if (!schools.status) return toast.error(schools.message, {
       position: "bottom-center",
       autoClose: 5000,
@@ -104,14 +114,13 @@ const EducatorForm: NextComponentType = () => {
     setSchools(schools?.schools as LoginSchoolType[])
   }
 
-  const [schools, setSchools] = useState<LoginSchoolType[]>([])
-
   useEffect(() => {
     mapSchools()
   }, [])
 
   return (
-    <div className=" duration-1000 h-4/5  w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4">
+    <div className="duration-1000 h-4/5 w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4">
+
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
@@ -199,14 +208,10 @@ const EducatorForm: NextComponentType = () => {
         </FormControl>
 
         <button
-          type={submitLoader ? "button" : "submit"}
+          type={loading ? "button" : "submit"}
           className={`heading-text w-11/12 mt-12 h-12 btn rounded text-2xl text-white cursor-pointer bg-ek-blue`}
         >
-          {submitLoader ? (
-            <CircularProgress className="m-auto" size={30} color="inherit" />
-          ) : (
-            "GET IN"
-          )}
+          GET IN
         </button>
       </form>
     </div>

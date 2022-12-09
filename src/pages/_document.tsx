@@ -1,6 +1,12 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Loader from "../components/loaders/Loader";
+import userSlice from "../redux/slices/userSlice";
+
 
 export default function Document() {
+
   return (
     <Html>
       <Head>
@@ -35,7 +41,6 @@ export default function Document() {
         />
       </Head>
       <body>
-      
         <Main />
         <NextScript />
       </body>

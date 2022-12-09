@@ -33,7 +33,6 @@ const Settings = () => {
         try {
             setUser(userSlice.user)
             console.log(userSlice.user);
-            setUser(userSlice.user)
             setTimeout(()=>{
                 setLoading(false)
             },3000)

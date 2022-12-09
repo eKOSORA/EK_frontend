@@ -11,7 +11,7 @@ const persistConfig = {
 }
 const rootReducer = combineReducers({
     userSlice: userReducer,
-    studentSlice:studentReducer
+    studentSlice: studentReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
