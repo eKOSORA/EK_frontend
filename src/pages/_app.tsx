@@ -15,8 +15,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   useEffect(() => {
     console.log('%c Welcome to eKOSORA console!!', 'color:#3f7cac;font-weight:bold; font-size:25px;');
-    return router.push("/auth/login")
-  }, [router.pathname])
+    // return router.push("/auth/login")
+  }, [])
 
   return <RecoilRoot>
     <Provider store={store}>

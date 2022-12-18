@@ -176,9 +176,9 @@ const EducatorForm: React.FC<Props> = ({ loading, setLoading, text, setText }) =
         />
 
         <FormControl
-          sx={{ m: 1, width: "100%" }}
+          sx={{margin:"12px 0", width: "100%" }}
           focused={true}
-          className="bg-ek-blue/10"
+          className="bg-ek-blue/10 my-4"
           variant="outlined"
         >
           <InputLabel htmlFor="outlined-adornment-password">
