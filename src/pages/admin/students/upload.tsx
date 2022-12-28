@@ -57,15 +57,7 @@ const StudentsUpload = () => {
         inputElement.files[0].type !==
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       ) {
-        toast.error("Only excel files are uploaded ('.xlsx', '.csv')!!", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
+        toast.error("Only excel files are uploaded ('.xlsx', '.csv')!!");
         setFileData({ ...fileData, loading: false });
         return;
       }
@@ -93,18 +85,7 @@ const StudentsUpload = () => {
 
   return (
     <div className="text-black animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      
       <Head>
         <title> Students | Teacher Dashboard | eKOSORA</title>
       </Head>

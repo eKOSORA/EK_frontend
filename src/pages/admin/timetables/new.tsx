@@ -211,15 +211,7 @@ const NewTimeTable = () => {
   const exportPDF = () => {
     if (!timetable.name) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      toast.error("Timetable name cannot be empty!!!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-      });
+      toast.error("Timetable name cannot be empty!!!");
       return;
     }
     const input = document.getElementById("timetable") as HTMLElement;

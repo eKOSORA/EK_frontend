@@ -71,48 +71,21 @@ const Signup: NextPage = () => {
       !formData.head ||
       !formData.moto
     ) {
-      toast.error("All fields must be filled", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error("All fields must be filled");
     }
     if (formData.previewURL) {
 
       const imageUrl = await uploadImage(formData.previewURL);
       if (!imageUrl) {
         setSubmitLoader(false)
-        return toast.error("Image not uploaded try again", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        return toast.error("Image not uploaded try again");
       }
       setFormData({ ...formData, imageUrl })
     }
     const data = await useCreateSchool({ formData });
     console.log(data)
     if (data.status) return router.push('/auth/login')
-    toast.error((data.data as AxiosResponse)?.data.message, {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
+    toast.error((data.data as AxiosResponse)?.data.message);
     setSubmitLoader(false);
     setFormData({ ...formData, activeButton: false });
   };
@@ -196,18 +169,7 @@ const Signup: NextPage = () => {
   };
   return (
     <div className="z-1 w-screen h-screen bg-[#f0f0f0]  flex flex-col items-center justify-start">
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      
       {cropMode ? (
         <CropModal
           cropMode={cropMode}

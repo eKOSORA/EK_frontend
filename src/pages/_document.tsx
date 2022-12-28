@@ -1,6 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import Loader from "../components/loaders/Loader";
 import userSlice from "../redux/slices/userSlice";
 
@@ -41,6 +42,18 @@ export default function Document() {
         />
       </Head>
       <body>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Main />
         <NextScript />
       </body>

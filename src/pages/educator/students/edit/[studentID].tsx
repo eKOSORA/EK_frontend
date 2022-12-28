@@ -31,28 +31,14 @@ const Index = () => {
     if (e.keyCode !== 13) return;
     if (formData.parentEmails.length === 3)
       return toast.error(
-        "A child can't have more than three registered parent emails",
-        {
-          position: "bottom-center",
-          autoClose: 5000,
-          draggable: true,
-          hideProgressBar: true,
-          theme: "colored",
-        }
-      );
+        "A child can't have more than three registered parent emails");
 
     const input = document.querySelector("#parent-email") as HTMLInputElement;
     const enteredMail = input.value;
     if (!enteredMail) return;
     //console.log("Key Pressed")
     if (!ValidateEmail(enteredMail)) {
-      toast.error("Invalid email entered", {
-        position: "bottom-center",
-        autoClose: 5000,
-        draggable: true,
-        hideProgressBar: true,
-        theme: "colored",
-      });
+      toast.error("Invalid email entered");
       return;
     }
     input.value = "";
@@ -69,18 +55,7 @@ const Index = () => {
 
   return (
     <div className="animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen">
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      
       <Head>
         <title>Edit Student | eKOSORA</title>
       </Head>

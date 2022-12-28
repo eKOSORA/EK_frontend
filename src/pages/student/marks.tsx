@@ -24,18 +24,7 @@ const StudentsMarks = () => {
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='colored'
-      />
+      
       <Head>
         <title> Marks | Student Dashboard | eKOSORA</title>
 

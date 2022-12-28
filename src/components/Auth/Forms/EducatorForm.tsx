@@ -44,16 +44,7 @@ const EducatorForm: React.FC<Props> = ({ loading, setLoading, text, setText }) =
     const data = await useLogin({ formData });
     console.log(data)
     if (!data.status) {
-      toast.error(data.message, {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      })
+      toast.error(data.message)
     } else {
       dispatch(login(data.user))
       data.isAdmin ? router.push("/admin") : router.push("/educator")
@@ -100,16 +91,7 @@ const EducatorForm: React.FC<Props> = ({ loading, setLoading, text, setText }) =
     setLoading(true)
     const schools = await useSchools() as ISchoolFetchObject
     setLoading(false)
-    if (!schools.status) return toast.error(schools.message, {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    })
+    if (!schools.status) return toast.error(schools.message)
 
     setSchools(schools?.schools as LoginSchoolType[])
   }
@@ -121,18 +103,7 @@ const EducatorForm: React.FC<Props> = ({ loading, setLoading, text, setText }) =
   return (
     <div className="duration-1000 h-4/5 w-4/5 rounded-lg mmsm:border-2 flex items-center justify-start flex-col border-ek-blue px-3 py-4">
 
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+      
       <h1 className="heading-text text-4xl w-full text-center text-ek-blue my-4 ">
         LOGIN
       </h1>

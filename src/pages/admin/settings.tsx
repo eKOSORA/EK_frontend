@@ -74,18 +74,6 @@ const Settings = () => {
 
     return (
         <div className="bg-[#f0f0f0] min-h-screen text-black">
-            <ToastContainer
-                position="bottom-center"
-                autoClose={1000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
             <Head>
                 <title>Settings | Teacher Dashboard | eKOSORA</title>
             </Head>

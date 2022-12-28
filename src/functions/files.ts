@@ -37,17 +37,7 @@ export const previewUploadedFile = async (
             errorMessage: "No data found in the excel file",
           });
           toast.error(
-            `No data found in the sheet called ${wsname} excel file`,
-            {
-              position: "bottom-center",
-              autoClose: 5000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              theme: "colored",
-            }
-          );
+            `No data found in the sheet called ${wsname} excel file`);
           console.log("No data found");
           return;
         }
@@ -62,17 +52,7 @@ export const previewUploadedFile = async (
           });
           toast.error(
             `Columns are not in the right order. Check on how ${_.difference(columns, needed)[0]
-            } should be`,
-            {
-              position: "bottom-center",
-              autoClose: 5000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              theme: "colored",
-            }
-          );
+            } should be`);
           return;
         }
         const percentage = ((i + 1) / sheetCount) * 100;
@@ -98,15 +78,7 @@ export const previewUploadedFile = async (
           errorState: true,
           errorMessage: "No data found in the excel file",
         });
-        toast.error("No data found in the excel file", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
+        toast.error("No data found in the excel file");
         console.log("No data found");
         return;
       }
@@ -118,15 +90,7 @@ export const previewUploadedFile = async (
           errorState: true,
           errorMessage: "The excel file has columns in wrong format",
         });
-        toast.error("Columns are not in the right order", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
+        toast.error("Columns are not in the right order");
         console.log(columns, needed);
         console.log("Columns are not in the right order");
         return;

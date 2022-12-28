@@ -56,16 +56,7 @@ const Marks = () => {
   const selectEditAsMethod = () => {
     if (selectedMarks.length === 0) {
       //console.log("No marks were selected")
-      toast.error("No marks were selected!!!", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-        progress: undefined,
-      });
+      toast.error("No marks were selected!!!");
       return;
     }
     document.querySelector(".editModeSelector")?.classList.contains("hidden")

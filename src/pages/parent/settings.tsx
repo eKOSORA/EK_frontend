@@ -35,15 +35,7 @@ const StudentsSettings = () => {
 
     const isImage = checkFileType('profile-image-update')
     if (isImage === false) {
-      toast.success("Only images can be uploaded", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
+      toast.success("Only images can be uploaded")
       return
     }
 
@@ -77,18 +69,7 @@ const StudentsSettings = () => {
   return (
     <div className='animate__animated animate__fadeInLeft bg-[#f0f0f0] min-h-screen'>
 
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='colored'
-      />
+      
       <Head>
         <title> Settings | Parent Dashboard | eKOSORA</title>
 
